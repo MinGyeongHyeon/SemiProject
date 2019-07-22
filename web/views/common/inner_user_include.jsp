@@ -15,7 +15,7 @@
 
   <button type="button" class="btn btn-default" onclick="location.href='/sixDestiny/views/member/7_member/3_mypage/1_main.jsp'">회원정보</button>
   <button type="button" class="btn btn-default" onclick="location.href='/sixDestiny/views/member/7_member/3_mypage/4_entranceHistory.jsp'">신청내역</button>
-  <button type="button" class="btn btn-default" onclick="location.href='/sixDestiny//mypage.bo'">내게시글</button>
+  <button type="button" class="btn btn-default" onclick="location.href='/sixDestiny/mypage.bo'">내게시글</button>
   <button type="button" class="btn btn-default" onclick="location.href='/sixDestiny/views/member/7_member/3_mypage/6_supportHistory.jsp'">후원내역</button>
 
 </div>

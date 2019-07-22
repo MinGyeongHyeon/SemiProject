@@ -10,9 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
-import com.kh.semi.board.model.service.UserBoardService;
-import com.kh.semi.board.model.vo.PageInfo;
-import com.kh.semi.board.model.vo.UserBoard;
+import com.kh.semi.board.free.model.service.UserBoardService;
+import com.kh.semi.board.free.model.vo.PageInfo;
+import com.kh.semi.board.free.model.vo.UserBoard;
 
 /**
  * Servlet implementation class SelectBoardListServlet

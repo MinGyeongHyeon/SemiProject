@@ -13,7 +13,7 @@ import java.util.Properties;
 
 import static com.kh.semi.common.JDBCTemplate.*;
 
-import com.kh.semi.board.model.vo.UserBoard;
+import com.kh.semi.board.free.model.vo.UserBoard;
 
 public class UserBoardDao {
 	private Properties prop = new Properties();
