@@ -66,7 +66,7 @@ input[type=text] {
 <body>
 
 
- 	<form action="<%= request.getContextPath() %>/upload.po" method="post">
+ 	<form action="<%= request.getContextPath() %>/upload.po" method="post" encType="multipart/form-data">
 		<h3>분양후기 글쓰기</h3>
 
 		<div id="border">
@@ -141,6 +141,8 @@ input[type=text] {
 			$(this).addClass('on').prevAll('span').addClass('on');
 			return false;
 		});
+
+
 
 
 	</script>

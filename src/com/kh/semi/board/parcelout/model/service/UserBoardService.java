@@ -9,9 +9,11 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import com.kh.semi.board.model.dao.UserBoardDao;
-import com.kh.semi.board.model.vo.Attachment;
-import com.kh.semi.board.model.vo.UserBoard;
+import com.kh.semi.board.parcelout.model.dao.UserBoardDao;
+import com.kh.semi.board.parcelout.model.vo.Attachment;
+import com.kh.semi.board.parcelout.model.vo.UserBoard;
+
+
 public class UserBoardService {
 
 
