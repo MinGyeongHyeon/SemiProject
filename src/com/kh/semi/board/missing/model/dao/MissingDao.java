@@ -1,0 +1,1154 @@
+package com.kh.semi.board.missing.model.dao;
+
+import static com.kh.semi.common.JDBCTemplate.close;
+
+import java.io.FileReader;
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Properties;
+
+import com.kh.semi.board.missing.model.vo.Missing;
+import com.kh.semi.board.missing.model.vo.MissingAttachment;
+
+public class MissingDao {
+	private Properties prop = new Properties();
+	
+	
+	public MissingDao() {
+		String fileName = 
+				MissingDao.class.getResource("/sql/board/board-query.properties").getPath();
+		
+		try {
+			prop.load(new FileReader(fileName));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+
+	//페이징 처리 후 게시물 조회용 메소드
+	public ArrayList<Missing> selectList(Connection con, int currentPage, int limit) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Missing> list = null;
+		
+		String query = prop.getProperty("selectListWithPaging");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+
+			//조회를 시작할 행 번호와 마지막 행 번호 계산
+			int startRow = (currentPage - 1) * limit + 1;
+			int endRow = startRow + limit - 1;
+			
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<Missing>();
+			
+			while(rset.next()) {
+				Missing b = new Missing();
+				
+				b.setbNo(rset.getInt("BOARD_NO"));
+				b.setbKind(rset.getString("BOARD_KIND"));
+				b.setbNm(rset.getString("BOARD_NM"));
+				b.setbDate(rset.getDate("BOARD_DT"));
+				b.setbCon(rset.getString("BOARD_CON"));
+				b.setInqCon(rset.getInt("INQ_COUNT"));
+				b.setRecCon(rset.getInt("REC_COUNT"));
+				b.setsGrade(rset.getInt("STAR_GRADE"));
+				b.setuNo(rset.getInt("USER_NO"));
+				b.setStatus(rset.getString("STATUS"));
+				b.setBoardNo(rset.getInt("BOARD_NO"));
+				b.setMissPlace(rset.getString("MISS_PLACE"));
+				b.setMissDt(rset.getString("MISS_DT"));
+				b.setMissGender(rset.getString("MISS_GENDER"));
+				b.setMissPhone(rset.getString("MISS_PHONE"));
+				b.setBoardDiv(rset.getString("BOARD_DIV"));
+
+				b.setRewardPc(rset.getInt("REWARD_PC"));
+				
+				list.add(b);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		
+		
+		return list;
+	}
+
+	//miss_con에 insert
+	public int MissinsertBoard2(Connection con, Missing b) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("miss_insertBoard2");
+
+	
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, b.getMissPlace());
+			System.out.println(b.getMissDt());
+			pstmt.setString(2,b.getMissDt());
+			pstmt.setString(3,b.getMissGender());
+			pstmt.setString(4,b.getMissPhone());
+			pstmt.setString(5,"실종");
+			pstmt.setInt(6, b.getRewardPc());
+			pstmt.setString(7, b.getMissPlaceDetail());
+			
+	
+			
+			
+			
+			result = pstmt.executeUpdate();
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	
+	
+	public MissingAttachment selectOneAttachment(Connection con, int num) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		MissingAttachment file = null;
+		
+		String query = prop.getProperty("missingselectOneAttachment");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, num);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				file = new MissingAttachment();
+				
+				file.setFileKind(rset.getString("FILE_KIND"));
+				file.setAttachmentNo(rset.getInt("ATTACHMENT_NO"));
+				file.setOriginNm(rset.getString("ORIGIN_NM"));
+				file.setChangeNm(rset.getString("CHANGE_NM"));
+				file.setFilePath(rset.getString("FILE_PATH"));
+				file.setUploadDt(rset.getDate("UPLOAD_DT"));
+				file.setAdBoardno(rset.getInt("AD_BOARD_NO"));
+				file.setBoardNo(rset.getInt("BOARD_NO"));
+				file.setEntNo(rset.getInt("ENT_NO"));
+				file.setFileLevel(rset.getString("FILE_LEVEL"));
+				
+			}
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		
+		return file;
+	}
+
+
+	public int insertMissingContent(Connection con, Missing b) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("miss_insertThumb");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, b.getbKind());
+			pstmt.setString(2,b.getbNm());
+			pstmt.setString(3,b.getbCon());
+			pstmt.setInt(4, b.getuNo());
+			
+			
+			result = pstmt.executeUpdate();
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+
+	public int missingselectCurrval(Connection con) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		int bid = 0;
+		
+		String query = prop.getProperty("missingselectCurrval");
+		
+		try {
+			stmt = con.createStatement();
+			rset = stmt.executeQuery(query);
+			
+			if(rset.next()) {
+				bid = rset.getInt("currval");
+			}
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(stmt);
+			close(rset);
+		}
+		
+		return bid;
+	}
+
+
+	public int insertAttachment(Connection con, ArrayList<MissingAttachment> fileList) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("missinginsertAttachment");
+		
+		try {
+			for(int i = 0; i < fileList.size(); i++) {
+				pstmt = con.prepareStatement(query);
+				pstmt.setString(1,"실종");
+				pstmt.setString(2, fileList.get(i).getOriginNm());
+				pstmt.setString(3, fileList.get(i).getChangeNm());
+				pstmt.setString(4, fileList.get(i).getFilePath());
+				pstmt.setString(5,"1");
+				int level = 0;
+				if(i == 0) {
+					level = 0;
+				}else {
+					level = 1;
+				}
+				
+				pstmt.setInt(5, level);
+				
+				result += pstmt.executeUpdate();
+					
+			}
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+
+	public int insertMissingContent2(Connection con, Missing b) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("miss_insertThumb2");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, b.getMissPlace());
+			System.out.println(b.getMissDt());
+			pstmt.setString(2,b.getMissDt());
+			pstmt.setString(3,b.getMissGender());
+			pstmt.setString(4,b.getMissPhone());
+			pstmt.setString(5,"실종");
+			pstmt.setInt(6, b.getRewardPc());
+			pstmt.setString(7, b.getMissPlaceDetail());
+			
+			
+			result = pstmt.executeUpdate();
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+
+	public ArrayList<HashMap<String, Object>> missingselectThumbnailList(Connection con) {
+		Statement stmt = null;
+		ArrayList<HashMap<String, Object>> list = null;
+		HashMap<String, Object> hmap = null;
+		ResultSet rset = null;
+			System.out.println("다오");
+		String query = prop.getProperty("missingselectThumbnailMap");
+		
+		try {
+			stmt = con.createStatement();
+			
+			rset = stmt.executeQuery(query);
+			
+			list = new ArrayList<HashMap<String, Object>>();
+			
+			while(rset.next()) {
+				hmap = new HashMap<String, Object>();
+				
+				hmap.put("bNo", rset.getInt("BOARD_NO"));
+				hmap.put("bKind", rset.getString("BOARD_KIND"));
+				hmap.put("bNm", rset.getString("BOARD_NM"));
+				hmap.put("bDate", rset.getString("BOARD_NM"));
+				hmap.put("gender", rset.getString("MISS_GENDER"));
+				hmap.put("changeName", rset.getString("CHANGE_NM"));
+				hmap.put("originName", rset.getString("ORIGIN_NM"));
+				hmap.put("filePath", rset.getString("FILE_PATH"));
+		
+				hmap.put("reward", rset.getInt("REWARD_PC"));
+				
+				
+			/*hmap.put("bwriter", rset.getString("NICK_NAME"));
+				hmap.put("bcount", rset.getInt("BCOUNT"));
+				hmap.put("bdate", rset.getDate("BDATE"));
+				hmap.put("fid", rset.getInt("FID"));
+				hmap.put("originName", rset.getString("ORIGIN_NAME"));
+				hmap.put("filePath", rset.getString("FILE_PATH"));
+				hmap.put("uploadDate", rset.getString("UPLOAD_DATE"));*/
+				/*
+				
+				b.setbNo(rset.getInt("BOARD_NO"));
+				b.setbKind(rset.getString("BOARD_KIND"));
+				b.setbNm(rset.getString("BOARD_NM"));
+				b.setbDate(rset.getDate("BOARD_DT"));
+				b.setbCon(rset.getString("BOARD_CON"));
+				b.setInqCon(rset.getInt("INQ_COUNT"));
+				b.setRecCon(rset.getInt("REC_COUNT"));
+				b.setsGrade(rset.getInt("STAR_GRADE"));
+				b.setuNo(rset.getInt("USER_NO"));
+				b.setStatus(rset.getString("STATUS"));
+				b.setBoardNo(rset.getInt("BOARD_NO"));
+				
+				*/
+				list.add(hmap);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
+		}
+		
+		
+		return list;
+	}
+
+
+	public HashMap<String, Object> missingselectThumbnailMap(Connection con, int num) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		HashMap<String, Object> hmap = null;
+		Missing b = null;
+		MissingAttachment at = null;
+		ArrayList<MissingAttachment> list = null;
+		
+		String query = prop.getProperty("missingselectThumbnailOne");
+		System.out.println("안들어갔누ㅠㅠㅠㅠㅠ1111");
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, num);
+			
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<MissingAttachment>();
+			
+			while(rset.next()) {
+				b = new Missing();
+				
+				b.setbNo(rset.getInt("BOARD_NO"));
+				b.setbKind(rset.getString("BOARD_KIND"));
+				b.setbNm(rset.getString("BOARD_NM"));
+				b.setbDate(rset.getDate("BOARD_DT"));
+				b.setbCon(rset.getString("BOARD_CON"));
+				b.setInqCon(rset.getInt("INQ_COUNT"));
+				b.setRecCon(rset.getInt("REC_COUNT"));
+				b.setsGrade(rset.getInt("STAR_GRADE"));
+				b.setuNo(rset.getInt("USER_NO"));
+				b.setStatus(rset.getString("STATUS"));
+				b.setBoardNo(rset.getInt("BOARD_NO"));
+				b.setMissPlace(rset.getString("MISS_PLACE"));
+				b.setMissDt(rset.getString("MISS_DT"));
+				b.setMissGender(rset.getString("MISS_GENDER"));
+				b.setMissPhone(rset.getString("MISS_PHONE"));
+				b.setBoardDiv(rset.getString("BOARD_DIV"));
+	
+				b.setRewardPc(rset.getInt("REWARD_PC"));
+				
+				b.setuName(rset.getString("USER_NM"));
+				b.setMissPlaceDetail(rset.getString("DETAIL_PLACE"));
+				
+				at = new MissingAttachment();
+				at.setFileKind(rset.getString("FILE_KIND"));
+				at.setAttachmentNo(rset.getInt("ATTACHMENT_NO"));
+				at.setOriginNm(rset.getString("ORIGIN_NM"));
+				at.setChangeNm(rset.getString("CHANGE_NM"));
+				at.setFilePath(rset.getString("FILE_PATH"));
+				at.setUploadDt(rset.getDate("UPLOAD_DT"));
+				at.setAdBoardno(rset.getInt("AD_BOARD_NO"));
+				at.setBoardNo(rset.getInt("BOARD_NO"));
+				at.setEntNo(rset.getInt("ENT_NO"));
+				at.setFileLevel(rset.getString("FILE_LEVEL"));
+				
+				list.add(at);
+			}
+			System.out.println(b);
+			System.out.println("안들어갔누ㅠㅠㅠㅠㅠ2222");
+			hmap = new HashMap<String, Object>();
+			hmap.put("board", b);
+			hmap.put("attachment", list);
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return hmap;
+	}
+
+
+	public int missingupdateCount(Connection con, int num) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("missingupdateCount");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1,num );
+			pstmt.setInt(2,num );
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+
+	public Missing missingselectup(Connection con, int num) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Missing ub = null;
+
+		String query = prop.getProperty("missingSelectModified");
+
+		try {
+			pstmt = con.prepareStatement(query);
+
+			pstmt.setInt(1, num);
+
+
+
+			rset = pstmt.executeQuery();
+
+			if(rset.next()) {
+				ub = new Missing();
+
+				ub.setbNo(rset.getInt("BOARD_NO"));
+				ub.setbKind(rset.getString("BOARD_KIND"));
+				ub.setbNm(rset.getString("BOARD_NM"));
+				ub.setbDate(rset.getDate("BOARD_DT"));
+				ub.setbCon(rset.getString("BOARD_CON"));
+				ub.setInqCon(rset.getInt("INQ_COUNT"));
+				ub.setRecCon(rset.getInt("REC_COUNT"));
+				ub.setsGrade(rset.getInt("STAR_GRADE"));
+				ub.setuNo(rset.getInt("USER_NO"));
+				ub.setStatus(rset.getString("STATUS"));
+				ub.setBoardNo(rset.getInt("BOARD_NO"));
+				ub.setMissPlace(rset.getString("MISS_PLACE"));
+				ub.setMissDt(rset.getString("MISS_DT"));
+				ub.setRewardPc(rset.getInt("REWARD_PC"));
+				ub.setMissGender(rset.getString("MISS_GENDER"));
+				ub.setMissPhone(rset.getString("MISS_PHONE"));
+				ub.setBoardDiv(rset.getString("BOARD_DIV"));
+				ub.setMissPlaceDetail(rset.getString("DETAIL_PLACE"));
+			}
+
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+
+
+
+
+		return ub;
+	}
+
+
+	public int missingupdateOutcon(Connection con, Missing b) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+
+		String query = prop.getProperty("missingUpdate");
+
+		try {
+			pstmt = con.prepareStatement(query);
+
+			pstmt.setString(1, b.getbNm());
+			pstmt.setString(2, b.getbCon());
+			pstmt.setInt(3, b.getbNo());
+
+
+			result = pstmt.executeUpdate();
+
+
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+
+
+
+
+	return result;
+	}
+
+
+	public int missingupdateOutcon2(Connection con, Missing b) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+
+		String query = prop.getProperty("missingUpdate2");
+
+		try {
+			pstmt = con.prepareStatement(query);
+
+			pstmt.setString(1, b.getMissPlace());
+			pstmt.setString(2, b.getMissDt());
+			pstmt.setString(3, b.getMissGender());
+			pstmt.setString(4, b.getMissPhone());
+			pstmt.setInt(5, b.getRewardPc());
+			pstmt.setString(6, b.getMissPlaceDetail());
+			pstmt.setInt(7, b.getbNo());
+
+
+			result = pstmt.executeUpdate();
+
+
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+
+
+
+
+	return result;
+	}
+
+
+	public int deletemissing(Connection con, int num) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+
+		String query = prop.getProperty("deleteMissing");
+
+		try {
+			pstmt = con.prepareStatement(query);
+
+			pstmt.setInt(1, num);
+
+
+			result = pstmt.executeUpdate();
+
+
+
+		} catch (SQLException e) {
+
+
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+
+
+		return result;
+	}
+
+
+	public int missinggetoutListCount(Connection con) {
+		PreparedStatement pstmt = null;
+		int listCount = 0;
+		ResultSet rset = null;
+
+		String query = prop.getProperty("missingselectoutlist");
+
+
+		try {
+			pstmt = con.prepareStatement(query);
+
+			pstmt.setString(1, "실종");
+
+			rset = pstmt.executeQuery();
+
+			if(rset.next()) {
+				listCount = rset.getInt(1);
+			}
+
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+
+		return listCount;
+	}
+
+
+	public ArrayList<HashMap<String, Object>> missingselectOutList(Connection con, int currentPage, int limit) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<HashMap<String,Object>> list = null;
+		HashMap<String,Object> hmap = null;
+
+		String query = prop.getProperty("missingselectoutlist2");
+
+		int startRow = (currentPage - 1) * limit + 1;
+		int endRow = startRow + limit - 1;
+
+		try {
+			pstmt = con.prepareStatement(query);
+
+			pstmt.setString(1, "실종");
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+
+
+			rset = pstmt.executeQuery();
+
+			list = new ArrayList<HashMap<String,Object>>();
+
+			while(rset.next()) {
+				hmap = new HashMap<String,Object>();
+
+				hmap.put("bNo", rset.getInt("BOARD_NO"));
+				hmap.put("bKind", rset.getString("BOARD_KIND"));
+				hmap.put("bNm", rset.getString("BOARD_NM"));
+				hmap.put("bDate", rset.getString("BOARD_NM"));
+				hmap.put("gender", rset.getString("MISS_GENDER"));
+				hmap.put("changeName", rset.getString("CHANGE_NM"));
+				hmap.put("filePath", rset.getString("FILE_PATH"));
+				hmap.put("reward", rset.getInt("REWARD_PC"));
+
+				list.add(hmap);
+
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+
+		}
+
+
+	return list;
+	}
+
+
+	public int MissinggetListCount(Connection con) {
+		PreparedStatement pstmt = null;
+		int listCount = 0;
+		ResultSet rset = null;
+
+		String query = prop.getProperty("missingselectoutlist");
+
+
+		try {
+			pstmt = con.prepareStatement(query);
+
+			pstmt.setString(1, "실종");
+
+			rset = pstmt.executeQuery();
+
+			if(rset.next()) {
+				listCount = rset.getInt(1);
+			}
+
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+
+		return listCount;
+	}
+
+
+	public ArrayList<HashMap<String, Object>> MissingselectOutList(Connection con, int currentPage, int limit) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<HashMap<String,Object>> list = null;
+		HashMap<String,Object> hmap = null;
+
+		String query = prop.getProperty("missingselectoutlist2");
+
+		int startRow = (currentPage - 1) * limit + 1;
+		int endRow = startRow + limit - 1;
+
+		try {
+			pstmt = con.prepareStatement(query);
+
+			pstmt.setString(1, "실종");
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+
+
+			rset = pstmt.executeQuery();
+
+			list = new ArrayList<HashMap<String,Object>>();
+
+			while(rset.next()) {
+				hmap = new HashMap<String,Object>();
+
+				hmap.put("boardNo", rset.getInt("BOARD_NO"));
+				hmap.put("boardKind", rset.getString("BOARD_KIND"));
+				hmap.put("boardNm", rset.getString("BOARD_NM"));
+				hmap.put("boardDt", rset.getDate("BOARD_DT"));
+				hmap.put("gender", rset.getString("MISS_GENDER"));
+				hmap.put("changeNm", rset.getString("CHANGE_NM"));
+				hmap.put("filePath", rset.getString("FILE_PATH"));
+				hmap.put("reward", rset.getInt("REWARD_PC"));
+
+				list.add(hmap);
+
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+
+		}
+
+
+	return list;
+	}
+
+
+	public int insertProContent2(Connection con, Missing b) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("pro_insertThumb2");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, b.getMissPlace());
+			System.out.println(b.getMissDt());
+			pstmt.setString(2,b.getMissDt());
+			pstmt.setString(3,b.getMissGender());
+			pstmt.setString(4,b.getMissPhone());
+			pstmt.setString(5,b.getBoardDiv());
+		
+			pstmt.setString(6, b.getMissPlaceDetail());
+			
+			
+			result = pstmt.executeUpdate();
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+
+	public int ProgetListCount(Connection con) {
+		PreparedStatement pstmt = null;
+		int listCount = 0;
+		ResultSet rset = null;
+
+		String query = prop.getProperty("missingselectoutlist");
+
+
+		try {
+			pstmt = con.prepareStatement(query);
+
+			pstmt.setString(1, "보호");
+
+			rset = pstmt.executeQuery();
+
+			if(rset.next()) {
+				listCount = rset.getInt(1);
+			}
+
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+
+		return listCount;
+	}
+
+
+	public ArrayList<HashMap<String, Object>> ProselectList(Connection con, int currentPage, int limit) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<HashMap<String,Object>> list = null;
+		HashMap<String,Object> hmap = null;
+
+		String query = prop.getProperty("missingselectoutlist2");
+
+		int startRow = (currentPage - 1) * limit + 1;
+		int endRow = startRow + limit - 1;
+
+		try {
+			pstmt = con.prepareStatement(query);
+
+			pstmt.setString(1, "보호");
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+
+
+			rset = pstmt.executeQuery();
+
+			list = new ArrayList<HashMap<String,Object>>();
+
+			while(rset.next()) {
+				hmap = new HashMap<String,Object>();
+
+				hmap.put("boardNo", rset.getInt("BOARD_NO"));
+				hmap.put("boardKind", rset.getString("BOARD_KIND"));
+				hmap.put("boardNm", rset.getString("BOARD_NM"));
+				hmap.put("boardDt", rset.getDate("BOARD_DT"));
+				hmap.put("gender", rset.getString("MISS_GENDER"));
+				hmap.put("changeNm", rset.getString("CHANGE_NM"));
+				hmap.put("filePath", rset.getString("FILE_PATH"));
+		
+
+				list.add(hmap);
+
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+
+		}
+
+
+	return list;
+	}
+
+
+	public HashMap<String, Object> proselectThumbnailMap(Connection con, int num) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		HashMap<String, Object> hmap = null;
+		Missing b = null;
+		MissingAttachment at = null;
+		ArrayList<MissingAttachment> list = null;
+		
+		String query = prop.getProperty("proselectThumbnailOne");
+		System.out.println("안들어갔누ㅠㅠㅠㅠㅠ1111");
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, num);
+			
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<MissingAttachment>();
+			
+			while(rset.next()) {
+				b = new Missing();
+				
+				b.setbNo(rset.getInt("BOARD_NO"));
+				b.setbKind(rset.getString("BOARD_KIND"));
+				b.setbNm(rset.getString("BOARD_NM"));
+				b.setbDate(rset.getDate("BOARD_DT"));
+				b.setbCon(rset.getString("BOARD_CON"));
+				b.setInqCon(rset.getInt("INQ_COUNT"));
+				b.setRecCon(rset.getInt("REC_COUNT"));
+				b.setsGrade(rset.getInt("STAR_GRADE"));
+				b.setuNo(rset.getInt("USER_NO"));
+				b.setStatus(rset.getString("STATUS"));
+				b.setBoardNo(rset.getInt("BOARD_NO"));
+				b.setMissPlace(rset.getString("MISS_PLACE"));
+				b.setMissDt(rset.getString("MISS_DT"));
+				b.setMissGender(rset.getString("MISS_GENDER"));
+				b.setMissPhone(rset.getString("MISS_PHONE"));
+				b.setBoardDiv(rset.getString("BOARD_DIV"));
+				b.setuName(rset.getString("USER_NM"));
+				b.setMissPlaceDetail(rset.getString("DETAIL_PLACE"));
+				
+				at = new MissingAttachment();
+				at.setFileKind(rset.getString("FILE_KIND"));
+				at.setAttachmentNo(rset.getInt("ATTACHMENT_NO"));
+				at.setOriginNm(rset.getString("ORIGIN_NM"));
+				at.setChangeNm(rset.getString("CHANGE_NM"));
+				at.setFilePath(rset.getString("FILE_PATH"));
+				at.setUploadDt(rset.getDate("UPLOAD_DT"));
+				at.setAdBoardno(rset.getInt("AD_BOARD_NO"));
+				at.setBoardNo(rset.getInt("BOARD_NO"));
+				at.setEntNo(rset.getInt("ENT_NO"));
+				at.setFileLevel(rset.getString("FILE_LEVEL"));
+				
+				list.add(at);
+			}
+			System.out.println(b);
+			System.out.println("안들어갔누ㅠㅠㅠㅠㅠ2222");
+			hmap = new HashMap<String, Object>();
+			hmap.put("board", b);
+			hmap.put("attachment", list);
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return hmap;
+	}
+
+
+	public int proupdateOutcon2(Connection con, Missing b) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+
+		String query = prop.getProperty("proUpdate2");
+
+		try {
+			pstmt = con.prepareStatement(query);
+
+			pstmt.setString(1, b.getMissPlace());
+			pstmt.setString(2, b.getMissDt());
+			pstmt.setString(3, b.getMissGender());
+			pstmt.setString(4, b.getMissPhone());
+		
+			pstmt.setString(5, b.getMissPlaceDetail());
+			pstmt.setInt(6, b.getbNo());
+
+
+			result = pstmt.executeUpdate();
+
+
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+
+
+
+
+	return result;
+	}
+
+
+	public int insertAttachment2(Connection con, ArrayList<MissingAttachment> fileList) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("missinginsertAttachment2");
+		
+		try {
+			for(int i = 0; i < fileList.size(); i++) {
+				pstmt = con.prepareStatement(query);
+				pstmt.setString(1,"실종");
+				pstmt.setString(2, fileList.get(i).getOriginNm());
+				pstmt.setString(3, fileList.get(i).getChangeNm());
+				pstmt.setString(4, fileList.get(i).getFilePath());
+				pstmt.setString(5,"1");
+				int level = 0;
+				if(i == 0) {
+					level = 0;
+				}else {
+					level = 1;
+				}
+				
+				pstmt.setInt(5, level);
+				
+				result += pstmt.executeUpdate();
+					
+			}
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;	}
+
+
+	public HashMap<String, Object> missingselectThumbnailMap2(Connection con, int num) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		HashMap<String, Object> hmap = null;
+		Missing b = null;
+		MissingAttachment at = null;
+		ArrayList<MissingAttachment> list = null;
+		
+		String query = prop.getProperty("missingselectThumbnailOne");
+		System.out.println("안들어갔누ㅠㅠㅠㅠㅠ1111");
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, num);
+			
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<MissingAttachment>();
+			
+			while(rset.next()) {
+				b = new Missing();
+				
+				b.setbNo(rset.getInt("BOARD_NO"));
+				b.setbKind(rset.getString("BOARD_KIND"));
+				b.setbNm(rset.getString("BOARD_NM"));
+				b.setbDate(rset.getDate("BOARD_DT"));
+				b.setbCon(rset.getString("BOARD_CON"));
+				b.setInqCon(rset.getInt("INQ_COUNT"));
+				b.setRecCon(rset.getInt("REC_COUNT"));
+				b.setsGrade(rset.getInt("STAR_GRADE"));
+				b.setuNo(rset.getInt("USER_NO"));
+				b.setStatus(rset.getString("STATUS"));
+				b.setBoardNo(rset.getInt("BOARD_NO"));
+				b.setMissPlace(rset.getString("MISS_PLACE"));
+				b.setMissDt(rset.getString("MISS_DT"));
+				b.setMissGender(rset.getString("MISS_GENDER"));
+				b.setMissPhone(rset.getString("MISS_PHONE"));
+				b.setBoardDiv(rset.getString("BOARD_DIV"));
+	
+				b.setuName(rset.getString("USER_NM"));
+				b.setMissPlaceDetail(rset.getString("DETAIL_PLACE"));
+				
+				at = new MissingAttachment();
+				at.setFileKind(rset.getString("FILE_KIND"));
+				at.setAttachmentNo(rset.getInt("ATTACHMENT_NO"));
+				at.setOriginNm(rset.getString("ORIGIN_NM"));
+				at.setChangeNm(rset.getString("CHANGE_NM"));
+				at.setFilePath(rset.getString("FILE_PATH"));
+				at.setUploadDt(rset.getDate("UPLOAD_DT"));
+				at.setAdBoardno(rset.getInt("AD_BOARD_NO"));
+				at.setBoardNo(rset.getInt("BOARD_NO"));
+				at.setEntNo(rset.getInt("ENT_NO"));
+				at.setFileLevel(rset.getString("FILE_LEVEL"));
+				
+				list.add(at);
+			}
+			System.out.println(b);
+			System.out.println("안들어갔누ㅠㅠㅠㅠㅠ2222");
+			hmap = new HashMap<String, Object>();
+			hmap.put("board", b);
+			hmap.put("attachment", list);
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return hmap;
+	}
+
+
+	public Missing missingselectup2(Connection con, int num) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Missing ub = null;
+
+		String query = prop.getProperty("missingSelectModified");
+
+		try {
+			pstmt = con.prepareStatement(query);
+
+			pstmt.setInt(1, num);
+
+
+
+			rset = pstmt.executeQuery();
+
+			if(rset.next()) {
+				ub = new Missing();
+
+				ub.setbNo(rset.getInt("BOARD_NO"));
+				ub.setbKind(rset.getString("BOARD_KIND"));
+				ub.setbNm(rset.getString("BOARD_NM"));
+				ub.setbDate(rset.getDate("BOARD_DT"));
+				ub.setbCon(rset.getString("BOARD_CON"));
+				ub.setInqCon(rset.getInt("INQ_COUNT"));
+				ub.setRecCon(rset.getInt("REC_COUNT"));
+				ub.setsGrade(rset.getInt("STAR_GRADE"));
+				ub.setuNo(rset.getInt("USER_NO"));
+				ub.setStatus(rset.getString("STATUS"));
+				ub.setBoardNo(rset.getInt("BOARD_NO"));
+				ub.setMissPlace(rset.getString("MISS_PLACE"));
+				ub.setMissDt(rset.getString("MISS_DT"));
+				ub.setMissGender(rset.getString("MISS_GENDER"));
+				ub.setMissPhone(rset.getString("MISS_PHONE"));
+				ub.setBoardDiv(rset.getString("BOARD_DIV"));
+				ub.setMissPlaceDetail(rset.getString("DETAIL_PLACE"));
+			}
+
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+
+
+
+
+		return ub;
+	}
+}
