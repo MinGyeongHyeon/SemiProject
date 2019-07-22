@@ -1,5 +1,7 @@
 package com.kh.semi.board.parcelout.model.dao;
 
+import static com.kh.semi.common.JDBCTemplate.close;
+
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
@@ -11,12 +13,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Properties;
 
-import static com.kh.semi.common.JDBCTemplate.*;
-
-import com.kh.semi.board.model.vo.Attachment;
-import com.kh.semi.board.model.vo.UserBoard;
+import com.kh.semi.board.parcelout.model.vo.Attachment;
+import com.kh.semi.board.parcelout.model.vo.UserBoard;
 import com.kh.semi.user.model.vo.User;
-import com.sun.corba.se.spi.orbutil.fsm.Guard.Result;
 
 public class UserBoardDao {
 	private Properties prop = new Properties();

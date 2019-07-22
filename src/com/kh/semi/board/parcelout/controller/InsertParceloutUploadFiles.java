@@ -1,7 +1,6 @@
 package com.kh.semi.board.parcelout.controller;
 
 import java.io.File;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Enumeration;
@@ -14,9 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
-import com.kh.semi.board.model.service.UserBoardService;
-import com.kh.semi.board.model.vo.Attachment;
-import com.kh.semi.board.model.vo.UserBoard;
+import com.kh.semi.board.parcelout.model.service.UserBoardService;
+import com.kh.semi.board.parcelout.model.vo.Attachment;
+import com.kh.semi.board.parcelout.model.vo.UserBoard;
 import com.kh.semi.common.MyFileRenamePolicy;
 import com.kh.semi.user.model.vo.User;
 import com.oreilly.servlet.MultipartRequest;
