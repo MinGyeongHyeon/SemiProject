@@ -1,4 +1,4 @@
-package com.kh.semi.board.model.vo;
+package com.kh.semi.board.free.model.vo;
 
 import java.sql.Date;
 
