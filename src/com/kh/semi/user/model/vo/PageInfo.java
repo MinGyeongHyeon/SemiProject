@@ -1,4 +1,4 @@
-package com.kh.semi.board.free.model.vo;
+package com.kh.semi.user.model.vo;
 
 public class PageInfo implements java.io.Serializable{
 	private int currentPage;
