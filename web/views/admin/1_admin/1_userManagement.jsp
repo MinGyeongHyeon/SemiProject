@@ -3,12 +3,12 @@
 <%@ include file="../../common/top_Include.jsp" %>
 <%
    ArrayList<User> list = (ArrayList<User>) request.getAttribute("list");
-PageInfo pi = (PageInfo) request.getAttribute("pi");
+/* PageInfo pi = (PageInfo) request.getAttribute("pi");
 int listCount = pi.getListCount();
 int currentPage = pi.getCurrentPage();
 int maxPage = pi.getMaxPage();
 int startPage = pi.getStartPage();
-int endPage = pi.getEndPage();
+int endPage = pi.getEndPage(); */
 %>
 
 
@@ -43,19 +43,19 @@ int endPage = pi.getEndPage();
    #order{
       align:center;
    }
-   
+
    #btn1{
-  
+
     border-radius: 0.35em;
    	border: 1;
-   	outline : 0; 
+   	outline : 0;
    }
-   
+
    #btn1:hover{
    	background-color:lightgray;
    }
 
-   
+
    #td1:hover{
    	font-weight:bold;
    }
@@ -66,7 +66,7 @@ int endPage = pi.getEndPage();
 <body>
 
    <div>
-   
+
    <div id="outer">
    	<form id="form1" action="<%= request.getContextPath() %>/deleteuser" method="post">
       <table class="table" style="text-align:center;">
@@ -83,10 +83,10 @@ int endPage = pi.getEndPage();
             <th style="text-align:center;">탈퇴</th>
          </tr>
          </thead>
-        
+
         <tbody>
          <% for(User u : list){ %>
-        
+
          <tr>
             <td><%=u.getUserNo() %></td>
             <td><%=u.getUserId() %></td>
@@ -102,7 +102,7 @@ int endPage = pi.getEndPage();
          </tr>
          <% } %>
          	</tbody>
-         	
+
          	<script>
          		function deleteUser(userNo){
          			$("#form1").attr("action","<%=request.getContextPath()%>/deleteuser?userNo="+userNo);
@@ -112,49 +112,49 @@ int endPage = pi.getEndPage();
 
       </table>
       </form>
-      
+
    </div>
 
   <%-- 페이징처리 --%>
 		<%-- <div class="pagingArea" align="center">
 		<ul class="pagination">
-			
-			
+
+
 			<% if(currentPage != 1){ %>
 			<li><a href="<%=request.getContextPath()%>/selectList.bo?currentPage=1">◀◀</a></li>
-			
+
 			<% }%>
-			
-			
+
+
 			<% if(10 >= currentPage){ %>
-			
-			
+
+
 			<% }else if(currentPage%10 != 0){ %>
 			<li><a href="<%=request.getContextPath()%>/selectList.bo?currentPage=<%=(int)(Math.floor(currentPage/10))*10%>">◀</a></li>
 			<%}else{ %>
 			<li><a href="<%=request.getContextPath()%>/selectList.bo?currentPage=<%=(int)(Math.floor((currentPage-1)/10))*10%>">◀</a></li>
 			<%} %>
-			
-			<% for(int p = startPage; p <= endPage; p++){ 
+
+			<% for(int p = startPage; p <= endPage; p++){
 				if(currentPage == p){
 			%>
 					<li ><a style="background:rgb(240,240,240); font-weight:bold;" href="#" disabled><%= p %></a></li>
-					
+
 			<% } else { %>
 			<li><a href="<%=request.getContextPath()%>/selectList.bo?currentPage=<%=p%>" disabled><%= p %></a></li>
-				
-			<% 
+
+			<%
 				}
-			   } 
+			   }
 			%>
-			
+
 			<% if(currentPage >= maxPage){ %>
-			
+
 			<% }else if(Math.floor(maxPage/10)*10 >= currentPage){ %>
 			<li><a href="<%=request.getContextPath()%>/selectList.bo?currentPage=<%=(int)(Math.ceil(currentPage/10))*10+11%>">▶</a></li>
-			
+
 			<% }%>
-			
+
 			<% if(currentPage < maxPage){ %>
 			<li><a href="<%=request.getContextPath()%>/selectList.bo?currentPage=<%=maxPage%>">▶▶</a></li>
 			<%} %>
