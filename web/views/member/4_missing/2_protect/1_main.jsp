@@ -174,22 +174,27 @@ table tr td img {
             <li><a href="#">></a></li>
          </ul>
       </div>
-
       <div class="container" align="center" style="width: 500px;">
+ <form  action="<%=request.getContextPath() %>/prosearch.bo" method="post" >
          <table>
             <tr>
-               <td><select
-                  style="height: 30px; margin-left: 20px; margin-right: 20px;">
-                     <option selected="selected">전체</option>
-                     <option>작성자</option>
-                     <option>제목</option>
+        <td><select
+                  style="height: 30px; margin-left: 20px; margin-right: 20px;" name="searchVal">
+                     <option selected="selected" value="전체">전체</option>
+                     <option vlaue="작성자">작성자</option>
+                     <option vlaue="제목">제목</option>
                </select></td>
                <td>
 
-                  <form action="/action_page.php">
                      <div class="input-group">
                         <input type="text" class="form-control" placeholder="Search"
                            name="search">
+                                                   <%
+            for (int i = 0; i < list.size(); i++) {
+               HashMap<String, Object> hmap = list.get(i);
+         %>
+                                      <input type="hidden" value="<%=hmap.get("boardNo")%>" name="num">
+                                      <%} %>
                         <div class="input-group-btn">
                            <button class="btn btn-default" type="submit">
                               <i class="glyphicon glyphicon-search"></i>
@@ -205,6 +210,7 @@ table tr td img {
       </div>
 
 </div>
+</form>
 
 	<div class="paging" align="center">
 			<button  class="paging" onclick="location.href='<%=request.getContextPath() %>/proListo.bo?currentPage=1'"><<</button>

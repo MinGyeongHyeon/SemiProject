@@ -282,6 +282,159 @@ Connection con = getConnection();
 	}
 
 
+	public HashMap<String, Object> missingpaperSelect(int num) {
+		System.out.println("어딩ㅇㅇㅇㅇ");
+		Connection con = getConnection();
+				
+				HashMap<String, Object> hmap = null;
+				hmap = new MissingDao().missingpaperSelect(con, num);
+				
+				close(con);
+				
+				
+				return hmap;
+			
+	}
+
+
+	public int MissinggetListCount2(String cont) {
+		Connection con = getConnection();
+		
+		int listCount = new MissingDao().MissinggetListCount2(con,cont);
+		
+		close(con);
+		
+		return listCount;
+	}
+
+
+	public ArrayList<HashMap<String, Object>> MissngselectList2(int currentPage, int limit, String cont) {
+		Connection con = getConnection();
+
+		ArrayList<HashMap<String,Object>> list = new MissingDao().MissingselectOutList(con,currentPage,limit,cont);
+
+
+		close(con);
+
+		return list;
+	}
+
+
+	public ArrayList<HashMap<String, Object>> MissngselectList3(int currentPage, int limit, String cont) {
+		Connection con = getConnection();
+
+		ArrayList<HashMap<String,Object>> list = new MissingDao().MissingselectOutList2(con,currentPage,limit,cont);
+
+
+		close(con);
+
+		return list;
+	}
+
+
+	public int MissinggetListCount4(String cont) {
+		Connection con = getConnection();
+
+		int listCount = new MissingDao().MissinggetListCount3(con,cont);
+
+		close(con);
+
+		return listCount;
+	}
+
+
+	public int MissinggetListCount5(String cont) {
+		Connection con = getConnection();
+
+		int listCount = new MissingDao().MissinggetListCount4(con,cont);
+
+		close(con);
+
+		return listCount;
+	}
+
+
+	public ArrayList<HashMap<String, Object>> MissngselectList4(int currentPage, int limit, String cont) {
+		Connection con = getConnection();
+
+		ArrayList<HashMap<String,Object>> list = new MissingDao().MissingselectOutList1(con,currentPage,limit,cont);
+
+
+		close(con);
+
+		return list;
+	}
+
+
+	public int PgetListCount2(String cont) {
+Connection con = getConnection();
+		
+		int listCount = new MissingDao().PgetListCount2(con,cont);
+		
+		close(con);
+		
+		return listCount;
+	}
+
+
+	public ArrayList<HashMap<String, Object>> PselectList2(int currentPage, int limit, String cont) {
+		Connection con = getConnection();
+
+		ArrayList<HashMap<String,Object>> list = new MissingDao().PselectOutList(con,currentPage,limit,cont);
+
+
+		close(con);
+
+		return list;
+	}
+
+
+	public int PgetListCount4(String cont) {
+		Connection con = getConnection();
+
+		int listCount = new MissingDao().PgetListCount3(con,cont);
+
+		close(con);
+
+		return listCount;
+	}
+
+
+	public ArrayList<HashMap<String, Object>> PselectList3(int currentPage, int limit, String cont) {
+		Connection con = getConnection();
+
+		ArrayList<HashMap<String,Object>> list = new MissingDao().PselectOutList2(con,currentPage,limit,cont);
+
+
+		close(con);
+
+		return list;
+	}
+
+
+	public int PgetListCount5(String cont) {
+		Connection con = getConnection();
+
+		int listCount = new MissingDao().PgetListCount4(con,cont);
+
+		close(con);
+
+		return listCount;
+	}
+
+
+	public ArrayList<HashMap<String, Object>> PselectList4(int currentPage, int limit, String cont) {
+		Connection con = getConnection();
+
+		ArrayList<HashMap<String,Object>> list = new MissingDao().PselectOutList1(con,currentPage,limit,cont);
+
+
+		close(con);
+
+		return list;
+	}
+
+
 
 	
 
