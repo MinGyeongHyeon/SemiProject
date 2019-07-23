@@ -42,7 +42,7 @@
 		<h1 style="font-family: 'Sunflower', sans-serif;">입소신청</h1>
 		<br>
 		<br><br>
-		<form action="/sixDestiny/apply.en" method="post">
+		<form action="<%= request.getContextPath() %>/ApplicationInsert" method="post">
 		<div align="center">
 			<div style="width:70%">
 				<table border="1" style="width:100%; height: 30px; text-align:center;">
@@ -51,14 +51,14 @@
 					</tr>
 					<tr>
 						<td style="width:166px">이름</td>
-						<td colspan="2"><input style="width:100%; height: 30px;" type="text" value="<%=loginUser.getUserNm()%>"></td>
+						<td colspan="2"><input style="width:100%; height: 30px;" type="text" value="<%=loginUser.getUserNm()%>" name="entName"></td>
 					</tr>
 					<tr>
 						<td>연락처</td>
 						<td colspan="2">
-							<input style="width:30%; height: 30px;" type="text" placeholder="010"> -
-							<input style="width:30%; height: 30px;" type="text" > -
-							<input style="width:30%; height: 30px;" type="text" >
+							<input style="width:30%; height: 30px;" type="text" placeholder="010" name="entPhone1"> -
+							<input style="width:30%; height: 30px;" type="text" name="entPhone2"> -
+							<input style="width:30%; height: 30px;" type="text" name="entPhone3">
 						</td>
 					</tr>
 					<tr>
@@ -66,21 +66,21 @@
 						<td colspan="2">
 							<span class="button-checkbox">
         						<button type="button" class="btn" data-color="info" style="font-family: 'Sunflower', sans-serif; width:170px; height:30px">남자</button>
-        						<input type="checkbox" class="hidden"  />
+        						<input type="checkbox" class="hidden"  value="M" name="gender">
     						</span>
     							<span class="button-checkbox">
         						<button type="button" class="btn" data-color="info" style="font-family: 'Sunflower', sans-serif; width:170px; height:30px">여자</button>
-        					<input type="checkbox" class="hidden"  />
+        					<input type="checkbox" class="hidden"  value="F" name="gender">
     						</span>
 						</td>
 					</tr>
 					<tr>
 						<td>생년월일</td>
-						<td colspan="2"><input type="date" style="width:100%; height: 30px;"></td>
+						<td colspan="2"><input type="date" style="width:100%; height: 30px;" name="birthday"></td>
 					</tr>
 					<tr>
 						<td>주소</td>
-						<td><input type="text" name="password" id="zipAddr"
+						<td><input type="text" name="addres" id="zipAddr"
 							style="width:100%; height: 30px;"></td>
 						<td>
 							<button type="button" class="btn btn-default"
@@ -90,17 +90,17 @@
 					</tr>
 					<tr>
 						<td>상세주소</td>
-						<td colspan="2"><input type="text" style="width:100%; height: 30px;"></td>
+						<td colspan="2"><input type="text" style="width:100%; height: 30px;" name="addres2"></td>
 					</tr>
 					<tr>
 						<td style="height:30px" rowspan="2">1:1면담 예약</td>
-						<td colspan="2" style="height:30px">
-							<input type="text" id="testDatepicker" placeholder="클릭하세요">
+						<td colspan="2" style="height:30px" >
+							<input type="text" id="testDatepicker" placeholder="클릭하세요" name="test">
 						</td>
 					</tr>
 					<tr>
 						<td colspan="2">
-							<select style="height:30px; width:100%; opacity:0;" id="selectEntrance">
+							<select style="height:30px; width:100%; opacity:0;" id="selectEntrance" name="test2">
 								<option>09:00~10:00</option>
 								<option>10:00~11:00</option>
 								<option>11:00~12:00</option>
@@ -140,28 +140,28 @@
 					</tr>
 					<tr>
 						<td style="width:166px">이름</td>
-						<td><input type="text" style="width:100%; height: 30px;"></td>
+						<td><input type="text" style="width:100%; height: 30px;" name="dogName"></td>
 					</tr>
 					<tr>
 						<td>나이</td>
-						<td><input type="number" style="width:100%; height: 30px;"></td>
+						<td><input type="number" style="width:100%; height: 30px;" name="dogAge"></td>
 					</tr>
 					<tr>
 						<td>성별</td>
 						<td><span class="button-checkbox">
         						<button type="button" class="btn" data-color="info" style="font-family: 'Sunflower', sans-serif; width:170px; height:30px">남자</button>
-        						<input type="checkbox" class="hidden"  />
+        						<input type="checkbox" class="hidden" value="M" name="doggender">
     						</span>
     							<span class="button-checkbox">
         						<button type="button" class="btn" data-color="info" style="font-family: 'Sunflower', sans-serif; width:170px; height:30px">여자</button>
-        					<input type="checkbox" class="hidden"  />
+        					<input type="checkbox" class="hidden"  value="F" name="doggender">
     						</span>
     					</td>
 					</tr>
 					<tr>
 						<td>견종</td>
 						<td>
-							<select style="width:100%; height: 30px;">
+							<select style="width:100%; height: 30px;" name="dog">
 								<option>코카스파니엘</option>
 								<option>요크셔테리어</option>
 								<option>푸들</option>
@@ -180,33 +180,33 @@
 					</tr>
 					<tr>
 						<td>몸무게</td>
-						<td><input type="number" style="width:100%; height: 30px;"></td>
+						<td><input type="number" style="width:100%; height: 30px;" name="test3"></td>
 					</tr>
 					<tr>
 						<td>키</td>
-						<td><input type="number" style="width:100%; height: 30px;"></td>
+						<td><input type="number" style="width:100%; height: 30px;" name="ke"></td>
 					</tr>
 					<tr>
 						<td style="height:30px" rowspan="2">접종유무</td>
 						<td>
 							<span class="button-checkbox">
         						<button onclick="open1();" type="button" class="btn" data-color="info" style="font-family: 'Sunflower', sans-serif; width:170px; height:30px">유</button>
-        						<input type="checkbox" class="hidden"  />
+        						<input type="checkbox" class="hidden"  value="Y" name="inoculation">
     						</span>
     							<span class="button-checkbox">
         						<button type="button" class="btn" data-color="info" style="font-family: 'Sunflower', sans-serif; width:170px; height:30px">무</button>
-        					<input type="checkbox" class="hidden"  />
+        					<input type="checkbox" class="hidden"  value="N" name="inoculation">
     						</span>
 						</td>
 					</tr>
 					<tr>
 						<td colspan="2" style="font-family: 'Sunflower', sans-serif; width:170px; height:30px">
 							<div id="selectarea1">
-							<input type="checkbox">종합백신 &nbsp;&nbsp;&nbsp;
-							<input type="checkbox">광견병 &nbsp;&nbsp;&nbsp;
-							<input type="checkbox">코로나(장염) &nbsp;&nbsp;&nbsp;
-							<input type="checkbox">켄넬코프(호흡기) &nbsp;&nbsp;&nbsp;
-							<input type="checkbox">신종플루
+							<input type="checkbox" name="t1">종합백신 &nbsp;&nbsp;&nbsp;
+							<input type="checkbox" name="t1">광견병 &nbsp;&nbsp;&nbsp;
+							<input type="checkbox" name="t1">코로나(장염) &nbsp;&nbsp;&nbsp;
+							<input type="checkbox" name="t1">켄넬코프(호흡기) &nbsp;&nbsp;&nbsp;
+							<input type="checkbox" name="t1">신종플루
 							</div>
 						</td>
 					</tr>
@@ -226,11 +226,11 @@
 					<tr>
 						<td colspan="2" style="font-family: 'Sunflower', sans-serif; width:170px; height:30px">
 						<div id="selectarea2">
-							<input type="checkbox">귀염증 &nbsp;&nbsp;&nbsp;
-							<input type="checkbox">내부기생충 &nbsp;&nbsp;&nbsp;
-							<input type="checkbox">관절염 &nbsp;&nbsp;&nbsp;
-							<input type="checkbox">위염 &nbsp;&nbsp;&nbsp;
-							<input type="checkbox">옴
+							<input type="checkbox" name="tt1">귀염증 &nbsp;&nbsp;&nbsp;
+							<input type="checkbox" name="tt2">내부기생충 &nbsp;&nbsp;&nbsp;
+							<input type="checkbox" name="tt3">관절염 &nbsp;&nbsp;&nbsp;
+							<input type="checkbox" name="tt4">위염 &nbsp;&nbsp;&nbsp;
+							<input type="checkbox" name="tt5">옴
 						</div>
 						</td>
 					</tr>
@@ -239,45 +239,45 @@
 						<td>
 							<span class="button-checkbox">
         						<button onclick="open3();"  type="button" class="btn" data-color="info" style="font-family: 'Sunflower', sans-serif; width:170px; height:30px">유</button>
-        						<input type="checkbox" class="hidden"  />
+        						<input type="checkbox" class="hidden"  value="Y">
     						</span>
     							<span class="button-checkbox">
         						<button type="button" class="btn" data-color="info" style="font-family: 'Sunflower', sans-serif; width:170px; height:30px">무</button>
-        					<input type="checkbox" class="hidden"  />
+        					<input type="checkbox" class="hidden"  value="N">
     						</span>
 						</td>
 					</tr>
 					<tr>
 						<td colspan="2" style="font-family: 'Sunflower', sans-serif; width:170px; height:30px">
 						<div id="selectarea3">
-							<input type="checkbox">중성화 &nbsp;&nbsp;&nbsp;
-							<input type="checkbox">성대수술 &nbsp;&nbsp;&nbsp;
-							<input type="checkbox">쓸개골탈구 &nbsp;&nbsp;&nbsp;
-							<input type="checkbox">심장수술
+							<input type="checkbox" name="ttt1">중성화 &nbsp;&nbsp;&nbsp;
+							<input type="checkbox" name="ttt2">성대수술 &nbsp;&nbsp;&nbsp;
+							<input type="checkbox" name="ttt3">쓸개골탈구 &nbsp;&nbsp;&nbsp;
+							<input type="checkbox" name="ttt4">심장수술
 						</div>
 						</td>
 					</tr>
 					<tr>
 						<td>취미</td>
-						<td><input type="text" style="width:100%; height: 30px;"></td>
+						<td><input type="text" style="width:100%; height: 30px;" name="hobby"></td>
 					</tr>
 					<tr>
 						<td>알레르기</td>
-						<td><input type="text" style="width:100%; height: 30px;"></td>
+						<td><input type="text" style="width:100%; height: 30px;" name="allergy"></td>
 					</tr>
 					<tr>
 						<td>짖음정도</td>
 						<td><span class="button-checkbox">
         						<button type="button" class="btn" data-color="info" style="font-family: 'Sunflower', sans-serif; width:170px; height:30px">상</button>
-        						<input type="checkbox" class="hidden"  />
+        						<input type="checkbox" class="hidden"  value="상">
     						</span>
     							<span class="button-checkbox">
         						<button type="button" class="btn" data-color="info" style="font-family: 'Sunflower', sans-serif; width:170px; height:30px">중</button>
-        					<input type="checkbox" class="hidden"  />
+        					<input type="checkbox" class="hidden"  value="중">
     						</span>
     						<span class="button-checkbox">
         						<button type="button" class="btn" data-color="info" style="font-family: 'Sunflower', sans-serif; width:170px; height:30px">하</button>
-        						<input type="checkbox" class="hidden"  />
+        						<input type="checkbox" class="hidden"  value="하">
     						</span>
     					</td>
 					</tr>
@@ -286,15 +286,15 @@
 						<td>
 							<span class="button-checkbox">
         						<button type="button" class="btn" data-color="info" style="font-family: 'Sunflower', sans-serif; width:170px; height:30px">상</button>
-        						<input type="checkbox" class="hidden"  />
+        						<input type="checkbox" class="hidden"  value="상">
     						</span>
     							<span class="button-checkbox">
         						<button type="button" class="btn" data-color="info" style="font-family: 'Sunflower', sans-serif; width:170px; height:30px">중</button>
-        					<input type="checkbox" class="hidden"  />
+        					<input type="checkbox" class="hidden"  value="중">
     						</span>
     						<span class="button-checkbox">
         						<button type="button" class="btn" data-color="info" style="font-family: 'Sunflower', sans-serif; width:170px; height:30px">하</button>
-        						<input type="checkbox" class="hidden"  />
+        						<input type="checkbox" class="hidden"  value="하">
     						</span>
 						</td>
 					</tr>
@@ -303,15 +303,15 @@
 						<td>
 							<span class="button-checkbox">
         						<button type="button" class="btn" data-color="info" style="font-family: 'Sunflower', sans-serif; width:170px; height:30px">상</button>
-        						<input type="checkbox" class="hidden"  />
+        						<input type="checkbox" class="hidden"  value="상">
     						</span>
     							<span class="button-checkbox">
         						<button type="button" class="btn" data-color="info" style="font-family: 'Sunflower', sans-serif; width:170px; height:30px">중</button>
-        					<input type="checkbox" class="hidden"  />
+        					<input type="checkbox" class="hidden"  value="중">
     						</span>
     						<span class="button-checkbox">
         						<button type="button" class="btn" data-color="info" style="font-family: 'Sunflower', sans-serif; width:170px; height:30px">하</button>
-        						<input type="checkbox" class="hidden"  />
+        						<input type="checkbox" class="hidden"  value="하">
     						</span>
 						</td>
 					</tr>
@@ -320,28 +320,28 @@
 						<td>
 							<span class="button-checkbox">
         						<button type="button" class="btn" data-color="info" style="font-family: 'Sunflower', sans-serif; width:170px; height:30px">유</button>
-        						<input type="checkbox" class="hidden"  />
+        						<input type="checkbox" class="hidden"  value="Y">
     						</span>
     							<span class="button-checkbox">
         						<button type="button" class="btn" data-color="info" style="font-family: 'Sunflower', sans-serif; width:170px; height:30px">무</button>
-        					<input type="checkbox" class="hidden"  />
+        					<input type="checkbox" class="hidden"  value="N">
     						</span>
 						</td>
 					</tr>
 					<tr>
 						<td>모색</td>
-						<td><input type="text" style="width:100%; height: 30px;"></td>
+						<td><input type="text" style="width:100%; height: 30px;" name="color"></td>
 					</tr>
 					<tr>
 						<td>순종여부</td>
 						<td>
 							<span class="button-checkbox">
         						<button type="button" class="btn" data-color="info" style="font-family: 'Sunflower', sans-serif; width:170px; height:30px">예</button>
-        						<input type="checkbox" class="hidden"  />
+        						<input type="checkbox" class="hidden"  value="Y">
     						</span>
     							<span class="button-checkbox">
         						<button type="button" class="btn" data-color="info" style="font-family: 'Sunflower', sans-serif; width:170px; height:30px">아니요</button>
-        					<input type="checkbox" class="hidden"  />
+        					<input type="checkbox" class="hidden"  value="N">
     						</span>
 						</td>
 					</tr>
@@ -350,11 +350,11 @@
 						<td>
 							<span class="button-checkbox">
         						<button type="button" class="btn" data-color="info" style="font-family: 'Sunflower', sans-serif; width:170px; height:30px">예</button>
-        						<input type="checkbox" class="hidden"  />
+        						<input type="checkbox" class="hidden"  value="Y">
     						</span>
     							<span class="button-checkbox">
         						<button type="button" class="btn" data-color="info" style="font-family: 'Sunflower', sans-serif; width:170px; height:30px">아니요</button>
-        					<input type="checkbox" class="hidden"  />
+        					<input type="checkbox" class="hidden"  value="N">
     						</span>
 						</td>
 					</tr>
@@ -366,7 +366,7 @@
 					</tr>
 					<tr>
 						<td style="height:150px">기타사항</td>
-						<td><textarea style="width:100%; height:80%; resize: none; border:none;"></textarea></td>
+						<td><textarea style="width:100%; height:80%; resize: none; border:none;" name="gita"></textarea></td>
 					</tr>
 				</table>
 			</div>

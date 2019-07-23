@@ -96,10 +96,23 @@
 	$('#parcleup').click(function(){
 		var num = $('#uNo').val();
 
+		$.ajax({
+			url:"updateRec.po",
+			type:"get",
+			data:{num:num},
+			success:function(data){
+				alert("추천 하셨습니다.");
+
+
+			}
+		});
+
+		<%-- var num = $('#uNo').val();
+
 			console.log(num);
 
 
-		 location.href="<%= request.getContextPath() %>/updateRec.po?num=" + num;
+		 location.href="<%= request.getContextPath() %>/updateRec.po?num=" + num; --%>
 
 
 	})
