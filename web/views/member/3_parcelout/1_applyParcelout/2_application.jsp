@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="../../../common/top_Include.jsp"%>
+
 <html>
 <head>
 <title>Insert title here</title>
@@ -50,6 +51,7 @@ p {
 
 	<form action="<%= request.getContextPath() %>/Insert.po" method="post">
 		<h3>분양 설문조사</h3>
+	<input type="hidden" value="<%= loginUser.getUserNo() %>" name="userNo">
 
 		<div id="border">
 			<br> <br>
@@ -241,12 +243,12 @@ p {
 
 			// 라디오버튼 클릭시 이벤트 발생
 			$("input:radio[name=drop]").click(function() {
-
-				if ($("input[name=drop]:checked").val() == "yes") {
+						console.log("들어오냐");
+				if ($("input[name=drop]:checked").val() == "Y") {
 
 					$("input:text[name=answer]").attr("disabled", false);
 
-				} else if ($("input[name=drop]:checked").val() == "no") {
+				} else if ($("input[name=drop]:checked").val() == "N") {
 					$("input:text[name=answer]").attr("disabled", true);
 
 				}
