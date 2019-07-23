@@ -1,6 +1,23 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" import="com.kh.semi.user.model.vo.User"%>
+	pageEncoding="UTF-8" import="com.kh.semi.board.parcelout.model.vo.*, java.util.*, com.kh.semi.user.model.vo.*"%>
 <%@ include file="../../../common/top_Include.jsp"%>
+
+<%
+
+	UserBoard ub = (UserBoard) request.getAttribute("ParceloutBoard");
+
+	ArrayList<Attachment> list = (ArrayList<Attachment>) request.getAttribute("filelist");
+
+	User us = (User) request.getAttribute("User");
+
+	Attachment Img1 = list.get(0);
+	Attachment Img2 = list.get(1);
+	Attachment Img3 = list.get(2);
+	Attachment Img4 = list.get(3);
+
+
+%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,19 +39,21 @@
 			<table class="table table-hover">
 				<thead>
 					<tr>
-						<th>분양후기 제목을 입력하세요</th>
-						<th>글쓴이</th>
-						<th>2019-07-12</th>
-						<th>추천수:</th>
-						<th>조회수:</th>
-						<th><input type="button" value="추천">
+					<td><input style="display: none;" id="uNo" value="<%= ub.getbNo() %>"></td>
+						<th>제목 : <%= ub.getbNm() %></th>
+						<th>작성자 : <%= us.getNickNm() %></th>
+						<th>작성일 : <%= ub.getbDate() %></th>
+						<th>조회수 : <%= ub.getInqCon() %></th>
+						<th>추천수 : <%= ub.getRecCon() %></th>
+						<th><input type="button" value="추천" id="parcleup">
 						<% if(loginUser != null) {%>
 						<input type="button" value="신고"></th>
 						<% } %>
-							<% if(loginUser != null && loginUser.getUserId().equals("admin")){ %>
-
-									<th><input type="button" value="삭제"></th>
-
+						<% if(loginUser != null) { %>
+							<% if(loginUser.getUserNo() == us.getUserNo() || loginUser.getUserId().equals("admin")){ %>
+									<th><input type="button" value="수정" id="modified"></th>
+									<th><input type="button" value="삭제" id="deleteBoard"></th>
+								<% } %>
 							<% } %>
 					</tr>
 				</thead>
@@ -43,19 +62,10 @@
 
 
 		<div style="padding: 30px" align="center">
-			<img
-				src="https://image-notepet.akamaized.net/resize/620x-/seimage/20190222%2F88df4645d7d2a4d2ed42628d30cd83d0.jpg"
-				alt="Nature">
-			<p style="width: 1000px; padding: 80px;">글 내용입니다@글 내용입니다@글
-				내용입니다@글 내용입니다@글 내용입니다@글 내용입니다@글 내용입니다@글 내용입니다@글 내용입니다@글 내용입니다@글
-				내용입니다@글 내용입니다@글 내용입니다@글 내용입니다@글 내용입니다@글 내용입니다@글 내용입니다@ 글 내용입니다@글
-				내용입니다@글 내용입니다@글 내용입니다@글 내용입니다@글 내용입니다@글 내용입니다@글 내용입니다@글 내용입니다@글
-				내용입니다@글 내용입니다@글 내용입니다@글 내용입니다@글 내용입니다@글 내용입니다@글 내용입니다@글 내용입니다@글
-				내용입니다@글 내용입니다@ 글 내용입니다@글 내용입니다@글 내용입니다@글 내용입니다@글 내용입니다@글 내용입니다@글
-				내용입니다@글 내용입니다@글 내용입니다@글 내용입니다@글 내용입니다@글 내용입니다@글 내용입니다@글 내용입니다@글
-				내용입니다@ㅍㅍㅍ글 내용입니다@글 내용입니다@ 글 내용입니다@글 내용입니다@글 내용입니다@글 내용입니다@글 내용입니다@글
-				내용입니다@글 내용입니다@글 내용입니다@글 내용입니다@글 내용입니다@글 내용입니다@글 내용입니다@글 내용입니다@글
-				내용입니다@글 내용입니다@</p>
+			<img src="/sixDestiny/parcelout_uploadFiles/<%= Img1.getChangeNm()%>" alt="Nature">
+			<p style="width: 1000px; padding: 80px;">
+				<%= ub.getbCon() %>
+			</p>
 		</div>
 
 		<hr>
@@ -80,13 +90,44 @@
 
 
 
-
-
-
-
-
 	</div>
 
+<script>
+	$('#parcleup').click(function(){
+		var num = $('#uNo').val();
+
+		$.ajax({
+			url:"updateRec.po",
+			type:"get",
+			data:{num:num},
+			success:function(data){
+				alert("추천 하셨습니다.");
+
+
+			}
+		});
+
+		<%-- var num = $('#uNo').val();
+
+			console.log(num);
+
+
+		 location.href="<%= request.getContextPath() %>/updateRec.po?num=" + num; --%>
+
+
+	})
+
+	$('#modified').click(function(){
+
+		 location.href="<%= request.getContextPath() %>/ParceloutConUpdate.po?num=<%= ub.getbNo() %>" ;
+	})
+
+	$('#deleteBoard').click(function(){
+
+		location.href="<%= request.getContextPath()%>/DeleteParcelout.po?num=<%= ub.getbNo() %>" ;
+	})
+
+</script>
 
 
 

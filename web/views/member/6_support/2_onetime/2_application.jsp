@@ -36,7 +36,7 @@
 <body>
 	<div class="supportArea">
 		<div>
-			<form action="">
+			<form action="/sixDestiny/insertsup.one" method="post">
 				<fieldset>
 					<legend style="font-family: 'Sunflower', sans-serif; font-size:2em;">신청인 정보</legend>
 					<table style="width:80%; margin:0 auto;">
@@ -45,25 +45,28 @@
 							<td style="font-family: 'Sunflower', sans-serif; text-align:left">이름</td>
 						</tr>
 						<tr>
-							<td><input type="text" name="userId" style="width:400px; height:50px;" value="<%=loginUser.getUserNm()%>" readonly></td>
+							<td><input type="text" name="userNm" style="width:400px; height:50px;" value="<%=loginUser.getUserNm()%>" readonly></td>
 						</tr>
 						<tr><td><br></td></tr>
 						<tr>
 							<td style="font-family: 'Sunflower', sans-serif; text-align:left"">닉네임</td>
 						</tr>
 						<tr>
-							<td><input type="text" name="userId" style="width:400px; height:50px;" value="<%=loginUser.getNickNm()%>" readonly></td>
+							<td>
+								<input type="text" name="userId" style="width:400px; height:50px;" value="<%=loginUser.getNickNm()%>" readonly>
+								<input type="hidden" name="userNo" style="width:400px; height:50px;" value="<%=loginUser.getUserNo()%>" readonly>
+							</td>
 						</tr>
 						<tr><td><br></td></tr>
 						<tr>
 							<td style="font-family: 'Sunflower', sans-serif; text-align:left"">이메일</td>
 						</tr>
 						<tr>
-							<td><input type="text" name="userId" style="width:400px; height:50px;" value="<%=loginUser.getEmail()%>" readonly></td>
+							<td><input type="text" name="email" style="width:400px; height:50px;" value="<%=loginUser.getEmail()%>" readonly></td>
 						</tr>
 						<tr><td><br></td></tr>
 						<tr>
-							<td style="font-family: 'Sunflower', sans-serif; text-align:left"">연락처</td>
+							<td style="font-family: 'Sunflower', sans-serif; text-align:left;">연락처</td>
 						</tr>
 						<tr>
 							<td colspan="2">
@@ -88,10 +91,10 @@
 					<table style="width:80%; margin:0 auto;">
 						<tr><td><br></td></tr>
 						<tr>
-							<td style="font-family: 'Sunflower', sans-serif; text-align:left"">금액입력	</td>
+							<td style="font-family: 'Sunflower', sans-serif; text-align:left;">금액입력	</td>
 						</tr>
 						<tr>
-							<td><input type="text" name="userId" style="width:400px; height:50px;" placeholder="천원 단위로 입력해주세요." id="money"></td>
+							<td><input type="text" name="money" style="width:400px; height:50px;" placeholder="천원 단위로 입력해주세요." id="money"></td>
 						</tr>
 						<tr><td><br></td></tr>
 						<tr>

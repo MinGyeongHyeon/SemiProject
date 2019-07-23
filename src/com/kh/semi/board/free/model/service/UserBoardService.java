@@ -1,10 +1,10 @@
-package com.kh.semi.board.model.service;
+package com.kh.semi.board.free.model.service;
 
 import java.sql.Connection;
 import java.util.ArrayList;
 
-import com.kh.semi.board.model.dao.UserBoardDao;
-import com.kh.semi.board.model.vo.UserBoard;
+import com.kh.semi.board.free.model.dao.UserBoardDao;
+import com.kh.semi.board.free.model.vo.UserBoard;
 import static com.kh.semi.common.JDBCTemplate.*;
 public class UserBoardService {
 

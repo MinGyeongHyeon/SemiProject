@@ -8,7 +8,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kh.semi.board.model.service.UserBoardService;
+import com.kh.semi.board.parcelout.model.service.UserBoardService;
+
+
 
 
 @WebServlet("/updateRec.po")
@@ -26,7 +28,7 @@ public class UpdateParceloutRec extends HttpServlet {
 		System.out.println("리절트 값 : " + result);
 
 
-			String page = "";
+	/*		String page = "";
 		if(result > 0) {
 			System.out.println(request.getHeader("referer"));
 			page = "/selectParceloutOne.tn?num=" + num;
@@ -36,7 +38,7 @@ public class UpdateParceloutRec extends HttpServlet {
 		}
 		System.out.println(page);
 		request.getRequestDispatcher(page).forward(request, response);
-
+*/
 
 
 

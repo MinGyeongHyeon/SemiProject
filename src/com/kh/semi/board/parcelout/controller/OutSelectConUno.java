@@ -10,7 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kh.semi.board.model.service.UserBoardService;
+import com.kh.semi.board.parcelout.model.service.UserBoardService;
+
+
 
 @WebServlet("/outSelect.po")
 public class OutSelectConUno extends HttpServlet {

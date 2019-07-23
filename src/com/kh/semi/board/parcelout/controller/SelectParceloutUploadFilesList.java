@@ -10,9 +10,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kh.semi.board.model.service.UserBoardService;
-import com.kh.semi.board.model.vo.PageInfo;
-import com.kh.semi.board.model.vo.UserBoard;
+import com.kh.semi.board.parcelout.model.service.UserBoardService;
+import com.kh.semi.board.parcelout.model.vo.PageInfo;
+
+
 
 
 @WebServlet("/selectOutList.tn")
@@ -80,6 +81,11 @@ public class SelectParceloutUploadFilesList extends HttpServlet {
 				request.setAttribute("filelist", filelist);
 				request.setAttribute("filelist2", filelist2);
 				request.setAttribute("pi", pi);
+
+				System.out.println(filelist);
+				System.out.println(filelist2);
+				System.out.println(pi);
+				System.out.println(page);
 
 			}
 			request.getRequestDispatcher(page).forward(request, response);
