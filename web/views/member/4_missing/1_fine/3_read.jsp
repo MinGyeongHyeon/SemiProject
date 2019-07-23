@@ -137,7 +137,7 @@ textarea {
 	<hr>
 
 	<div align="right">
-		<button id="bt1" onclick="location.href='/sixDestiny/views/member/4_missing/1_fine/4_leaflet.jsp'">전단지 생성</button>
+		<button id="bt1" onclick="location.href='<%=request.getContextPath()%>/missingpaper.bo?num=<%=b.getbNo()%>'" id="paper">전단지 생성</button>
 	</div>
 	<div>
 	<img id="titleImg" src="<%=request.getContextPath()%>/thumbnail_uploadFiles/<%=titleImg.getChangeNm()%>">
@@ -159,7 +159,7 @@ textarea {
 		</tr>
 	</table>
 	<div>
-		<textarea name="" id="" cols="200" rows="10"></textarea>
+		<textarea name="" id="" cols="200" rows="10"><%=b.getbCon() %></textarea>
 	</div>
 	<hr>
 	<input type="hidden" id="" name="" value="" />
@@ -197,6 +197,12 @@ textarea {
 				
 					location.href="<%= request.getContextPath()%>/missingDelete.bo?num=<%= b.getbNo()%>" ;
 				})
+				
+				$('#paper').click(function(){
+				
+					location.href="<%= request.getContextPath()%>/missingpaper.bo?num=<%= b.getbNo()%>" ;
+				})
+
 
 				
 				</script>

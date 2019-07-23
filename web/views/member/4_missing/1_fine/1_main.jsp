@@ -116,6 +116,8 @@ table tr td img {
             for (int i = 0; i < list.size(); i++) {
                HashMap<String, Object> hmap = list.get(i);
          %>
+         
+         
 <table class="thumb-list">
 
          <tr>
@@ -123,6 +125,7 @@ table tr td img {
          <td >
          <div class="title">
             <input type="hidden" value="<%=hmap.get("boardNo")%>" id="Bno">
+              
 <%if(hmap.get("changeNm") !=null){ %>
             <img src="/sixDestiny/thumbnail_uploadFiles/<%=hmap.get("changeNm")%>"
                style="width: 200px; height: 200px; cursor: pointer;">
@@ -152,19 +155,6 @@ table tr td img {
                
             
       
-               <script>
-      $(function() {
-         $(".title").click( function() {
- 	var num=     $(this).children().eq(0).val();
-
-                           console.log(num);
-                
-
-
-   location.href = "<%=request.getContextPath()%>/missingSelectOne.bo?num=" + num ;
-            });
-         });
-      </script>
       
       
 <div class="container" align="center" style="margin-top: 50px;">
@@ -179,24 +169,30 @@ table tr td img {
             <li><a href="#">></a></li>
          </ul>
       </div>
-
       <div class="container" align="center" style="width: 500px;">
+                <form  action="<%=request.getContextPath() %>/missingsearch.bo" method="post" >
          <table>
             <tr>
                <td><select
-                  style="height: 30px; margin-left: 20px; margin-right: 20px;">
-                     <option selected="selected">전체</option>
-                     <option>작성자</option>
-                     <option>제목</option>
+                  style="height: 30px; margin-left: 20px; margin-right: 20px;" name="searchVal">
+                     <option selected="selected" value="전체">전체</option>
+                     <option vlaue="작성자">작성자</option>
+                     <option vlaue="제목">제목</option>
                </select></td>
                <td>
 
-                  <form action="/action_page.php">
                      <div class="input-group">
+                     
                         <input type="text" class="form-control" placeholder="Search"
                            name="search">
+                             <%
+            for (int i = 0; i < list.size(); i++) {
+               HashMap<String, Object> hmap = list.get(i);
+         %>
+                                      <input type="hidden" value="<%=hmap.get("boardNo")%>" name="num">
+                                      <%} %>
                         <div class="input-group-btn">
-                           <button class="btn btn-default" type="submit">
+                           <button class="btn btn-default" type="submit" >
                               <i class="glyphicon glyphicon-search"></i>
                            </button>
                         </div>
@@ -210,6 +206,7 @@ table tr td img {
       </div>
 
 </div>
+</form>
 
 	<div class="paging" align="center">
 			<button  class="paging" onclick="location.href='<%=request.getContextPath() %>/missingListo.bo?currentPage=1'"><<</button>
@@ -243,6 +240,22 @@ table tr td img {
 			<% }else{ %>
 				<button  class="pagination" onclick="location.href='<%=request.getContextPath() %>/missingListo.bo?currentPage=<%= currentPage + 1 %>'">></button>
 			<% } %>
+
+
+
+               <script>
+      $(function() {
+         $(".title").click( function() {
+ 	var num=     $(this).children().eq(0).val();
+
+                           console.log(num);
+                
+
+
+   location.href = "<%=request.getContextPath()%>/missingSelectOne.bo?num=" + num ;
+            });
+         });
+      </script>
 
 
 <%@ include file="../../../common/bottom_Include.jsp"%>

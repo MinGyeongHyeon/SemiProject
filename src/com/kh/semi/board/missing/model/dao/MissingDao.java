@@ -317,29 +317,7 @@ public class MissingDao {
 		
 				hmap.put("reward", rset.getInt("REWARD_PC"));
 				
-				
-			/*hmap.put("bwriter", rset.getString("NICK_NAME"));
-				hmap.put("bcount", rset.getInt("BCOUNT"));
-				hmap.put("bdate", rset.getDate("BDATE"));
-				hmap.put("fid", rset.getInt("FID"));
-				hmap.put("originName", rset.getString("ORIGIN_NAME"));
-				hmap.put("filePath", rset.getString("FILE_PATH"));
-				hmap.put("uploadDate", rset.getString("UPLOAD_DATE"));*/
-				/*
-				
-				b.setbNo(rset.getInt("BOARD_NO"));
-				b.setbKind(rset.getString("BOARD_KIND"));
-				b.setbNm(rset.getString("BOARD_NM"));
-				b.setbDate(rset.getDate("BOARD_DT"));
-				b.setbCon(rset.getString("BOARD_CON"));
-				b.setInqCon(rset.getInt("INQ_COUNT"));
-				b.setRecCon(rset.getInt("REC_COUNT"));
-				b.setsGrade(rset.getInt("STAR_GRADE"));
-				b.setuNo(rset.getInt("USER_NO"));
-				b.setStatus(rset.getString("STATUS"));
-				b.setBoardNo(rset.getInt("BOARD_NO"));
-				
-				*/
+		
 				list.add(hmap);
 			}
 			
@@ -1151,4 +1129,662 @@ public class MissingDao {
 
 		return ub;
 	}
-}
+
+
+	public HashMap<String, Object> missingpaperSelect(Connection con, int num) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		HashMap<String, Object> hmap = null;
+		Missing b = null;
+		MissingAttachment at = null;
+		ArrayList<MissingAttachment> list = null;
+		
+		String query = prop.getProperty("missingpaper");
+		System.out.println("안들어갔누ㅠㅠㅠㅠㅠ1111");
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, num);
+			
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<MissingAttachment>();
+			
+			while(rset.next()) {
+				b = new Missing();
+				
+				b.setbNo(rset.getInt("BOARD_NO"));
+				b.setbKind(rset.getString("BOARD_KIND"));
+				b.setbNm(rset.getString("BOARD_NM"));
+				b.setbDate(rset.getDate("BOARD_DT"));
+				b.setbCon(rset.getString("BOARD_CON"));
+				b.setInqCon(rset.getInt("INQ_COUNT"));
+				b.setRecCon(rset.getInt("REC_COUNT"));
+				b.setsGrade(rset.getInt("STAR_GRADE"));
+				b.setuNo(rset.getInt("USER_NO"));
+				b.setStatus(rset.getString("STATUS"));
+				b.setBoardNo(rset.getInt("BOARD_NO"));
+				b.setMissPlace(rset.getString("MISS_PLACE"));
+				b.setMissDt(rset.getString("MISS_DT"));
+				b.setMissGender(rset.getString("MISS_GENDER"));
+				b.setMissPhone(rset.getString("MISS_PHONE"));
+				b.setBoardDiv(rset.getString("BOARD_DIV"));
+	
+				b.setRewardPc(rset.getInt("REWARD_PC"));
+				
+				b.setuName(rset.getString("USER_NM"));
+				b.setMissPlaceDetail(rset.getString("DETAIL_PLACE"));
+				
+				at = new MissingAttachment();
+				at.setFileKind(rset.getString("FILE_KIND"));
+				at.setAttachmentNo(rset.getInt("ATTACHMENT_NO"));
+				at.setOriginNm(rset.getString("ORIGIN_NM"));
+				at.setChangeNm(rset.getString("CHANGE_NM"));
+				at.setFilePath(rset.getString("FILE_PATH"));
+				at.setUploadDt(rset.getDate("UPLOAD_DT"));
+				at.setAdBoardno(rset.getInt("AD_BOARD_NO"));
+				at.setBoardNo(rset.getInt("BOARD_NO"));
+				at.setEntNo(rset.getInt("ENT_NO"));
+				at.setFileLevel(rset.getString("FILE_LEVEL"));
+				
+				list.add(at);
+			}
+			System.out.println(b);
+			System.out.println("안들어갔누ㅠㅠㅠㅠㅠ2222");
+			hmap = new HashMap<String, Object>();
+			hmap.put("board", b);
+			hmap.put("attachment", list);
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return hmap;
+	}
+
+
+	public int MissinggetListCount2(Connection con, String cont) {
+		PreparedStatement pstmt = null;
+		int listCount = 0;
+		ResultSet rset = null;
+
+		String query = prop.getProperty("missingsearch1");
+
+
+		try {
+			pstmt = con.prepareStatement(query);
+
+			pstmt.setString(1, "실종");
+			pstmt.setString(2, cont);
+			pstmt.setString(3, cont);
+			pstmt.setString(4, cont);
+			pstmt.setString(5, cont);
+			pstmt.setString(6, cont);
+			
+			
+
+			rset = pstmt.executeQuery();
+
+			if(rset.next()) {
+				listCount = rset.getInt(1);
+			}
+
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+
+		return listCount;
+		
+		
+	}
+
+
+	public ArrayList<HashMap<String, Object>> MissingselectOutList(Connection con, int currentPage, int limit,
+			String cont) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<HashMap<String,Object>> list = null;
+		HashMap<String,Object> hmap = null;
+
+		String query = prop.getProperty("missingsearch2");
+
+		int startRow = (currentPage - 1) * limit + 1;
+		int endRow = startRow + limit - 1;
+		System.out.println(cont);
+		try {
+			pstmt = con.prepareStatement(query);
+
+			pstmt.setString(1, "실종");
+			pstmt.setString(2, cont);
+			pstmt.setString(3, cont);
+			pstmt.setString(4, cont);
+			pstmt.setString(5, cont);
+			pstmt.setString(6, cont);
+			
+			pstmt.setInt(7, startRow);
+			pstmt.setInt(8, endRow);
+
+
+			rset = pstmt.executeQuery();
+
+			list = new ArrayList<HashMap<String,Object>>();
+
+			while(rset.next()) {
+				hmap = new HashMap<String,Object>();
+
+				hmap.put("boardNo", rset.getInt("BOARD_NO"));
+				hmap.put("bKind", rset.getString("BOARD_KIND"));
+				hmap.put("boardNm", rset.getString("BOARD_NM"));
+				hmap.put("gender", rset.getString("MISS_GENDER"));
+				hmap.put("changeNm", rset.getString("CHANGE_NM"));
+				hmap.put("filePath", rset.getString("FILE_PATH"));
+				hmap.put("reward", rset.getInt("REWARD_PC"));
+				hmap.put("bDiv", rset.getString("BOARD_DIV"));
+				hmap.put("bCon", rset.getString("BOARD_CON"));
+				hmap.put("missP", rset.getString("MISS_PLACE"));
+				hmap.put("detail", rset.getString("DETAIL_PLACE"));
+				hmap.put("phone", rset.getString("MISS_PHONE"));
+				
+
+				list.add(hmap);
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+
+		}
+
+
+	return list;
+	
+
+	
+	}
+
+
+	public ArrayList<HashMap<String, Object>> MissingselectOutList1(Connection con, int currentPage, int limit,
+			String cont) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<HashMap<String,Object>> list = null;
+		HashMap<String,Object> hmap = null;
+
+		String query = prop.getProperty("missingsearch3");
+
+		int startRow = (currentPage - 1) * limit + 1;
+		int endRow = startRow + limit - 1;
+		System.out.println(cont);
+		try {
+			pstmt = con.prepareStatement(query);
+
+			pstmt.setString(1, "실종");
+			pstmt.setString(2, cont);
+		/*	pstmt.setString(3, cont);
+			pstmt.setString(4, cont);
+			pstmt.setString(5, cont);
+			pstmt.setString(6, cont);*/
+			
+			pstmt.setInt(3, startRow);
+			pstmt.setInt(4, endRow);
+
+
+			rset = pstmt.executeQuery();
+
+			list = new ArrayList<HashMap<String,Object>>();
+
+			while(rset.next()) {
+				hmap = new HashMap<String,Object>();
+
+				hmap.put("boardNo", rset.getInt("BOARD_NO"));
+				hmap.put("bKind", rset.getString("BOARD_KIND"));
+				hmap.put("boardNm", rset.getString("BOARD_NM"));
+				hmap.put("gender", rset.getString("MISS_GENDER"));
+				hmap.put("changeNm", rset.getString("CHANGE_NM"));
+				hmap.put("filePath", rset.getString("FILE_PATH"));
+				hmap.put("reward", rset.getInt("REWARD_PC"));
+				hmap.put("bDiv", rset.getString("BOARD_DIV"));
+				hmap.put("bCon", rset.getString("BOARD_CON"));
+				hmap.put("missP", rset.getString("MISS_PLACE"));
+				hmap.put("detail", rset.getString("DETAIL_PLACE"));
+				hmap.put("phone", rset.getString("MISS_PHONE"));
+				
+
+				list.add(hmap);
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+	}
+		return list;
+	}
+
+
+	public int MissinggetListCount3(Connection con, String cont) {
+		PreparedStatement pstmt = null;
+		int listCount = 0;
+		ResultSet rset = null;
+
+		String query = prop.getProperty("missingsearch4");
+
+
+		try {
+			pstmt = con.prepareStatement(query);
+
+			pstmt.setString(1, "실종");
+			pstmt.setString(2, cont);
+
+			
+
+			rset = pstmt.executeQuery();
+
+			if(rset.next()) {
+				listCount = rset.getInt(1);
+			}
+
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+
+		return listCount;
+	}
+
+
+	public int MissinggetListCount4(Connection con, String cont) {
+		PreparedStatement pstmt = null;
+		int listCount = 0;
+		ResultSet rset = null;
+
+		String query = prop.getProperty("missingsearch5");
+
+
+		try {
+			pstmt = con.prepareStatement(query);
+
+			pstmt.setString(1, "실종");
+			pstmt.setString(2, cont);
+
+			
+
+			rset = pstmt.executeQuery();
+
+			if(rset.next()) {
+				listCount = rset.getInt(1);
+			}
+
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+
+		return listCount;
+	}
+
+
+	public ArrayList<HashMap<String, Object>> MissingselectOutList2(Connection con, int currentPage, int limit,
+			String cont) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<HashMap<String,Object>> list = null;
+		HashMap<String,Object> hmap = null;
+
+		String query = prop.getProperty("missingsearch6");
+
+		int startRow = (currentPage - 1) * limit + 1;
+		int endRow = startRow + limit - 1;
+		System.out.println(cont);
+		try {
+			pstmt = con.prepareStatement(query);
+
+			pstmt.setString(1, "실종");
+			pstmt.setString(2, cont);
+
+			
+			pstmt.setInt(3, startRow);
+			pstmt.setInt(4, endRow);
+
+
+			rset = pstmt.executeQuery();
+
+			list = new ArrayList<HashMap<String,Object>>();
+
+			while(rset.next()) {
+				hmap = new HashMap<String,Object>();
+
+				hmap.put("boardNo", rset.getInt("BOARD_NO"));
+				hmap.put("bKind", rset.getString("BOARD_KIND"));
+				hmap.put("boardNm", rset.getString("BOARD_NM"));
+				hmap.put("gender", rset.getString("MISS_GENDER"));
+				hmap.put("changeNm", rset.getString("CHANGE_NM"));
+				hmap.put("filePath", rset.getString("FILE_PATH"));
+				hmap.put("reward", rset.getInt("REWARD_PC"));
+				hmap.put("bDiv", rset.getString("BOARD_DIV"));
+				hmap.put("bCon", rset.getString("BOARD_CON"));
+				hmap.put("missP", rset.getString("MISS_PLACE"));
+				hmap.put("detail", rset.getString("DETAIL_PLACE"));
+				hmap.put("phone", rset.getString("MISS_PHONE"));
+				
+
+				list.add(hmap);
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+	}
+		return list;
+	}
+
+
+	public int PgetListCount2(Connection con, String cont) {
+		PreparedStatement pstmt = null;
+		int listCount = 0;
+		ResultSet rset = null;
+
+		String query = prop.getProperty("prosearch1");
+
+
+		try {
+			pstmt = con.prepareStatement(query);
+
+			pstmt.setString(1, "보호");
+			pstmt.setString(2, cont);
+			pstmt.setString(3, cont);
+			pstmt.setString(4, cont);
+			pstmt.setString(5, cont);
+			pstmt.setString(6, cont);
+			
+			
+
+			rset = pstmt.executeQuery();
+
+			if(rset.next()) {
+				listCount = rset.getInt(1);
+			}
+
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+
+		return listCount;
+		
+	}
+
+
+	public ArrayList<HashMap<String, Object>> PselectOutList(Connection con, int currentPage, int limit, String cont) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<HashMap<String,Object>> list = null;
+		HashMap<String,Object> hmap = null;
+
+		String query = prop.getProperty("prosearch2");
+
+		int startRow = (currentPage - 1) * limit + 1;
+		int endRow = startRow + limit - 1;
+		System.out.println(cont);
+		try {
+			pstmt = con.prepareStatement(query);
+
+			pstmt.setString(1, "보호");
+			pstmt.setString(2, cont);
+			pstmt.setString(3, cont);
+			pstmt.setString(4, cont);
+			pstmt.setString(5, cont);
+			pstmt.setString(6, cont);
+			
+			pstmt.setInt(7, startRow);
+			pstmt.setInt(8, endRow);
+
+
+			rset = pstmt.executeQuery();
+
+			list = new ArrayList<HashMap<String,Object>>();
+
+			while(rset.next()) {
+				hmap = new HashMap<String,Object>();
+
+				hmap.put("boardNo", rset.getInt("BOARD_NO"));
+				hmap.put("bKind", rset.getString("BOARD_KIND"));
+				hmap.put("boardNm", rset.getString("BOARD_NM"));
+				hmap.put("gender", rset.getString("MISS_GENDER"));
+				hmap.put("changeNm", rset.getString("CHANGE_NM"));
+				hmap.put("filePath", rset.getString("FILE_PATH"));
+				hmap.put("reward", rset.getInt("REWARD_PC"));
+				hmap.put("bDiv", rset.getString("BOARD_DIV"));
+				hmap.put("bCon", rset.getString("BOARD_CON"));
+				hmap.put("missP", rset.getString("MISS_PLACE"));
+				hmap.put("detail", rset.getString("DETAIL_PLACE"));
+				hmap.put("phone", rset.getString("MISS_PHONE"));
+				
+
+				list.add(hmap);
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+
+		}
+
+
+	return list;
+	
+
+	}
+
+
+	public int PgetListCount3(Connection con, String cont) {
+		PreparedStatement pstmt = null;
+		int listCount = 0;
+		ResultSet rset = null;
+
+		String query = prop.getProperty("prosearch4");
+
+
+		try {
+			pstmt = con.prepareStatement(query);
+
+			pstmt.setString(1, "보호");
+			pstmt.setString(2, cont);
+
+			
+
+			rset = pstmt.executeQuery();
+
+			if(rset.next()) {
+				listCount = rset.getInt(1);
+			}
+
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+
+		return listCount;
+	}
+
+
+	public ArrayList<HashMap<String, Object>> PselectOutList2(Connection con, int currentPage, int limit, String cont) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<HashMap<String,Object>> list = null;
+		HashMap<String,Object> hmap = null;
+
+		String query = prop.getProperty("prosearch6");
+
+		int startRow = (currentPage - 1) * limit + 1;
+		int endRow = startRow + limit - 1;
+		System.out.println(cont);
+		try {
+			pstmt = con.prepareStatement(query);
+
+			pstmt.setString(1, "보호");
+			pstmt.setString(2, cont);
+
+			
+			pstmt.setInt(3, startRow);
+			pstmt.setInt(4, endRow);
+
+
+			rset = pstmt.executeQuery();
+
+			list = new ArrayList<HashMap<String,Object>>();
+
+			while(rset.next()) {
+				hmap = new HashMap<String,Object>();
+
+				hmap.put("boardNo", rset.getInt("BOARD_NO"));
+				hmap.put("bKind", rset.getString("BOARD_KIND"));
+				hmap.put("boardNm", rset.getString("BOARD_NM"));
+				hmap.put("gender", rset.getString("MISS_GENDER"));
+				hmap.put("changeNm", rset.getString("CHANGE_NM"));
+				hmap.put("filePath", rset.getString("FILE_PATH"));
+				hmap.put("reward", rset.getInt("REWARD_PC"));
+				hmap.put("bDiv", rset.getString("BOARD_DIV"));
+				hmap.put("bCon", rset.getString("BOARD_CON"));
+				hmap.put("missP", rset.getString("MISS_PLACE"));
+				hmap.put("detail", rset.getString("DETAIL_PLACE"));
+				hmap.put("phone", rset.getString("MISS_PHONE"));
+				
+
+				list.add(hmap);
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+	}
+		return list;
+	}
+
+
+	public int PgetListCount4(Connection con, String cont) {
+		PreparedStatement pstmt = null;
+		int listCount = 0;
+		ResultSet rset = null;
+
+		String query = prop.getProperty("prosearch5");
+
+
+		try {
+			pstmt = con.prepareStatement(query);
+
+			pstmt.setString(1, "보호");
+			pstmt.setString(2, cont);
+
+			
+
+			rset = pstmt.executeQuery();
+
+			if(rset.next()) {
+				listCount = rset.getInt(1);
+			}
+
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+
+		return listCount;
+	}
+
+
+	public ArrayList<HashMap<String, Object>> PselectOutList1(Connection con, int currentPage, int limit, String cont) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<HashMap<String,Object>> list = null;
+		HashMap<String,Object> hmap = null;
+
+		String query = prop.getProperty("prosearch3");
+
+		int startRow = (currentPage - 1) * limit + 1;
+		int endRow = startRow + limit - 1;
+		System.out.println(cont);
+		try {
+			pstmt = con.prepareStatement(query);
+
+			pstmt.setString(1, "보호");
+			pstmt.setString(2, cont);
+	
+			
+			pstmt.setInt(3, startRow);
+			pstmt.setInt(4, endRow);
+
+
+			rset = pstmt.executeQuery();
+
+			list = new ArrayList<HashMap<String,Object>>();
+
+			while(rset.next()) {
+				hmap = new HashMap<String,Object>();
+
+				hmap.put("boardNo", rset.getInt("BOARD_NO"));
+				hmap.put("bKind", rset.getString("BOARD_KIND"));
+				hmap.put("boardNm", rset.getString("BOARD_NM"));
+				hmap.put("gender", rset.getString("MISS_GENDER"));
+				hmap.put("changeNm", rset.getString("CHANGE_NM"));
+				hmap.put("filePath", rset.getString("FILE_PATH"));
+				hmap.put("reward", rset.getInt("REWARD_PC"));
+				hmap.put("bDiv", rset.getString("BOARD_DIV"));
+				hmap.put("bCon", rset.getString("BOARD_CON"));
+				hmap.put("missP", rset.getString("MISS_PLACE"));
+				hmap.put("detail", rset.getString("DETAIL_PLACE"));
+				hmap.put("phone", rset.getString("MISS_PHONE"));
+				
+
+				list.add(hmap);
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+	}
+		return list;
+	}
+	
+	
+	
+	
+	}

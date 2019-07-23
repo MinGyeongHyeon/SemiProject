@@ -1,6 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"  import="java.util.*, com.kh.semi.board.missing.model.vo.*"%>
 <%@ include file="../../../common/top_Include.jsp"%>
+<%
+Missing b = (Missing) request.getAttribute("b");
+	ArrayList<MissingAttachment> fileList = 
+			(ArrayList<MissingAttachment>) request.getAttribute("fileList");
+	MissingAttachment titleImg = fileList.get(0);
+
+	%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,28 +32,31 @@
 				<td><p style="font-size: 30px">강아지를 찾습니다</p></td>
 			</tr>
 			<tr>
-				<td><img style="height: 300px; width: 300px"></td>
+			<div>
+				<td><img src="<%=request.getContextPath()%>/thumbnail_uploadFiles/<%=titleImg.getChangeNm()%>" style="height: 300px; width: 300px"></td>
+			</div>
 			</tr>
 			<tr>
 				<td><br></td>
 			</tr>
 			<tr>
-				<td><span>연락처 쓰는칸</span></td>
+				<td><span>연락처 : <%=b.getMissPhone() %></span></td>
 			</tr>
 			<tr>
-				<td><span>사례금 쓰는칸</span></td>
+				<td><span>사례금: <%=b.getRewardPc() %>만원</span></td>
 			</tr>
 			<tr>
-				<td><span>장소 쓰는 칸</span></td>
+				<td><span>실종 장소: <%=b.getMissPlace() %><br>
+				<%=b.getMissPlaceDetail()%></span></td>
 			</tr>
 			<tr>
-				<td><span>날짜 쓰는 칸</span></td>
+				<td><span>실종 날짜: <%=b.getMissDt() %></span></td>
 			</tr>
 			<tr>
 				<td><br></td>
 			</tr>
 			<tr>
-				<td><textarea rows="10" cols="50" readonly>특징 쓰는 칸</textarea></td>
+				<td><textarea rows="10" cols="50" readonly placeholder="<%=b.getbCon()%>" ></textarea></td>
 			</tr>
 			<tr>
 				<td><br></td>
