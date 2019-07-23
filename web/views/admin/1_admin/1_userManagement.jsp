@@ -19,7 +19,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script>
 	function showUser(){
-		window.open("views/admin/1_admin/showUser.jsp","È¸¿øÁ¤º¸","width=500,height=500,left=100,top=50");
+		window.open("views/admin/1_admin/showUser.jsp","È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½","width=500,height=500,left=100,top=50");
 	}
 
 
@@ -66,15 +66,16 @@
       <table class="table">
          <thead>
          <tr>
-            <th>È¸¿ø¹øÈ£</th>
-            <th>¾ÆÀÌµğ</th>
-            <th>ÀÌ¸§</th>
-            <th>´Ğ³×ÀÓ</th>
-            <th>»ı³â¿ùÀÏ</th>
-            <th>¼ºº°</th>
-            <th>ÀÌ¸ŞÀÏ</th>
+         <tr>
+            <th>íšŒì›ë²ˆí˜¸</th>
+            <th>ì•„ì´ë””</th>
+            <th>ì´ë¦„</th>
+            <th>ë‹‰ë„¤ì„</th>
+            <th>ìƒë…„ì›”ì¼</th>
+            <th>ì„±ë³„</th>
+            <th>ì´ë©”ì¼</th>
             <th>HP</th>
-            <th>Å»Åğ</th>
+            <th>íƒˆí‡´</th>
          </tr>
          </thead>
         
@@ -91,7 +92,7 @@
             <td><%=u.getEmail() %></td>
             <td><%=u.getPhone() %></td>
          	<td>
-         	<button class="btn btn-default" id="btn1" onclick="deleteUser(<%=u.getUserNo() %>);">Å»Åğ</button>
+         	<button class="btn btn-default" id="btn1" onclick="deleteUser(<%=u.getUserNo() %>);">íƒˆí‡´</button>
          	</td>
          </tr>
          <% } %>
