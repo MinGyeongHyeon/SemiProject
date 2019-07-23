@@ -54,10 +54,14 @@
 			<td style="font-family: 'Sunflower', sans-serif;"><%= ms.getSupDt() %></td>
 			<td style="font-family: 'Sunflower', sans-serif;">
 				<% if(ms.getSupKind().equals("정기") && ms.getStatus().equals("Y")){ %>
-					<button class="btn btn-default" style="font-family: 'Sunflower', sans-serif;">후원취소</button>
+					<button class="btn btn-default" style="font-family: 'Sunflower', sans-serif;" onclick="cancleSupport(<%= ms.getSupAppNo()%>);">후원취소</button>
+				<% }else if(ms.getStatus().equals("S")){ %>
+					<p style="font-family: 'Sunflower', sans-serif;">신청대기</p>
+				<% }else if(ms.getStatus().equals("N")){ %>
+					<button class="btn btn-default" style="font-family: 'Sunflower', sans-serif; background:white;" id="insertMoney" onclick="goMoney(<%= ms.getSupAppNo()%>);">납입하기</button>
 				<% }else if(ms.getStatus().equals("T")){ %>
-					<button class="btn btn-default" style="font-family: 'Sunflower', sans-serif;">납입하기</button>
-				<% }else { %>
+					<p style="font-family: 'Sunflower', sans-serif;">납입대기</p>
+				<% }else{ %>
 					<p style="font-family: 'Sunflower', sans-serif;">후원완료</p>
 				<% } %>
 			</td>
@@ -160,6 +164,41 @@
 			<button onclick="location.href='<%=request.getContextPath()%>/mySupport.su?currentPage2=<%=maxPage2%>&currentPage=1'" class="btn btn-default">>></button>
 		</div>
   </div>
+  <script type="text/javascript">
+  	$(function(){
+  		 setInterval(function()
+  			    {
+  			       $("#insertMoney").css("background", "rgb(204, 230, 255)");
+  			    },500);
+
+  		 setInterval(function()
+   			    {
+   			       $("#insertMoney").css("background", "white");
+   			    },1000);
+  	});
+
+  	function cancleSupport(monSupNo) {
+		if(confirm("해당 정기후원을 취소 신청 하시겠습니까?")){
+			var monSupNo = monSupNo;
+
+			$.ajax({
+				url:"/sixDestiny/okApply.mon",
+				type:"post",
+				data:{monSupNo:monSupNo},
+				success:function(data){
+					location.href="/sixDestiny/selectAllUser.su";
+					console.log("성공성공!")
+				},
+				error:function(){
+
+				}
+			});
+
+		}else{
+			return;
+		}
+	}
+  </script>
 	<%@ include file="../../../common/bottom_Include.jsp"%>
 </body>
 </html>
