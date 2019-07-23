@@ -28,7 +28,7 @@ public class UpdateParceloutRec extends HttpServlet {
 		System.out.println("리절트 값 : " + result);
 
 
-			String page = "";
+	/*		String page = "";
 		if(result > 0) {
 			System.out.println(request.getHeader("referer"));
 			page = "/selectParceloutOne.tn?num=" + num;
@@ -38,7 +38,7 @@ public class UpdateParceloutRec extends HttpServlet {
 		}
 		System.out.println(page);
 		request.getRequestDispatcher(page).forward(request, response);
-
+*/
 
 
 
