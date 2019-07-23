@@ -1,11 +1,17 @@
 package com.kh.semi.parcelout.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.kh.semi.parcelout.model.service.ParcelOutService;
+import com.kh.semi.parcelout.model.vo.Application;
+import com.kh.semi.user.model.vo.User;
 
 
 @WebServlet("/Insert.po")
@@ -15,7 +21,7 @@ public class InsertParcelout extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-			String applic1 = request.getParameter("applic1");
+			String applic = request.getParameter("applic1");
 			String applic2 = request.getParameter("applic2");
 			String applic3 = request.getParameter("applic3");
 			String applic4 = request.getParameter("applic4");
@@ -34,26 +40,38 @@ public class InsertParcelout extends HttpServlet {
 			String applic16 = request.getParameter("applic16");
 			String applic17 = request.getParameter("applic17");
 			String applic18 = request.getParameter("applic18");
+			int userNo = Integer.parseInt(request.getParameter("userNo"));
 
-			System.out.println("applic1 : " + applic1);
-			System.out.println("applic2 : " + applic2);
-			System.out.println("applic3 :" + applic3);
-			System.out.println("applic4 : "+applic4);
-			System.out.println("applic5 : "+applic5);
-			System.out.println("applic6 : "+applic6);
-			System.out.println("drop : "+drop);
-			System.out.println("answer : "+answer);
-			System.out.println("applic8 : "+applic8);
-			System.out.println("applic9 : "+applic9);
-			System.out.println("applic10 : "+applic10);
-			System.out.println("applic11 : "+applic11);
-			System.out.println("applic12 : "+applic12);
-			System.out.println("applic13 : "+applic13);
-			System.out.println("applic14 : "+applic14);
-			System.out.println("applic15 : "+applic15);
-			System.out.println("applic16 : "+applic16);
-			System.out.println("applic17 : "+applic17);
-			System.out.println("applic18 : "+applic18);
+			User us = new User();
+
+			us.setUserNo(userNo);
+
+			ArrayList<Application> list = new ArrayList<Application>();
+
+			Application ap = null;
+			for(int i = 0; i <= 18; i++) {
+				ap = new Application();
+
+				ap.setApplication(applic +"" + i);
+
+				list.add(ap);
+
+			}
+
+
+
+
+			int result = new ParcelOutService().insertApplication(ap,us);
+
+			String page = "views/member/3_parcelout/2_reviewParcelout/1_main.jsp";
+			if(result > 0) {
+				request.setAttribute("n", "성공");
+				request.getRequestDispatcher(page).forward(request, response);
+			}
+
+
+
+
 
 
 	}
