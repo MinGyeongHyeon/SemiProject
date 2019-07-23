@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
 
@@ -228,19 +229,23 @@ public class UserDao {
 		return loginUser;
 	}
 
-public ArrayList<User> selectList(Connection con) {
-
+public ArrayList<User> selectList(Connection con, int currentPage, int limit) {
+	
 		ArrayList<User> list=null;
 		PreparedStatement pstmt=null;
 		ResultSet rset=null;
 
-		String query = prop.getProperty("selectList");
+		String query = prop.getProperty("selectListUserPaging");
 
 		System.out.println("dao 호출..");
 
 		try {
 			pstmt=con.prepareStatement(query);
-			pstmt.setString(1, "가입");
+			
+			int startRow = (currentPage - 1) * limit + 1;
+			int endRow = startRow + limit - 1;
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
 
 			rset = pstmt.executeQuery();
 
@@ -256,6 +261,9 @@ public ArrayList<User> selectList(Connection con) {
 				u.setUserNm(rset.getString("USER_NM"));
 				u.setNickNm(rset.getString("NICK_NM"));
 				u.setUserHb(rset.getDate("USER_HB"));
+				u.setUserSit(rset.getString("USER_SIT"));
+				u.setEnrollDt(rset.getDate("ENROLL_DT"));
+				
 				u.setGender(rset.getString("GENDER"));
 				u.setEmail(rset.getString("EMAIL"));
 				u.setPhone(rset.getString("PHONE"));
@@ -404,5 +412,35 @@ public User getUser(Connection con, String userId) {
 
     return user;
  }
+
+public int getListCount(Connection con) {
+	Statement stmt = null;
+	int listCount = 0;
+	ResultSet rset = null;
+	
+	String query = prop.getProperty("selectListUserCount");
+	
+	
+	try {
+		stmt = con.createStatement();
+		
+		rset = stmt.executeQuery(query);
+		
+		if(rset.next()) {
+			listCount = rset.getInt(1);
+		}
+		
+		
+	} catch (SQLException e) {
+		e.printStackTrace();
+	} finally {
+		close(stmt);
+		close(rset);
+	}
+	
+	return listCount;
+}
+
+
 
 }

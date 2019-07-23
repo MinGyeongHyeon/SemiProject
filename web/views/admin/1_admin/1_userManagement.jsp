@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="java.util.* , com.kh.semi.board.free.model.vo.*"%>
+    pageEncoding="UTF-8" import="java.util.* , com.kh.semi.user.model.vo.*"%>
 <%@ include file="../../common/top_Include.jsp" %>
 <%
    ArrayList<User> list = (ArrayList<User>) request.getAttribute("list");
@@ -26,6 +26,26 @@ int endPage = pi.getEndPage();
 <script>
 	function showUser(){
 		window.open("views/admin/1_admin/showUser.jsp","ȸ������","width=500,height=500,left=100,top=50");
+	}
+	
+	function deleteUser(userNo){
+	
+		
+		if(confirm("정말 탈퇴처리 하시겠습니까?")){
+			$.ajax({
+				url:"/sixDestiny/deleteuser",
+				type:"post",
+				data:{userNo:userNo},
+				success:function(){
+					alert("회원탈퇴 완료되었습니다.");
+					location.href="/sixDestiny/userManage";
+				},
+				error:function(){
+					alert("탈퇴도중 에러가 났습니다.");
+					location.href="/sixDestiny/userManage";
+				}
+			});
+		}
 	}
 
 
@@ -54,6 +74,8 @@ int endPage = pi.getEndPage();
    #btn1:hover{
    	background-color:lightgray;
    }
+   
+   
 
    
    #td1:hover{
@@ -68,7 +90,7 @@ int endPage = pi.getEndPage();
    <div>
    
    <div id="outer">
-   	<form id="form1" action="<%= request.getContextPath() %>/deleteuser" method="post">
+ 
       <table class="table" style="text-align:center;">
          <thead >
          <tr>
@@ -79,6 +101,7 @@ int endPage = pi.getEndPage();
             <th style="text-align:center;">성별</th>
             <th style="text-align:center;">이메일</th>
             <th style="text-align:center;">연락처</th>
+             <th style="text-align:center;">가입유무</th>
             <th style="text-align:center;">가입일자</th>
             <th style="text-align:center;">탈퇴</th>
          </tr>
@@ -89,34 +112,33 @@ int endPage = pi.getEndPage();
         
          <tr>
             <td><%=u.getUserNo() %></td>
-            <td><%=u.getUserId() %></td>
+            <td onclick="showUser();" id="td1"><%=u.getUserId() %></td>
             <td onclick="showUser();" id="td1"><%=u.getUserNm() %></td>
             <td><%=u.getNickNm() %></td>
             <td><%=u.getGender()  %></td>
             <td><%=u.getEmail()%></td>
             <td><%=u.getPhone() %></td>
+            <td><%=u.getUserSit() %></td>
+            
             <td><%=u.getEnrollDt() %></td>
-         	<td>
-         	<button class="btn btn-default" id="btn1" onclick="deleteUser(<%=u.getUserNo() %>);">탈퇴</button>
+            <td>
+           <% if(u.getUserSit().equals("가입")){%>
+            	<button class="btn btn-default" id="btn1" onclick="deleteUser(<%=u.getUserNo() %>);">탈퇴</button>
+           <% }%>
          	</td>
          </tr>
          <% } %>
          	</tbody>
          	
-         	<script>
-         		function deleteUser(userNo){
-         			$("#form1").attr("action","<%=request.getContextPath()%>/deleteuser?userNo="+userNo);
-         		}
-
-         	</script>
 
       </table>
-      </form>
+
       
    </div>
 
+         
   <%-- 페이징처리 --%>
-		<%-- <div class="pagingArea" align="center">
+		 <div class="pagingArea" align="center">
 		<ul class="pagination">
 			
 			
@@ -159,7 +181,7 @@ int endPage = pi.getEndPage();
 			<li><a href="<%=request.getContextPath()%>/selectList.bo?currentPage=<%=maxPage%>">▶▶</a></li>
 			<%} %>
 		</ul>
-		</div> --%>
+		</div>
 
 
 

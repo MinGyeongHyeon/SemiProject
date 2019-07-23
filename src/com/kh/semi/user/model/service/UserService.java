@@ -8,6 +8,7 @@ import static com.kh.semi.common.JDBCTemplate.rollback;
 import java.sql.Connection;
 import java.util.ArrayList;
 
+
 import com.kh.semi.user.controller.LoginServlet;
 import com.kh.semi.user.model.dao.UserDao;
 import com.kh.semi.user.model.vo.User;
@@ -74,11 +75,11 @@ public class UserService {
 
 	}
 
-	public ArrayList<User> selectList() {
+	public ArrayList<User> selectList(int currentPage, int limit) {
 
 		Connection con= getConnection();
 
-		ArrayList<User> list = new UserDao().selectList(con);
+		ArrayList<User> list = new UserDao().selectList(con, currentPage, limit);
 
 		close(con);
 
@@ -146,6 +147,16 @@ public User getUser(String userId) {
 
     return user;
  }
+
+public int getListCount() {
+	Connection con = getConnection();
+	
+	int listCount = new UserDao().getListCount(con);
+	
+	close(con);
+	
+	return listCount;
+}
 
 
 }
