@@ -72,6 +72,7 @@ int endPage = pi.getEndPage();
       <table class="table" style="text-align:center;">
          <thead >
          <tr>
+
             <th style="text-align:center;">회원번호</th>
             <th style="text-align:center;">아이디</th>
             <th style="text-align:center;">이름</th>
@@ -81,6 +82,7 @@ int endPage = pi.getEndPage();
             <th style="text-align:center;">연락처</th>
             <th style="text-align:center;">가입일자</th>
             <th style="text-align:center;">탈퇴</th>
+
          </tr>
          </thead>
         
