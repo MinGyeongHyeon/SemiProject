@@ -1,8 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="java.util.*"%>
-<%@ include file="../../common/top_Include.jsp"%>
+    pageEncoding="UTF-8" import="java.util.* , com.kh.semi.board.free.model.vo.*"%>
+<%@ include file="../../common/top_Include.jsp" %>
 <%
    ArrayList<User> list = (ArrayList<User>) request.getAttribute("list");
+PageInfo pi = (PageInfo) request.getAttribute("pi");
+int listCount = pi.getListCount();
+int currentPage = pi.getCurrentPage();
+int maxPage = pi.getMaxPage();
+int startPage = pi.getStartPage();
+int endPage = pi.getEndPage();
 %>
 
 
@@ -19,7 +25,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script>
 	function showUser(){
-		window.open("views/admin/1_admin/showUser.jsp","È¸¿øÁ¤º¸","width=500,height=500,left=100,top=50");
+		window.open("views/admin/1_admin/showUser.jsp","È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½","width=500,height=500,left=100,top=50");
 	}
 
 
@@ -63,18 +69,18 @@
    
    <div id="outer">
    	<form id="form1" action="<%= request.getContextPath() %>/deleteuser" method="post">
-      <table class="table">
-         <thead>
+      <table class="table" style="text-align:center;">
+         <thead >
          <tr>
-            <th>È¸¿ø¹øÈ£</th>
-            <th>¾ÆÀÌµğ</th>
-            <th>ÀÌ¸§</th>
-            <th>´Ğ³×ÀÓ</th>
-            <th>»ı³â¿ùÀÏ</th>
-            <th>¼ºº°</th>
-            <th>ÀÌ¸ŞÀÏ</th>
-            <th>HP</th>
-            <th>Å»Åğ</th>
+            <th style="text-align:center;">íšŒì›ë²ˆí˜¸</th>
+            <th style="text-align:center;">ì•„ì´ë””</th>
+            <th style="text-align:center;">ì´ë¦„</th>
+            <th style="text-align:center;">ë‹‰ë„¤ì„</th>
+            <th style="text-align:center;">ì„±ë³„</th>
+            <th style="text-align:center;">ì´ë©”ì¼</th>
+            <th style="text-align:center;">ì—°ë½ì²˜</th>
+            <th style="text-align:center;">ê°€ì…ì¼ì</th>
+            <th style="text-align:center;">íƒˆí‡´</th>
          </tr>
          </thead>
         
@@ -86,12 +92,12 @@
             <td><%=u.getUserId() %></td>
             <td onclick="showUser();" id="td1"><%=u.getUserNm() %></td>
             <td><%=u.getNickNm() %></td>
-            <td><%=u.getUserHb() %></td>
-            <td><%=u.getGender() %></td>
-            <td><%=u.getEmail() %></td>
+            <td><%=u.getGender()  %></td>
+            <td><%=u.getEmail()%></td>
             <td><%=u.getPhone() %></td>
+            <td><%=u.getEnrollDt() %></td>
          	<td>
-         	<button class="btn btn-default" id="btn1" onclick="deleteUser(<%=u.getUserNo() %>);">Å»Åğ</button>
+         	<button class="btn btn-default" id="btn1" onclick="deleteUser(<%=u.getUserNo() %>);">íƒˆí‡´</button>
          	</td>
          </tr>
          <% } %>
@@ -109,15 +115,51 @@
       
    </div>
 
-   <div id="order">
-   <ul class="pagination pagination-sm">
-     <li><a href="#">1</a></li>
-     <li><a href="#">2</a></li>
-    <li><a href="#">3</a></li>
-     <li><a href="#">4</a></li>
-    <li><a href="#">5</a></li>
-   </ul>
-   </div>
+  <%-- í˜ì´ì§•ì²˜ë¦¬ --%>
+		<%-- <div class="pagingArea" align="center">
+		<ul class="pagination">
+			
+			
+			<% if(currentPage != 1){ %>
+			<li><a href="<%=request.getContextPath()%>/selectList.bo?currentPage=1">â—€â—€</a></li>
+			
+			<% }%>
+			
+			
+			<% if(10 >= currentPage){ %>
+			
+			
+			<% }else if(currentPage%10 != 0){ %>
+			<li><a href="<%=request.getContextPath()%>/selectList.bo?currentPage=<%=(int)(Math.floor(currentPage/10))*10%>">â—€</a></li>
+			<%}else{ %>
+			<li><a href="<%=request.getContextPath()%>/selectList.bo?currentPage=<%=(int)(Math.floor((currentPage-1)/10))*10%>">â—€</a></li>
+			<%} %>
+			
+			<% for(int p = startPage; p <= endPage; p++){ 
+				if(currentPage == p){
+			%>
+					<li ><a style="background:rgb(240,240,240); font-weight:bold;" href="#" disabled><%= p %></a></li>
+					
+			<% } else { %>
+			<li><a href="<%=request.getContextPath()%>/selectList.bo?currentPage=<%=p%>" disabled><%= p %></a></li>
+				
+			<% 
+				}
+			   } 
+			%>
+			
+			<% if(currentPage >= maxPage){ %>
+			
+			<% }else if(Math.floor(maxPage/10)*10 >= currentPage){ %>
+			<li><a href="<%=request.getContextPath()%>/selectList.bo?currentPage=<%=(int)(Math.ceil(currentPage/10))*10+11%>">â–¶</a></li>
+			
+			<% }%>
+			
+			<% if(currentPage < maxPage){ %>
+			<li><a href="<%=request.getContextPath()%>/selectList.bo?currentPage=<%=maxPage%>">â–¶â–¶</a></li>
+			<%} %>
+		</ul>
+		</div> --%>
 
 
 
