@@ -11,7 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.kh.semi.board.free.model.service.UserBoardService;
-import com.kh.semi.board.free.model.vo.PageInfo;
+
+import com.kh.semi.board.free.model.vo.PageInfoFreeBoard;
 import com.kh.semi.board.free.model.vo.UserBoard;
 import com.kh.semi.user.model.vo.User;
 
@@ -75,7 +76,7 @@ public class MypageBorardServlet extends HttpServlet {
 					endPage = maxPage;
 				}
 				
-				PageInfo pi = new PageInfo(currentPage, listCount, limit, maxPage, startPage, endPage);
+				PageInfoFreeBoard pi = new PageInfoFreeBoard(currentPage, listCount, limit, maxPage, startPage, endPage);
 				
 				ArrayList<UserBoard> list = new UserBoardService().myselectList(currentPage, limit, loginUser.getUserNo());
 				

@@ -26,7 +26,10 @@ public class UserBoard implements java.io.Serializable{
 
 
 
+
 	public UserBoard() {}
+
+
 
 
 	public UserBoard(int bNo, String bKind, String bNm, Date bDate, String bCon, int inqCon, int recCon, int sGrade,
@@ -54,9 +57,13 @@ public class UserBoard implements java.io.Serializable{
 	}
 
 
+
+
 	public int getbNo() {
 		return bNo;
 	}
+
+
 
 
 	public void setbNo(int bNo) {
@@ -64,9 +71,13 @@ public class UserBoard implements java.io.Serializable{
 	}
 
 
+
+
 	public String getbKind() {
 		return bKind;
 	}
+
+
 
 
 	public void setbKind(String bKind) {
@@ -74,9 +85,13 @@ public class UserBoard implements java.io.Serializable{
 	}
 
 
+
+
 	public String getbNm() {
 		return bNm;
 	}
+
+
 
 
 	public void setbNm(String bNm) {
@@ -84,9 +99,13 @@ public class UserBoard implements java.io.Serializable{
 	}
 
 
+
+
 	public Date getbDate() {
 		return bDate;
 	}
+
+
 
 
 	public void setbDate(Date bDate) {
@@ -94,9 +113,13 @@ public class UserBoard implements java.io.Serializable{
 	}
 
 
+
+
 	public String getbCon() {
 		return bCon;
 	}
+
+
 
 
 	public void setbCon(String bCon) {
@@ -104,9 +127,13 @@ public class UserBoard implements java.io.Serializable{
 	}
 
 
+
+
 	public int getInqCon() {
 		return inqCon;
 	}
+
+
 
 
 	public void setInqCon(int inqCon) {
@@ -114,9 +141,13 @@ public class UserBoard implements java.io.Serializable{
 	}
 
 
+
+
 	public int getRecCon() {
 		return recCon;
 	}
+
+
 
 
 	public void setRecCon(int recCon) {
@@ -124,9 +155,13 @@ public class UserBoard implements java.io.Serializable{
 	}
 
 
+
+
 	public int getsGrade() {
 		return sGrade;
 	}
+
+
 
 
 	public void setsGrade(int sGrade) {
@@ -134,9 +169,13 @@ public class UserBoard implements java.io.Serializable{
 	}
 
 
+
+
 	public int getuNo() {
 		return uNo;
 	}
+
+
 
 
 	public void setuNo(int uNo) {
@@ -144,9 +183,13 @@ public class UserBoard implements java.io.Serializable{
 	}
 
 
+
+
 	public String getStatus() {
 		return status;
 	}
+
+
 
 
 	public void setStatus(String status) {
@@ -154,9 +197,13 @@ public class UserBoard implements java.io.Serializable{
 	}
 
 
+
+
 	public int getBoardNo() {
 		return boardNo;
 	}
+
+
 
 
 	public void setBoardNo(int boardNo) {
@@ -164,9 +211,13 @@ public class UserBoard implements java.io.Serializable{
 	}
 
 
+
+
 	public String getMissPlace() {
 		return missPlace;
 	}
+
+
 
 
 	public void setMissPlace(String missPlace) {
@@ -174,9 +225,13 @@ public class UserBoard implements java.io.Serializable{
 	}
 
 
+
+
 	public Date getMissDt() {
 		return missDt;
 	}
+
+
 
 
 	public void setMissDt(Date missDt) {
@@ -184,9 +239,13 @@ public class UserBoard implements java.io.Serializable{
 	}
 
 
+
+
 	public String getMissGender() {
 		return missGender;
 	}
+
+
 
 
 	public void setMissGender(String missGender) {
@@ -194,9 +253,13 @@ public class UserBoard implements java.io.Serializable{
 	}
 
 
+
+
 	public String getMissPhone() {
 		return missPhone;
 	}
+
+
 
 
 	public void setMissPhone(String missPhone) {
@@ -204,9 +267,13 @@ public class UserBoard implements java.io.Serializable{
 	}
 
 
+
+
 	public String getBoardDiv() {
 		return boardDiv;
 	}
+
+
 
 
 	public void setBoardDiv(String boardDiv) {
@@ -214,9 +281,13 @@ public class UserBoard implements java.io.Serializable{
 	}
 
 
+
+
 	public int getRewardPc() {
 		return rewardPc;
 	}
+
+
 
 
 	public void setRewardPc(int rewardPc) {
@@ -224,14 +295,20 @@ public class UserBoard implements java.io.Serializable{
 	}
 
 
+
+
 	public String getbUserNick() {
 		return bUserNick;
 	}
 
 
+
+
 	public void setbUserNick(String bUserNick) {
 		this.bUserNick = bUserNick;
 	}
+
+
 
 
 	@Override
@@ -245,6 +322,6 @@ public class UserBoard implements java.io.Serializable{
 
 
 
-
+	
 
 }
