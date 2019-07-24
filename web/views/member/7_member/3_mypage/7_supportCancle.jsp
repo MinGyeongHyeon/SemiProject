@@ -1,30 +1,27 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="../../../common/top_Include.jsp"%>
+<%
+	int monSupNo = Integer.parseInt((request.getParameter("monSupNo")));
+	System.out.println(monSupNo);
+%>
+
 <!DOCTYPE html>
 <html  lang="ko">
 <head>
 <meta charset="UTF-8">
 
 <link href="https://fonts.googleapis.com/css?family=Do+Hyeon&display=swap&subset=korean" rel="stylesheet">
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.2.js"></script>
 <title>후원취소</title>
-	<%@ include file="../../../common/inner_user_include.jsp" %>
+
 <style>
 
 	div{
 	font-family: 'Do Hyeon', sans-serif;
-	}
-
-	#div1{
-		margin:0 auto;
-	}
-
-	#div2{
-		margin:30px;
-	}
-	.text1{
-		width:300px;
 	}
 
 @import url('https://fonts.googleapis.com/css?family=Yeon+Sung&display=swap&subset=korean');
@@ -35,42 +32,50 @@
 <body>
 
 <div>
+	<table style="margin-left:auto; margin-right:auto; margin-top:30px; width:90%">
+		<tr>
+			<td style="font-size:2.8em; background:rgb(204, 230, 255); border:1px solid black" align="center">취소사유를 선택하여 주세요</td>
+		</tr>
+		<tr><td><br><br>	</td></tr>
+		<tr>
+			<td align="center">
+				<select style="width:80%; height:50px" name="cancleResult" id="selectCancle">
+					<option value="S1">금전적인 부담 때문에</option>
+					<option value="S2">해당 보호소에 대한 불만 때문에</option>
+					<option value="S3">타 사이트를 이용하기 위해</option>
+					<option value="S4">기타 사유</option>
+				</select>
+			</td>
+		</tr>
+		<tr><td><br><br></td></tr>
+		<tr>
+			<td align="center">
 
-<div id="div1">
-<input type="button" value="개인정보"> &nbsp;
-<input type="button" value="신청내역"> &nbsp;
-<input type="button" value="내 게시글"> &nbsp;
-<input type="button" value="후원내역"> &nbsp;
-
-
-<br>
-<br>
-
-<h2>취소사유를 선택해주세요</h2>
-
-<br>
-
-<input type="radio" name="후원취소" value="reason1">금전적 부담으로 인하여 <br><br>
-<input type="radio" name="후원취소" value="reason2">보호소에 대한 불만으로 인하여 <br><br>
-<input type="radio" name="후원취소" value="reason3">타 사이트 이용을 위해 <br><br>
-<input type="radio" name="후원취소" value="reason4">기타 &nbsp; <input type="text" class="text1" placeholder="내용을 입력해주세요"><br>
-
-
-
-
-
+				<button onclick="cancle(<%=monSupNo%>)" class="btn btn-default">취소 신청하기</button>
+			</td>
+		</tr>
+	</table>
 </div>
 
+<script type="text/javascript">
+	function cancle(monSupNo){
+		var monSupNo = monSupNo;
+		var selectCancle = $("#selectCancle").val();
+		console.log(monSupNo);
+		console.log(selectCancle);
+		$.ajax({
+			url:"/sixDestiny/canclesup.mon",
+			type:"post",
+			data:{monSupNo:monSupNo, selectCancle:selectCancle},
+			success:function(){
+				close();
+			},
+			error:function(){
 
-<div id="div2">
+			}
+		});
+	}
+</script>
 
-<input type="submit" value="취소신청">
-
-
-</div>
-
-</div>
-
-<%@ include file="../../../common/bottom_Include.jsp"%>
 </body>
 </html>

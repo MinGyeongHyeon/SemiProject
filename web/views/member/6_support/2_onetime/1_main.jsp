@@ -98,7 +98,7 @@
 
 		function changeView() {
 			if($('.yes').prop("checked")){
-				location.href="/sixDestiny/views/member/6_support/1_regural/2_application.jsp";
+				location.href="/sixDestiny/views/member/6_support/2_onetime/2_application.jsp";
 			}else{
 				alert("약관을 동의하셔야 후원신청이 가능합니다.")
 			}

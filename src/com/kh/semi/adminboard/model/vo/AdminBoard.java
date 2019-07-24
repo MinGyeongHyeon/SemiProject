@@ -14,17 +14,14 @@ public class AdminBoard {
 	private String status;
 	private String nickNm;
 	private int recCount;
+	private String sup_Mon;
 
 	public AdminBoard() {}
 
 
 
-
-
-
-
 	public AdminBoard(int adBoardNo, String title, String adBoardCon, Date writeDt, String boardDiv, String supKind,
-			int adNo, String status, String nickNm, int recCount) {
+			int adNo, String status, String nickNm, int recCount, String sup_Mon) {
 		super();
 		this.adBoardNo = adBoardNo;
 		this.title = title;
@@ -36,11 +33,20 @@ public class AdminBoard {
 		this.status = status;
 		this.nickNm = nickNm;
 		this.recCount = recCount;
+		this.sup_Mon = sup_Mon;
 	}
 
 
 
+	public String getSup_Mon() {
+		return sup_Mon;
+	}
 
+
+
+	public void setSup_Mon(String sup_Mon) {
+		this.sup_Mon = sup_Mon;
+	}
 
 
 
