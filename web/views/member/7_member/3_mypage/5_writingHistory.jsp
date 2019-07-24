@@ -3,7 +3,7 @@
 
 <%
 	ArrayList<UserBoard> list = (ArrayList<UserBoard>) request.getAttribute("list");
-	PageInfo pi = (PageInfo) request.getAttribute("pi");
+	PageInfoFreeBoard pi = (PageInfoFreeBoard) request.getAttribute("pi");
 	int listCount = pi.getListCount();
 	int currentPage = pi.getCurrentPage();
 	int maxPage = pi.getMaxPage();

@@ -1,31 +1,25 @@
 package com.kh.semi.board.free.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
 import com.kh.semi.board.free.model.service.UserBoardService;
-import com.kh.semi.board.free.model.vo.UserBoard;
-import com.kh.semi.board.free.model.vo.UserBoardAttachment;
 
 /**
- * Servlet implementation class SelectOneNoticeServlet
+ * Servlet implementation class DeleteUserBoardServlet
  */
-@WebServlet("/selectOne.bo")
-public class SelectOneBoardServlet extends HttpServlet {
+@WebServlet("/delete.ub")
+public class DeleteUserBoardServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SelectOneBoardServlet() {
+	public DeleteUserBoardServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,31 +28,17 @@ public class SelectOneBoardServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int num = Integer.parseInt(request.getParameter("num"));
-		
-		HashMap<String, Object> hmap = new UserBoardService().selectOne(num);
-		
-		UserBoard ub = (UserBoard) hmap.get("board");
-		ArrayList<UserBoardAttachment> fileList = 
-				(ArrayList<UserBoardAttachment>) hmap.get("attachment");
+		int nno = Integer.parseInt(request.getParameter("nno"));
+		System.out.println("삭제할 게시문 번호: "+nno);
+		int result = new UserBoardService().deleteUserBoard(nno);
 		
 		String page = "";
 		
-		if(hmap != null) {
-			page = "views/member/5_freeBoard/1_freeBoard/3_read.jsp";
-			request.setAttribute("ub", ub);
-			request.setAttribute("fileList", fileList);
+		if(result > 0) {
+			response.sendRedirect("/sixDestiny/selectList.bo");
 		}else {
-			page = "views/common/errorPage.jsp";
-			request.setAttribute("msg", "사진 게시판 상세보기 실패!");
+			request.getRequestDispatcher(page).forward(request, response);
 		}
-		
-		request.getRequestDispatcher(page).forward(request, response);
-
-		
-		
-		
-		
 	}
 
 	/**
@@ -70,15 +50,3 @@ public class SelectOneBoardServlet extends HttpServlet {
 	}
 
 }
-
-
-
-
-
-
-
-
-
-
-
-

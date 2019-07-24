@@ -1,7 +1,9 @@
 package com.kh.semi.board.free.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.HashMap;
 
 import javax.servlet.ServletException;
@@ -10,22 +12,26 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
 import com.kh.semi.board.free.model.service.UserBoardService;
 import com.kh.semi.board.free.model.vo.UserBoard;
 import com.kh.semi.board.free.model.vo.UserBoardAttachment;
+import com.kh.semi.common.MyFileRenamePolicy;
+import com.kh.semi.user.model.vo.User;
+import com.oreilly.servlet.MultipartRequest;
 
 /**
- * Servlet implementation class SelectOneNoticeServlet
+ * Servlet implementation class UpdateUserBoardServlet
  */
-@WebServlet("/selectOne.bo")
-public class SelectOneBoardServlet extends HttpServlet {
+@WebServlet("/update.ub")
+public class UpdateUserBoardServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SelectOneBoardServlet() {
+    public UpdateUserBoardServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,31 +40,30 @@ public class SelectOneBoardServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int num = Integer.parseInt(request.getParameter("num"));
+		String bNm = request.getParameter("bNm");
+		String bKind = request.getParameter("bKind");
+		String bCon = request.getParameter("bCon");
+		int bNo = Integer.parseInt(request.getParameter("bNo"));
+		System.out.println(bNm);
+		System.out.println(bKind);
+		System.out.println(bCon);
+		System.out.println(bNo);
+		UserBoard ub = new UserBoard();
+		ub.setbNm(bNm);
+		ub.setbCon(bCon);
+		ub.setbKind(bKind);
 		
-		HashMap<String, Object> hmap = new UserBoardService().selectOne(num);
-		
-		UserBoard ub = (UserBoard) hmap.get("board");
-		ArrayList<UserBoardAttachment> fileList = 
-				(ArrayList<UserBoardAttachment>) hmap.get("attachment");
+		int result = new UserBoardService().updateUserBoard(ub, bNo);
 		
 		String page = "";
 		
-		if(hmap != null) {
-			page = "views/member/5_freeBoard/1_freeBoard/3_read.jsp";
-			request.setAttribute("ub", ub);
-			request.setAttribute("fileList", fileList);
+		if(result > 0) {
+			response.sendRedirect("/sixDestiny/selectOne.bo?num=" + bNo);
 		}else {
 			page = "views/common/errorPage.jsp";
-			request.setAttribute("msg", "사진 게시판 상세보기 실패!");
+			request.setAttribute("msg", "공지사항 수정 실패!!");
+			request.getRequestDispatcher(page).forward(request, response);
 		}
-		
-		request.getRequestDispatcher(page).forward(request, response);
-
-		
-		
-		
-		
 	}
 
 	/**
@@ -70,15 +75,3 @@ public class SelectOneBoardServlet extends HttpServlet {
 	}
 
 }
-
-
-
-
-
-
-
-
-
-
-
-

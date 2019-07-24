@@ -52,6 +52,7 @@ public class SelectBoardListServlet extends HttpServlet {
 		}
 		
 		//한 페이지에 보여질 목록 갯수
+		
 		limit = 10;
 		
 		//전체 목록 갯수를 리턴받음
