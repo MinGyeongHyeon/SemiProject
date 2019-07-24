@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" import="java.util.*, com.kh.semi.support.money.model.vo.*, com.kh.semi.support.product.model.vo.*, com.kh.semi.adminboard.model.vo.*"%>
+	pageEncoding="UTF-8" import="java.util.*, com.kh.semi.support.money.model.vo.*, com.kh.semi.support.product.model.vo.*, com.kh.semi.adminboard.model.vo.PageInfo"%>
 <%@ include file="../../common/top_Include.jsp"%>
 <%
 	ArrayList<MoneySup> list = (ArrayList<MoneySup>) request.getAttribute("moneyList");
@@ -60,11 +60,13 @@
 			<td style="font-family: 'Sunflower', sans-serif;"><%= ms.getSupDt() %></td>
 			<td style="font-family: 'Sunflower', sans-serif;">
 				<% if(ms.getStatus().equals("S")){ %>
-					<button class="btn btn-default" style="font-family: 'Sunflower', sans-serif;" id="okApply" onclick="okApply(<%=ms.getSupAppNo()%>);">신청승인</button>
+					<button class="btn btn-default" style="font-family: 'Sunflower', sans-serif;" name="okApply" onclick="okApply(<%=ms.getSupAppNo()%>);">신청승인</button>
 				<% }else if(ms.getStatus().equals("T")){ %>
-					<button class="btn btn-default" style="font-family: 'Sunflower', sans-serif; background:white;" id="okMoney" onclick="okMoney(<%=ms.getSupAppNo()%>);">납입확인</button>
+					<button class="btn btn-default" style="font-family: 'Sunflower', sans-serif; background:white;" name="okMoney" onclick="okMoney(<%=ms.getSupAppNo()%>);">납입확인</button>
 				<% }else if(ms.getStatus().equals("N")){ %>
 					<p style="font-family: 'Sunflower', sans-serif;">입금대기</p>
+				<% }else if(ms.getStatus().equals("C")){ %>
+					<button class="btn btn-default" style="font-family: 'Sunflower', sans-serif; background:white;" name="okCancle" onclick="okCancle(<%=ms.getSupAppNo()%>);">취소처리</button>
 				<% }else{ %>
 					<p style="font-family: 'Sunflower', sans-serif;">후원완료</p>
 				<% } %>
@@ -139,7 +141,7 @@
 				<% if(ps.getStatus().equals("Y")){ %>
 					후원완료
 				<%}else{%>
-					<button class="btn btn-default" style="font-family: 'Sunflower', sans-serif; background:white;" id="confirmPost" onclick="confirmPost(<%= ps.getSupPdNo()%>)">인수확인</button>
+					<button class="btn btn-default" style="font-family: 'Sunflower', sans-serif; background:white;" name="confirmPost" onclick="confirmPost(<%= ps.getSupPdNo()%>)">인수확인</button>
 				<% } %>
 			</td>
 		</tr>
@@ -176,47 +178,62 @@
   </div>
   <script type="text/javascript">
   	$(function(){
-  		 setInterval(function()
+  		setInterval(function()
   			    {
-  			       $("#okMoney").each(function(){
+  			       $("button[name=okMoney]").each(function(){
   			    	  $(this).css("background", "rgb(204, 230, 255)");
   			       });
   			    },500);
 
   		 setInterval(function()
    			    {
-   			       $("#okMoney").each(function(){
+   			       $("button[name=okMoney]").each(function(){
    			    	  $(this).css("background", "white");
    			       });
    			    },1000);
 
   		setInterval(function()
   			    {
-  			       $("#okApply").each(function(){
+  			       $("button[name=okApply]").each(function(){
   			    	  $(this).css("background", "rgb(204, 230, 255)");
   			       });
   			    },500);
 
   		 setInterval(function()
    			    {
-   			       $("#okApply").each(function(){
+   			       $("button[name=okApply]").each(function(){
    			    	  $(this).css("background", "white");
    			       });
    			    },1000);
 
   		setInterval(function()
   			    {
-  			       $("#confirmPost").each(function(){
+  			       $("button[name=okCancle]").each(function(){
   			    	  $(this).css("background", "rgb(204, 230, 255)");
   			       });
   			    },500);
 
   		 setInterval(function()
    			    {
-   			       $("#confirmPost").each(function(){
+   			       $("button[name=okCancle]").each(function(){
    			    	  $(this).css("background", "white");
    			       });
    			    },1000);
+
+  		setInterval(function()
+  			    {
+  			       $("button[name=confirmPost]").each(function(){
+  			    	  $(this).css("background", "rgb(204, 230, 255)");
+  			       });
+  			    },500);
+
+  		 setInterval(function()
+   			    {
+   			       $("button[name=confirmPost]").each(function(){
+   			    	  $(this).css("background", "white");
+   			       });
+   			    },1000);
+
   	});
 
   	function okApply(monSupNo) {
@@ -269,6 +286,28 @@
 
 			$.ajax({
 				url:"/sixDestiny/confirmPost.pro",
+				type:"post",
+				data:{monSupNo:monSupNo},
+				success:function(data){
+					location.href="/sixDestiny/selectAllUser.su";
+					console.log("성공성공!")
+				},
+				error:function(){
+
+				}
+			});
+
+		}else{
+			return;
+		}
+	}
+
+  	function okCancle(monSupNo) {
+		if(confirm("정기후원 취소 처리 하시겠습니까?")){
+			var monSupNo = monSupNo;
+
+			$.ajax({
+				url:"/sixDestiny/okCancle.pro",
 				type:"post",
 				data:{monSupNo:monSupNo},
 				success:function(data){

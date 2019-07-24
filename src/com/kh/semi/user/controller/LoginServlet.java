@@ -26,13 +26,35 @@ public class LoginServlet extends HttpServlet {
 
 		String userId = request.getParameter("userId");
 		String password = request.getParameter("password");
+		System.out.println("암호화된 비밀번호 : " + password);
+		String rememberPwd = request.getParameter("rememberPwd");
+		System.out.println("저장할꺼냐 ? " + rememberPwd);
+		UserService ms = new UserService();
+		User reqUser = null;
 
-		User reqUser = new User();
+		String rememberPwd2 = null;
+		if(rememberPwd != null) {
+			rememberPwd2 = "Y";
+		}else {
+			rememberPwd2 = "N";
+		}
+
+		String password2 = null;
+		if(password.equals("wMHy3HmpLgeclDqrR+1FulITJrUeU4FlK2gfYrZuM0/y0TmEKQyzewJBixsZhV/MOjK5IXQS8hAACgC9VBEd/w==")) {
+			User passUser = ms.passLoginUser(userId);
+			System.out.println("아이디는뭐? " + userId);
+			System.out.println("여기?");
+			password2 = passUser.getUserPwd();
+		}else {
+			password2 = password;
+		}
+		System.out.println("최종 비밀번호 : " + password2);
+		reqUser = new User();
 		reqUser.setUserId(userId);
-		reqUser.setUserPwd(password);
+		reqUser.setUserPwd(password2);
+		reqUser.setPwdHis(rememberPwd2);
 
 		System.out.println("입력값 : " + reqUser);
-		UserService ms = new UserService();
 		User loginUser = ms.loginCheck(reqUser);
 
 		System.out.println(loginUser);

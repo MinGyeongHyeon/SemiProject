@@ -19,8 +19,19 @@ public class UserService {
 		Connection con = getConnection();
 		int result = 0;
 		User loginUser = new User();
-
 		UserDao md = new UserDao();
+
+		if(reqUser.getPwdHis().equals("Y")) {
+			int remember = md.rememberPwd(con, reqUser);
+			if(remember > 0) {
+				commit(con);
+			}else {
+				rollback(con);
+			}
+		}else {
+
+		}
+
 		result = md.checkStatus(con, reqUser);
 		System.out.println("결과숫자 : " + result);
 
@@ -150,12 +161,53 @@ public User getUser(String userId) {
 
 public int getListCount() {
 	Connection con = getConnection();
-	
+
 	int listCount = new UserDao().getListCount(con);
-	
+
 	close(con);
-	
+
 	return listCount;
+}
+
+public User rememberPwd(String userId) {
+	Connection con = getConnection();
+
+	User u = new UserDao().rememberPwd2(con, userId);
+
+	close(con);
+
+	return u;
+
+}
+
+public User passLoginUser(String userId) {
+	Connection con = getConnection();
+
+	User u = new UserDao().passLoginUser(con, userId);
+
+	close(con);
+
+	return u;
+}
+
+public int idCheck(String userId) {
+	Connection con = getConnection();
+
+	int result = new UserDao().idCheck(con, userId);
+
+	close(con);
+
+	return result;
+}
+
+public int NickCheck(String nickNm) {
+	Connection con = getConnection();
+
+	int result = new UserDao().NickCheck(con, nickNm);
+
+	close(con);
+
+	return result;
 }
 
 

@@ -170,4 +170,70 @@ public class MoneySupDao {
 		return result;
 	}
 
+	public int cancleSupportMoney(Connection con, int monSupNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+
+		String query = prop.getProperty("cancleSupportMoney");
+
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, monSupNo);
+
+			result = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+		return result;
+	}
+
+	public int okCancleSupport(Connection con, int monSupNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+
+		String query = prop.getProperty("okCancleSupport");
+
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, monSupNo);
+
+			result = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+		return result;
+	}
+
+	public int insertMoney(Connection con, int monSupNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+
+		String query = prop.getProperty("insertMoney");
+
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, monSupNo);
+
+			result = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+		return result;
+	}
+
 }

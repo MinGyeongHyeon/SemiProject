@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" import="java.util.*, com.kh.semi.support.money.model.vo.*, com.kh.semi.support.product.model.vo.*, com.kh.semi.adminboard.model.vo.*"%>
+	pageEncoding="UTF-8" import="java.util.*, com.kh.semi.support.money.model.vo.*, com.kh.semi.support.product.model.vo.*, com.kh.semi.adminboard.model.vo.PageInfo"%>
 <%@ include file="../../../common/top_Include.jsp"%>
 <%
 	ArrayList<MoneySup> list = (ArrayList<MoneySup>) request.getAttribute("moneyList");
@@ -27,6 +27,7 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.2.js"></script>
 <style>
 
 </style>
@@ -57,10 +58,16 @@
 					<button class="btn btn-default" style="font-family: 'Sunflower', sans-serif;" onclick="cancleSupport(<%= ms.getSupAppNo()%>);">후원취소</button>
 				<% }else if(ms.getStatus().equals("S")){ %>
 					<p style="font-family: 'Sunflower', sans-serif;">신청대기</p>
-				<% }else if(ms.getStatus().equals("N")){ %>
-					<button class="btn btn-default" style="font-family: 'Sunflower', sans-serif; background:white;" id="insertMoney" onclick="goMoney(<%= ms.getSupAppNo()%>);">납입하기</button>
+				<% }else if(!ms.getSupKind().equals("정기") && ms.getStatus().equals("N")){ %>
+					<button class="btn btn-default" style="font-family: 'Sunflower', sans-serif; background:white;" name="insertMoney" onclick="goMoney(<%= ms.getSupAppNo()%>);">납입하기</button>
 				<% }else if(ms.getStatus().equals("T")){ %>
 					<p style="font-family: 'Sunflower', sans-serif;">납입대기</p>
+				<% }else if(ms.getSupKind().equals("정기") && ms.getStatus().equals("N")){ %>
+					<button class="btn btn-default" style="font-family: 'Sunflower', sans-serif; background:white;" name="insertMoney" onclick="goRegMoney(<%= ms.getSupAppNo()%>);">납입하기</button>
+				<% }else if(ms.getStatus().equals("C")){ %>
+					<p style="font-family: 'Sunflower', sans-serif;">취소대기</p>
+				<% }else if(ms.getStatus().equals("E")){ %>
+					<p style="font-family: 'Sunflower', sans-serif;">취소완료</p>
 				<% }else{ %>
 					<p style="font-family: 'Sunflower', sans-serif;">후원완료</p>
 				<% } %>
@@ -168,12 +175,16 @@
   	$(function(){
   		 setInterval(function()
   			    {
-  			       $("#insertMoney").css("background", "rgb(204, 230, 255)");
+  			       $("button[name=insertMoney]").each(function(){
+  			    	  $(this).css("background", "rgb(204, 230, 255)");
+  			       });
   			    },500);
 
   		 setInterval(function()
    			    {
-   			       $("#insertMoney").css("background", "white");
+  					$("button[name=insertMoney]").each(function(){
+		    	  		$(this).css("background", "white");
+		       		});
    			    },1000);
   	});
 
@@ -182,11 +193,11 @@
 			var monSupNo = monSupNo;
 
 			$.ajax({
-				url:"/sixDestiny/okApply.mon",
+				url:"/sixDestiny/canclesup.mon",
 				type:"post",
 				data:{monSupNo:monSupNo},
 				success:function(data){
-					location.href="/sixDestiny/selectAllUser.su";
+					location.href="/sixDestiny/mySupport.su";
 					console.log("성공성공!")
 				},
 				error:function(){
@@ -198,7 +209,45 @@
 			return;
 		}
 	}
+
+  	function goMoney(monSupNo){
+  		var monSupNo = monSupNo;
+  		var IMP = window.IMP;
+  		IMP.init('imp83833982');
+  		IMP.request_pay({
+  		    pg : 'danal_tpay', //아임포트 관리자에서 danal_tpay를 기본PG로 설정하신 경우는 생략 가능
+  		    pay_method : 'card', //card(신용카드), trans(실시간계좌이체), vbank(가상계좌), phone(휴대폰소액결제)
+  		    merchant_uid : 'merchant_' + new Date().getTime(), //상점에서 관리하시는 고유 주문번호를 전달
+  		    name : '주문명:결제테스트',
+  		    amount : 100,
+  		    buyer_email : 'iamport@siot.do',
+  		    buyer_name : '구매자이름',
+  		    buyer_tel : '010-1234-5678', //누락되면 카드사 인증에 실패할 수 있으니 기입해주세요
+  		    buyer_addr : '서울특별시 강남구 삼성동',
+  		    buyer_postcode : '123-456',
+  		    m_redirect_url : 'http://localhost:8002/sixDestiny/'
+  		}, function (rsp) { // callback
+            if (rsp.success) {
+
+    			$.ajax({
+    				url:"/sixDestiny/insertmoney.mo",
+    				type:"post",
+    				data:{monSupNo:monSupNo},
+    				success:function(data){
+    					location.href="/sixDestiny/mySupport.su";
+    					console.log("성공성공!")
+    				},
+    				error:function(){
+
+    				}
+    			});
+            } else {
+
+            }
+        });
+  	}
   </script>
+
 	<%@ include file="../../../common/bottom_Include.jsp"%>
 </body>
 </html>
