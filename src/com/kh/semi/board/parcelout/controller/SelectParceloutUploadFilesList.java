@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
 import com.kh.semi.board.parcelout.model.service.UserBoardService;
 import com.kh.semi.board.parcelout.model.vo.PageInfo;
 
@@ -22,6 +23,10 @@ public class SelectParceloutUploadFilesList extends HttpServlet {
 
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String ajax = request.getParameter("ajax");
+
+		System.out.println("에이작스 실행시 값 : " + ajax);
+
 		int currentPage;
 		int limit;
 		int maxPage;
@@ -75,6 +80,8 @@ public class SelectParceloutUploadFilesList extends HttpServlet {
 			String page = "";
 			String page2 = "";
 
+
+			if(ajax == null) {
 			if(filelist != null) {
 
 				page = "views/member/3_parcelout/2_reviewParcelout/1_main.jsp";
@@ -89,6 +96,11 @@ public class SelectParceloutUploadFilesList extends HttpServlet {
 
 			}
 			request.getRequestDispatcher(page).forward(request, response);
+			}else {
+				response.setContentType("application/json");
+				response.setCharacterEncoding("UTF-8");
+				new Gson().toJson(filelist,response.getWriter());
+			}
 
 
 	}

@@ -21,14 +21,13 @@ public class InsertParcelout extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-			String applic = request.getParameter("applic1");
+			String applic1 = request.getParameter("applic1");
 			String applic2 = request.getParameter("applic2");
 			String applic3 = request.getParameter("applic3");
 			String applic4 = request.getParameter("applic4");
 			String applic5 = request.getParameter("applic5");
 			String applic6 = request.getParameter("applic6");
-			String drop = request.getParameter("drop");
-			String answer = request.getParameter("answer");
+			String applic7 = request.getParameter("applic7");
 			String applic8 = request.getParameter("applic8");
 			String applic9 = request.getParameter("applic9");
 			String applic10 = request.getParameter("applic10");
@@ -40,34 +39,52 @@ public class InsertParcelout extends HttpServlet {
 			String applic16 = request.getParameter("applic16");
 			String applic17 = request.getParameter("applic17");
 			String applic18 = request.getParameter("applic18");
+			String applic19 = request.getParameter("applic19");
+			String applic20 = request.getParameter("applic20");
+
+			String applic66 = applic5 + "," + applic6;
+
 			int userNo = Integer.parseInt(request.getParameter("userNo"));
 
 			User us = new User();
 
 			us.setUserNo(userNo);
 
-			ArrayList<Application> list = new ArrayList<Application>();
-
-			Application ap = null;
-			for(int i = 0; i <= 18; i++) {
-				ap = new Application();
-
-				ap.setApplication(applic +"" + i);
-
-				list.add(ap);
-
-			}
+			ArrayList<String> list = new ArrayList<String>();
 
 
 
+				list.add(applic1);
+				list.add(applic2);
+				list.add(applic3);
+				list.add(applic4);
+				list.add(applic5);
 
-			int result = new ParcelOutService().insertApplication(ap,us);
 
-			String page = "views/member/3_parcelout/2_reviewParcelout/1_main.jsp";
-			if(result > 0) {
-				request.setAttribute("n", "성공");
-				request.getRequestDispatcher(page).forward(request, response);
-			}
+				list.add(applic66);
+
+
+				list.add(applic7);
+				list.add(applic8);
+				list.add(applic9);
+				list.add(applic10);
+				list.add(applic11);
+				list.add(applic12);
+				list.add(applic13);
+				list.add(applic14);
+				list.add(applic15);
+				list.add(applic16);
+				list.add(applic17);
+				list.add(applic18);
+				list.add(applic19);
+				list.add(applic20);
+
+
+
+
+
+
+			int result = new ParcelOutService().insertApplication(list,us);
 
 
 

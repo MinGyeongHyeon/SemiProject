@@ -94,35 +94,35 @@ p {
 					</td>
 				</tr>
 				<tr class="entancetr">
-					<td class="entancetd"><input type="radio" name="drop" value="Y" ><label>예</label>
-						<input type="text" name="answer" size="20" > <input
-						type="radio" name="drop" value="N" ><label>아니요</label></td>
+					<td class="entancetd"><input type="radio" name="applic5" value="Y" ><label>예</label>
+						<input type="text" name="applic6" size="20" id="test" > <input
+						type="radio" name="applic5" value="N" ><label>아니요</label></td>
 				</tr>
 				<tr class="entancetr">
 					<td class="entancetd"><p>6. 입양결정에 가족 모두가 동의 하십니까?</p>
 					</td>
 				</tr>
 				<tr class="entancetr">
-					<td class="entancetd"><input type="radio" value="1" name="applic5">동의 <input
-						type="radio" value="2" name="applic5">일부동의 <input
-						type="radio" value="3" name="applic5">반대</td>
+					<td class="entancetd"><input type="radio" value="1" name="applic7">동의 <input
+						type="radio" value="2" name="applic7">일부동의 <input
+						type="radio" value="3" name="applic7">반대</td>
 				</tr>
 				<tr class="entancetr">
 					<td class="entancetd"><p>7. 주거형태는 어떻게 되나요?</p>
 					</td>
 				</tr>
 				<tr class="entancetr">
-					<td class="entancetd"><input type="radio" value="1" name="applic6">단독주택 <input
-						type="radio"  value="2" name="applic6">공동주택 <input
-						type="radio"  value="3" name="applic6">아파트</td>
+					<td class="entancetd"><input type="radio" value="1" name="applic8">단독주택 <input
+						type="radio"  value="2" name="applic8">공동주택 <input
+						type="radio"  value="3" name="applic8">아파트</td>
 				</tr>
 				<tr class="entancetr">
 					<td class="entancetd"><p>8. 임대주택의 경우 집주인의 동의를 얻으셨나요?</p>
 					</td>
 				</tr>
 				<tr class="entancetr">
-					<td class="entancetd"><input type="radio" value="1" name="applic7">예 <input
-						type="radio"  value="2" name="applic7">아니요</td>
+					<td class="entancetd"><input type="radio" value="1" name="applic9">예 <input
+						type="radio"  value="2" name="applic9">아니요</td>
 				</tr>
 				<tr class="entancetr">
 					<td class="entancetd"><p>9. 소음이나 위생 등으로 인한 이웃과의 마찰로 입양동물의 양육이 불가능해질 경우 어떻게
@@ -130,14 +130,14 @@ p {
 					</td>
 				</tr>
 				<tr class="entancetr">
-					<td class="entancetd"><input type="text" id="q9" size="70" name="applic8"></td>
+					<td class="entancetd"><input type="text" id="q9" size="70" name="applic10"></td>
 				</tr>
 				<tr class="entancetr">
 					<td class="entancetd"><p>10. 이사 또는 해외로 이주 시 반려동물의 거취문제에 대해 어떻게 생각하십니까?</p>
 					</td>
 				</tr>
 				<tr class="entancetr">
-					<td class="entancetd"><input type="text" id="q10" size="70" name="applic9"></td>
+					<td class="entancetd"><input type="text" id="q10" size="70" name="applic11"></td>
 				</tr>
 				<tr class="entancetr">
 					<td class="entancetd"><p>11. 앞으로 결혼, 임신, 출산 등 가족의 변화가 있는 경우 반려동물의 거취문제에 대해
@@ -145,7 +145,7 @@ p {
 					</td>
 				</tr>
 				<tr class="entancetr">
-					<td class="entancetd"><input type="text" id="q11" size="70" name="applic10"></td>
+					<td class="entancetd"><input type="text" id="q11" size="70" name="applic12"></td>
 				</tr>
 
 
@@ -156,7 +156,7 @@ p {
 					</td>
 				</tr>
 				<tr class="entancetr">
-					<td class="entancetd"><input type="radio"  value="1" name="applic11">예 <input
+					<td class="entancetd"><input type="radio"  value="1" name="applic13">예 <input
 						type="radio"  value="2" name="applic11">아니요</td>
 				</tr>
 				<tr class="entancetr">
@@ -165,14 +165,14 @@ p {
 					</td>
 				</tr>
 				<tr class="entancetr">
-					<td class="entancetd"><input type="text" id="q13" size="70" name="applic12"></td>
+					<td class="entancetd"><input type="text" id="q13" size="70" name="applic14"></td>
 				</tr>
 				<tr class="entancetr">
 					<td class="entancetd"><p>14. 길고양이에게 밥을 주신 적이 있으신가요? 유기동물 구조 경험이 있으신가요?</p>
 					</td>
 				</tr>
 				<tr class="entancetr">
-					<td class="entancetd"><input type="radio"value="1" name="applic13">예 <input
+					<td class="entancetd"><input type="radio"value="1" name="applic15">예 <input
 						type="radio" value="2" name="applic13">아니요</td>
 				</tr>
 				<tr class="entancetr">
@@ -180,17 +180,17 @@ p {
 					</td>
 				</tr>
 				<tr class="entancetr">
-					<td class="entancetd"><input type="radio"  value="1" name="applic14">예 <input
-						type="radio" value="2" name="applic14">아니요</td>
+					<td class="entancetd"><input type="radio"  value="1" name="applic16">예 <input
+						type="radio" value="2" name="applic16">아니요</td>
 				</tr>
 				<tr class="entancetr">
 					<td class="entancetd"><p>16. 분양받은 반려견들에게 자신의 생활비 제외하고 양육비를 얼마정도 예상하시나요?</p>
 					</td>
 				</tr>
 				<tr class="entancetr">
-					<td class="entancetd"><input type="radio"  value="1" name="applic15">0 ~
-						50,000 미만 <input type="radio"  value="2" name="applic15">50,000
-						~ 100,000 미만 <input type="radio"  value="3" name="applic15">
+					<td class="entancetd"><input type="radio"  value="1" name="applic17">0 ~
+						50,000 미만 <input type="radio"  value="2" name="applic17">50,000
+						~ 100,000 미만 <input type="radio"  value="3" name="applic17">
 						100,000 이상</td>
 				</tr>
 				<tr class="entancetr">
@@ -198,9 +198,9 @@ p {
 					</td>
 				</tr>
 				<tr class="entancetr">
-					<td class="entancetd"><input type="radio"  value="1" name="applic16">0 ~
-						50,000 미만 <input type="radio" value="2" name="applic16">50,000
-						~ 100,000 미만 <input type="radio" value="3" name="applic16">
+					<td class="entancetd"><input type="radio"  value="1" name="applic18">0 ~
+						50,000 미만 <input type="radio" value="2" name="applic18">50,000
+						~ 100,000 미만 <input type="radio" value="3" name="applic18">
 						100,000 이상</td>
 				</tr>
 				<tr class="entancetr">
@@ -208,16 +208,16 @@ p {
 					</td>
 				</tr>
 				<tr class="entancetr">
-					<td class="entancetd"><input type="radio"  value="1" name="applic17">예 <input
-						type="radio" value="2" name="applic17">아니요</td>
+					<td class="entancetd"><input type="radio"  value="1" name="applic19">예 <input
+						type="radio" value="2" name="applic19">아니요</td>
 				</tr>
 				<tr class="entancetr">
 					<td class="entancetd"><p>19. 동물보호법(www.law.go.kr/법령/동물보호법)에 대하여 동의하시나요?</p>
 					</td>
 				</tr>
 				<tr class="entancetr">
-					<td class="entancetd"><input type="radio" value="1" name="applic18">예 <input
-						type="radio" value="2" name="applic18">아니요</td>
+					<td class="entancetd"><input type="radio" value="1" name="applic20">예 <input
+						type="radio" value="2" name="applic20">아니요</td>
 				</tr>
 
 				<tr >
@@ -242,14 +242,15 @@ p {
 		$(document).ready(function() {
 
 			// 라디오버튼 클릭시 이벤트 발생
-			$("input:radio[name=drop]").click(function() {
+			$("input:radio[name=applic5]").click(function() {
 						console.log("들어오냐");
-				if ($("input[name=drop]:checked").val() == "Y") {
+						console.log($('#test').val())
+				if ($("input:radio[name=applic5]:checked").val() == "Y") {
 
-					$("input:text[name=answer]").attr("disabled", false);
+					$("input:text[name=applic6]").attr("disabled", false);
 
-				} else if ($("input[name=drop]:checked").val() == "N") {
-					$("input:text[name=answer]").attr("disabled", true);
+				} else if ($("input[name=applic5]:checked").val() == "N") {
+					$("input:text[name=applic6]").attr("disabled", true);
 
 				}
 			});

@@ -111,7 +111,8 @@ public class UserBoardDao {
 			pstmt.setString(1, "분양후기");
 			pstmt.setString(2, b.getbNm());
 			pstmt.setString(3, b.getbCon());
-			pstmt.setInt(4, b.getuNo());
+			pstmt.setInt(4, b.getStarRev());
+			pstmt.setInt(5, b.getuNo());
 
 			result = pstmt.executeUpdate();
 
@@ -520,10 +521,10 @@ public class UserBoardDao {
 		 	ResultSet rset = null;
 		 	ArrayList<HashMap<String,Object>> list = null ;
 		 	HashMap<String,Object> hmap = null;
-
+		 	String test = "";
 		 	String query = "";
 
-		 	if(outselect.equals("USER_NM")) {
+		 	if(outselect.equals("NICK_NM")) {
 
 		 		query = prop.getProperty("outselectConUno");
 		 	}else {
@@ -533,7 +534,7 @@ public class UserBoardDao {
 
 		 	try {
 				pstmt = con.prepareStatement(query);
-
+				System.out.println("스테이트먼트 들어가기전에 넌 무슨값이냐 : " +selectinput);
 
 				pstmt.setString(1, selectinput);
 
@@ -556,6 +557,7 @@ public class UserBoardDao {
 					hmap.put("nickNm", rset.getString("NICK_NM"));
 					hmap.put("filePath", rset.getString("FILE_PATH"));
 					hmap.put("changeNm", rset.getString("CHANGE_NM"));
+					test = rset.getString("NICK_NM");
 
 					list.add(hmap);
 
@@ -572,9 +574,67 @@ public class UserBoardDao {
 				close(rset);
 			}
 
-
+		 	System.out.println("넘기기전에 test 값 :" + test);
 
 		return list;
+	}
+
+
+	public ArrayList<HashMap<String, Object>> selectOutList3(Connection con, int currentPage, int limit) {
+
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<HashMap<String,Object>> list = null;
+		HashMap<String,Object> hmap = null;
+
+		String query = prop.getProperty("selectoutlist4");
+
+		int startRow = (currentPage - 1) * limit + 1;
+		int endRow = startRow + limit - 1;
+
+		try {
+			pstmt = con.prepareStatement(query);
+
+			pstmt.setString(1, "분양후기");
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+
+
+			rset = pstmt.executeQuery();
+
+			list = new ArrayList<HashMap<String,Object>>();
+
+			while(rset.next()) {
+				hmap = new HashMap<String,Object>();
+
+				hmap.put("boardNo", rset.getInt("BOARD_NO"));
+				hmap.put("boardKind", rset.getString("BOARD_KIND"));
+				hmap.put("boardNm", rset.getString("BOARD_NM"));
+				hmap.put("boardDt", rset.getDate("BOARD_DT"));
+				hmap.put("boardCon", rset.getString("BOARD_CON"));
+				hmap.put("inqCount", rset.getInt("INQ_COUNT"));
+				hmap.put("recCount", rset.getInt("REC_COUNT"));
+				hmap.put("nickNm", rset.getString("NICK_NM"));
+				hmap.put("filePath", rset.getString("FILE_PATH"));
+				hmap.put("changeNm", rset.getString("CHANGE_NM"));
+
+				list.add(hmap);
+
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+
+		}
+
+
+	return list;
+
+
+
 	}
 
 }

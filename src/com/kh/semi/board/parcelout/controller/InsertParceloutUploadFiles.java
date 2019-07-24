@@ -74,6 +74,10 @@ public class InsertParceloutUploadFiles extends HttpServlet {
 
          String multiTitle = multiRequest.getParameter("title");
          String multiContent = multiRequest.getParameter("content");
+         int starRev = Integer.parseInt(multiRequest.getParameter("starRev")) ;
+
+         System.out.println("별점이 몇점 나오냐  ? : " + starRev);
+
          int uno = ((User) (request.getSession().getAttribute("loginUser"))).getUserNo();
 
 
@@ -82,6 +86,7 @@ public class InsertParceloutUploadFiles extends HttpServlet {
          b.setbNm(multiTitle);;
          b.setbCon(multiContent);
          b.setuNo(uno);
+         b.setStarRev(starRev);
 
 
          ArrayList<Attachment> fileList = new ArrayList<Attachment>();
