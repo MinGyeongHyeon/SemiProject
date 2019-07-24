@@ -19,10 +19,11 @@ public class CancleSupportServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int monSupNo = Integer.parseInt(request.getParameter("monSupNo"));
+		String selectCancle = request.getParameter("selectCancle");
 
 		System.out.println("악!" + monSupNo);
 
-		int result = new MoneySupService().cancleSupportMoney(monSupNo);
+		int result = new MoneySupService().cancleSupportMoney(monSupNo, selectCancle);
 
 		if(result > 0) {
 			System.out.println("서블릿 성공!");

@@ -14,10 +14,17 @@
 
 </head>
 <body>
+
 	<div style="height:650px; text-align:center;">
 
 	<h1>후원내역보기</h1>
-
+	<% if(loginUser != null && loginUser.getUserId().equals("admin")){ %>
+				<table>
+						<tr>
+							<td><button class="btn btn-default" onclick="location.href='/sixDestiny/views/member/6_support/4_history/2_write.jsp'">글작성</button></td>
+						</tr>
+				</table>
+	<% } %>
 	<table>
 		<tr>
 			<td style=" padding-left:200px; width:1000px; text-align:left;"><a href="#" style="text-decoration:none;  color:red; font-size:1.2em;">◀ </a>7월 사용내역<a href="#" style="text-decoration:none; color:red; font-size:1.2em;"> ▶</a></td>

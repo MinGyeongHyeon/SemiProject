@@ -435,6 +435,137 @@ Connection con = getConnection();
 	}
 
 
+	public int MissinggetListCount7(String val) {
+	Connection con = getConnection();
+		
+		int listCount = new MissingDao().MissinggetListCount7(con,val);
+		
+		close(con);
+		
+		return listCount;
+	}
+
+
+	public ArrayList<HashMap<String, Object>> MissngselectList7(int currentPage, int limit, String val) {
+		Connection con = getConnection();
+
+		ArrayList<HashMap<String,Object>> list = new MissingDao().MissingselectOutList7(con,currentPage,limit,val);
+
+
+		close(con);
+
+		return list;
+	}
+
+
+	public int MissinggetListCount8(String val) {
+Connection con = getConnection();
+		
+		int listCount = new MissingDao().MissinggetListCount8(con,val);
+		
+		close(con);
+		
+		return listCount;
+	}
+
+
+	public ArrayList<HashMap<String, Object>> MissngselectList8(int currentPage, int limit, String val) {
+		Connection con = getConnection();
+
+		ArrayList<HashMap<String,Object>> list = new MissingDao().MissingselectOutList8(con,currentPage,limit,val);
+
+
+		close(con);
+
+		return list;
+	}
+
+
+	public ArrayList<HashMap<String, Object>> MissngselectList9(int currentPage, int limit) {
+		Connection con = getConnection();
+
+		ArrayList<HashMap<String,Object>> list = new MissingDao().MissingselectOutList9(con,currentPage,limit);
+
+
+		close(con);
+
+		return list;
+	}
+
+
+	public int MissinggetListCount9(String val) {
+	Connection con = getConnection();
+		
+		int listCount = new MissingDao().MissinggetListCount9(con,val);
+		
+		close(con);
+		
+		return listCount;
+	}
+
+
+	public ArrayList<HashMap<String, Object>> MissngselectList9(int currentPage, int limit, String val) {
+		Connection con = getConnection();
+
+		ArrayList<HashMap<String,Object>> list = new MissingDao().MissingselectOutList9(con,currentPage,limit,val);
+
+
+		close(con);
+
+		return list;
+	}
+
+
+	public int MissinggetListCount11(String val) {
+Connection con = getConnection();
+		
+		int listCount = new MissingDao().MissinggetListCount11(con,val);
+		
+		close(con);
+		
+		return listCount;
+	}
+
+
+	public ArrayList<HashMap<String, Object>> MissngselectList11(int currentPage, int limit, String val) {
+		Connection con = getConnection();
+
+		ArrayList<HashMap<String,Object>> list = new MissingDao().MissingselectOutList11(con,currentPage,limit,val);
+
+
+		close(con);
+
+		return list;
+	}
+
+/*
+	public ArrayList<HashMap<String, Object>> MissngselectList12(int currentPage, int limit) {
+		Connection con = getConnection();
+
+		ArrayList<HashMap<String,Object>> list = new MissingDao().MissingselectOutList12(con,currentPage,limit);
+
+
+		close(con);
+
+		return list;
+	}
+*/
+
+	public ArrayList<HashMap<String, Object>> MissngselectList17(int currentPage, int limit) {
+		Connection con = getConnection();
+
+		ArrayList<HashMap<String,Object>> list = new MissingDao().MissingselectOutList17(con,currentPage,limit);
+
+
+		close(con);
+
+		return list;
+	}
+
+
+
+
+
 
 	
 

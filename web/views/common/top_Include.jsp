@@ -261,7 +261,7 @@ td#log {
 											location.href='/sixDestiny/views/member/6_support/3_product/1_main.jsp'
 										<% } %>
 										">물품후원</a></li>
-				<li class="list"><a href="/sixDestiny/views/member/6_support/4_history/1_main.jsp">후원내역</a></li>
+				<li class="list"><a href="/sixDestiny/selectSup.his">후원내역</a></li>
 			</ul></li>
 	</div>
 	<div style="height: 150px"></div>

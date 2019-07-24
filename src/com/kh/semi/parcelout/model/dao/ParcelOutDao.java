@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Properties;
 
 import com.kh.semi.parcelout.model.vo.Application;
@@ -66,14 +67,15 @@ public class ParcelOutDao {
 	}
 
 
-	public int insertApplication2(Connection con, Application ap) {
+	public int insertApplication2(Connection con, ArrayList<String> list) {
 			PreparedStatement pstmt = null;
 			int result = 0;
 
 
 			try {
 				String test = "";
-				for(int i = 1; i <= 19 ; i++) {
+				for(int i = 1; i <= list.size(); i++) {
+
 					String query = prop.getProperty("insertApplication2");
 					pstmt = con.prepareStatement(query);
 					pstmt.setInt(1 , i);
@@ -87,7 +89,7 @@ public class ParcelOutDao {
 						test = "선택";
 						pstmt.setString(2, test);
 					}
-					pstmt.setString(3, ap.getApplication1());
+					pstmt.setString(3, list.get((i-1)));
 					pstmt.setString(4, "Q"+i);
 
 					result = pstmt.executeUpdate();

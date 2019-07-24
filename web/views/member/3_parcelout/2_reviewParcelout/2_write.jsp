@@ -78,7 +78,7 @@ input[type=text] {
 				<tr>
 					<td class="title"><label>제목</label></td>
 					<td style="text-align: left"><input type="text" size="55" name="title"></td>
-
+					<td><input type="hidden" name="starRev" id="starRev"></td>
 				</tr>
 
 				<tr>
@@ -87,9 +87,9 @@ input[type=text] {
 					<td style="text-align: left">
 
 						<div class="starRev">
-							<span class="starR">별1</span> <span class="starR">별2</span> <span
-								class="starR">별3</span> <span class="starR">별4</span> <span
-								class="starR">별5</span>
+							<span class="starR" >1</span> <span class="starR">2</span> <span
+								class="starR">3</span> <span class="starR" >4</span> <span
+								class="starR">5</span>
 
 						</div>
 					</td>
@@ -137,6 +137,8 @@ input[type=text] {
 	</form>
 	<script>
 		$('.starRev span').click(function() {
+			$('#starRev').val($(this).text())
+
 			$(this).parent().children('span').removeClass('on');
 			$(this).addClass('on').prevAll('span').addClass('on');
 			return false;

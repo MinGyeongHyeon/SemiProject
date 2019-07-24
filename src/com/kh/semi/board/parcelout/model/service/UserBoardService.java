@@ -171,6 +171,28 @@ public class UserBoardService {
 
 		return list;
 	}
+	public ArrayList<HashMap<String, Object>> selectOutList3(int currentPage, int limit) {
+		Connection con = getConnection();
+
+		ArrayList<HashMap<String,Object>> list = new UserBoardDao().selectOutList3(con,currentPage,limit);
+
+
+		close(con);
+
+		return list;
+
+
+	}
+	public ArrayList<HashMap<String, Object>> selectOutList4(int currentPage, int limit) {
+		Connection con = getConnection();
+
+		ArrayList<HashMap<String,Object>> list = new UserBoardDao().selectOutList4(con,currentPage,limit);
+
+
+		close(con);
+
+		return list;
+	}
 
 
 

@@ -191,18 +191,18 @@ textarea {
 				$('#modified').click(function(){
 
 					 location.href="<%= request.getContextPath() %>/missingUpdate.bo?num=<%= b.getbNo() %>" ;
-				})
+				});
 
 				$('#deleteBoard').click(function(){
 				
 					location.href="<%= request.getContextPath()%>/missingDelete.bo?num=<%= b.getbNo()%>" ;
-				})
+				});
 				
 				$('#paper').click(function(){
 				
 					location.href="<%= request.getContextPath()%>/missingpaper.bo?num=<%= b.getbNo()%>" ;
 				})
-
+;
 
 				
 				</script>

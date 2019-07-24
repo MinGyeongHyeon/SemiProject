@@ -10,19 +10,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
 import com.kh.semi.board.parcelout.model.service.UserBoardService;
 import com.kh.semi.board.parcelout.model.vo.PageInfo;
 
 
-
-@WebServlet("/outSelect.po")
-public class OutSelectConUno extends HttpServlet {
+@WebServlet("/SelectSort.re")
+public class SelectSortParceloutRec extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String outselect = request.getParameter("outselect");
-		String selectinput = request.getParameter("selectinput");
+
+		String ajax = request.getParameter("ajax");
+
+		System.out.println("에이작스 실행시 값 : " + ajax);
+
 		int currentPage;
 		int limit;
 		int maxPage;
@@ -65,40 +68,36 @@ public class OutSelectConUno extends HttpServlet {
 
 				PageInfo pi = new PageInfo(currentPage, listCount , limit , maxPage, startPage, endPage);
 
-		System.out.println("여기 안들어오냐 ?;;");
-
-		System.out.println(selectinput);
-		System.out.println(outselect);
-
-		ArrayList<HashMap<String,Object>> filelist = new UserBoardService().outselectConUno(outselect,selectinput);
-
-		ArrayList<HashMap<String,Object>> filelist2 = new UserBoardService().selectOutList2(1,5);
 
 
+				HashMap<String, Object> hmap = new HashMap<String, Object>();
 
-		String page = "";
-		if(filelist != null) {
-			page = "views/member/3_parcelout/2_reviewParcelout/1_main.jsp";
-			request.setAttribute("filelist", filelist);
-			request.setAttribute("filelist2", filelist2);
-			request.setAttribute("pi", pi);
+				hmap.put("CurrentPage", pi.getCurrentPage());
+				hmap.put("getListCount", pi.getListCount());
+				hmap.put("limit", pi.getLimit());
+				hmap.put("maxPage", pi.getMaxPage());
+				hmap.put("startPage", pi.getStartPage());
+				hmap.put("endPage", pi.getEndPage());
 
-			System.out.println("널값이 아닐떄 여기까지 들어옴?");
+			ArrayList<HashMap<String,Object>> filelist = new UserBoardService().selectOutList3(currentPage,limit);
 
-		}
-		request.getRequestDispatcher(page).forward(request, response);
+			//ArrayList<HashMap<String,Object>> filelist2 = new UserBoardService().selectOutList2(1,5);
+
+			filelist.add(hmap);
+
+
+
+				response.setContentType("application/json");
+				response.setCharacterEncoding("UTF-8");
+				new Gson().toJson(filelist,response.getWriter());
+			//	new Gson().toJson(pi, response.getWriter());
+
 
 	}
 
-
-
-
-
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-
 		doGet(request, response);
-
 
 	}
 
