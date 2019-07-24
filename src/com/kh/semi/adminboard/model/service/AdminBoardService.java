@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import com.kh.semi.adminboard.model.dao.AdminBoardDao;
 import com.kh.semi.adminboard.model.vo.AdminBoard;
+import com.kh.semi.board.parcelout.model.vo.Attachment;
 
 public class AdminBoardService {
 
@@ -61,6 +62,32 @@ public class AdminBoardService {
 		close(con);
 
 		return n;
+	}
+
+	public int insertSupportMoneyBoard(AdminBoard ab, ArrayList<Attachment> fileList) {
+		Connection con = getConnection();
+		int result = 0;
+
+		int result1 = new AdminBoardDao().insertThumbnailSupportContent(con, ab);
+
+		if(result1 > 0) {
+			int bid = new AdminBoardDao().selectCurrval(con);
+
+			for(int i = 0; i < fileList.size(); i++) {
+				fileList.get(i).setAdBoardno(bid);
+			}
+		}
+
+		int result2 = new AdminBoardDao().insertSupportAttachment(con, fileList);
+
+		if(result1 > 0 && result2 > 0) {
+			commit(con);
+			result = 1;
+		}else {
+			rollback(con);
+		}
+
+		return result;
 	}
 
 }

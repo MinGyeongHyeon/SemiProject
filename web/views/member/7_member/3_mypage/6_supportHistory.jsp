@@ -189,10 +189,13 @@
   	});
 
   	function cancleSupport(monSupNo) {
+  		var windowObj;
 		if(confirm("해당 정기후원을 취소 신청 하시겠습니까?")){
 			var monSupNo = monSupNo;
-
-			$.ajax({
+			/* console.log(monSupNo); */
+			windowObj = window.open("/sixDestiny/views/member/7_member/3_mypage/7_supportCancle.jsp?monSupNo="+monSupNo, "window", "width=500,height=300");
+			location.href="/sixDestiny/mySupport.su";
+			/* $.ajax({
 				url:"/sixDestiny/canclesup.mon",
 				type:"post",
 				data:{monSupNo:monSupNo},
@@ -203,7 +206,7 @@
 				error:function(){
 
 				}
-			});
+			});*/
 
 		}else{
 			return;
@@ -245,7 +248,32 @@
 
             }
         });
-  	}
+  	};
+
+  	function goRegMoney(monSupNo){
+  		var monSupNo = monSupNo;
+  		var IMP = window.IMP;
+  		IMP.init('imp83833982');
+  		IMP.request_pay({ // param
+  			pg : "danal_tpay",
+  		    pay_method: "card", // "card"만 지원됩니다
+  		    merchant_uid: "issue_billingkey_monthly_0001", // 빌링키 발급용 주문번호
+  		    customer_uid: "gildong_0001_5678", // 카드(빌링키)와 1:1로 대응하는 값
+  		    name: "최초인증결제",
+  		    amount: 0, // 0 으로 설정하여 빌링키 발급만 진행합니다.
+  		    buyer_email: "gildong@gmail.com",
+  		    buyer_name: "홍길동",
+  		    buyer_tel: "010-4242-4242",
+  		    buyer_addr: "서울특별시 강남구 신사동",
+  		    buyer_postcode: "01181"
+  		  }, function (rsp) { // callback
+  		    if (rsp.success) {
+  		      // 빌링키 발급 성공
+  		    } else {
+  		      // 빌링키 발급 실패
+  		    }
+  		  });
+  	};
   </script>
 
 	<%@ include file="../../../common/bottom_Include.jsp"%>

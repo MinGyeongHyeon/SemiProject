@@ -236,4 +236,26 @@ public class MoneySupDao {
 		return result;
 	}
 
+	public int updateCancelResult(Connection con, int monSupNo, String selectCancle) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+
+		String query = prop.getProperty("updateCancelResult");
+
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, selectCancle);
+			pstmt.setInt(2, monSupNo);
+
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+
+
+		return result;
+	}
+
 }
