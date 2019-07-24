@@ -47,7 +47,7 @@
 						<th>추천수 : <%= ub.getRecCon() %></th>
 						<th><input type="button" value="추천" id="parcleup">
 						<% if(loginUser != null) {%>
-						<input type="button" value="신고"></th>
+						<input type="button" value="신고" id="reportPr"></th>
 						<% } %>
 						<% if(loginUser != null) { %>
 							<% if(loginUser.getUserNo() == us.getUserNo() || loginUser.getUserId().equals("admin")){ %>
@@ -107,15 +107,8 @@
 			}
 		});
 
-		<%-- var num = $('#uNo').val();
-
-			console.log(num);
-
-
-		 location.href="<%= request.getContextPath() %>/updateRec.po?num=" + num; --%>
-
-
 	})
+
 
 	$('#modified').click(function(){
 
