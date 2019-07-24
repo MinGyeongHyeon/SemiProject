@@ -158,5 +158,17 @@ public int getListCount() {
 	return listCount;
 }
 
+public User userInfo(int userNo) {
+	
+	Connection con = getConnection();
+	
+	User user = new UserDao().getUserInfo(con, userNo);
+	
+	close(con);
+	
+	return user;
+	
+}
+
 
 }

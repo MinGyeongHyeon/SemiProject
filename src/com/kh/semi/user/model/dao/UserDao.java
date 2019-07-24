@@ -441,6 +441,51 @@ public int getListCount(Connection con) {
 	return listCount;
 }
 
+public User getUserInfo(Connection con, int userNo) {
+	
+	 PreparedStatement pstmt = null;
+	 ResultSet rset = null;
+	 User user = null;
+
+	 String query = prop.getProperty("userInfo");
+	 
+	 try {
+		pstmt = con.prepareStatement(query);
+		pstmt.setInt(1, userNo);
+
+	    rset = pstmt.executeQuery();
+	    
+	    if (rset.next()) {
+	          user = new User();
+	          user.setUserNo(rset.getInt("USER_NO"));
+	          user.setUserId(rset.getString("USER_ID"));
+	          user.setUserNm(rset.getString("USER_NM"));
+	          user.setNickNm(rset.getString("NICK_NM"));
+	          user.setEmail(rset.getString("EMAIL"));
+	          user.setPhone(rset.getString("PHONE"));
+	          user.setUserHb(rset.getDate("USER_HB"));
+	          user.setGender(rset.getString("GENDER"));
+	          user.setAddress(rset.getString("ADDRESS"));
+	          user.setDogYn(rset.getString("DOG_YN"));
+	          user.setEnrollDt(rset.getDate("ENROLL_DT"));
+	          user.setLeaveDt(rset.getDate("LEAVE_DT"));
+	          user.setUserSit(rset.getString("USER_SIT"));
+	          user.setUserKind(rset.getString("USER_KIND"));
+	          user.setUserPwd(rset.getString("USER_PWD"));
+	          user.setRtCd(rset.getString("RT_CD"));
+	          user.setLeaveRsCd(rset.getString("LEAVE_RS_CD"));
+
+	       }
+	    } catch (SQLException e) {
+	       e.printStackTrace();
+	    } finally {
+	       close(rset);
+	       close(pstmt);
+	    }
+
+	    return user;
+}
+
 
 
 }
