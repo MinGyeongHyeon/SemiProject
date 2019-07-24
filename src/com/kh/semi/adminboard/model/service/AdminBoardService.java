@@ -90,4 +90,24 @@ public class AdminBoardService {
 		return result;
 	}
 
+	public AdminBoard selectSupportList(int currentPage) {
+		Connection con = getConnection();
+
+		AdminBoard ab = new AdminBoardDao().selectSupportList(con, currentPage);
+
+		close(con);
+
+		return ab;
+	}
+
+	public Attachment selectSupportAttachment(int currentPage) {
+		Connection con = getConnection();
+
+		Attachment ac = new AdminBoardDao().selectSupportAttachment(con, currentPage);
+
+		close(con);
+
+		return ac;
+	}
+
 }

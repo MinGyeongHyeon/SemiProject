@@ -239,4 +239,73 @@ public class AdminBoardDao {
 		return result;
 	}
 
+	public AdminBoard selectSupportList(Connection con, int currentPage) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		AdminBoard ab = null;
+
+		String query = prop.getProperty("selectSupportList");
+
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, "후원");
+			pstmt.setString(2, "금전후원");
+			pstmt.setString(3, String.valueOf(currentPage).toString());
+			rset = pstmt.executeQuery();
+
+			if(rset.next()) {
+				ab = new AdminBoard();
+				ab.setAdBoardNo(rset.getInt("AD_BOARD_NO"));
+				ab.setTitle(rset.getString("TITLE"));
+				ab.setAdBoardCon(rset.getString("AD_BOARD_CON"));
+				ab.setWriteDt(rset.getDate("WRITE_DT"));
+				ab.setAdNo(rset.getInt("AD_NO"));
+				ab.setRecCount(rset.getInt("REC_COUNT"));
+				ab.setViewCount(rset.getInt("VIEW_COUNT"));
+				ab.setNickNm(rset.getString("NICK_NM"));
+
+			}
+
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+
+		return ab;
+	}
+
+	public Attachment selectSupportAttachment(Connection con, int currentPage) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Attachment ac = null;
+
+		String query = prop.getProperty("selectSupportAttachment");
+
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, String.valueOf(currentPage).toString());
+
+			rset = pstmt.executeQuery();
+
+			if(rset.next()) {
+				ac = new Attachment();
+				ac.setAttachmentNo(rset.getInt("ATTACHMENT_NO"));
+				ac.setOriginNm(rset.getString("ORIGIN_NM"));
+				ac.setChangeNm(rset.getString("CHANGE_NM"));
+				ac.setFilePath(rset.getString("FILE_PATH"));
+				ac.setUploadDt(rset.getDate("UPLOAD_DT"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+
+
+		return ac;
+	}
+
+
 }
