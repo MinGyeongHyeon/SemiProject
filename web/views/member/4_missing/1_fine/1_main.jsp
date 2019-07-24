@@ -5,12 +5,12 @@
    ArrayList<HashMap<String, Object>> list =
          (ArrayList<HashMap<String, Object>>) request.getAttribute("list");
 
-MissingPageInfo pi = (MissingPageInfo) request.getAttribute("pi");
+/* MissingPageInfo pi = (MissingPageInfo) request.getAttribute("pi");
 int listCount = pi.getListCount();
 int currentPage = pi.getCurrentPage();
 int maxPage = pi.getMaxPage();
 int startPage = pi.getStartPage();
-int endPage = pi.getEndPage();
+int endPage = pi.getEndPage(); */
 
 %>
 <!DOCTYPE htm>
@@ -80,32 +80,32 @@ table tr td img {
 
 
             </td>
-            <td style="padding: 20px;"><span>지역</span> <select>
+            <td style="padding: 20px;"><span>지역</span> <select id="li1">
                   <option selected="selected">전체</option>
-                  <option>서울시</option>
-                  <option>인천시</option>
-                  <option>대전시</option>
-                  <option>울산시</option>
-                  <option>부산시</option>
-                  <option>경기도</option>
-                  <option>강원도</option>
-                  <option>세종시</option>
-                  <option>충정남도</option>
-                  <option>충정북도</option>
-                  <option>전라남도</option>
-                  <option>전라북도</option>
-                  <option>경상남도</option>
-                  <option>경상북도</option>
-                  <option>제주도</option>
+                  <option value="서울시">서울시</option>
+                  <option value="인천시">인천시</option>
+                  <option value="대전시">대전시</option>
+                  <option value="울산시">울산시</option>
+                  <option value="부산시">부산시</option>
+                  <option value="경기도">경기도</option>
+                  <option value="강원도">강원도</option>
+                  <option value="세종시">세종시</option>
+                  <option value="충정남도">충정남도</option>
+                  <option value="충정북도">충정북도</option>
+                  <option value="전라남도">전라남도</option>
+                  <option value="전라북도">전라북도</option>
+                  <option value="경상남도">경상남도</option>
+                  <option value="경상북도">경상북도</option>
+                  <option value="제주도">제주도</option>
             </select></td>
-            <td style="padding: 20px;"><span>성별</span> <select>
+            <td style="padding: 20px;"><span>성별</span> <select id="li2">
                   <option selected="selected">전체</option>
-                  <option>수컷</option>
-                  <option>암컷</option>
+                  <option value="수컷">수컷</option>
+                  <option value="암컷">암컷</option>
             </select></td>
-            <td style="padding: 20px;"><span>날짜순</span> <select>
-                  <option selected="selected">최신순</option>
-                  <option>오래된순</option>
+            <td style="padding: 20px;"><span>날짜순</span> <select id="li3">
+                  <option selected="selected" value="최신순">최신순</option>
+                  <option value="오래된순">오래된순</option>
             </select></td>
          </tr>
 
@@ -113,6 +113,7 @@ table tr td img {
    
 
          <%
+         System.out.print("리스트사이즈?"+list.size());
             for (int i = 0; i < list.size(); i++) {
                HashMap<String, Object> hmap = list.get(i);
          %>
@@ -127,8 +128,8 @@ table tr td img {
             <input type="hidden" value="<%=hmap.get("boardNo")%>" id="Bno">
               
 <%if(hmap.get("changeNm") !=null){ %>
-            <img src="/sixDestiny/thumbnail_uploadFiles/<%=hmap.get("changeNm")%>"
-               style="width: 200px; height: 200px; cursor: pointer;">
+            <img src="/sixDestiny/thumbnail_uploadFiles/<%=hmap.get("changeNm")%>" 
+               style="width: 200px; height: 200px; cursor: pointer;" >
               <%}else{ %> 
       
                <% }%>
@@ -138,7 +139,7 @@ table tr td img {
 
 
          <tr>
-            <td ><%=hmap.get("boardNm")%></td>
+            <td id="a"><%=hmap.get("boardNm")%></td>
          </tr>
 
          <tr>
@@ -193,7 +194,7 @@ table tr td img {
                                       <%} %>
                         <div class="input-group-btn">
                            <button class="btn btn-default" type="submit" >
-                              <i class="glyphicon glyphicon-search"></i>
+                       
                            </button>
                         </div>
                      </div>
@@ -208,7 +209,7 @@ table tr td img {
 </div>
 </form>
 
-	<div class="paging" align="center">
+<%-- 	<div class="paging" align="center">
 			<button  class="paging" onclick="location.href='<%=request.getContextPath() %>/missingListo.bo?currentPage=1'"><<</button>
 
 			<% if(currentPage <= 1)  { %>
@@ -240,7 +241,7 @@ table tr td img {
 			<% }else{ %>
 				<button  class="pagination" onclick="location.href='<%=request.getContextPath() %>/missingListo.bo?currentPage=<%= currentPage + 1 %>'">></button>
 			<% } %>
-
+ --%>
 
 
                <script>
@@ -254,7 +255,54 @@ table tr td img {
 
    location.href = "<%=request.getContextPath()%>/missingSelectOne.bo?num=" + num ;
             });
+         
+         
+         
+         $("#li1").change(function(){
+   			var li = $("#li1").val();
+   			
+   			
+   			$.ajax({
+   				url:"missingorder.bo",
+   				data:{li:li},
+   				type:"get",
+   				success:function(data){
+   					//console.log(data);
+   					var $tables = $(".thumb-list");
+   					console.log(data[0].boardNm);
+   					$tables.html("");
+   					for(var key in data){
+   						var $tr = $("<tr>");
+   						var $image = $("<td>").html('<img src="/sixDestiny/thumbnail_uploadFiles/"+data[key].changeNm>');		
+   						var $boardNm = $("<td>").text(data[key].boardNm).css("width", "100px");
+   						var $reward = $("<td>").text(data[key].reward).css("width", "100px");
+   						var $gender =  $("<td>").text(data[key].gender).css("width", "100px");
+   						$tr.append($image,$boardNm,$reward,$gender);
+   					s
+   						$tables.append($tr);
+   						
+   					}
+   						
+   						
+   						
+   					
+   					
+   					
+   				},
+   				error:function(err){
+   					console.log("서버 전송 실패!");
+   				},
+   				complete:function(data){
+   					console.log("무조건 호출되는 함수");
+   				}
+   			});
          });
+         
+         
+         });
+
+
+      
       </script>
 
 

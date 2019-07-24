@@ -435,6 +435,29 @@ Connection con = getConnection();
 	}
 
 
+	public int MissinggetListCount7(String val) {
+	Connection con = getConnection();
+		
+		int listCount = new MissingDao().MissinggetListCount7(con,val);
+		
+		close(con);
+		
+		return listCount;
+	}
+
+
+	public ArrayList<HashMap<String, Object>> MissngselectList7(int currentPage, int limit, String val) {
+		Connection con = getConnection();
+
+		ArrayList<HashMap<String,Object>> list = new MissingDao().MissingselectOutList7(con,currentPage,limit,val);
+
+
+		close(con);
+
+		return list;
+	}
+
+
 
 	
 

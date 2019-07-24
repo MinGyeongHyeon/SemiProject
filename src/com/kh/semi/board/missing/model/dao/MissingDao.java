@@ -1783,6 +1783,101 @@ public class MissingDao {
 	}
 		return list;
 	}
+
+
+	public int MissinggetListCount7(Connection con, String val) {
+		PreparedStatement pstmt = null;
+		int listCount = 0;
+		ResultSet rset = null;
+
+		String query = prop.getProperty("order1");
+
+
+		try {
+			pstmt = con.prepareStatement(query);
+
+			pstmt.setString(1, "실종");
+			pstmt.setString(2, val);
+		
+			
+
+			rset = pstmt.executeQuery();
+
+			if(rset.next()) {
+				listCount = rset.getInt(1);
+			}
+
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+
+		return listCount;
+	}
+
+
+	public ArrayList<HashMap<String, Object>> MissingselectOutList7(Connection con, int currentPage, int limit,
+			String val) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<HashMap<String,Object>> list = null;
+		HashMap<String,Object> hmap = null;
+
+		String query = prop.getProperty("order2");
+
+		int startRow = (currentPage - 1) * limit + 1;
+		int endRow = startRow + limit - 1;
+		System.out.println(val);
+		try {
+			pstmt = con.prepareStatement(query);
+
+			pstmt.setString(1, "실종");
+			pstmt.setString(2, val);
+		
+			pstmt.setInt(3, startRow);
+			pstmt.setInt(4, endRow);
+
+
+			rset = pstmt.executeQuery();
+
+			list = new ArrayList<HashMap<String,Object>>();
+
+			while(rset.next()) {
+				hmap = new HashMap<String,Object>();
+
+				hmap.put("boardNo", rset.getInt("BOARD_NO"));
+				hmap.put("bKind", rset.getString("BOARD_KIND"));
+				hmap.put("boardNm", rset.getString("BOARD_NM"));
+				hmap.put("gender", rset.getString("MISS_GENDER"));
+				hmap.put("changeNm", rset.getString("CHANGE_NM"));
+				hmap.put("filePath", rset.getString("FILE_PATH"));
+				hmap.put("reward", rset.getInt("REWARD_PC"));
+				hmap.put("bDiv", rset.getString("BOARD_DIV"));
+				hmap.put("bCon", rset.getString("BOARD_CON"));
+				hmap.put("missP", rset.getString("MISS_PLACE"));
+				hmap.put("detail", rset.getString("DETAIL_PLACE"));
+				hmap.put("phone", rset.getString("MISS_PHONE"));
+				
+
+				list.add(hmap);
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+
+		}
+
+
+	return list;
+	
+	}
 	
 	
 	
