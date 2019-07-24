@@ -46,6 +46,13 @@ int endPage = pi.getEndPage();
 			});
 		}
 	}
+	
+	
+ <%-- 	function userInfo(userNo){
+		console.log("클릭");
+		$("#userData").attr("action","<%=request.getContextPath()%>/userInfo?userNo="+userNo);
+	
+	}  --%>
 
 
 
@@ -73,8 +80,6 @@ int endPage = pi.getEndPage();
    #btn1:hover{
    	background-color:lightgray;
    }
-   
-   
 
 
    #td1:hover{
@@ -89,7 +94,7 @@ int endPage = pi.getEndPage();
    <div>
 
    <div id="outer">
- 
+ <form name="userData" id="userData">
       <table class="table" style="text-align:center;">
          <thead >
          <tr>
@@ -111,14 +116,13 @@ int endPage = pi.getEndPage();
 
          <tr>
             <td><%=u.getUserNo() %></td>
-            <td onclick="showUser();" id="td1"><%=u.getUserId() %></td>
-            <td onclick="showUser();" id="td1"><%=u.getUserNm() %></td>
-            <td><%=u.getNickNm() %></td>
+            <td><%=u.getUserId() %></td>
+            <td><a href="/sixDestiny/userInfo?userNo=<%=u.getUserNo() %>" onclick="window.open(this.href,'_blank', 'width=500,height=700');return false;"><%=u.getUserNm() %></a></td>
+            <td><%=u.getNickNm()%></td>
             <td><%=u.getGender()  %></td>
             <td><%=u.getEmail()%></td>
             <td><%=u.getPhone() %></td>
             <td><%=u.getUserSit() %></td>
-            
             <td><%=u.getEnrollDt() %></td>
             <td>
            <% if(u.getUserSit().equals("가입")){%>
@@ -130,7 +134,7 @@ int endPage = pi.getEndPage();
          	</tbody>
 
 	</table>
-	
+</form>	
 	
 	
 	

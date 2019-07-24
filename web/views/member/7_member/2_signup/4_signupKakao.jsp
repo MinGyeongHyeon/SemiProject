@@ -14,7 +14,7 @@
 	background: dimgray;
 	Color: white;
 	width: 300px;
-	height: 50px;
+	height: 50px;s
 }
 
 #button2 {
