@@ -78,20 +78,22 @@ public class MoneySupService {
 		return result;
 	}
 
-	public int cancleSupportMoney(int monSupNo) {
+	public int cancleSupportMoney(int monSupNo, String selectCancle) {
 		Connection con = getConnection();
+		int result2 = 0;
 
 		int result = new MoneySupDao().cancleSupportMoney(con, monSupNo);
 
 		if(result > 0) {
 			commit(con);
+			result2 = new MoneySupDao().updateCancelResult(con, monSupNo, selectCancle);
 		}else {
 			rollback(con);
 		}
 
 		close(con);
 
-		return result;
+		return result2;
 	}
 
 	public int okCancleSupport(int monSupNo) {
