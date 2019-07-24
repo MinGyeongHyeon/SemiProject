@@ -22,6 +22,7 @@ public class UserBoard implements java.io.Serializable{
 	private String missPhone;
 	private String boardDiv;
 	private int rewardPc;
+	private int starRev;
 
 
 	public UserBoard() {}
@@ -29,7 +30,7 @@ public class UserBoard implements java.io.Serializable{
 
 	public UserBoard(int bNo, String bKind, String bNm, Date bDate, String bCon, int inqCon, int recCon, int sGrade,
 			int uNo, String status, int boardNo, String missPlace, Date missDt, String missGender, String missPhone,
-			String boardDiv, int rewardPc) {
+			String boardDiv, int rewardPc ,int starRev) {
 		super();
 		this.bNo = bNo;
 		this.bKind = bKind;
@@ -48,6 +49,12 @@ public class UserBoard implements java.io.Serializable{
 		this.missPhone = missPhone;
 		this.boardDiv = boardDiv;
 		this.rewardPc = rewardPc;
+		this.starRev = starRev;
+	}
+
+
+	public int getStarRev() {
+		return starRev;
 	}
 
 
@@ -105,6 +112,10 @@ public class UserBoard implements java.io.Serializable{
 		return inqCon;
 	}
 
+
+	public void setStarRev(int starRev) {
+		this.starRev = starRev;
+	}
 
 	public void setInqCon(int inqCon) {
 		this.inqCon = inqCon;

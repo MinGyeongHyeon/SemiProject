@@ -60,7 +60,6 @@ public class InsertParceloutUploadFiles extends HttpServlet {
 
          while(files.hasMoreElements()) {
 
-        	System.out.println("2222");
             String name = files.nextElement();
 
 
@@ -74,6 +73,10 @@ public class InsertParceloutUploadFiles extends HttpServlet {
 
          String multiTitle = multiRequest.getParameter("title");
          String multiContent = multiRequest.getParameter("content");
+         int starRev = Integer.parseInt(multiRequest.getParameter("starRev")) ;
+
+         System.out.println("별점이 몇점 나오냐  ? : " + starRev);
+
          int uno = ((User) (request.getSession().getAttribute("loginUser"))).getUserNo();
 
 
@@ -82,6 +85,7 @@ public class InsertParceloutUploadFiles extends HttpServlet {
          b.setbNm(multiTitle);;
          b.setbCon(multiContent);
          b.setuNo(uno);
+         b.setStarRev(starRev);
 
 
          ArrayList<Attachment> fileList = new ArrayList<Attachment>();
@@ -92,7 +96,11 @@ public class InsertParceloutUploadFiles extends HttpServlet {
             Attachment at = new Attachment();
             at.setFilePath(savePath);
             at.setOriginNm(originFiles.get(i));
+            if(saveFiles.get(i) != null) {
             at.setChangeNm(saveFiles.get(i));
+            }else {
+            at.setChangeNm("default.PNG");
+            }
 
             fileList.add(at);
          }
