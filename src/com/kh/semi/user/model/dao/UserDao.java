@@ -230,7 +230,7 @@ public class UserDao {
 	}
 
 public ArrayList<User> selectList(Connection con, int currentPage, int limit) {
-	
+
 		ArrayList<User> list=null;
 		PreparedStatement pstmt=null;
 		ResultSet rset=null;
@@ -241,7 +241,7 @@ public ArrayList<User> selectList(Connection con, int currentPage, int limit) {
 
 		try {
 			pstmt=con.prepareStatement(query);
-			
+
 			int startRow = (currentPage - 1) * limit + 1;
 			int endRow = startRow + limit - 1;
 			pstmt.setInt(1, startRow);
@@ -263,7 +263,7 @@ public ArrayList<User> selectList(Connection con, int currentPage, int limit) {
 				u.setUserHb(rset.getDate("USER_HB"));
 				u.setUserSit(rset.getString("USER_SIT"));
 				u.setEnrollDt(rset.getDate("ENROLL_DT"));
-				
+
 				u.setGender(rset.getString("GENDER"));
 				u.setEmail(rset.getString("EMAIL"));
 				u.setPhone(rset.getString("PHONE"));
@@ -417,28 +417,157 @@ public int getListCount(Connection con) {
 	Statement stmt = null;
 	int listCount = 0;
 	ResultSet rset = null;
-	
+
 	String query = prop.getProperty("selectListUserCount");
-	
-	
+
+
 	try {
 		stmt = con.createStatement();
-		
+
 		rset = stmt.executeQuery(query);
-		
+
 		if(rset.next()) {
 			listCount = rset.getInt(1);
 		}
-		
-		
+
+
 	} catch (SQLException e) {
 		e.printStackTrace();
 	} finally {
 		close(stmt);
 		close(rset);
 	}
-	
+
 	return listCount;
+}
+
+public int rememberPwd(Connection con, User reqUser) {
+	PreparedStatement pstmt = null;
+	int remember = 0;
+
+	String query = prop.getProperty("rememberPwd");
+
+	try {
+		pstmt = con.prepareStatement(query);
+		pstmt.setString(1, reqUser.getUserId());
+
+		remember = pstmt.executeUpdate();
+
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+
+	return remember;
+}
+
+public User rememberPwd2(Connection con, String userId) {
+	PreparedStatement pstmt = null;
+	ResultSet rset = null;
+	User u = null;
+
+	String query = prop.getProperty("rememberPwd2");
+
+	try {
+		pstmt = con.prepareStatement(query);
+		pstmt.setString(1, userId);
+
+		rset = pstmt.executeQuery();
+
+		if(rset.next()) {
+			u = new User();
+			u.setUserPwd(rset.getString("USER_PWD"));
+		}
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+
+	return u;
+}
+
+public User passLoginUser(Connection con, String userId) {
+	PreparedStatement pstmt = null;
+	ResultSet rset = null;
+	User u = null;
+	System.out.println("아이디 넘어가? " + userId);
+	String query = prop.getProperty("passLoginUser");
+
+	try {
+		pstmt = con.prepareStatement(query);
+		pstmt.setString(1, userId);
+
+		rset = pstmt.executeQuery();
+
+		if(rset.next()) {
+			u = new User();
+			System.out.println("받아온 비밀번호  : " + rset.getString("USER_PWD"));
+			u.setUserPwd(rset.getString("USER_PWD"));
+		}
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+
+	return u;
+}
+
+public int idCheck(Connection con, String userId) {
+	PreparedStatement pstmt = null;
+	ResultSet rset = null;
+	int result = 0;
+
+
+	String query = prop.getProperty("idCheck");
+
+	try {
+		pstmt = con.prepareStatement(query);
+		pstmt.setString(1, userId);
+
+		rset = pstmt.executeQuery();
+
+		if(rset.next()) {
+			result = rset.getInt("COUNT(*)");
+		}
+		System.out.println("결과숫자... " + result );
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	} finally {
+		close(rset);
+		close(pstmt);
+	}
+
+	return result;
+}
+
+public int NickCheck(Connection con, String nickNm) {
+	PreparedStatement pstmt = null;
+	ResultSet rset = null;
+	int result = 0;
+
+
+	String query = prop.getProperty("NickCheck");
+
+	try {
+		pstmt = con.prepareStatement(query);
+		pstmt.setString(1, nickNm);
+
+		rset = pstmt.executeQuery();
+
+		if(rset.next()) {
+			result = rset.getInt("COUNT(*)");
+		}
+		System.out.println("결과숫자... " + result );
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	} finally {
+		close(rset);
+		close(pstmt);
+	}
+
+	return result;
 }
 
 

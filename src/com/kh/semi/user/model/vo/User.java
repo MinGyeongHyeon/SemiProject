@@ -22,12 +22,15 @@ public class User {
 	private String rtCd;
 	private String leaveRsCd;
 	private int statusNum;
+	private String pwdHis;
 
 	public User() {}
 
+
+
 	public User(int userNo, String userId, String userNm, String nickNm, String email, String phone, Date userHb,
 			String gender, String address, String dogYn, Date enrollDt, Date leaveDt, String userSit, String userKind,
-			String userPwd, String rtCd, String leaveRsCd, int statusNum) {
+			String userPwd, String rtCd, String leaveRsCd, int statusNum, String pwdHis) {
 		super();
 		this.userNo = userNo;
 		this.userId = userId;
@@ -47,7 +50,24 @@ public class User {
 		this.rtCd = rtCd;
 		this.leaveRsCd = leaveRsCd;
 		this.statusNum = statusNum;
+		this.pwdHis = pwdHis;
 	}
+
+
+
+
+
+	public String getPwdHis() {
+		return pwdHis;
+	}
+
+
+
+	public void setPwdHis(String pwdHis) {
+		this.pwdHis = pwdHis;
+	}
+
+
 
 	public int getUserNo() {
 		return userNo;

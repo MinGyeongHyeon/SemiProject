@@ -86,10 +86,10 @@
 				</tr>
 				<tr>
 					<td><input type="text" name="userId"
-						style="width: 330px; height: 50px;"></td>
+						style="width: 330px; height: 50px;" id="userId"></td>
 					<td>
 						<button type="button" class="btn btn-default"
-							style="font-family: 'Sunflower', sans-serif; width: 50px; height: 50px;"
+							style="font-family: 'Sunflower', sans-serif; width: 50px; height: 50px;" onclick="idCheck();"
 							>중복</button>
 					</td>
 				</tr>
@@ -102,7 +102,7 @@
 				</tr>
 				<tr>
 					<td colspan="2"><input type="password" name="password"
-						style="width: 400px; height: 50px;"></td>
+						style="width: 400px; height: 50px;" id="passwordArea"></td>
 				</tr>
 				<tr>
 					<td><br></td>
@@ -113,7 +113,7 @@
 				</tr>
 				<tr>
 					<td colspan="2"><input type="password" name="password2"
-						style="width: 400px; height: 50px;"></td>
+						style="width: 400px; height: 50px;" id="passwordpass"></td>
 				</tr>
 				<tr>
 					<td><br></td>
@@ -124,10 +124,10 @@
 				</tr>
 				<tr>
 					<td><input type="text" name="userNickName"
-						style="width: 330px; height: 50px;"></td>
+						style="width: 330px; height: 50px;" id="nickNm"></td>
 					<td>
 						<button type="button" class="btn btn-default"
-							style="font-family: 'Sunflower', sans-serif; width: 50px; height: 50px;"
+							style="font-family: 'Sunflower', sans-serif; width: 50px; height: 50px;" onclick="checkNickNm();"
 							>중복</button>
 					</td>
 				</tr>
@@ -140,7 +140,7 @@
 				</tr>
 				<tr>
 					<td><input type="email" name="email"
-						style="width: 330px; height: 50px;"></td>
+						style="width: 330px; height: 50px;" id="inputEmail"></td>
 					<td>
 						<button type="button" class="btn btn-default"
 							style="font-family: 'Sunflower', sans-serif; width: 50px; height: 50px;"
@@ -155,10 +155,10 @@
 				</tr>
 				<tr class="hiddenpwd">
 					<td><input type="email" name=""
-						style="width: 330px; height: 50px;"></td>
+						style="width: 330px; height: 50px;" id="randomNum"></td>
 					<td>
 						<button type="button" class="btn btn-default"
-							style="font-family: 'Sunflower', sans-serif; width: 50px; height: 50px;">입력</button>
+							style="font-family: 'Sunflower', sans-serif; width: 50px; height: 50px;" id="pushNum">입력</button>
 					</td>
 				</tr>
 			</table>
@@ -274,9 +274,42 @@
 	<script type="text/javascript">
       $(function(){
          $('#mailbtn').click(function(){
+        	var inputEmail = $("#inputEmail").val();
+
             $('.hiddenpwd').each(function(){
             	$(this).css('opacity','1');
-            })
+            });
+
+            $.ajax({
+            	url:"/sixDestiny/sendMail",
+            	type:"post",
+            	data:{inputEmail:inputEmail},
+            	success:function(data){
+					console.log(data);
+					$("#randomNum").keyup(function(){
+						var num = $("#randomNum").val();
+
+						if(data == num){
+							$("#randomNum").css("border-color", "transparent");
+						}else{
+							$("#randomNum").css("border-color", "red");
+						}
+					});
+
+					$("#pushNum").click(function(){
+						var num = $("#randomNum").val();
+
+						if(data == num){
+							$("#randomNum").attr("disabled", "true");
+						}else{
+							alert("인증번호를 잘못 입력 하셨습니다.");
+						}
+					})
+            	},
+            	error:function(){
+
+            	}
+            });
          });
       });
 </script>
@@ -392,6 +425,55 @@ $(function () {
         init();
     });
 });
+</script>
+<script type="text/javascript">
+	$(function(){
+
+		$("#passwordpass").keyup(function(){
+			var password = $("#passwordArea").val();
+			var password2 = $("#passwordpass").val();
+
+			if(password == password2){
+				console.log("같음!");
+				$("#passwordpass").css("border-color", "transparent")
+			}else{
+				console.log("틀림!");
+				$("#passwordpass").css("border-color", "red")
+			}
+		});
+	});
+
+	function idCheck(){
+		var userId = $("#userId").val();
+
+		$.ajax({
+			url:"/sixDestiny/idCheck.user",
+			type:"post",
+			data:{userId:userId},
+			success:function(data){
+				alert(data);
+			},
+			error:function(){
+
+			}
+		});
+	}
+
+	function checkNickNm(){
+		var nickNm = $("#nickNm").val();
+
+		$.ajax({
+			url:"/sixDestiny/nickNmCheck.user",
+			type:"post",
+			data:{nickNm:nickNm},
+			success:function(data){
+				alert(data);
+			},
+			error:function(){
+
+			}
+		});
+	}
 </script>
 
 	<%@ include file="../../../common/bottom_Include.jsp"%>

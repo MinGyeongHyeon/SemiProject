@@ -78,4 +78,52 @@ public class MoneySupService {
 		return result;
 	}
 
+	public int cancleSupportMoney(int monSupNo) {
+		Connection con = getConnection();
+
+		int result = new MoneySupDao().cancleSupportMoney(con, monSupNo);
+
+		if(result > 0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+
+		close(con);
+
+		return result;
+	}
+
+	public int okCancleSupport(int monSupNo) {
+		Connection con = getConnection();
+
+		int result = new MoneySupDao().okCancleSupport(con, monSupNo);
+
+		if(result > 0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+
+		close(con);
+
+		return result;
+	}
+
+	public int insertMoney(int monSupNo) {
+		Connection con = getConnection();
+
+		int result = new MoneySupDao().insertMoney(con, monSupNo);
+
+		if(result > 0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+
+		close(con);
+
+		return result;
+	}
+
 }

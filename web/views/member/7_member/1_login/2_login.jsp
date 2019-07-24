@@ -37,7 +37,7 @@
 					<td style="font-family: 'Sunflower', sans-serif;">아이디</td>
 				</tr>
 				<tr>
-					<td><input type="text" name="userId" style="width:400px; height:50px;"></td>
+					<td><input type="text" name="userId" style="width:400px; height:50px;" id="rememberId"></td>
 				</tr>
 				<tr>
 					<td><br></td>
@@ -46,7 +46,10 @@
 					<td style="font-family: 'Sunflower', sans-serif;">비밀번호</td>
 				</tr>
 				<tr>
-					<td><input type="password" name="password" style="width:400px; height:50px;"></td>
+					<td><input type="password" name="password" style="width:400px; height:50px;" id="remember"></td>
+				</tr>
+				<tr>
+					<td><input type="checkbox" name="rememberPwd" value="Y"><span style="font-family: 'Sunflower', sans-serif;"> 비밀번호 저장</span></td>
 				</tr>
 			</table>
 		<br><br><br><br>
@@ -78,6 +81,27 @@
 		<a href='/sixDestiny/views/member/7_member/1_login/4_findPassword.jsp' style="font-family: 'Sunflower', sans-serif;">비밀번호 찾기</a>
 	</div>
 </div>
+<script type="text/javascript">
+	$(function(){
+		$("#remember").focus(function(){
+			var userId = $("#rememberId").val();
+			console.log(userId);
+			$.ajax({
+				url:"/sixDestiny/remember.user",
+				type:"post",
+				data:{userId:userId},
+				success:function(data){
+					console.log(data);
+					$("#remember").val(data);
+
+				},
+				error:function(){
+
+				}
+			});
+		});
+	});
+</script>
 <%@ include file="../../../common/bottom_Include.jsp"%>
 </body>
 </html>
