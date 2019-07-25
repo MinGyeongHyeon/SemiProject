@@ -23,7 +23,7 @@ public class UserBoardDao {
 
 	public UserBoardDao() {
 		String fileName =
-				UserBoardDao.class.getResource("/sql/board/board-query.properties").getPath();
+				UserBoardDao.class.getResource("/sql/parcelout/parcelout-query.properties").getPath();
 
 		try {
 			prop.load(new FileReader(fileName));

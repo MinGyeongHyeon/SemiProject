@@ -22,9 +22,9 @@ public class SelectSortParceloutRec extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		String ajax = request.getParameter("ajax");
+		String data = request.getParameter("data");
 
-		System.out.println("에이작스 실행시 값 : " + ajax);
+		System.out.println("에이작스 실행시 값 : " + data);
 
 		int currentPage;
 		int limit;
@@ -36,9 +36,9 @@ public class SelectSortParceloutRec extends HttpServlet {
 		currentPage = 1;
 
 
-		if(request.getParameter("currentPage") != null) {
+		if(request.getParameter("data") != null) {
 
-			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+			currentPage = Integer.parseInt(request.getParameter("data"));
 
 
 

@@ -16,6 +16,7 @@
 	Attachment Img4 = list.get(3);
 
 
+
 %>
 
 <!DOCTYPE html>
@@ -39,7 +40,11 @@
 			<table class="table table-hover">
 				<thead>
 					<tr>
-					<td><input style="display: none;" id="uNo" value="<%= ub.getbNo() %>"></td>
+					<td><input style="display: none;" id="bNo" value="<%= ub.getbNo() %>">
+					<% if(loginUser != null) {%>
+						<input type="hidden" id="uNo" value="<%= loginUser.getUserNo() %>">
+					<% } %>
+					</td>
 						<th>제목 : <%= ub.getbNm() %></th>
 						<th>작성자 : <%= us.getNickNm() %></th>
 						<th>작성일 : <%= ub.getbDate() %></th>
@@ -121,11 +126,13 @@
 	})
 
 
-
 	$('#reportPr').click(function(){
 		var test = <%= ub.getbNo() %>;
-		window.open("/sixDestiny/views/member/3_parcelout/2_reviewParcelout/6_report.jsp?test=" + test,"PopupWin","width=400,height=300");
+		var test2 = $('#uNo').val();
+		var test3 = <%= us.getUserNo()%>;
+		window.open("/sixDestiny/views/member/3_parcelout/2_reviewParcelout/6_report.jsp?test=" + test + "?test2=" + test2 + "?test3=" + test3,"PopupWin","width=450,height=300");
 	})
+
 
 </script>
 
