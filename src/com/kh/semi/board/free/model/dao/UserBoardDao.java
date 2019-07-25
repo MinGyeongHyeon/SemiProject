@@ -25,7 +25,7 @@ public class UserBoardDao {
 
 	public UserBoardDao() {
 		String fileName =
-				UserBoardDao.class.getResource("/sql/board/board-query.properties").getPath();
+				UserBoardDao.class.getResource("/sql/board/free/board-query.properties").getPath();
 
 		try {
 			prop.load(new FileReader(fileName));
@@ -285,8 +285,64 @@ public class UserBoardDao {
 		return list;
 	}
 
+	public ArrayList<UserBoard> selectList(Connection con, int currentPage, int limit, String category) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<UserBoard> list = null;
+		
+		String query = prop.getProperty("selectListCateWithPaging");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+
+			//조회를 시작할 행 번호와 마지막 행 번호 계산
+			int startRow = (currentPage - 1) * limit + 1;
+			int endRow = startRow + limit - 1;
+			
+			pstmt.setString(1, category);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<UserBoard>();
+			
+			while(rset.next()) {
+				UserBoard ub = new UserBoard();
+
+				ub.setbNo(rset.getInt("BOARD_NO"));
+				ub.setbKind(rset.getString("BOARD_KIND"));
+				ub.setbNm(rset.getString("BOARD_NM"));
+				ub.setbDate(rset.getDate("BOARD_DT"));
+				ub.setbCon(rset.getString("BOARD_CON"));
+				ub.setInqCon(rset.getInt("INQ_COUNT"));
+				ub.setRecCon(rset.getInt("REC_COUNT"));
+				ub.setsGrade(rset.getInt("STAR_GRADE"));
+				ub.setbUserNick(rset.getString("NICK_NM"));
+				ub.setStatus(rset.getString("STATUS"));
 
 
+
+				System.out.println(ub);
+
+
+
+				list.add(ub);
+
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		
+		
+		return list;
+	}
+	
 
 	public ArrayList<UserBoard> myselectList(Connection con, int currentPage, int limit, int userNo) {
 		PreparedStatement pstmt = null;
@@ -346,6 +402,38 @@ public class UserBoardDao {
 		return list;
 	}
 
+	public int getListCount(Connection con, String category) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int listCount = 0;
+
+		
+		String query = prop.getProperty("selectListCategoryCount");
+		
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setString(1, category);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt(1);
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return listCount;
+
+	}
+	
 	public int getListCount(Connection con) {
 		Statement stmt = null;
 		int listCount = 0;

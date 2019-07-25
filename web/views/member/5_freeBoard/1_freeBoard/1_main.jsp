@@ -106,16 +106,17 @@ th{
 			<div style="padding: 30px">
 
 				<div align="right">
-					<select>
-						<option selected>전체</option>
-						<option>자랑</option>
-						<option>꿀팁</option>
-						<option>잡담</option>
+					<select onchange="location.href=this.value">
+						<option selected disabled="disabled">카테고리</option>
+						<option  value="/sixDestiny/selectList.bo">전체</option>
+						<option  value="/sixDestiny/selectListCa.bo?category=자랑">자랑</option>
+						<option  value="/sixDestiny/selectListCa.bo?category=꿀팁">꿀팁</option>
+						<option  value="/sixDestiny/selectListCa.bo?category=잡담">잡담</option>
 					</select> 
 					<select>
-						<option selected>날짜순</option>
-						<option>추천순</option>
-						<option>조회순</option>
+							<option selected>날짜순</option>
+							<option>추천순</option>
+							<option>조회순</option>
 					</select>
 				</div>
 				<table class="table" id="listArea">

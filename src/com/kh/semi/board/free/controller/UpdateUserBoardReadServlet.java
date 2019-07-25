@@ -30,9 +30,9 @@ public class UpdateUserBoardReadServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-int num = Integer.parseInt(request.getParameter("nno"));
+		int num = Integer.parseInt(request.getParameter("bno"));
 		
-System.out.println(num);
+	System.out.println(num);
 		UserBoard ub = new UserBoardService().selectOneub(num);
 		String page = "";
 		

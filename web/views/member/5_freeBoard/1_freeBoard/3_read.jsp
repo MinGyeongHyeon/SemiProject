@@ -100,7 +100,7 @@
 				$.ajax({
 					url:"/sixDestiny/update.ubr",
 					type:"post",
-					data:{bno:bno, origin:<%%>},
+					data:{bno:bno},
 					success:function(data){
 						console.log(data['bNo']);
 						console.log(data);
@@ -108,7 +108,7 @@
 					},
 					error:function(){
 						console.log("사진 수정폼으로 이동 실패");
-						console.log(nno);
+				
 					}
 				});
 			}
