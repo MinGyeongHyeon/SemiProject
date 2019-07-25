@@ -271,7 +271,7 @@ div {
 
 				$('#parcelout').remove();
 				$('.parceloutt').remove();
-				/* $('ul').remove(); */
+				 $('ul').remove();
 
 			 $.ajax({
 				url:"SelectSort.re",
@@ -318,7 +318,7 @@ div {
 
 						$divt.append($div);
 
-						console.log(data[i].getListCount);
+						console.log(data[5].getListCount);
 						console.log(data);
 
 						$('#testdiv').before($divt);
@@ -326,6 +326,14 @@ div {
 
 
 					}
+
+					var currentPage = data[5].currentPage;
+					var getListCount = data[5].getListCount;
+					var limit = data[5].limit;
+					var maxPage = data[5].maxPage;
+					var startPage = data[5].startPage;
+					var endPage = data[5].endPage;
+
 				 	var $ul = $('<ul>');
 
 					var $li1 = $('<li>');
@@ -333,16 +341,12 @@ div {
 					var $li3 = $('<li>');
 					var $li4 = $('<li>');
 					var $li5 = $('<li>');
-					var $li6 = $('<li>');
-					var $li7 = $('<li>');
 
 					var $a1 = $('<a>');
 					var $a2 = $('<a>');
-					var $a3 = $('<a>');
+
 					var $a4 = $('<a>');
 					var $a5 = $('<a>');
-					var $a6 = $('<a>');
-					var $a7 = $('<a>');
 
 					$ul.addClass('pagination');
 
@@ -355,6 +359,26 @@ div {
 					$a2.html('◀');
 					$li2.append($a2);
 					$ul.append($li2);
+
+					for(var p = startPage; p <= endPage; p++){
+						$a3 = $('<a>');
+						$a3.attr('href','<%=request.getContextPath()%>/SelectSort.re?currentPage='+ p);
+						$a3.html(p);
+						$li3.append($a3);
+					$ul.append($li3);
+					}
+
+					$a4.attr('href', '<%=request.getContextPath()%>/SelectSort.re?currentPage=<%=(int)(Math.ceil(currentPage/10))*10+11%>');
+					$a4.html('▶');
+					$li4.append($a4);
+					$ul.append($li4);
+
+					$a5.attr('href','<%=request.getContextPath()%>/SelectSort.re?currentPage=<%=maxPage%>');
+					$a5.html('▶▶');
+					$li5.append($a5);
+					$ul.append($li5);
+
+
 
 
 

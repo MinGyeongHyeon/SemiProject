@@ -120,6 +120,13 @@
 		location.href="<%= request.getContextPath()%>/DeleteParcelout.po?num=<%= ub.getbNo() %>" ;
 	})
 
+
+
+	$('#reportPr').click(function(){
+		var test = <%= ub.getbNo() %>;
+		window.open("/sixDestiny/views/member/3_parcelout/2_reviewParcelout/6_report.jsp?test=" + test,"PopupWin","width=400,height=300");
+	})
+
 </script>
 
 
