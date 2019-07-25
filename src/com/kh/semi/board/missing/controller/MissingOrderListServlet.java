@@ -82,8 +82,22 @@ public class MissingOrderListServlet extends HttpServlet {
 	}
 
 	MissingPageInfo pi= new MissingPageInfo(currentPage,listCount,limit,maxPage,startPage,endPage);
+	
+	
+	
+	
 
 	ArrayList<HashMap<String, Object>> list= new MissingService().MissngselectList7(currentPage,limit,val);
+	HashMap<String, Object> hmap= new HashMap<String, Object>();
+	
+	hmap.put("currentPage",pi.getCurrentPage());
+	hmap.put("listCount",pi.getListCount());
+	hmap.put("limit",pi.getLimit());
+	hmap.put("maxPage",pi.getMaxPage());
+	hmap.put("startPage",pi.getStartPage());
+	hmap.put("endPage",pi.getEndPage());
+	
+	list.add(hmap);
 
 	String page = "";
 
@@ -149,7 +163,17 @@ public class MissingOrderListServlet extends HttpServlet {
 	MissingPageInfo pi= new MissingPageInfo(currentPage,listCount,limit,maxPage,startPage,endPage);
 
 	ArrayList<HashMap<String, Object>> list= new MissingService().MissngselectList8(currentPage,limit,val);
-
+	HashMap<String, Object> hmap= new HashMap<String, Object>();
+	
+	hmap.put("currentPage",pi.getCurrentPage());
+	hmap.put("listCount",pi.getListCount());
+	hmap.put("limit",pi.getLimit());
+	hmap.put("maxPage",pi.getMaxPage());
+	hmap.put("startPage",pi.getStartPage());
+	hmap.put("endPage",pi.getEndPage());
+	
+	list.add(hmap);
+	
 	String page = "";
 
 	if(list != null) {
@@ -213,6 +237,18 @@ public class MissingOrderListServlet extends HttpServlet {
 	if(val.equals("최신순")) {
 	ArrayList<HashMap<String, Object>> list= new MissingService().MissngselectList(currentPage,limit);
 	
+	
+	HashMap<String, Object> hmap= new HashMap<String, Object>();
+	
+	hmap.put("currentPage",pi.getCurrentPage());
+	hmap.put("listCount",pi.getListCount());
+	hmap.put("limit",pi.getLimit());
+	hmap.put("maxPage",pi.getMaxPage());
+	hmap.put("startPage",pi.getStartPage());
+	hmap.put("endPage",pi.getEndPage());
+	
+	
+	
 	String page = "";
 
 	if(list != null) {
@@ -228,7 +264,14 @@ public class MissingOrderListServlet extends HttpServlet {
 	
 	}}else {
 		ArrayList<HashMap<String, Object>> list= new MissingService().MissngselectList9(currentPage,limit);
+		HashMap<String, Object> hmap= new HashMap<String, Object>();
 		
+		hmap.put("currentPage",pi.getCurrentPage());
+		hmap.put("listCount",pi.getListCount());
+		hmap.put("limit",pi.getLimit());
+		hmap.put("maxPage",pi.getMaxPage());
+		hmap.put("startPage",pi.getStartPage());
+		hmap.put("endPage",pi.getEndPage());
 		String page = "";
 
 

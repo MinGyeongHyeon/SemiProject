@@ -206,7 +206,7 @@ table tr td img {
 </div>
 </form>
 
- 	<div class="paging" align="center">
+ 	<div id="paging" align="center">
 			<button  class="paging" onclick="location.href='<%=request.getContextPath() %>/missingListo.bo?currentPage=1'"><<</button>
 
 			<% if(currentPage <= 1)  { %>
@@ -240,8 +240,12 @@ table tr td img {
 			<% } %>
 
 
+</div>
 
                <script>
+               
+               
+               
       $(function() {
          $(".title").click( function() {
  	var num=     $(this).children().eq(0).val();
@@ -268,8 +272,12 @@ table tr td img {
    					var $div = $(".ddd");
    					$div.html("");
    		
-   					for(var key in data){
-   						console.log(key)
+   				$("#paging").remove();
+   				
+   					
+   					
+   				for(var i=0;i<data.length-1;i++){
+   					
    						var $table=$("<table>").addClass("thumb-list");
    						var $div2=$("<div>");
    						
@@ -281,13 +289,13 @@ table tr td img {
    						var $br = $("<br>");
    						var $image = $("<td>");	
    						$image.append($div2);
-   						$div2.html('<img src="/sixDestiny/thumbnail_uploadFiles/'+data[key].changeNm+'" style="width:100%; height:100%">').css({"width":"200","height":"200"});
+   						$div2.html('<img src="/sixDestiny/thumbnail_uploadFiles/'+data[i].changeNm+'" style="width:100%; height:100%">').css({"width":"200","height":"200"});
    						$div2.addClass("title");
    				
    						$tr5.append($br);
-   						var $boardNm = $("<td>").text(data[key].boardNm).css("width", "100px");
-   						var $reward = $("<td>").text("사례금: "+data[key].reward+"만원").css("width", "100px");
-   						var $gender =  $("<td>").text("성별"+data[key].gender).css("width", "100px");
+   						var $boardNm = $("<td>").text(data[i].boardNm).css("width", "100px");
+   						var $reward = $("<td>").text("사례금: "+data[i].reward+"만원").css("width", "100px");
+   						var $gender =  $("<td>").text("성별"+data[i].gender).css("width", "100px");
    						$tr1.append($image);
    						
    						$tr2.append($boardNm);
@@ -299,7 +307,7 @@ table tr td img {
    						$(".ddd").append($table);
    						
    						$table.filter(function(){
-   							var key2 = key;
+   							var key2 = i;
    							$(this).click(function(){
    								location.href = "<%=request.getContextPath()%>/missingSelectOne.bo?num=" + data[key2].boardNo ;
    							})
@@ -307,9 +315,7 @@ table tr td img {
    						
    					}
    						
-   						
-   						
-   					page();
+   				
    					
    					
    				},
@@ -341,8 +347,13 @@ table tr td img {
  					var $div = $(".ddd");
  					$div.html("");
  		
- 					for(var key in data){
- 						console.log(key)
+ 					$divp=$("#paging").remove();
+ 	   				
+   					
+ 					
+ 					
+ 					for(var i=0;i<data.length-1;i++){
+ 				
  						var $table=$("<table>").addClass("thumb-list");
  						var $div2=$("<div>");
  						
@@ -354,13 +365,13 @@ table tr td img {
  						var $br = $("<br>");
  						var $image = $("<td>");	
  						$image.append($div2);
- 						$div2.html('<img src="/sixDestiny/thumbnail_uploadFiles/'+data[key].changeNm+'" style="width:100%; height:100%">').css({"width":"200","height":"200"});
+ 						$div2.html('<img src="/sixDestiny/thumbnail_uploadFiles/'+data[i].changeNm+'" style="width:100%; height:100%">').css({"width":"200","height":"200"});
  						$div2.addClass("title");
  				
  						$tr5.append($br);
- 						var $boardNm = $("<td>").text(data[key].boardNm).css("width", "100px");
- 						var $reward = $("<td>").text("사례금: "+data[key].reward+"만원").css("width", "100px");
- 						var $gender =  $("<td>").text("성별"+data[key].gender).css("width", "100px");
+ 						var $boardNm = $("<td>").text(data[i].boardNm).css("width", "100px");
+ 						var $reward = $("<td>").text("사례금: "+data[i].reward+"만원").css("width", "100px");
+ 						var $gender =  $("<td>").text("성별"+data[i].gender).css("width", "100px");
  						$tr1.append($image);
  						
  						$tr2.append($boardNm);
@@ -372,11 +383,16 @@ table tr td img {
  						$(".ddd").append($table);
  						
  						$table.filter(function(){
- 							var key2 = key;
+ 							var key2 = i;
  							$(this).click(function(){
  								location.href = "<%=request.getContextPath()%>/missingSelectOne.bo?num=" + data[key2].boardNo ;
  							})
  						})
+ 						
+ 					
+ 						
+ 						
+ 						
  						
  					}
  						
@@ -408,8 +424,12 @@ table tr td img {
 					var $div = $(".ddd");
 					$div.html("");
 		
-					for(var key in data){
-						console.log(key)
+					$("#paging").remove();
+	   				
+   					
+					
+					for(var i=0;i<data.length-1;i++){
+						
 						var $table=$("<table>").addClass("thumb-list");
 						var $div2=$("<div>");
 						
@@ -421,13 +441,13 @@ table tr td img {
 						var $br = $("<br>");
 						var $image = $("<td>");	
 						$image.append($div2);
-						$div2.html('<img src="/sixDestiny/thumbnail_uploadFiles/'+data[key].changeNm+'" style="width:100%; height:100%">').css({"width":"200","height":"200"});
+						$div2.html('<img src="/sixDestiny/thumbnail_uploadFiles/'+data[i].changeNm+'" style="width:100%; height:100%">').css({"width":"200","height":"200"});
 						$div2.addClass("title");
 				
 						$tr5.append($br);
-						var $boardNm = $("<td>").text(data[key].boardNm).css("width", "100px");
-						var $reward = $("<td>").text("사례금: "+data[key].reward+"만원").css("width", "100px");
-						var $gender =  $("<td>").text("성별"+data[key].gender).css("width", "100px");
+						var $boardNm = $("<td>").text(data[i].boardNm).css("width", "100px");
+						var $reward = $("<td>").text("사례금: "+data[i].reward+"만원").css("width", "100px");
+						var $gender =  $("<td>").text("성별"+data[i].gender).css("width", "100px");
 						$tr1.append($image);
 						
 						$tr2.append($boardNm);
@@ -439,7 +459,7 @@ table tr td img {
 						$(".ddd").append($table);
 						
 						$table.filter(function(){
-							var key2 = key;
+							var key2 = i;
 							$(this).click(function(){
 								location.href = "<%=request.getContextPath()%>/missingSelectOne.bo?num=" + data[key2].boardNo ;
 							})
