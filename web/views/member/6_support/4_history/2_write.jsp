@@ -41,11 +41,16 @@
 				</tr>
 				<tr><td><br></td></tr>
 				<tr>
+					<td>
+						<input id="imaArea" type="text" readonly placeholder="클릭하여 영수증 첨부" style="font-family: 'Sunflower', sans-serif; width:100%">
+					</td>
+				</tr>
+				<tr>
 					<td><textarea rows="15" cols="106" name="content"></textarea></td>
 				</tr>
 				<tr><td><br></td></tr>
 				<tr>
-					<td><input type="file" id="image" name="image"></td>
+					<td><div><input type="file" id="image" name="image"></div></td>
 				</tr>
 			</table>
 		</div>
@@ -53,13 +58,20 @@
 		<br> <br> <input type="submit" value="등록하기" class="btn btn-info" style="font-family: 'Sunflower', sans-serif;"></input>
 
 	</form>
-	<!-- <script>
-		$('.starRev span').click(function() {
-			$(this).parent().children('span').removeClass('on');
-			$(this).addClass('on').prevAll('span').addClass('on');
-			return false;
+	<script type="text/javascript">
+		$(function(){
+			$("#image").hide();
+
+			$("#imaArea").click(function(){
+	               $("#image").click();
+	        });
+
+			$("#image").change(function(){
+				console.log($("#image").val());
+				$("#imaArea").val($("#image").val());
+			})
 		});
-	</script> -->
+	</script>
 	<%@ include file="../../../common/bottom_Include.jsp"%>
 
 

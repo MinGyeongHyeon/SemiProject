@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" import="java.util.*, com.kh.semi.adminboard.model.vo.*"%>
+	pageEncoding="UTF-8" import="java.util.*, com.kh.semi.adminboard.model.vo.AdminBoard, com.kh.semi.adminboard.model.vo.PageInfo"%>
 <%@ include file="../../../common/top_Include.jsp"%>
 <%
 	ArrayList<AdminBoard> list = (ArrayList<AdminBoard>) request.getAttribute("list");

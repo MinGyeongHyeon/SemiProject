@@ -28,6 +28,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
   <script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.2.js"></script>
+  <script src="https://cdn.bootpay.co.kr/js/bootpay-3.0.2.min.js" type="application/javascript"></script>
 <style>
 
 </style>
@@ -252,27 +253,35 @@
 
   	function goRegMoney(monSupNo){
   		var monSupNo = monSupNo;
-  		var IMP = window.IMP;
-  		IMP.init('imp83833982');
-  		IMP.request_pay({ // param
-  			pg : "danal_tpay",
-  		    pay_method: "card", // "card"만 지원됩니다
-  		    merchant_uid: "issue_billingkey_monthly_0001", // 빌링키 발급용 주문번호
-  		    customer_uid: "gildong_0001_5678", // 카드(빌링키)와 1:1로 대응하는 값
-  		    name: "최초인증결제",
-  		    amount: 0, // 0 으로 설정하여 빌링키 발급만 진행합니다.
-  		    buyer_email: "gildong@gmail.com",
-  		    buyer_name: "홍길동",
-  		    buyer_tel: "010-4242-4242",
-  		    buyer_addr: "서울특별시 강남구 신사동",
-  		    buyer_postcode: "01181"
-  		  }, function (rsp) { // callback
-  		    if (rsp.success) {
-  		      // 빌링키 발급 성공
-  		    } else {
-  		      // 빌링키 발급 실패
-  		    }
-  		  });
+  		BootPay.request({
+  			price: 0, // 0으로 해야 한다.
+  			application_id: "5d38293e02f57e00381e9c2b",
+  			name: '육인연 정기후원', //결제창에서 보여질 이름
+  			pg: 'danal',
+  			method: 'card_rebill', // 빌링키를 받기 위한 결제 수단
+  			show_agree_window: 0, // 부트페이 정보 동의 창 보이기 여부
+  			user_info: {
+  				username: '사용자 이름',
+  				email: '사용자 이메일',
+  				addr: '사용자 주소',
+  				phone: '010-1234-4567'
+  			},
+  			order_id: '고유order_id_1234', //고유 주문번호로, 생성하신 값을 보내주셔야 합니다.
+  			params: {callback1: '그대로 콜백받을 변수 1', callback2: '그대로 콜백받을 변수 2', customvar1234: '변수명도 마음대로'},
+  			extra: {
+  				start_at: '2019-05-10', // 정기 결제 시작일 - 시작일을 지정하지 않으면 그 날 당일로부터 결제가 가능한 Billing key 지급
+  				end_at: '2022-05-10' // 정기결제 만료일 -  기간 없음 - 무제한
+  			}
+  		}).error(function (data) {
+  			//결제 진행시 에러가 발생하면 수행됩니다.
+  			console.log(data);
+  		}).cancel(function (data) {
+  			//결제가 취소되면 수행됩니다.
+  			console.log(data);
+  		}).done(function (data) {
+  			// 빌링키를 정상적으로 가져오면 해당 데이터를 불러옵니다.
+  			console.log(data);
+  		});
   	};
   </script>
 

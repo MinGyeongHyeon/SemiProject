@@ -88,7 +88,7 @@ public class InsertSupportBoardMoney extends HttpServlet {
 
 
 			if(result > 0) {
-				/*response.sendRedirect(request.getContextPath()+"/selectList.tn");*/
+				response.sendRedirect(request.getContextPath()+"/selectSup.his");
 				System.out.println("성공스!!!!");
 			}else {
 				//실패시 저장된 사진 삭제
