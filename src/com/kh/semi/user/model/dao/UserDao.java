@@ -590,11 +590,12 @@ public class UserDao {
 	}
 
 	public int kakaologin(Connection con, User ur) {
-		
+
 		PreparedStatement pstmt = null;
 		int result = 0;
 
 		String query = prop.getProperty("kakaologin");
+		System.out.println("dao의 result : " + result);
 
 		try {
 			pstmt = con.prepareStatement(query);
@@ -602,7 +603,6 @@ public class UserDao {
 			pstmt.setString(1, ur.getUserId());
 			pstmt.setString(2, ur.getUserNm());
 			pstmt.setString(3, ur.getEmail());
-	
 
 			result = pstmt.executeUpdate();
 
@@ -616,5 +616,6 @@ public class UserDao {
 		}
 
 		return result;
+
 	}
 }

@@ -55,8 +55,8 @@
 						 Kakao.API.request({
 							url: '/v1/user/me',
 							success : function(res) {
-								alert(JSON.stringify(res));
-								alert(JSON.stringify(authObj));
+								//alert(JSON.stringify(res));
+								//alert(JSON.stringify(authObj));
 								
 								var userId = res.id;
 								var email = res.kaccount_email;
@@ -67,30 +67,36 @@
 									url : "/sixDestiny/kakaologin",
 									data : {userId:userId,email:email,userName:userName},
 									type:"post",
-									success:function(){
-										
-										
+									success:function(data){
+										console.log(data);
+										<%--result가 1이면 DB에없는 신규회원으로 추가정보입력받아야함--%>
+										if(data = 1){								
+											location.href = "/sixDestiny/views/member/7_member/2_signup/4_signupKakao.jsp";
+											console.log(data);
+										}else{								
+											location.href = "/sixDestiny/index.jsp";
+											console.log(data);
+										}
 									}
 								})
 								
-								
+								alert("카카오톡 로그인에 성공하였습니다");
 								//console.log(res.id);
 								//console.log(res.kaccount_email);
 								//console.log(res.properties['nickname']);
 								
-								console.log(id);
+								console.log(userId);
 								console.log(email);
-								console.log(name);
+								console.log(userName);
 								
 								//console.log(authObj.access_token); 
-
-								alert(JSON.stringify(authObj));
-							
+								//alert(JSON.stringify(authObj));
 							}
 						})
 					},
 					fail : function(err) {
-						alert(JSON.stringify(err));
+						//alert(JSON.stringify(err));
+						alert("카카오톡 로그인에 실패하였습니다");
 					}
 					
 				});

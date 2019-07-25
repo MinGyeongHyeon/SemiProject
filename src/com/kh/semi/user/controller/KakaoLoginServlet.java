@@ -1,12 +1,14 @@
 package com.kh.semi.user.controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
 import com.kh.semi.user.model.service.UserService;
 import com.kh.semi.user.model.vo.User;
 
@@ -46,23 +48,26 @@ public class KakaoLoginServlet extends HttpServlet {
 		ur.setUserNm(name);
 		
 		int result = new UserService().kakaologin(ur);
+		//page전환을 위한 값
+		int result2 = 0;
+		
 
 		String msg = "";
-		String page = "/sixDestiny/views/member/7_member/2_signup/3_signupHomepage.jsp";
-
+		String page = "/sixDestiny/";
+		
+		System.out.println("result값: "+result);
+		
 		if(result > 0) {
-			msg = "회원가입에 성공하셨습니다 !";
-
-			response.sendRedirect("/sixDestiny/");
-		}else {
-			msg = "회원가입에 실패 하셨습니다..";
-			request.setAttribute("msg", msg);
-
-			request.getRequestDispatcher(page).forward(request, response);
+			//새로운 회원, result=1;
+			result2 = 1;
+			new Gson().toJson(result2, response.getWriter());
+			
+		}else{
+			//기존회원, result=0;
+			System.out.println("카카오서블렛 호출...");
+			result2 = 2;
+			new Gson().toJson(result2, response.getWriter());
 		}
-		
-		
-		
 	}
 
 	/**
