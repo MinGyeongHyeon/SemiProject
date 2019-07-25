@@ -42,7 +42,7 @@
 		<h1 style="font-family: 'Sunflower', sans-serif;">입소신청</h1>
 		<br>
 		<br><br>
-		<form action="<%= request.getContextPath() %>/ApplicationInsert" method="post">
+		<form name="entrance" action="<%= request.getContextPath() %>/ApplicationInsert" method="post">
 		<div align="center">
 			<div style="width:70%">
 				<table border="1" style="width:100%; height: 30px; text-align:center;">
@@ -51,14 +51,14 @@
 					</tr>
 					<tr>
 						<td style="width:166px">이름</td>
-						<td colspan="2"><input style="width:100%; height: 30px;" type="text" value="<%=loginUser.getUserNm()%>" name="entName"></td>
+						<td colspan="2"><input readonly style="width:100%; height: 30px;" type="text" value="<%=loginUser.getUserNm()%>" name="entName"></td>
 					</tr>
 					<tr>
 						<td>연락처</td>
 						<td colspan="2">
-							<input style="width:30%; height: 30px;" type="text" placeholder="010" name="entPhone1"> -
-							<input style="width:30%; height: 30px;" type="text" name="entPhone2"> -
-							<input style="width:30%; height: 30px;" type="text" name="entPhone3">
+							<input style="width:30%; height: 30px;" type="text" maxlength="3" placeholder="010" name="entPhone1"> -
+							<input style="width:30%; height: 30px;" type="text" maxlength="4" name="entPhone2"> -
+							<input style="width:30%; height: 30px;" type="text" maxlength="4" name="entPhone3">
 						</td>
 					</tr>
 					<tr>
@@ -136,71 +136,79 @@
 			<div style="width:70%">
 				<table style="width:100%; height: 30px; text-align:center;" border="1">
 					<tr>
-						<td colspan="2" style="font-size:2em;">입소견정보</td>
+						<td colspan="4" style="font-size:2em;">입소견정보</td>
 					</tr>
 					<tr>
 						<td style="width:166px">이름</td>
-						<td><input type="text" style="width:100%; height: 30px;" name="dogName"></td>
+						<td colspan="3"><input type="text" style="width:100%; height: 30px;" name="dogName"></td>
 					</tr>
 					<tr>
 						<td>나이</td>
-						<td><input type="number" style="width:100%; height: 30px;" name="dogAge"></td>
+						<td colspan="3">
+							<select id="dogAge" name="dogAge" style="width:100%; height: 30px;">
+								<option value="age1">0개월 ~ 6개월</option>
+								<option value="age2">6개월 ~ 1년</option>
+								<option value="age3">1년 ~ 5년</option>
+								<option value="age4">5년 ~ 10년</option>
+								<option value="age5">10년이상</option>
+							</select>
+						</td>
 					</tr>
 					<tr>
 						<td>성별</td>
-						<td><span class="button-checkbox">
+						<td colspan="3"><span class="button-checkbox">
         						<button type="button" class="btn" data-color="info" style="font-family: 'Sunflower', sans-serif; width:170px; height:30px">남자</button>
-        						<input type="checkbox" class="hidden" value="M" name="doggender">
+        						<input type="checkbox" class="hidden" value="M" name="dogGender" id="dogGender1">
     						</span>
     							<span class="button-checkbox">
         						<button type="button" class="btn" data-color="info" style="font-family: 'Sunflower', sans-serif; width:170px; height:30px">여자</button>
-        					<input type="checkbox" class="hidden"  value="F" name="doggender">
+        					<input type="checkbox" class="hidden"  value="F" name="dogGender" id="dogGender2">
     						</span>
     					</td>
 					</tr>
 					<tr>
 						<td>견종</td>
-						<td>
-							<select style="width:100%; height: 30px;" name="dog">
-								<option>코카스파니엘</option>
-								<option>요크셔테리어</option>
-								<option>푸들</option>
-								<option>말티즈</option>
-								<option>웰시코기</option>
-								<option>포메라니안</option>
-								<option>스피치</option>
-								<option>닥스훈트</option>
-								<option>사모예드</option>
-								<option>골든리트리버</option>
-								<option>허스키</option>
-								<option>쉐퍼드</option>
-								<option>믹스</option>
+						<td colspan="3">
+							<select style="width:100%; height: 30px;" name="dogKind" id="dogKind">
+								<option value="dog1">코카스파니엘</option>
+								<option value="dog2">요크셔테리어</option>
+								<option value="dog3">푸들</option>
+								<option value="dog4">말티즈</option>
+								<option value="dog5">웰시코기</option>
+								<option value="dog6">포메라니안</option>
+								<option value="dog7">스피치</option>
+								<option value="dog8">닥스훈트</option>
+								<option value="dog9">사모예드</option>
+								<option value="dog10">골든리트리버</option>
+								<option value="dog11">허스키</option>
+								<option value="dog12">쉐퍼드</option>
+								<option value="dog13">믹스</option>
 							</select>
 						</td>
 					</tr>
 					<tr>
 						<td>몸무게</td>
-						<td><input type="number" style="width:100%; height: 30px;" name="test3"></td>
+						<td colspan="3"><input type="number" style="width:100%; height: 30px;" name="test3" id="weight"></td>
 					</tr>
 					<tr>
 						<td>키</td>
-						<td><input type="number" style="width:100%; height: 30px;" name="ke"></td>
+						<td colspan="3"><input type="number" style="width:100%; height: 30px;" name="ke"></td>
 					</tr>
 					<tr>
 						<td style="height:30px" rowspan="2">접종유무</td>
-						<td>
+						<td colspan="3">
 							<span class="button-checkbox">
         						<button onclick="open1();" type="button" class="btn" data-color="info" style="font-family: 'Sunflower', sans-serif; width:170px; height:30px">유</button>
         						<input type="checkbox" class="hidden"  value="Y" name="inoculation">
     						</span>
     							<span class="button-checkbox">
         						<button type="button" class="btn" data-color="info" style="font-family: 'Sunflower', sans-serif; width:170px; height:30px">무</button>
-        					<input type="checkbox" class="hidden"  value="N" name="inoculation">
+        					<input type="checkbox" class="hidden"  value="N" name="inoculation" id="ino">
     						</span>
 						</td>
 					</tr>
 					<tr>
-						<td colspan="2" style="font-family: 'Sunflower', sans-serif; width:170px; height:30px">
+						<td colspan="4" style="font-family: 'Sunflower', sans-serif; width:170px; height:30px">
 							<div id="selectarea1">
 							<input type="checkbox" name="t1">종합백신 &nbsp;&nbsp;&nbsp;
 							<input type="checkbox" name="t1">광견병 &nbsp;&nbsp;&nbsp;
@@ -212,19 +220,19 @@
 					</tr>
 					<tr>
 						<td style="height:30px" rowspan="2">병력</td>
-						<td>
+						<td colspan="3">
 							<span class="button-checkbox">
         						<button onclick="open2();"  type="button" class="btn" data-color="info" style="font-family: 'Sunflower', sans-serif; width:170px; height:30px">유</button>
-        						<input type="checkbox" class="hidden"  />
+        						<input type="checkbox" class="hidden" id="dis"/>
     						</span>
     							<span class="button-checkbox">
         						<button type="button" class="btn" data-color="info" style="font-family: 'Sunflower', sans-serif; width:170px; height:30px">무</button>
-        					<input type="checkbox" class="hidden"  />
+        						<input type="checkbox" class="hidden"/>
     						</span>
 						</td>
 					</tr>
 					<tr>
-						<td colspan="2" style="font-family: 'Sunflower', sans-serif; width:170px; height:30px">
+						<td colspan="4" style="font-family: 'Sunflower', sans-serif; width:170px; height:30px">
 						<div id="selectarea2">
 							<input type="checkbox" name="tt1">귀염증 &nbsp;&nbsp;&nbsp;
 							<input type="checkbox" name="tt2">내부기생충 &nbsp;&nbsp;&nbsp;
@@ -236,7 +244,7 @@
 					</tr>
 					<tr>
 						<td style="height:30px" rowspan="2">수술여부</td>
-						<td>
+						<td colspan="3">
 							<span class="button-checkbox">
         						<button onclick="open3();"  type="button" class="btn" data-color="info" style="font-family: 'Sunflower', sans-serif; width:170px; height:30px">유</button>
         						<input type="checkbox" class="hidden"  value="Y">
@@ -248,7 +256,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td colspan="2" style="font-family: 'Sunflower', sans-serif; width:170px; height:30px">
+						<td colspan="4" style="font-family: 'Sunflower', sans-serif; width:170px; height:30px">
 						<div id="selectarea3">
 							<input type="checkbox" name="ttt1">중성화 &nbsp;&nbsp;&nbsp;
 							<input type="checkbox" name="ttt2">성대수술 &nbsp;&nbsp;&nbsp;
@@ -259,15 +267,15 @@
 					</tr>
 					<tr>
 						<td>취미</td>
-						<td><input type="text" style="width:100%; height: 30px;" name="hobby"></td>
+						<td colspan="4"><input type="text" style="width:100%; height: 30px;" name="hobby"></td>
 					</tr>
 					<tr>
 						<td>알레르기</td>
-						<td><input type="text" style="width:100%; height: 30px;" name="allergy"></td>
+						<td colspan="4"><input type="text" style="width:100%; height: 30px;" name="allergy" id="allergy"></td>
 					</tr>
 					<tr>
 						<td>짖음정도</td>
-						<td><span class="button-checkbox">
+						<td colspan="4"><span class="button-checkbox">
         						<button type="button" class="btn" data-color="info" style="font-family: 'Sunflower', sans-serif; width:170px; height:30px">상</button>
         						<input type="checkbox" class="hidden"  value="상">
     						</span>
@@ -283,7 +291,7 @@
 					</tr>
 					<tr>
 						<td>배변활동</td>
-						<td>
+						<td colspan="4">
 							<span class="button-checkbox">
         						<button type="button" class="btn" data-color="info" style="font-family: 'Sunflower', sans-serif; width:170px; height:30px">상</button>
         						<input type="checkbox" class="hidden"  value="상">
@@ -300,7 +308,7 @@
 					</tr>
 					<tr>
 						<td>활동량</td>
-						<td>
+						<td colspan="4">
 							<span class="button-checkbox">
         						<button type="button" class="btn" data-color="info" style="font-family: 'Sunflower', sans-serif; width:170px; height:30px">상</button>
         						<input type="checkbox" class="hidden"  value="상">
@@ -317,7 +325,7 @@
 					</tr>
 					<tr>
 						<td>분리불안</td>
-						<td>
+						<td colspan="4">
 							<span class="button-checkbox">
         						<button type="button" class="btn" data-color="info" style="font-family: 'Sunflower', sans-serif; width:170px; height:30px">유</button>
         						<input type="checkbox" class="hidden"  value="Y">
@@ -330,11 +338,11 @@
 					</tr>
 					<tr>
 						<td>모색</td>
-						<td><input type="text" style="width:100%; height: 30px;" name="color"></td>
+						<td colspan="4"><input type="text" style="width:100%; height: 30px;" name="color"></td>
 					</tr>
 					<tr>
 						<td>순종여부</td>
-						<td>
+						<td colspan="4">
 							<span class="button-checkbox">
         						<button type="button" class="btn" data-color="info" style="font-family: 'Sunflower', sans-serif; width:170px; height:30px">예</button>
         						<input type="checkbox" class="hidden"  value="Y">
@@ -347,7 +355,7 @@
 					</tr>
 					<tr>
 						<td>등록여부</td>
-						<td>
+						<td colspan="4">
 							<span class="button-checkbox">
         						<button type="button" class="btn" data-color="info" style="font-family: 'Sunflower', sans-serif; width:170px; height:30px">예</button>
         						<input type="checkbox" class="hidden"  value="Y">
@@ -361,18 +369,31 @@
 					<tr>
 						<td>사진</td>
 						<td>
-
+							<div id="contentImgArea1">
+								<img id="contentImg1" width="120" height="100">
+							</div>
+						</td>
+						<td>
+							<div id="contentImgArea2">
+								<img id="contentImg2" width="120" height="100">
+							</div>
+						</td>
+						<td>
+							<div id="contentImgArea3">
+								<img id="contentImg3" width="120" height="100">
+							</div>
 						</td>
 					</tr>
 					<tr>
 						<td style="height:150px">기타사항</td>
-						<td><textarea style="width:100%; height:80%; resize: none; border:none;" name="gita"></textarea></td>
+						<td colspan="4"><textarea style="width:100%; height:80%; resize: none; border:none;" name="gita"></textarea></td>
 					</tr>
 				</table>
 			</div>
 		</div>
 		<br><br><br>
-		<button class="btn btn-default" style="font-family: 'Sunflower', sans-serif;">신청서 제출</button>
+		<button type="button" class="btn btn-default" style="font-family: 'Sunflower', sans-serif; width:200px" onclick="entranceMoney();">최소 입소비용 감정받기</button>
+		<button type="button" class="btn btn-default" style="font-family: 'Sunflower', sans-serif; width:200px" onclick="applyEntrance();">신청서 제출</button>
 		</form>
 	</div>
 
@@ -498,6 +519,94 @@ $(function () {
         init();
     });
 });
+</script>
+<script type="text/javascript">
+	function entranceMoney(){
+		console.log("AAA")
+		/* 나이 : 0~6개월(25) 6개월~1년(20)1년~5년(15)5년~10년(10)10년이상(5) / 성별:남()여(5) / 견종:코카스파니엘(20)요크셔테리어(10)푸들(10)말티즈(15)웰시코기(20)포메라니안(20)스피치(20)닥스훈트(20)사모예드(25)골든리트리버(25)허스키(30)쉐퍼드(25)믹스(5)
+		몸무게 : 0~5()5~13(5)13이상(10) 접종유무:했다()안했다(5) 병력:있다(10)없다() 알레르기:있다(5)없다() */
+		var dogAge = $("#dogAge").val();
+		var dogGender2 = $("#dogGender2").is(":checked");
+		var dogKind = $("#dogKind").val();
+		var weight = $("#weight").val();
+		var ino = $("#ino").is(":checked");
+		var dis = $("#dis").is(":checked");
+		var allergy = $("#allergy").val();
+
+		var price = 0;
+
+		if(dogAge == "age1"){
+			price += 25;
+		}else if(dogAge == "age2"){
+			price += 20;
+		}else if(dogAge == "age3"){
+			price += 15;
+		}else if(dogAge == "age4"){
+			price += 10;
+		}else{
+			price += 5;
+		}
+
+		if(dogGender2){
+			price += 5;
+		}
+
+		if(dogKind == "dog1"){
+			price += 20;
+		}else if(dogKind == "dog2"){
+			price += 10;
+		}else if(dogKind == "dog3"){
+			price += 10;
+		}else if(dogKind == "dog4"){
+			price += 15;
+		}else if(dogKind == "dog5"){
+			price += 20;
+		}else if(dogKind == "dog6"){
+			price += 20;
+		}else if(dogKind == "dog7"){
+			price += 20;
+		}else if(dogKind == "dog8"){
+			price += 20;
+		}else if(dogKind == "dog9"){
+			price += 25;
+		}else if(dogKind == "dog10"){
+			price += 25;
+		}else if(dogKind == "dog11"){
+			price += 30;
+		}else if(dogKind == "dog12"){
+			price += 25;
+		}else{
+			price += 5;
+		}
+
+		if(weight < 5){
+			price += 0;
+		}else if(weight >= 13){
+			price += 5
+		}else{
+			price += 10;
+		}
+
+		if(ino){
+			price += 5;
+		}
+
+		if(dis){
+			price += 10;
+		}
+
+		if(allergy != null){
+			price += 5;
+		}
+
+		alert("회원님의 입소견 최소 입소비용은 " + price + "만원 이며 \n추후 오프라인 상담을 통하여 변동 될 수 있음을 안내해 드립니다.");
+
+	}
+
+	function applyEntrance(){
+		document.entrance.submit();
+	}
+
 </script>
 		<%@ include file="../../../common/bottom_Include.jsp"%>
 </body>
