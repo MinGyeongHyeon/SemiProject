@@ -664,6 +664,272 @@ public class UserBoardDao {
 
 		return result;
 	}
+
+
+	public int getsearchListCount(Connection con, String what, String search) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int listCount = 0;
+		
+		String query = null;
+		if(what.equals("writer")) {
+			query = prop.getProperty("getsearchListCountWriter");
+			try {
+				pstmt = con.prepareStatement(query);
+				
+				pstmt.setString(1, search);
+				
+				
+				rset = pstmt.executeQuery();
+				
+				if(rset.next()) {
+					listCount = rset.getInt(1);
+				}
+				
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(pstmt);
+				close(rset);
+			}
+		}else if(what.equals("title")) {
+			query = prop.getProperty("getsearchListCountTitle");
+			try {
+				pstmt = con.prepareStatement(query);
+				
+				pstmt.setString(1, search);
+				
+				
+				rset = pstmt.executeQuery();
+				
+				if(rset.next()) {
+					listCount = rset.getInt(1);
+				}
+				
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(pstmt);
+				close(rset);
+			}
+		}else {
+			query = prop.getProperty("getsearchListCountTicon");
+			try {
+				pstmt = con.prepareStatement(query);
+				
+				pstmt.setString(1, search);
+				pstmt.setString(2, search);
+				
+				rset = pstmt.executeQuery();
+				
+				if(rset.next()) {
+					listCount = rset.getInt(1);
+				}
+				
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(pstmt);
+				close(rset);
+			}
+		}
+		
+		
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setString(1, search);
+			pstmt.setString(2, search);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt(1);
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return listCount;
+	}
+
+
+	public ArrayList<UserBoard> selectList(Connection con, int currentPage, int limit, String search,
+			String what) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<UserBoard> list = null;
+		
+		String query = null;
+		if(what.equals("writer")) {
+			query = prop.getProperty("selectListWriterWithPaging");
+			try {
+				pstmt = con.prepareStatement(query);
+
+				//조회를 시작할 행 번호와 마지막 행 번호 계산
+				int startRow = (currentPage - 1) * limit + 1;
+				int endRow = startRow + limit - 1;
+				
+				pstmt.setString(1, search);
+				pstmt.setInt(2, startRow);
+				pstmt.setInt(3, endRow);
+				
+				rset = pstmt.executeQuery();
+				
+				list = new ArrayList<UserBoard>();
+				
+				while(rset.next()) {
+					UserBoard ub = new UserBoard();
+
+					ub.setbNo(rset.getInt("BOARD_NO"));
+					ub.setbKind(rset.getString("BOARD_KIND"));
+					ub.setbNm(rset.getString("BOARD_NM"));
+					ub.setbDate(rset.getDate("BOARD_DT"));
+					ub.setbCon(rset.getString("BOARD_CON"));
+					ub.setInqCon(rset.getInt("INQ_COUNT"));
+					ub.setRecCon(rset.getInt("REC_COUNT"));
+					ub.setsGrade(rset.getInt("STAR_GRADE"));
+					ub.setbUserNick(rset.getString("NICK_NM"));
+					ub.setStatus(rset.getString("STATUS"));
+
+
+
+					System.out.println(ub);
+
+
+
+					list.add(ub);
+
+					
+				}
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(pstmt);
+				close(rset);
+			}
+		}else if(what.equals("title")) {
+			query = prop.getProperty("selectListTitleWithPaging");
+			try {
+				pstmt = con.prepareStatement(query);
+
+				//조회를 시작할 행 번호와 마지막 행 번호 계산
+				int startRow = (currentPage - 1) * limit + 1;
+				int endRow = startRow + limit - 1;
+				
+				pstmt.setString(1, search);
+				pstmt.setInt(2, startRow);
+				pstmt.setInt(3, endRow);
+				
+				
+				rset = pstmt.executeQuery();
+				
+				list = new ArrayList<UserBoard>();
+				
+				while(rset.next()) {
+					UserBoard ub = new UserBoard();
+
+					ub.setbNo(rset.getInt("BOARD_NO"));
+					ub.setbKind(rset.getString("BOARD_KIND"));
+					ub.setbNm(rset.getString("BOARD_NM"));
+					ub.setbDate(rset.getDate("BOARD_DT"));
+					ub.setbCon(rset.getString("BOARD_CON"));
+					ub.setInqCon(rset.getInt("INQ_COUNT"));
+					ub.setRecCon(rset.getInt("REC_COUNT"));
+					ub.setsGrade(rset.getInt("STAR_GRADE"));
+					ub.setbUserNick(rset.getString("NICK_NM"));
+					ub.setStatus(rset.getString("STATUS"));
+
+
+
+					System.out.println(ub);
+
+
+
+					list.add(ub);
+
+					
+				}
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(pstmt);
+				close(rset);
+			}
+			
+		}else {
+			query = prop.getProperty("selectListTiconWithPaging");
+			
+			try {
+				pstmt = con.prepareStatement(query);
+
+				//조회를 시작할 행 번호와 마지막 행 번호 계산
+				int startRow = (currentPage - 1) * limit + 1;
+				int endRow = startRow + limit - 1;
+				
+				pstmt.setString(1, search);
+				pstmt.setString(2, search);
+				pstmt.setInt(3, startRow);
+				pstmt.setInt(4, endRow);
+				
+				rset = pstmt.executeQuery();
+				
+				list = new ArrayList<UserBoard>();
+				
+				while(rset.next()) {
+					UserBoard ub = new UserBoard();
+
+					ub.setbNo(rset.getInt("BOARD_NO"));
+					ub.setbKind(rset.getString("BOARD_KIND"));
+					ub.setbNm(rset.getString("BOARD_NM"));
+					ub.setbDate(rset.getDate("BOARD_DT"));
+					ub.setbCon(rset.getString("BOARD_CON"));
+					ub.setInqCon(rset.getInt("INQ_COUNT"));
+					ub.setRecCon(rset.getInt("REC_COUNT"));
+					ub.setsGrade(rset.getInt("STAR_GRADE"));
+					ub.setbUserNick(rset.getString("NICK_NM"));
+					ub.setStatus(rset.getString("STATUS"));
+
+
+
+					System.out.println(ub);
+
+
+
+					list.add(ub);
+
+					
+				}
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(pstmt);
+				close(rset);
+			}
+		}
+				
+		
+		
+		
+		
+		
+		return list;
+	}
+
+
+	
 	
 }
 

@@ -152,7 +152,7 @@ public class UserBoardService {
 
 
 	public HashMap<String, Object> selectOne(int num) {
-Connection con = getConnection();
+		Connection con = getConnection();
 		
 		HashMap<String, Object> hmap = null;
 		
@@ -205,6 +205,30 @@ Connection con = getConnection();
 
 		return result;
 		
+	}
+
+
+	public int getsearchListCount(String what, String search) {
+		Connection con = getConnection();
+		
+		int listCount = new UserBoardDao().getsearchListCount(con, what, search);
+		
+		
+		close(con);
+		
+		return listCount;
+	}
+
+
+	public ArrayList<UserBoard> searchList(int currentPage, int limit, String search, String what) {
+		Connection con = getConnection();
+		
+		ArrayList<UserBoard> list = new UserBoardDao().selectList(con, currentPage, limit, search, what);
+		
+		
+		close(con);
+		
+		return list;
 	}
 	
 	
