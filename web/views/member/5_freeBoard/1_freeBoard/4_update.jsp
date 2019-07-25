@@ -54,8 +54,6 @@ table tr td.title {
 }
 }
 </style>
-
-
 </head>
 <body>
 
@@ -66,33 +64,22 @@ table tr td.title {
 		<div id="border">
 			<br> <br>
 
-
 			<table id="ta">
 				<tr>
 					<td class="title"><label>제목</label></td>
 					<td style="text-align: left;"><input type="text" name="bNm"	size="40" value=<%=bNm %>> 
 					분류 
-					
-					
 					<select name="bKind" id="upselect">
 							<option class="opval" value="자랑">자랑</option>
 							<option class="opval" value="꿀팁">꿀팁</option>
 							<option class="opval" value="잡담">잡담</option>
 					</select></td>
 				</tr>
-
-
 				<tr>
 					<td class="title"><label>내용</label></td>
-
 					<td style="text-align: left"><textarea name="bCon" rows="20"
 							cols="70" style="resize: none;" ><%=bcon %></textarea></td>
-
-
 				</tr>
-				
-
-
 				<tr>
 				<td>
 					<input type="hidden" value="<%=bNo %>" name="bNo">
@@ -111,7 +98,6 @@ table tr td.title {
 
 	$("#upselect").val("<%= bKind%>").attr("selected", "selected");
 
-	
 </script>
 
 	<%@ include file="../../../common/bottom_Include.jsp"%>

@@ -97,10 +97,31 @@ public class UserBoardService {
 		
 		return list;
 	}
+	
+	public ArrayList<UserBoard> selectList(int currentPage, int limit, String category) {
+		Connection con = getConnection();
+		
+		ArrayList<UserBoard> list = new UserBoardDao().selectList(con,currentPage, limit, category);
+		
+		close(con);
+		
+		return list;
+	}
+	
 	public int getListCount() {
 		Connection con = getConnection();
 		
 		int listCount = new UserBoardDao().getListCount(con);
+		
+		close(con);
+		
+		return listCount;
+	}
+	
+	public int getListCount(String category) {
+		Connection con = getConnection();
+		
+		int listCount = new UserBoardDao().getListCount(con, category);
 		
 		close(con);
 		
