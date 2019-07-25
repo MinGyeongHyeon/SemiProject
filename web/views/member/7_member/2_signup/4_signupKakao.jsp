@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" %>
+	pageEncoding="UTF-8"%>
 <%@ include file="../../../common/top_Include.jsp"%>
 <!DOCTYPE htm>
 <html>
@@ -7,14 +7,20 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+	<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <style>
 #button {
 	background: dimgray;
 	Color: white;
 	width: 300px;
-	height: 50px;s
+	height: 50px;
 }
 
 #button2 {
@@ -31,8 +37,8 @@
 }
 
 #signuptable {
-	margin:0 auto;
-	width:400px;
+	margin: 0 auto;
+	width: 400px;
 }
 
 .lefttd {
@@ -40,78 +46,368 @@
 }
 
 #hiddentr {
-	opacity:0;
+	opacity: 0;
 }
 
+#loginTable {
+	margin: 0 auto;
+	width: 400px;
+	height: 70px;
+	text-align: left;
+}
+
+.hiddenpwd {
+	opacity: 0;
+}
 </style>
 <body>
+
 	<div>
+		<h5 style="font-family: 'Sunflower', sans-serif;">* 은 필수 입력
+			사항입니다.</h5>
+		<br>
+		<form action="<%= request.getContextPath() %>/sign.user" method="post">
+			<table id="loginTable">
 
-		<div>
-			<img src="/sixDestiny/views/images/signup.PNG" style="width: 170px;">
-		</div>
-		<div class="test">
-		<form action="#" method="get">
-			<table id="signuptable">
 				<tr>
-					<td colspan="2" class="lefttd">
-						<h5>* 은 필수 입력 사항입니다.</h5>
+					<td style="font-family: 'Sunflower', sans-serif;" colspan="2">*
+						닉네임</td>
+				</tr>
+				<tr>
+					<td><input type="text" name="userNickName"
+						style="width: 330px; height: 50px;" id="nickNm"></td>
+					<td>
+						<button type="button" class="btn btn-default"
+							style="font-family: 'Sunflower', sans-serif; width: 50px; height: 50px;" onclick="checkNickNm();"
+							>중복</button>
 					</td>
 				</tr>
 				<tr>
-					<td class="lefttd"><label>*이름</label></td>
-					<td><input type="text" /></td>
-					<td></td>
+					<td><br></td>
 				</tr>
-				<tr>
-					<td class="lefttd"><label>*닉네임</label></td>
-					<td><input type="text" /></td>
-					<td class="lefttd">
-						<button type="button" onclick="checkNickname();">중복확인</button>
-					</td>
-
+				
+				<tr class="hiddenpwd">
+					<td style="font-family: 'Sunflower', sans-serif;" colspan="2">인증번호</td>
 				</tr>
-				<tr>
-					<td class="lefttd"><label>*이메일</label></td>
-					<td><input type="text" id="email" name="email"/></td>
-					<td class="lefttd">
-						<button type="button" id="mailbtn" onclick="sendMail();">인증번호</button>
-					</td>
-				</tr>
-				<tr>
-					<td class="lefttd"><h5>추가 입력 사항</h5></td>
-					<td></td>
-					<td></td>
-				</tr>
-
-				<tr>
-					<td class="lefttd"><label>주소</label></td>
-					<td><input type="text" /></td>
-					<td></td>
-				</tr>
-				<tr>
-					<td class="lefttd"><label>반려견 유무</label></td>
-					<td colspan="1"><input type="checkbox" />있다 <input type="checkbox" />없다</td>
-				</tr>
-				<tr>
-					<td class="lefttd"><label>가입경로</label></td>
-					<td colspan="1">
-						<select>
-							<option>SNS</option>
-							<option>검색</option>
-							<option>지인추천</option>
-							<option>인터넷광고</option>
-							<option>기타</option>
-						</select>
+				<tr class="hiddenpwd">
+					<td><input type="email" name=""
+						style="width: 330px; height: 50px;" id="randomNum"></td>
+					<td>
+						<button type="button" class="btn btn-default"
+							style="font-family: 'Sunflower', sans-serif; width: 50px; height: 50px;" id="pushNum">입력</button>
 					</td>
 				</tr>
 			</table>
+		<h5 style="font-family: 'Sunflower', sans-serif;">추가 입력 사항
+			</h5>
+		<br>
+		<table id="loginTable">
+			<tr>
+					<td style="font-family: 'Sunflower', sans-serif;" colspan="2">생년월일</td>
+				</tr>
+				<tr>
+					<td colspan="2"><input type="date" name="birthday"
+						style="width: 400px; height: 50px; font-family: 'Sunflower', sans-serif;" ></td>
+				</tr>
+				<tr>
+					<td><br></td>
+				</tr>
+				<tr>
+					<td style="font-family: 'Sunflower', sans-serif;" colspan="2">성별</td>
+				</tr>
+				<tr>
+					<td>
+						<span class="button-checkbox">
+        					<button type="button" class="btn" data-color="info" style="font-family: 'Sunflower', sans-serif; width:170px; height:50px">남자</button>
+        					<input type="checkbox" class="hidden"  name="gender" value="M">
+    					</span>
+    					<span class="button-checkbox">
+        					<button type="button" class="btn" data-color="info" style="font-family: 'Sunflower', sans-serif; width:170px; height:50px">여자</button>
+        					<input type="checkbox" class="hidden" name="gender" value="F" >
+    					</span>
+					</td>
+				</tr>
+				<tr>
+					<td><br></td>
+				</tr>
+				<tr>
+					<td style="font-family: 'Sunflower', sans-serif;" colspan="2">주소</td>
+				</tr>
+				<tr>
+					<td><input type="text" name="address" id="zipAddr"
+						style="width: 330px; height: 50px;"></td>
+					<td>
+						<button type="button" class="btn btn-default" onclick="fn_setAddr();"
+							style="font-family: 'Sunflower', sans-serif; width: 50px; height: 50px;"
+							>검색</button>
+					</td>
+				</tr>
+				<tr>
+					<td><br></td>
+				</tr>
+				<tr>
+					<td style="font-family: 'Sunflower', sans-serif;" colspan="2">
+						상세주소</td>
+				</tr>
+				<tr>
+					<td colspan="2"><input type="text" name="address2"
+						style="width: 400px; height: 50px;"></td>
+				</tr>
+				<tr>
+					<td><br></td>
+				</tr>
+				<tr>
+					<td style="font-family: 'Sunflower', sans-serif;" colspan="2">반려견 유무</td>
+				</tr>
+				<tr>
+					<td>
+						<span class="button-checkbox">
+        					<button type="button" class="btn" data-color="info" style="font-family: 'Sunflower', sans-serif; width:170px; height:50px">있음</button>
+        					<input type="checkbox" class="hidden"  name="dogYn" value="Y" id="Y" >
+    					</span>
+    					<span class="button-checkbox">
+        					<button type="button" class="btn" data-color="info" style="font-family: 'Sunflower', sans-serif; width:170px; height:50px">없음</button>
+        					<input type="checkbox" class="hidden"  name="dogYn" value="N" id="N" >
+    					</span>
+    				</td>
+				</tr>
+				<tr>
+					<td><br></td>
+				</tr>
+				<tr>
+					<td style="font-family: 'Sunflower', sans-serif;" colspan="2">가입경로</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+					<select name="rtcd"
+						style="width: 400px; height: 50px; font-family: 'Sunflower', sans-serif;">
+								<option value="E1">SNS</option>
+								<option value="E2">검색</option>
+								<option value="E3">인터넷광고</option>
+								<option value="E4">지인추천</option>
+								<option value="E5">기타</option>
+						</select>
+				</tr>
+				<tr>
+					<td><br></td>
+				</tr>
+		</table>
+			<div>
 			<br>
-			<input type=submit value="회원가입">
+			<br>
+			<br>
+			<br> <input type="submit" class="btn btn-default"
+				style="font-family: 'Sunflower', sans-serif; width: 400px"
+				value="회원가입"></input>
 		</form>
-		</div>
 	</div>
 
-<%@ include file="../../../common/bottom_Include.jsp"%>
+	<br>
+	<br>
+
+
+
+	<script type="text/javascript">
+      $(function(){
+         $('#mailbtn').click(function(){
+        	var inputEmail = $("#inputEmail").val();
+
+            $('.hiddenpwd').each(function(){
+            	$(this).css('opacity','1');
+            });
+
+            $.ajax({
+            	url:"/sixDestiny/sendMail",
+            	type:"post",
+            	data:{inputEmail:inputEmail},
+            	success:function(data){
+					console.log(data);
+					$("#randomNum").keyup(function(){
+						var num = $("#randomNum").val();
+
+						if(data == num){
+							$("#randomNum").css("border-color", "transparent");
+						}else{
+							$("#randomNum").css("border-color", "red");
+						}
+					});
+
+					$("#pushNum").click(function(){
+						var num = $("#randomNum").val();
+
+						if(data == num){
+							$("#randomNum").attr("disabled", "true");
+						}else{
+							alert("인증번호를 잘못 입력 하셨습니다.");
+						}
+					})
+            	},
+            	error:function(){
+
+            	}
+            });
+         });
+      });
+</script>
+
+<script type="text/javascript">
+	function fn_setAddr() {
+		var width = 500;
+		var height = 600;
+		daum.postcode.load(function(){
+			new daum.Postcode({
+				oncomplete: function(data){
+					$("#zipAddr").val(data.address);
+				}
+			}).open({
+				left: (window.screen.width / 2) - (width / 2),
+				top: (window.screen.height / 2) - (height / 2)
+			});
+		});
+	}
+
+ 	/* $(function(){
+		$('input:checkbox[value=N]').prop('checked', false);
+	}) */
+
+	/* $(function(){
+		$('input:checkbox[value=Y]').change(function(){
+
+			console.log("eqwe")
+
+			$('input:checkbox[value=N]').prop('checked', false);
+
+		})
+
+	}) */
+
+	/* $(document).ready(
+			function() {
+				$('input[type="checkbox"][name="dogYn"]').change(
+						function() {
+							console.log("qwewqd")
+							if ($(this).prop('checked')) {
+								$('input[type="checkbox"][name="dogYn"]')
+										.prop('checked', false);
+								$(this).prop('checked', true);
+							}
+						});
+			}); */
+</script>
+
+<script>
+$(function () {
+    $('.button-checkbox').each(function () {
+
+        // Settings
+        var $widget = $(this),
+            $button = $widget.find('button'),
+            $checkbox = $widget.find('input:checkbox'),
+            color = $button.data('color'),
+            settings = {
+                on: {
+                    icon: 'glyphicon glyphicon-check'
+                },
+                off: {
+                    icon: 'glyphicon glyphicon-unchecked'
+                }
+            };
+
+        // Event Handlers
+        $button.on('click', function () {
+            $checkbox.prop('checked', !$checkbox.is(':checked'));
+            $checkbox.triggerHandler('change');
+            updateDisplay();
+        });
+        $checkbox.on('change', function () {
+            updateDisplay();
+        });
+
+        // Actions
+        function updateDisplay() {
+            var isChecked = $checkbox.is(':checked');
+
+            // Set the button's state
+            $button.data('state', (isChecked) ? "on" : "off");
+
+
+            // Update the button's color
+            if (isChecked) {
+                $button
+                    .removeClass('btn-default')
+                    .addClass('btn-' + color + ' active');
+            }
+            else {
+                $button
+                    .removeClass('btn-' + color + ' active')
+                    .addClass('btn-default');
+            }
+        }
+
+        // Initialization
+        function init() {
+
+            updateDisplay();
+
+            // Inject the icon if applicable
+            if ($button.find('.state-icon').length == 0) {
+                $button.prepend('<i class="state-icon ' + settings[$button.data('state')].icon + '"></i> ');
+            }
+        }
+        init();
+    });
+});
+</script>
+<script type="text/javascript">
+	$(function(){
+
+		$("#passwordpass").keyup(function(){
+			var password = $("#passwordArea").val();
+			var password2 = $("#passwordpass").val();
+
+			if(password == password2){
+				console.log("같음!");
+				$("#passwordpass").css("border-color", "transparent")
+			}else{
+				console.log("틀림!");
+				$("#passwordpass").css("border-color", "red")
+			}
+		});
+	});
+
+	function idCheck(){
+		var userId = $("#userId").val();
+
+		$.ajax({
+			url:"/sixDestiny/idCheck.user",
+			type:"post",
+			data:{userId:userId},
+			success:function(data){
+				alert(data);
+			},
+			error:function(){
+
+			}
+		});
+	}
+
+	function checkNickNm(){
+		var nickNm = $("#nickNm").val();
+
+		$.ajax({
+			url:"/sixDestiny/nickNmCheck.user",
+			type:"post",
+			data:{nickNm:nickNm},
+			success:function(data){
+				alert(data);
+			},
+			error:function(){
+
+			}
+		});
+	}
+</script>
+
+	<%@ include file="../../../common/bottom_Include.jsp"%>
 </body>
 </html>
