@@ -15,15 +15,17 @@ import com.kh.semi.board.parcelout.model.service.UserBoardService;
 import com.kh.semi.board.parcelout.model.vo.PageInfo;
 
 
-@WebServlet("/SelectSort.iq")
+@WebServlet("/SelectSortiq.iq")
 public class SelectSprtParceloutInq extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String ajax = request.getParameter("ajax");
+		String data = request.getParameter("data");
 
-		System.out.println("에이작스 실행시 값 : " + ajax);
+		System.out.println("에이작스 실행시 값 : " + data);
+
+
 
 		int currentPage;
 		int limit;
@@ -35,9 +37,9 @@ public class SelectSprtParceloutInq extends HttpServlet {
 		currentPage = 1;
 
 
-		if(request.getParameter("currentPage") != null) {
+		if(request.getParameter("data") != null) {
 
-			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+			currentPage = Integer.parseInt(request.getParameter("data"));
 
 
 
@@ -69,36 +71,30 @@ public class SelectSprtParceloutInq extends HttpServlet {
 
 
 
+				HashMap<String, Object> hmap = new HashMap<String, Object>();
 
+				hmap.put("CurrentPage", pi.getCurrentPage());
+				hmap.put("getListCount", pi.getListCount());
+				hmap.put("limit", pi.getLimit());
+				hmap.put("maxPage", pi.getMaxPage());
+				hmap.put("startPage", pi.getStartPage());
+				hmap.put("endPage", pi.getEndPage());
 
 			ArrayList<HashMap<String,Object>> filelist = new UserBoardService().selectOutList4(currentPage,limit);
 
-			ArrayList<HashMap<String,Object>> filelist2 = new UserBoardService().selectOutList2(1,5);
+			//ArrayList<HashMap<String,Object>> filelist2 = new UserBoardService().selectOutList2(1,5);
 
-			String page = "";
-			String page2 = "";
+			filelist.add(hmap);
 
 
-			if(ajax == null) {
-			if(filelist != null) {
 
-				page = "views/member/3_parcelout/2_reviewParcelout/1_main.jsp";
-				request.setAttribute("filelist", filelist);
-				request.setAttribute("filelist2", filelist2);
-				request.setAttribute("pi", pi);
 
-				System.out.println(filelist);
-				System.out.println(filelist2);
-				System.out.println(pi);
-				System.out.println(page);
-
-			}
-			request.getRequestDispatcher(page).forward(request, response);
-			}else {
 				response.setContentType("application/json");
 				response.setCharacterEncoding("UTF-8");
 				new Gson().toJson(filelist,response.getWriter());
-			}
+			//	new Gson().toJson(pi, response.getWriter());
+
+
 
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
