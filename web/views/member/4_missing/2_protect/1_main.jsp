@@ -239,6 +239,7 @@ table tr td img {
 			<% }else{ %>
 				<button  class="pagination" onclick="location.href='<%=request.getContextPath() %>/proListo.bo?currentPage=<%= currentPage + 1 %>'">></button>
 			<% } %> 
+			</div>
 
 <script>
 
@@ -256,6 +257,11 @@ $("#li2").change(function(){
 				var $div = $(".ddd");
 				$div.html("");
 	
+				$(".paging").remove();
+   				
+					
+				
+				
 				for(var key in data){
 					console.log(key)
 					var $table=$("<table>").addClass("thumb-list");
@@ -327,6 +333,9 @@ $("#li1").change(function(){
 				var $div = $(".ddd");
 				$div.html("");
 	
+				$(".paging").remove();
+   				
+				
 				for(var key in data){
 					console.log(key)
 					var $table=$("<table>").addClass("thumb-list");
@@ -393,6 +402,10 @@ $("#li3").change(function(){
 			console.log(data);
 			var $div = $(".ddd");
 			$div.html("");
+			
+			$(".paging").remove();
+				
+			
 
 			for(var key in data){
 				console.log(key)
