@@ -210,5 +210,36 @@ public int NickCheck(String nickNm) {
 	return result;
 }
 
+public User userInfo(int userNo) {
+	
+	Connection con = getConnection();
+	
+	User user = new UserDao().getUserInfo(con, userNo);
+	
+	close(con);
+	
+	return user;
+	
+}
+
+public int kakaologin(User ur) {
+
+	Connection con = getConnection();
+
+	
+	int result = new UserDao().kakaologin(con,ur);
+
+	if (result > 0) {
+		commit(con);
+	}else {
+		rollback(con);
+	}
+
+
+	return result;
+	
+	
+}
+
 
 }
