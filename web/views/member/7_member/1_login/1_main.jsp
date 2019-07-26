@@ -33,8 +33,7 @@
 		<div>
 			<button type="button" class="btn btn-info"
 				onclick="location.href='2_login.jsp'"
-				style="width: 222px; height: 50px; font-family: 'Sunflower', sans-serif;">ID/PW
-				로 로그인</button>
+				style="width: 222px; height: 50px; font-family: 'Sunflower', sans-serif;">ID/PW로 로그인</button>
 		</div>
 		<br>
 		<div>
@@ -68,15 +67,16 @@
 									data : {userId:userId,email:email,userName:userName},
 									type:"post",
 									success:function(data){
-										console.log(data);
-										<%--result가 1이면 DB에없는 신규회원으로 추가정보입력받아야함--%>
+										<%-- console.log(data);
+										result가 1이면 DB에없는 신규회원으로 추가정보입력받아야함
 										if(data = 1){								
 											location.href = "/sixDestiny/views/member/7_member/2_signup/4_signupKakao.jsp";
 											console.log(data);
+											
 										}else{								
 											location.href = "/sixDestiny/index.jsp";
 											console.log(data);
-										}
+										} --%>
 									}
 								})
 								
@@ -111,4 +111,4 @@
    <input type="hidden" id="tocken" name="tocken" value="0">
 	<%@ include file="../../../common/bottom_Include.jsp"%>
 </body>
-</html>s
+</html>

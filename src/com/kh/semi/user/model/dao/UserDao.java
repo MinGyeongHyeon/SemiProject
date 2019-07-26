@@ -13,7 +13,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
 
-import com.kh.semi.board.parcelout.model.vo.Report;
 import com.kh.semi.user.controller.LoginServlet;
 import com.kh.semi.user.model.vo.User;
 
@@ -595,7 +594,7 @@ public class UserDao {
 		PreparedStatement pstmt = null;
 		int result = 0;
 
-		String query = prop.getProperty("kakaologin");
+		String query = prop.getProperty("kakaosignup");
 		System.out.println("dao의 result : " + result);
 
 		try {
@@ -620,5 +619,85 @@ public class UserDao {
 
 	}
 
+	public int kakaosignup(Connection con, User ur) {
 
+		PreparedStatement pstmt = null;
+		int result = 0;
+
+		String query = prop.getProperty("kakaoSignupPlus");
+
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setString(1, ur.getNickNm());
+			pstmt.setDate(2, ur.getUserHb());
+			pstmt.setString(3, ur.getGender());
+			pstmt.setString(4, ur.getAddress());
+			pstmt.setString(5, ur.getDogYn());
+			pstmt.setString(6, ur.getRtCd());
+
+			result = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+		return result;
+		
+	}
+
+	public User kakaoLoginCheck(Connection con,String id, String email) {
+
+
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		User kakaoLoginUser = null;
+		
+		String query = prop.getProperty("kakaoLoginCheck");
+		
+		try {
+			
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, );
+			pstmt.setString(2, email);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				
+				kakaoLoginUser = new User();
+				
+				kakaoLoginUser.setUserNo(rset.getInt("USER_NO"));
+				kakaoLoginUser.setUserId(rset.getString("USER_ID"));
+				kakaoLoginUser.setUserNm(rset.getString("USER_NM"));
+				kakaoLoginUser.setNickNm(rset.getString("NICK_NM"));
+				kakaoLoginUser.setEmail(rset.getString("EMAIL"));
+				kakaoLoginUser.setPhone(rset.getString("PHONE"));
+				kakaoLoginUser.setUserHb(rset.getDate("USER_HB"));
+				kakaoLoginUser.setGender(rset.getString("GENDER"));
+				kakaoLoginUser.setAddress(rset.getString("ADDRESS"));
+				kakaoLoginUser.setDogYn(rset.getString("DOG_YN"));
+				kakaoLoginUser.setEnrollDt(rset.getDate("ENROLL_DT"));
+				kakaoLoginUser.setLeaveDt(rset.getDate("LEAVE_DT"));
+				kakaoLoginUser.setUserSit(rset.getString("USER_SIT"));
+				kakaoLoginUser.setUserKind(rset.getString("USER_KIND"));
+				kakaoLoginUser.setUserPwd(rset.getString("USER_PWD"));
+				kakaoLoginUser.setRtCd(rset.getString("RT_CD"));
+				kakaoLoginUser.setLeaveRsCd(rset.getString("LEAVE_RS_CD"));
+			
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return kakaoLoginUser;
+	}
 }

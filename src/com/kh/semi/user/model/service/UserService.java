@@ -16,6 +16,7 @@ import com.kh.semi.user.model.vo.User;
 public class UserService {
 
 	public User loginCheck(User reqUser) {
+		
 		Connection con = getConnection();
 		int result = 0;
 		User loginUser = new User();
@@ -225,7 +226,6 @@ public User userInfo(int userNo) {
 public int kakaologin(User ur) {
 
 	Connection con = getConnection();
-
 	
 	int result = new UserDao().kakaologin(con,ur);
 
@@ -239,6 +239,37 @@ public int kakaologin(User ur) {
 	return result;
 	
 	
+}
+
+public int kakaosignup(User ur) {
+	
+	Connection con = getConnection();
+	
+	int result = new UserDao().kakaosignup(con,ur);
+	
+	if(result>0) {
+		commit(con);
+	}else {
+		rollback(con);
+	}
+	close(con);
+
+	return result;
+}
+
+public User kakaoLoginCheck(String id, String email) {
+	
+	Connection con = getConnection();
+	
+	System.out.println("kakaoLoginCheck con 호출 :" + con);
+	
+	User kakaoLoginUser = new UserDao().kakaoLoginCheck(con,id,email);
+	
+	
+	
+	close(con);
+	
+	return kakaoLoginUser;
 }
 
 

@@ -7,14 +7,15 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-	<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <style>
 #button {
 	background: dimgray;
@@ -66,12 +67,11 @@
 		<h5 style="font-family: 'Sunflower', sans-serif;">* 은 필수 입력
 			사항입니다.</h5>
 		<br>
-		<form action="<%= request.getContextPath() %>/sign.user" method="post">
+		<form action="<%=request.getContextPath()%>/sign.user" method="post">
 			<table id="loginTable">
 
 				<tr>
-					<td style="font-family: 'Sunflower', sans-serif;" colspan="2">*
-						이름</td>
+					<td style="font-family: 'Sunflower', sans-serif;" colspan="2">*이름</td>
 				</tr>
 				<tr>
 					<td colspan="2"><input type="text" name="userName"
@@ -81,16 +81,15 @@
 					<td><br></td>
 				</tr>
 				<tr>
-					<td style="font-family: 'Sunflower', sans-serif;" colspan="2">*
-						아이디</td>
+					<td style="font-family: 'Sunflower', sans-serif;" colspan="2">*아이디</td>
 				</tr>
 				<tr>
 					<td><input type="text" name="userId"
 						style="width: 330px; height: 50px;" id="userId"></td>
 					<td>
 						<button type="button" class="btn btn-default"
-							style="font-family: 'Sunflower', sans-serif; width: 50px; height: 50px;" onclick="idCheck();"
-							>중복</button>
+							style="font-family: 'Sunflower', sans-serif; width: 50px; height: 50px;"
+							onclick="idCheck();">중복</button>
 					</td>
 				</tr>
 				<tr>
@@ -119,24 +118,21 @@
 					<td><br></td>
 				</tr>
 				<tr>
-					<td style="font-family: 'Sunflower', sans-serif;" colspan="2">*
-						닉네임</td>
+					<td style="font-family: 'Sunflower', sans-serif;" colspan="2">*닉네임</td>
 				</tr>
 				<tr>
 					<td><input type="text" name="userNickName"
 						style="width: 330px; height: 50px;" id="nickNm"></td>
 					<td>
 						<button type="button" class="btn btn-default"
-							style="font-family: 'Sunflower', sans-serif; width: 50px; height: 50px;" onclick="checkNickNm();"
-							>중복</button>
+							style="font-family: 'Sunflower', sans-serif; width: 50px; height: 50px;" onclick="checkNickNm();">중복</button>
 					</td>
 				</tr>
 				<tr>
 					<td><br></td>
 				</tr>
 				<tr>
-					<td style="font-family: 'Sunflower', sans-serif;" colspan="2">*
-						이메일</td>
+					<td style="font-family: 'Sunflower', sans-serif;" colspan="2">*이메일</td>
 				</tr>
 				<tr>
 					<td><input type="email" name="email"
@@ -158,20 +154,20 @@
 						style="width: 330px; height: 50px;" id="randomNum"></td>
 					<td>
 						<button type="button" class="btn btn-default"
-							style="font-family: 'Sunflower', sans-serif; width: 50px; height: 50px;" id="pushNum">입력</button>
+							style="font-family: 'Sunflower', sans-serif; width: 50px; height: 50px;"
+							id="pushNum">입력</button>
 					</td>
 				</tr>
 			</table>
-		<h5 style="font-family: 'Sunflower', sans-serif;">추가 입력 사항
-			</h5>
-		<br>
-		<table id="loginTable">
-			<tr>
+			<h5 style="font-family: 'Sunflower', sans-serif;">추가 입력 사항</h5>
+			<br>
+			<table id="loginTable">
+				<tr>
 					<td style="font-family: 'Sunflower', sans-serif;" colspan="2">생년월일</td>
 				</tr>
 				<tr>
 					<td colspan="2"><input type="date" name="birthday"
-						style="width: 400px; height: 50px; font-family: 'Sunflower', sans-serif;" ></td>
+						style="width: 400px; height: 50px; font-family: 'Sunflower', sans-serif;"></td>
 				</tr>
 				<tr>
 					<td><br></td>
@@ -180,16 +176,15 @@
 					<td style="font-family: 'Sunflower', sans-serif;" colspan="2">성별</td>
 				</tr>
 				<tr>
-					<td>
-						<span class="button-checkbox">
-        					<button type="button" class="btn" data-color="info" style="font-family: 'Sunflower', sans-serif; width:170px; height:50px">남자</button>
-        					<input type="checkbox" class="hidden"  name="gender" value="M">
-    					</span>
-    					<span class="button-checkbox">
-        					<button type="button" class="btn" data-color="info" style="font-family: 'Sunflower', sans-serif; width:170px; height:50px">여자</button>
-        					<input type="checkbox" class="hidden" name="gender" value="F" >
-    					</span>
-					</td>
+					<td><span class="button-checkbox">
+							<button type="button" class="btn" data-color="info"
+								style="font-family: 'Sunflower', sans-serif; width: 170px; height: 50px">남자</button>
+							<input type="checkbox" class="hidden" name="gender" value="M">
+					</span> <span class="button-checkbox">
+							<button type="button" class="btn" data-color="info"
+								style="font-family: 'Sunflower', sans-serif; width: 170px; height: 50px">여자</button>
+							<input type="checkbox" class="hidden" name="gender" value="F">
+					</span></td>
 				</tr>
 				<tr>
 					<td><br></td>
@@ -201,9 +196,9 @@
 					<td><input type="text" name="address" id="zipAddr"
 						style="width: 330px; height: 50px;"></td>
 					<td>
-						<button type="button" class="btn btn-default" onclick="fn_setAddr();"
-							style="font-family: 'Sunflower', sans-serif; width: 50px; height: 50px;"
-							>검색</button>
+						<button type="button" class="btn btn-default"
+							onclick="fn_setAddr();"
+							style="font-family: 'Sunflower', sans-serif; width: 50px; height: 50px;">검색</button>
 					</td>
 				</tr>
 				<tr>
@@ -221,19 +216,21 @@
 					<td><br></td>
 				</tr>
 				<tr>
-					<td style="font-family: 'Sunflower', sans-serif;" colspan="2">반려견 유무</td>
+					<td style="font-family: 'Sunflower', sans-serif;" colspan="2">반려견
+						유무</td>
 				</tr>
 				<tr>
-					<td>
-						<span class="button-checkbox">
-        					<button type="button" class="btn" data-color="info" style="font-family: 'Sunflower', sans-serif; width:170px; height:50px">있음</button>
-        					<input type="checkbox" class="hidden"  name="dogYn" value="Y" id="Y" >
-    					</span>
-    					<span class="button-checkbox">
-        					<button type="button" class="btn" data-color="info" style="font-family: 'Sunflower', sans-serif; width:170px; height:50px">없음</button>
-        					<input type="checkbox" class="hidden"  name="dogYn" value="N" id="N" >
-    					</span>
-    				</td>
+					<td><span class="button-checkbox">
+							<button type="button" class="btn" data-color="info"
+								style="font-family: 'Sunflower', sans-serif; width: 170px; height: 50px">있음</button>
+							<input type="checkbox" class="hidden" name="dogYn" value="Y"
+							id="Y">
+					</span> <span class="button-checkbox">
+							<button type="button" class="btn" data-color="info"
+								style="font-family: 'Sunflower', sans-serif; width: 170px; height: 50px">없음</button>
+							<input type="checkbox" class="hidden" name="dogYn" value="N"
+							id="N">
+					</span></td>
 				</tr>
 				<tr>
 					<td><br></td>
@@ -242,27 +239,24 @@
 					<td style="font-family: 'Sunflower', sans-serif;" colspan="2">가입경로</td>
 				</tr>
 				<tr>
-					<td colspan="2">
-					<select name="rtcd"
+					<td colspan="2"><select name="rtcd"
 						style="width: 400px; height: 50px; font-family: 'Sunflower', sans-serif;">
-								<option value="E1">SNS</option>
-								<option value="E2">검색</option>
-								<option value="E3">인터넷광고</option>
-								<option value="E4">지인추천</option>
-								<option value="E5">기타</option>
-						</select>
+							<option value="E1">SNS</option>
+							<option value="E2">검색</option>
+							<option value="E3">인터넷광고</option>
+							<option value="E4">지인추천</option>
+							<option value="E5">기타</option>
+					</select>
 				</tr>
 				<tr>
 					<td><br></td>
 				</tr>
-		</table>
+			</table>
 			<div>
-			<br>
-			<br>
-			<br>
-			<br> <input type="submit" class="btn btn-default"
-				style="font-family: 'Sunflower', sans-serif; width: 400px"
-				value="회원가입"></input>
+				<br> <br> <br> <br> <input type="submit"
+					class="btn btn-default"
+					style="font-family: 'Sunflower', sans-serif; width: 400px"
+					value="회원가입"></input>
 		</form>
 	</div>
 
@@ -314,7 +308,7 @@
       });
 </script>
 
-<script type="text/javascript">
+	<script type="text/javascript">
 	function fn_setAddr() {
 		var width = 500;
 		var height = 600;
@@ -359,7 +353,7 @@
 			}); */
 </script>
 
-<script>
+	<script>
 $(function () {
     $('.button-checkbox').each(function () {
 
@@ -426,7 +420,7 @@ $(function () {
     });
 });
 </script>
-<script type="text/javascript">
+	<script type="text/javascript">
 	$(function(){
 
 		$("#passwordpass").keyup(function(){
