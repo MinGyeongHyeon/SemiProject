@@ -9,10 +9,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Properties;
 
 import com.kh.semi.entrance.model.vo.Entrance;
 import com.kh.semi.entrance.model.vo.EntranceDogInfo;
+import com.kh.semi.parcelout.model.vo.ParcelOut;
+import com.kh.semi.support.money.model.vo.MoneySup;
 
 public class EntranceDao {
 	private Properties prop = new Properties();
@@ -206,6 +209,138 @@ public class EntranceDao {
 		}
 
 		return result;
+	}
+
+	public int getMyEntranceAllListCount(Connection con, int userNo) {
+		PreparedStatement pstmt = null;
+		int listCount = 0;
+		ResultSet rset = null;
+
+		String query = prop.getProperty("getMyEntranceAllListCount");
+
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, userNo);
+
+			rset = pstmt.executeQuery();
+
+			if(rset.next()) {
+				listCount = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+
+
+		return listCount;
+	}
+
+	public int getMyParceloutAllListCount(Connection con, int userNo) {
+		PreparedStatement pstmt = null;
+		int listCount2 = 0;
+		ResultSet rset = null;
+
+		String query = prop.getProperty("getMyParceloutAllListCount");
+
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, userNo);
+
+			rset = pstmt.executeQuery();
+
+			if(rset.next()) {
+				listCount2 = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+
+
+		return listCount2;
+	}
+
+	public ArrayList<Entrance> selectAllentranceApply(Connection con, int userNo, int currentPage, int limit) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Entrance> entranceList = null;
+
+		String query = prop.getProperty("selectAllentranceApply");
+
+		try {
+			pstmt = con.prepareStatement(query);
+
+			int startRow = (currentPage - 1) * limit + 1;
+			int endRow = startRow + limit - 1;
+			pstmt.setInt(1, userNo);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+
+			rset = pstmt.executeQuery();
+
+			entranceList = new ArrayList<Entrance>();
+
+			while(rset.next()) {
+				Entrance et = new Entrance();
+				et.setEntAppNo(rset.getInt("ENT_APP_NO"));
+				et.setUserNo(rset.getInt("USER_NO"));
+				et.setWriteDt(rset.getDate("WRITE_DT"));
+				et.setSelHopeDt(rset.getString("SEL_HOPE_DT"));
+				et.setAppSit(rset.getString("APP_SIT"));
+
+				entranceList.add(et);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return entranceList;
+	}
+
+	public ArrayList<ParcelOut> selectAllparceloutApply(Connection con, int userNo, int currentPage2, int limit2) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<ParcelOut> parcleList = null;
+
+		String query = prop.getProperty("selectAllparceloutApply");
+
+		try {
+			pstmt = con.prepareStatement(query);
+
+			int startRow = (currentPage2 - 1) * limit2 + 1;
+			int endRow = startRow + limit2 - 1;
+			pstmt.setInt(1, userNo);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+
+			rset = pstmt.executeQuery();
+
+			parcleList = new ArrayList<ParcelOut>();
+
+			while(rset.next()) {
+				ParcelOut po = new ParcelOut();
+				po.setPcoAppNo(rset.getInt("PCO_APP_NO"));
+				po.setUserNo(rset.getInt("USER_NO"));
+				po.setAnsDt(rset.getDate("ANS_DT"));
+				po.setSelAppDt(rset.getString("SEL_APP_DT"));
+				po.setPcoSit(rset.getString("PCO_SIT"));
+
+				parcleList.add(po);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return parcleList;
 	}
 
 }

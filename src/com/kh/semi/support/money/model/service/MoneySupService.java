@@ -128,4 +128,20 @@ public class MoneySupService {
 		return result;
 	}
 
+	public int updateBillingkey(int monSupNo, String billing) {
+		Connection con = getConnection();
+
+		int result = new MoneySupDao().updateBillingkey(con, monSupNo, billing);
+
+		if(result > 0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+
+		close(con);
+
+		return result;
+	}
+
 }

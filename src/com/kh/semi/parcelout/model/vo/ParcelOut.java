@@ -6,18 +6,36 @@ public class ParcelOut {
 
 	private int pcoAppNo;
 	private int userNo;
-	private Date selAppDt;
+	private String selAppDt;
 	private String pcoSit;
+	private Date ansDt;
 
 	public ParcelOut() {}
 
-	public ParcelOut(int pcoAppNo, int userNo, Date selAppDt, String pcoSit) {
+
+
+	public ParcelOut(int pcoAppNo, int userNo, String selAppDt, String pcoSit, Date ansDt) {
 		super();
 		this.pcoAppNo = pcoAppNo;
 		this.userNo = userNo;
 		this.selAppDt = selAppDt;
 		this.pcoSit = pcoSit;
+		this.ansDt = ansDt;
 	}
+
+
+
+	public Date getAnsDt() {
+		return ansDt;
+	}
+
+
+
+	public void setAnsDt(Date ansDt) {
+		this.ansDt = ansDt;
+	}
+
+
 
 	public int getPcoAppNo() {
 		return pcoAppNo;
@@ -35,11 +53,11 @@ public class ParcelOut {
 		this.userNo = userNo;
 	}
 
-	public Date getSelAppDt() {
+	public String getSelAppDt() {
 		return selAppDt;
 	}
 
-	public void setSelAppDt(Date selAppDt) {
+	public void setSelAppDt(String selAppDt) {
 		this.selAppDt = selAppDt;
 	}
 

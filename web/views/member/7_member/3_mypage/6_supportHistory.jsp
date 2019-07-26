@@ -280,7 +280,18 @@
   			console.log(data);
   		}).done(function (data) {
   			// 빌링키를 정상적으로 가져오면 해당 데이터를 불러옵니다.
-  			console.log(data);
+  			var billing = data["billing_key"];
+  			$.ajax({
+  				url:"/sixDestiny/updateBill.mon",
+  				type:"post",
+  				data:{billing:billing, monSupNo:monSupNo},
+  				success:function(data){
+  					location.href="/sixDestiny/mySupport.su";
+  				},
+  				error:function(){
+  					console.log("에러!")
+  				}
+  			});
   		});
   	};
   </script>
