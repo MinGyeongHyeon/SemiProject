@@ -84,6 +84,7 @@ public class SelectBoardCategoryListServlet extends HttpServlet {
 				request.setAttribute("pi", pi);
 				request.setAttribute("list", list);
 				request.setAttribute("best", best);
+				request.setAttribute("category", category);
 				
 				request.getRequestDispatcher("views/member/5_freeBoard/1_freeBoard/1_main.jsp").forward(request, response);
 		
