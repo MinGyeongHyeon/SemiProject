@@ -22,14 +22,14 @@ public class MissingDao {
 	
 	public MissingDao() {
 		String fileName = 
-				MissingDao.class.getResource("/sql/board/board-query.properties").getPath();
+				MissingDao.class.getResource("/sql/board/missing/missing_board-query.properties").getPath();
 		
 		try {
 			prop.load(new FileReader(fileName));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	}
+	}//
 	
 
 	//페이징 처리 후 게시물 조회용 메소드

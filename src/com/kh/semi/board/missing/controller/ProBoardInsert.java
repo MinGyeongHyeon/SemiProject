@@ -138,7 +138,7 @@ public class ProBoardInsert extends HttpServlet {
 			b.setBoardDiv(mKind);
 	
 
-			b.setMissPhone(phone);
+			b.setMissPhone(phone);//
 				//b.setbWriter(String.valueOf(uno));
 				
 				//Attachment 객체 생성하여 ArrayList객체에 저장
@@ -148,8 +148,11 @@ public class ProBoardInsert extends HttpServlet {
 					MissingAttachment at = new MissingAttachment();
 					at.setFilePath(savePath);
 					at.setOriginNm(originFiles.get(i));
-					at.setChangeNm(saveFiles.get(i));
-					
+					if(saveFiles.get(i) != null) {
+			            at.setChangeNm(saveFiles.get(i));
+			            }else {
+			            at.setChangeNm("null.PNG");
+			            }
 					fileList.add(at);
 				}
 				

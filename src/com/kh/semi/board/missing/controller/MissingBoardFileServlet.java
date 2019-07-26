@@ -27,7 +27,7 @@ import com.oreilly.servlet.MultipartRequest;
 public class MissingBoardFileServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
  
-    /**
+    /**zz
      * @see HttpServlet#HttpServlet()
      */
     public MissingBoardFileServlet() {
@@ -148,14 +148,19 @@ public class MissingBoardFileServlet extends HttpServlet {
 			//Attachment 객체 생성하여 ArrayList객체에 저장
 			ArrayList<MissingAttachment> fileList = new ArrayList<MissingAttachment>();
 			//전송순서 역순으로 저장되기 때문에 반복문을 역으로 돌려 list에 저장
+	
 			for(int i = originFiles.size() - 1; i >= 0; i--) {
 				MissingAttachment at = new MissingAttachment();
 				at.setFilePath(savePath);
 				at.setOriginNm(originFiles.get(i));
-				at.setChangeNm(saveFiles.get(i));
-				
+				if(saveFiles.get(i) != null) {
+		            at.setChangeNm(saveFiles.get(i));
+		            }else {
+		            at.setChangeNm("null.PNG");
+		            }
 				fileList.add(at);
 			}
+		
 			
 			System.out.println("controller board : " + b);
 			System.out.println("controller attachment list : " + fileList);
