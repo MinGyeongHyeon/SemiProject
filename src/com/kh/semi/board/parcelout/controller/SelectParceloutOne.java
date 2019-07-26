@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.kh.semi.board.parcelout.model.service.UserBoardService;
 import com.kh.semi.board.parcelout.model.vo.Attachment;
+import com.kh.semi.board.parcelout.model.vo.Coment;
 import com.kh.semi.board.parcelout.model.vo.UserBoard;
 import com.kh.semi.user.model.vo.User;
 
@@ -31,6 +32,9 @@ public class SelectParceloutOne extends HttpServlet {
 
 			ArrayList<Attachment> filelist = (ArrayList<Attachment>) hmap.get("attachment");
 
+			ArrayList<Coment> list = (ArrayList<Coment>) hmap.get("coment");
+
+
 			User us = (User) hmap.get("User");
 
 
@@ -41,6 +45,7 @@ public class SelectParceloutOne extends HttpServlet {
 				request.setAttribute("ParceloutBoard", ub);
 				request.setAttribute("filelist", filelist);
 				request.setAttribute("User", us);
+				request.setAttribute("coment", list);
 
 			}
 

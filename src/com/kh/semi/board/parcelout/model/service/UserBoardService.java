@@ -11,7 +11,11 @@ import java.util.HashMap;
 
 import com.kh.semi.board.parcelout.model.dao.UserBoardDao;
 import com.kh.semi.board.parcelout.model.vo.Attachment;
+import com.kh.semi.board.parcelout.model.vo.Coment;
+import com.kh.semi.board.parcelout.model.vo.Report;
 import com.kh.semi.board.parcelout.model.vo.UserBoard;
+import com.kh.semi.board.parcelout.model.dao.UserBoardDao;
+
 
 
 public class UserBoardService {
@@ -75,6 +79,7 @@ public class UserBoardService {
 			Connection con = getConnection();
 
 			HashMap<String , Object> hmap = null;
+			ArrayList<Coment> list = null;
 
 			int result = new UserBoardDao().updateCount(con , num);
 			System.out.println(result);
@@ -82,13 +87,14 @@ public class UserBoardService {
 			if(result > 0) {
 				commit(con);
 				hmap = new UserBoardDao().selectParceloutOne(con, num);
+				list = new UserBoardDao().selectcoment(con,num);
 
 			}else {
 				rollback(con);
 			}
 
 			close(con);
-
+			hmap.put("coment", list);
 
 		return hmap;
 
@@ -190,6 +196,42 @@ public class UserBoardService {
 
 
 		close(con);
+
+		return list;
+	}
+	public int report(Report re) {
+		Connection con = getConnection();
+		int result = 0;
+
+		result = new UserBoardDao().report(con,re);
+
+		if(result >0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		close(con);
+
+		return result;
+	}
+	public ArrayList<Coment> coment(Coment cm) {
+		Connection con = getConnection();
+		int result = 0;
+		ArrayList<Coment> list = null;
+
+		result = new UserBoardDao().insertcoment(con,cm);
+
+		if(result > 0) {
+			commit(con);
+			 list = new UserBoardDao().selectcoment(con,cm.getbNo());
+
+		}else {
+			rollback(con);
+		}
+
+		close(con);
+
+
 
 		return list;
 	}

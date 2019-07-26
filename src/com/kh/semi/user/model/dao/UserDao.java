@@ -13,6 +13,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import com.kh.semi.board.parcelout.model.vo.Report;
 import com.kh.semi.user.controller.LoginServlet;
 import com.kh.semi.user.model.vo.User;
 
@@ -618,4 +619,6 @@ public class UserDao {
 		return result;
 
 	}
+
+
 }
