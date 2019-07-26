@@ -6,7 +6,8 @@ Missing b = (Missing) request.getAttribute("b");
 	ArrayList<MissingAttachment> fileList = 
 			(ArrayList<MissingAttachment>) request.getAttribute("fileList");
 	MissingAttachment titleImg = fileList.get(0);
-
+	
+	
 	%>
 <!DOCTYPE html>
 <html>
@@ -84,6 +85,22 @@ textarea {
 .reply_modify {
 	border: 2px solid #FFBB00;
 }
+
+ .btn-like {
+  color: transparent;
+  text-shadow: 0 0 2px rgba(255,255,255,.7), 0 0 0 #000;
+}
+.btn-like:hover {
+  text-shadow: 0 0 0 #ea0;
+}
+.btn-like.done {
+  color: inherit;
+  text-shadow: 0;
+}
+.btn-like.done:hover {
+  color: transparent;
+  text-shadow: 0 0 0 #777;
+} 
 </style>
 <link rel="stylesheet" href="/css/bootstrap.css">
 
@@ -121,7 +138,7 @@ textarea {
 					<td><%=b.getbNm() %></td>
 				</tr>
 				
-         <tr>   <input type="hidden" value="<%=b.getbNo()%>" name="num"></tr>
+         <tr>   <input type="hidden" value="<%=b.getbNo()%>" name="num" id="num"></tr>
 
 				
 				
@@ -130,8 +147,13 @@ textarea {
 	</table>
 
 	<div align="right">
-		<button>신고하기</button>
-		<button>추천하기</button>
+
+<% if(loginUser != null){ %> 
+					 <button type="button" id="report" onclick="report(<%=loginUser.getUserNo()%>);">신고하기</button>
+					 	<button class="btn-like">👍</button>
+	<%} %>
+	
+ 
 	</div>
 
 	<hr>
@@ -201,13 +223,47 @@ textarea {
 				$('#paper').click(function(){
 				
 					location.href="<%= request.getContextPath()%>/missingpaper.bo?num=<%= b.getbNo()%>" ;
-				})
-;
+				});
+				
+			
+				
+				function report(data){
+					var test = <%= b.getbNo() %>;
+					var test2 = data;		
+					var test3 = <%=b.getuNo()%>
+					console.log("뀨");
+					console.log(test2);
+					window.open("/sixDestiny/views/member/4_missing/1_fine/6_report.jsp?test=" + test + "," + test2 + "," + test3 ,"PopupWin","width=480,height=300","resizable=no");
+				}
 
 				
 				</script>
-				
-				
+		
+		<script src="//code.jquery.com/jquery.min.js"></script>
+<script>
+
+$(".btn-like").click(function() {
+
+	<%
+	if(b.getUu()%2==0){ %>
+	$(this).toggleClass("done");
+		var test = <%= b.getbNo() %>;
+		var test2= <%=loginUser.getUserNo()%>
+		console.log('추천취소');
+	 location.href="<%= request.getContextPath() %>/missingrec.bo?test="+test+"&&test2="+test2; 
+	
+
+	<%}else{%>
+	$(this).toggleClass("done");
+	var test = <%= b.getbNo() %>;
+	var test2= <%=loginUser.getUserNo()%>
+	console.log('추천');
+ location.href="<%= request.getContextPath() %>/missingrec.bo?test="+test+"&&test2="+test2; 
+
+	<%}%>
+	
+})
+</script> 
 
 
 			</tr>

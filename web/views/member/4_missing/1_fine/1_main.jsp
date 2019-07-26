@@ -250,12 +250,13 @@ table tr td img {
       $(function() {
          $(".title").click( function() {
  	var num=     $(this).children().eq(0).val();
+ 	var uu= $(this).children().eq(1).val();
 
-                           console.log(num);
+                           console.log(uu);
                 
 
 
-   location.href = "<%=request.getContextPath()%>/missingSelectOne.bo?num=" + num ;
+   location.href = "<%=request.getContextPath()%>/missingSelectOne.bo?num="+num+"&uu="+uu;
             });
       });
          
@@ -486,11 +487,7 @@ table tr td img {
          
          
          
-         
-         
-         });
-
-      
+    
       
       
       $(function() {
@@ -967,7 +964,7 @@ table tr td img {
          
          
          
-         
+      });
          
          
          

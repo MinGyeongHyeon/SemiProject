@@ -39,7 +39,7 @@ public class ProSelectOneServlet extends HttpServlet {
 		
 		int num = Integer.parseInt(request.getParameter("num"));
 		
-		System.out.println(num);
+		System.out.println("모야모야"+num);
 			
 			HashMap<String, Object> hmap = new MissingService().missingselectThumbnailMap2(num);
 			
