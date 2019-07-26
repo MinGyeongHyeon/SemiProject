@@ -11,7 +11,7 @@ import com.kh.semi.user.model.vo.User;
 
 public class ParcelOutService {
 
-	public int insertApplication(ArrayList<String> list, User us, Application ap) {
+	public int insertApplication(ArrayList<Application> list, User us, Application ap) {
 		Connection con = getConnection();
 		int resul = 0;
 		int result = new ParcelOutDao().insertApplication(con, us ,ap);

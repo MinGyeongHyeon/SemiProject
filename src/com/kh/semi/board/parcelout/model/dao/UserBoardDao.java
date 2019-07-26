@@ -707,9 +707,8 @@ public class UserBoardDao {
 
 			pstmt.setInt(1, re.getReportin());
 			pstmt.setString(2, re.getReason());
-			pstmt.setString(3, "게시글");
-			pstmt.setInt(4, re.getBoardNo());
-			pstmt.setInt(5, re.getReportout());
+			pstmt.setInt(3, re.getBoardNo());
+			pstmt.setInt(4, re.getReportout());
 
 
 
@@ -797,6 +796,41 @@ public class UserBoardDao {
 
 
 		return list;
+	}
+
+
+	public int Selectwrite(Connection con, UserBoard ub) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		ResultSet rset = null;
+
+		String query = prop.getProperty("selectwrite");
+
+		try {
+			pstmt = con.prepareStatement(query);
+
+			pstmt.setInt(1, ub.getuNo());
+			pstmt.setString(2, "분양완료");
+
+
+			rset = pstmt.executeQuery();
+
+			if(rset.next()) {
+				result = 1;
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+
+
+		System.out.println("넘어가는 리절트값 : " + result);
+
+
+		return result;
 	}
 
 }

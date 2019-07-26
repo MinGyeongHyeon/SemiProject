@@ -21,13 +21,27 @@ public class OutSelectConUno extends HttpServlet {
 
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
 		String outselect = request.getParameter("outselect");
 		String selectinput = request.getParameter("selectinput");
+
 		int currentPage;
 		int limit;
 		int maxPage;
 		int startPage;
 		int endPage;
+		String currentPage1 = null;
+		String[] currentPage2 = null;
+
+		if(request.getParameter("currentPage1") != null) {
+			currentPage1 = request.getParameter("currentPage1");
+			currentPage2 = currentPage1.split(",");
+
+			System.out.println(currentPage1);
+			System.out.println(currentPage2[0]);
+			System.out.println(currentPage2[1]);
+
+		}
 
 
 		currentPage = 1;
@@ -35,6 +49,7 @@ public class OutSelectConUno extends HttpServlet {
 
 		if(request.getParameter("currentPage") != null) {
 
+			System.out.println("페이지 들어온값 : " +currentPage1);
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 
 
@@ -82,6 +97,7 @@ public class OutSelectConUno extends HttpServlet {
 			request.setAttribute("filelist", filelist);
 			request.setAttribute("filelist2", filelist2);
 			request.setAttribute("pi", pi);
+			request.setAttribute("PagingSelect", 1);
 
 			System.out.println("널값이 아닐떄 여기까지 들어옴?");
 

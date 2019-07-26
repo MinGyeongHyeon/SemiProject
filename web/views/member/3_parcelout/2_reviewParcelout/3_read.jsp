@@ -13,9 +13,7 @@
 	ArrayList<Coment> cm = (ArrayList<Coment>) request.getAttribute("coment");
 
 	Attachment Img1 = list.get(0);
-	Attachment Img2 = list.get(1);
-	Attachment Img3 = list.get(2);
-	Attachment Img4 = list.get(3);
+
 
 
 
@@ -80,6 +78,7 @@
 		<div align="center" style="padding: 20px">
 			<table id="replySelectTable" border="0" align="conter">
 				<tbody>
+				<% if(cm != null){ %>
 				<% for(int i = 0 ; i < cm.size(); i++){ %>
 					<tr>
 						<td>
@@ -90,6 +89,7 @@
 						</td>
 					</tr>
 					<% } %>
+				<% } %>
 				</tbody>
 			</table>
 
@@ -156,24 +156,35 @@
 		var uNo = $('#uNo').val();
 		var bNo = $('#bNo').val();
 
+
 		$.ajax({
 			url:"Insert.coment",
 			data:{coment:coment , uNo:uNo , bNo:bNo},
 			type:"get",
 			success:function(data){
 
+
 				var $replySelectTable = $('#replySelectTable tbody');
-		
+				$replySelectTable.html("");
+				var $coment = $('#coment');
+				$coment.val("");
+
 
 				for(var key in data){
 					var $tr = $('<tr>');
-					var $writeTd = $("<td>").text(data[key].bWriter).css("width","100px");
-					var $contentTd = $("<td>").text(data[key].bContent).css("width","400px");
-					var $dateTd = $("<td>").text(data[key].bDate).css("width","200px");
+					var $input = $('<input value=' + data[key].conNo + " >" );
+					$input.attr('type','hidden');
+					var $input2 = $('<input value=' + data[key].uNo + '>' );
+					$input2.attr('type','hidden');
+					var $nickNm = $("<td>").text(data[key].nickNm).css("width","100px");
+					var $coment = $("<td>").text(data[key].coment).css("width","400px");
 
-					$tr.append($writeTd);
-					$tr.append($contentTd);
-					$tr.append($dateTd);
+
+					$tr.append($input);
+					$tr.append($input2);
+					$tr.append($nickNm);
+					$tr.append($coment);
+
 					$replySelectTable.append($tr);
 
 				}

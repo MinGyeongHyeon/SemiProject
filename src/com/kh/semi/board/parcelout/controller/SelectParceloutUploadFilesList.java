@@ -88,6 +88,7 @@ public class SelectParceloutUploadFilesList extends HttpServlet {
 				request.setAttribute("filelist", filelist);
 				request.setAttribute("filelist2", filelist2);
 				request.setAttribute("pi", pi);
+				request.setAttribute("PagingSelect", 0);
 
 				System.out.println(filelist);
 				System.out.println(filelist2);

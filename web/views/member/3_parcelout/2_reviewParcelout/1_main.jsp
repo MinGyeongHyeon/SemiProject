@@ -6,6 +6,7 @@
 <%
 	ArrayList<HashMap<String, Object>> list = (ArrayList<HashMap<String, Object>>) request.getAttribute("filelist");
 	ArrayList<HashMap<String, Object>> list2 = (ArrayList<HashMap<String, Object>>) request.getAttribute("filelist2");
+	PagingSelect = (int) request.getAttribute("PagingSelect");
 
 	PageInfo pi = (PageInfo) request.getAttribute("pi");
 
@@ -691,7 +692,6 @@ div {
 			<hr>
 
 
-
 	<form action="<%= request.getContextPath()%>/outSelect.po" method="get">
 	<div align="center">
 		<p>
@@ -703,18 +703,18 @@ div {
 				<input type="submit" value="검색" id="outselect">
 				<span></span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				<% if(loginUser != null){ %>
-				<input type="button" value="글쓰기" onclick="location.href='/sixDestiny/views/member/3_parcelout/2_reviewParcelout/2_write.jsp'">
+				<input type="button" value="글쓰기" onclick="write2(<%= loginUser.getUserNo() %>)">
 				<% } %>
 		</p>
 
 	</div>
 </form>
-
+<!-- location.href='/sixDestiny/views/member/3_parcelout/2_reviewParcelout/2_write.jsp' -->
 
 			<div class="pagingArea" align="center">
 		<ul class="pagination">
 
-
+<% if(PagingSelect == 0) { %>
 			<% if(currentPage != 1){ %>
 			<li><a href="<%=request.getContextPath()%>/selectOutList.tn?currentPage=1">◀◀</a></li>
 
@@ -751,10 +751,80 @@ div {
 			<% }%>
 
 			<% if(currentPage < maxPage){ %>
-			<li><a href="<%=request.getContextPath()%>/selectOutList.tn?currentPage=<%=maxPage%>">▶▶</a></li>
+			<li><a href="<%=request.getContextPath()%>/outSelect.po?currentPage=<%=maxPage%>">▶▶</a></li>
 			<%} %>
+
+<% }else if(PagingSelect == 1){ %>
+			<% if(currentPage != 1){ %>
+			<li><a href="<%=request.getContextPath()%>/outSelect.po?currentPage1=1,BOARD_NM">◀◀</a></li>
+
+			<% }%>
+
+
+			<% if(10 >= currentPage){ %>
+
+
+			<% }else if(currentPage%10 != 0){ %>
+				<li><a href="<%=request.getContextPath()%>/outSelect.po?currentPage1=<%=(int)(Math.floor(currentPage/10))*10%>,BOARD_NM">◀</a></li>
+				<%}else{ %>
+				<li><a href="<%=request.getContextPath()%>/outSelect.po?currentPage1=<%=(int)(Math.floor((currentPage-1)/10))*10%>,BOARD_NM">◀</a></li>
+				<%} %>
+
+				<% for(int p = startPage; p <= endPage; p++){
+					if(currentPage == p){
+				%>
+						<li ><a style="background:rgb(240,240,240); font-weight:bold;" href="#" disabled><%= p %></a></li>
+
+				<% } else { %>
+				<li><a href="<%=request.getContextPath()%>/outSelect.po?currentPage1=<%=p%>,BOARD_NM" disabled><%= p %></a></li>
+
+				<%
+					}
+				   }
+				%>
+
+				<% if(currentPage >= maxPage){ %>
+
+				<% }else if(Math.floor(maxPage/10)*10 >= currentPage){ %>
+				<li><a href="<%=request.getContextPath()%>/outSelect.po?currentPage1=<%=(int)(Math.ceil(currentPage/10))*10+11%>,BOARD_NM">▶</a></li>
+
+				<% }%>
+
+				<% if(currentPage < maxPage){ %>
+				<li><a href="<%=request.getContextPath()%>/outSelect.po?currentPage1=<%=maxPage%>,BOARD_NM">▶▶</a></li>
+				<%} %>
+
+
+			<% } %>
 		</ul>
 		</div>
+
+		<script>
+			function write2(userNo){
+
+				var uNo = userNo;
+
+				$.ajax({
+					url:"SelectWrite.sw",
+					data:{uNo:uNo},
+					type:"post",
+					success:function(data){
+						if(data == 1){
+
+							location.href='/sixDestiny/views/member/3_parcelout/2_reviewParcelout/2_write.jsp'
+
+						}else{
+							alert("분양을 하지 않으셨습니다 ㅠㅠ");
+						}
+
+					}
+				})
+
+
+
+			}
+
+		</script>
 
 
 <%@ include file="../../../common/bottom_Include.jsp"%>

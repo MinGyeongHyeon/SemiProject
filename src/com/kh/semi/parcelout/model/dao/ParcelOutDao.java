@@ -46,7 +46,7 @@ public class ParcelOutDao {
 				pstmt = con.prepareStatement(query);
 
 				pstmt.setInt(1, us.getUserNo());
-				pstmt.setString(2, ap.getApplication());
+				pstmt.setString(2, ap.getday());
 				pstmt.setString(3, "분양대기");
 
 
@@ -68,9 +68,11 @@ public class ParcelOutDao {
 	}
 
 
-	public int insertApplication2(Connection con, ArrayList<String> list) {
+	public int insertApplication2(Connection con, ArrayList<Application> list) {
 			PreparedStatement pstmt = null;
 			int result = 0;
+			System.out.println("그럼 여기는 ?");
+
 
 
 			try {
@@ -90,10 +92,11 @@ public class ParcelOutDao {
 						test = "선택";
 						pstmt.setString(2, test);
 					}
-					pstmt.setString(3, list.get((i-1)));
+					pstmt.setString(3, list.get((i-1)).getApplication());
 					pstmt.setString(4, "Q"+i);
 
 					result = pstmt.executeUpdate();
+					System.out.println("여기 안들어오냐 ?");
 
 				}
 
