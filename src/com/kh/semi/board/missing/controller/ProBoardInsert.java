@@ -138,7 +138,7 @@ public class ProBoardInsert extends HttpServlet {
 			b.setBoardDiv(mKind);
 	
 
-			b.setMissPhone(phone);
+			b.setMissPhone(phone);//
 				//b.setbWriter(String.valueOf(uno));
 				
 				//Attachment 객체 생성하여 ArrayList객체에 저장

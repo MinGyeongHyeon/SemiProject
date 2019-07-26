@@ -29,7 +29,7 @@ public class MissingDao {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	}
+	}//
 	
 
 	//페이징 처리 후 게시물 조회용 메소드
