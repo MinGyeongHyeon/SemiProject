@@ -1,13 +1,23 @@
 package com.kh.semi.entrance.controller;
 
 import java.io.IOException;
-import java.util.GregorianCalendar;
+import java.util.ArrayList;
+import java.util.Enumeration;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
+
+import com.kh.semi.board.parcelout.model.vo.Attachment;
+import com.kh.semi.entrance.model.service.EntranceService;
+import com.kh.semi.entrance.model.vo.Entrance;
+import com.kh.semi.entrance.model.vo.EntranceDogInfo;
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 
 @WebServlet("/ApplicationInsert")
@@ -16,60 +26,121 @@ public class ApplicationInsertServlet extends HttpServlet {
 
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//파일전송
+		if(ServletFileUpload.isMultipartContent(request)) {
+			int maxSize = 1024 * 1024 * 10; //10MB
 
-		String entName = request.getParameter("entName");
-		String entPhone1 = request.getParameter("entPhone1");
-		String entPhone2 = request.getParameter("entPhone2");
-		String entPhone3 = request.getParameter("entPhone3");
-		String entPhone = entPhone1 +"-"+entPhone2 +"-"+entPhone3;
-		String birthday = request.getParameter("birthday");
-		String gender = request.getParameter("gender");
-		String addres = request.getParameter("addres");
-		String addres2 = request.getParameter("addres2");
-		String addreslist = addres + addres2;
-		String test = request.getParameter("test");
-		String test2 = request.getParameter("test2");
+			String root = request.getSession().getServletContext().getRealPath("/");
 
-		String dogName = request.getParameter("dogName");
-		String dogAge = request.getParameter("dogAge");
-		String dogender = request.getParameter("doggender");
-		String dog = request.getParameter("dog");
-		String test3 = request.getParameter("test3");
-		String ke = request.getParameter("ke");
-		String inoculation = request.getParameter("inoculation");
-		String[] t1 = request.getParameterValues("t1");
+			String savePath = root + "entrance_uploadFiles/";
 
-		String[] str = test.split("/");
+			MultipartRequest multiRequest = new MultipartRequest(request, savePath, maxSize, "UTF-8", new DefaultFileRenamePolicy());
 
-		System.out.println(t1);
+			ArrayList<String> saveFiles = new ArrayList<String>();
+			ArrayList<String> originFiles = new ArrayList<String>();
+
+			Enumeration<String> files = multiRequest.getFileNames();
+
+			while(files.hasMoreElements()) {
+				String name = files.nextElement();
+
+				saveFiles.add(multiRequest.getFilesystemName(name));
+				originFiles.add(multiRequest.getOriginalFileName(name));
+
+				System.out.println("fileSystem name : " + multiRequest.getFilesystemName(name));
+				System.out.println("originFile name : " + multiRequest.getOriginalFileName(name));
+
+			}
+
+			ArrayList<Attachment> fileList = new ArrayList<Attachment>();
+
+			for(int i = originFiles.size() - 1; i >= 0; i--) {
+				Attachment at = new Attachment();
+				at.setFilePath(savePath);
+				at.setOriginNm(originFiles.get(i));
+				at.setChangeNm(saveFiles.get(i));
+
+				fileList.add(at);
+			}
+
+		//Entrance.java insert
+		int userNo = Integer.parseInt(multiRequest.getParameter("userNo"));
+		String selHope1 = multiRequest.getParameter("test");
+		String selHope2 = multiRequest.getParameter("test2");
+		String[] date = selHope1.split("/");
+		String day = date[2] + date[0] + date[1];
+		String selHopeDt = day + selHope2;
+
+		Entrance et = new Entrance();
+		et.setUserNo(userNo);
+		et.setSelHopeDt(selHopeDt);
+
+		System.out.println(selHope1);
+		System.out.println(selHope2);
 
 
+		//EntranceDogInfo.java insert
+		String dogNm = multiRequest.getParameter("dogNm");
+		String dogAge = multiRequest.getParameter("dogAge");
+		String dogGender = multiRequest.getParameter("dogGender");
+		String dogKind = multiRequest.getParameter("dogKind");
+		int dogWeight = Integer.parseInt(multiRequest.getParameter("dogWeight"));
+		int dogHeight = Integer.parseInt(multiRequest.getParameter("dogHeight"));
+		String inoYn = multiRequest.getParameter("inoYn");
+		String disYn = multiRequest.getParameter("disYn");
+		String operYn = multiRequest.getParameter("operYn");
+		String allegy = multiRequest.getParameter("allegy");
+		String dogHobby = multiRequest.getParameter("dogHobby");
+		String dogBark = multiRequest.getParameter("dogBark");
+		String dogBowel = multiRequest.getParameter("dogBowel");
+		String dogAct = multiRequest.getParameter("dogAct");
+		String seperate = multiRequest.getParameter("seperate");
+		String furColor = multiRequest.getParameter("furColor");
+		String obYn = multiRequest.getParameter("obYn");
+		String regYn = multiRequest.getParameter("regYn");
+		String dogChar = multiRequest.getParameter("dogChar");
 
+		String[] t1 = multiRequest.getParameterValues("t1");
+		String[] tt1 = multiRequest.getParameterValues("tt1");
+		String[] ttt1 = multiRequest.getParameterValues("ttt1");
 
-		java.sql.Date day = null;
+		EntranceDogInfo dogInfo = new EntranceDogInfo();
+		dogInfo.setDogNm(dogNm);
+		dogInfo.setDogAge(dogAge);
+		dogInfo.setDogGender(dogGender);
+		dogInfo.setDogKind(dogKind);
+		dogInfo.setDogWeight(dogWeight);
+		dogInfo.setDogHeight(dogHeight);
+		dogInfo.setInoYn(inoYn);
+		dogInfo.setDisYn(disYn);
+		dogInfo.setOperYn(operYn);
+		dogInfo.setAllegy(allegy);
+		dogInfo.setDogHobby(dogHobby);
+		dogInfo.setDogBark(dogBark);
+		dogInfo.setDogBowel(dogBowel);
+		dogInfo.setDogAct(dogAct);
+		dogInfo.setSeperate(seperate);
+		dogInfo.setFurColor(furColor);
+		dogInfo.setObYn(obYn);
+		dogInfo.setRegYn(regYn);
+		dogInfo.setDogChar(dogChar);
+		dogInfo.setT1(t1);
+		dogInfo.setTt1(tt1);
+		dogInfo.setTtt1(ttt1);
 
-		if(!birthday.equals("")) {
+		System.out.println("입소 파일 : " + fileList);
+		System.out.println("입소 내역 : " + et);
+		System.out.println("입소견 : " + dogInfo);
 
-			day = java.sql.Date.valueOf(birthday);
+		int result = new EntranceService().insertEntrance(fileList, et, dogInfo);
 
-		}else {
-
-			day = new java.sql.Date(new GregorianCalendar().getTimeInMillis());
-
+		if(result > 0) {
+			System.out.println("서블릿까지 성공했다!!");
+			request.getRequestDispatcher("index.jsp").forward(request, response);
 		}
 
-		System.out.println("넌 어떠니 : " + birthday);
-		System.out.println("잘 넘어옴 ? : " +entName);
-		System.out.println("너희들은? : " + entPhone1 +entPhone2 +entPhone3);
-		System.out.println("넘어온 값 : " + gender);
-		System.out.println("주소 : " + addreslist);
-		System.out.println("상담 일자 : "  + test);
-		System.out.println("여기 : " + test2);
-		System.out.println(dogName);
-		System.out.println(dogAge);
-		System.out.println(dogender);
-		System.out.println(dog);
 
+		}
 
 	}
 

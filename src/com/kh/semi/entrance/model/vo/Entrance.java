@@ -7,17 +7,35 @@ public class Entrance {
 	private int entAppNo;
 	private int userNo;
 	private Date writeDt;
-	private Date selHopeDt;
+	private String selHopeDt;
+	private String appSit;
 
 	public Entrance() {}
 
-	public Entrance(int entAppNo, int userNo, Date writeDt, Date selHopeDt) {
+
+
+	public Entrance(int entAppNo, int userNo, Date writeDt, String selHopeDt, String appSit) {
 		super();
 		this.entAppNo = entAppNo;
 		this.userNo = userNo;
 		this.writeDt = writeDt;
 		this.selHopeDt = selHopeDt;
+		this.appSit = appSit;
 	}
+
+
+
+	public String getAppSit() {
+		return appSit;
+	}
+
+
+
+	public void setAppSit(String appSit) {
+		this.appSit = appSit;
+	}
+
+
 
 	public int getEntAppNo() {
 		return entAppNo;
@@ -43,11 +61,11 @@ public class Entrance {
 		this.writeDt = writeDt;
 	}
 
-	public Date getSelHopeDt() {
+	public String getSelHopeDt() {
 		return selHopeDt;
 	}
 
-	public void setSelHopeDt(Date selHopeDt) {
+	public void setSelHopeDt(String selHopeDt) {
 		this.selHopeDt = selHopeDt;
 	}
 
