@@ -93,7 +93,7 @@ public class SearchUserBoardServlet extends HttpServlet {
 			
 			searchfinal.put("pi", pi);
 			searchfinal.put("list", list);
-	
+			
 	
 			
 			response.setContentType("application/json");

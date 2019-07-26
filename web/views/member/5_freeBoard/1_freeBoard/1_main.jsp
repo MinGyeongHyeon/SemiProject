@@ -5,6 +5,7 @@
 <%
 	ArrayList<UserBoard> list = (ArrayList<UserBoard>) request.getAttribute("list");
 	ArrayList<UserBoard> best = (ArrayList<UserBoard>) request.getAttribute("best");
+	String category = request.getParameter("category");
 	PageInfoFreeBoard pi = (PageInfoFreeBoard) request.getAttribute("pi");
 	int listCount = pi.getListCount();
 	int currentPage = pi.getCurrentPage();
@@ -123,12 +124,12 @@ th {
 			<div style="padding: 30px">
 
 				<div align="right">
-					<select onchange="location.href=this.value">
-						<option selected disabled="disabled" style="display: none;">카테고리</option>
-						<option value="/sixDestiny/selectList.bo">전체</option>
-						<option value="/sixDestiny/selectListCa.bo?category=자랑">자랑</option>
-						<option value="/sixDestiny/selectListCa.bo?category=꿀팁">꿀팁</option>
-						<option value="/sixDestiny/selectListCa.bo?category=잡담">잡담</option>
+					<select onchange="location.href=this.value" id="categorysel">
+						<option disabled="disabled" style="display: none;">카테고리</option>
+						<option class="optionsel" value="/sixDestiny/selectList.bo">전체</option>
+						<option class="optionsel" value="/sixDestiny/selectListCa.bo?category=자랑">자랑</option>
+						<option class="optionsel" value="/sixDestiny/selectListCa.bo?category=꿀팁">꿀팁</option>
+						<option class="optionsel" value="/sixDestiny/selectListCa.bo?category=잡담">잡담</option>
 					</select> <select>
 						<option selected disabled="disabled" style="display: none;">정렬</option>
 						<option>날짜순</option>
@@ -199,9 +200,13 @@ th {
 
 
 	</div>
-
+	<script>
+		var category = $("#categorysel option:selected").val();
+		console.log(category);
+	</script>
 
 	<%-- 페이징처리 --%>
+	<%if(category != null) {%>
 	<div class="pagingArea" align="center">
 		<ul class="pagination">
 
@@ -210,7 +215,7 @@ th {
 				if (currentPage != 1) {
 			%>
 			<li><a
-				href="<%=request.getContextPath()%>/selectList.bo?currentPage=1">◀◀</a></li>
+				href="<%=request.getContextPath()%>/selectListCa.bo?category=<%=category %>&currentPage=1">◀◀</a></li>
 
 			<%
 				}
@@ -226,12 +231,12 @@ th {
 				} else if (currentPage % 10 != 0) {
 			%>
 			<li><a
-				href="<%=request.getContextPath()%>/selectList.bo?currentPage=<%=(int) (Math.floor(currentPage / 10)) * 10%>">◀</a></li>
+				href="<%=request.getContextPath()%>/selectListCa.bo?category=<%=category %>&currentPage=<%=(int) (Math.floor(currentPage / 10)) * 10%>">◀</a></li>
 			<%
 				} else {
 			%>
 			<li><a
-				href="<%=request.getContextPath()%>/selectList.bo?currentPage=<%=(int) (Math.floor((currentPage - 1) / 10)) * 10%>">◀</a></li>
+				href="<%=request.getContextPath()%>/selectListCa.bo?category=<%=category %>&currentPage=<%=(int) (Math.floor((currentPage - 1) / 10)) * 10%>">◀</a></li>
 			<%
 				}
 			%>
@@ -248,7 +253,7 @@ th {
 				} else {
 			%>
 			<li><a
-				href="<%=request.getContextPath()%>/selectList.bo?currentPage=<%=p%>"
+				href="<%=request.getContextPath()%>/selectListCa.bo?category=<%=category %>&currentPage=<%=p%>"
 				disabled><%=p%></a></li>
 
 			<%
@@ -264,7 +269,7 @@ th {
 				} else if (Math.floor(maxPage / 10) * 10 >= currentPage) {
 			%>
 			<li><a
-				href="<%=request.getContextPath()%>/selectList.bo?currentPage=<%=(int) (Math.ceil(currentPage / 10)) * 10 + 11%>">▶</a></li>
+				href="<%=request.getContextPath()%>/selectListCa.bo?category=<%=category %>&currentPage=<%=(int) (Math.ceil(currentPage / 10)) * 10 + 11%>">▶</a></li>
 
 			<%
 				}
@@ -274,16 +279,59 @@ th {
 				if (currentPage < maxPage) {
 			%>
 			<li><a
-				href="<%=request.getContextPath()%>/selectList.bo?currentPage=<%=maxPage%>">▶▶</a></li>
+				href="<%=request.getContextPath()%>/selectListCa.bo?category=<%=category %>&currentPage=<%=maxPage%>">▶▶</a></li>
 			<%
 				}
 			%>
 		</ul>
 	</div>
+	<%}else{ %>
+	<div class="pagingArea" align="center">
+		<ul class="pagination">
+			
+			
+			<% if(currentPage != 1){ %>
+			<li><a href="<%=request.getContextPath()%>/selectList.bo?currentPage=1">◀◀</a></li>
+			
+			<% }%>
+			
+			
+			<% if(10 >= currentPage){ %>
+			
+			
+			<% }else if(currentPage%10 != 0){ %>
+			<li><a href="<%=request.getContextPath()%>/selectList.bo?currentPage=<%=(int)(Math.floor(currentPage/10))*10%>">◀</a></li>
+			<%}else{ %>
+			<li><a href="<%=request.getContextPath()%>/selectList.bo?currentPage=<%=(int)(Math.floor((currentPage-1)/10))*10%>">◀</a></li>
+			<%} %>
+			
+			<% for(int p = startPage; p <= endPage; p++){ 
+				if(currentPage == p){
+			%>
+					<li ><a style="background:rgb(240,240,240); font-weight:bold;" href="#" disabled><%= p %></a></li>
+					
+			<% } else { %>
+			<li><a href="<%=request.getContextPath()%>/selectList.bo?currentPage=<%=p%>" disabled><%= p %></a></li>
+				
+			<% 
+				}
+			   } 
+			%>
+			
+			<% if(currentPage >= maxPage){ %>
+			
+			<% }else if(Math.floor(maxPage/10)*10 >= currentPage){ %>
+			<li><a href="<%=request.getContextPath()%>/selectList.bo?currentPage=<%=(int)(Math.ceil(currentPage/10))*10+11%>">▶</a></li>
+			
+			<% }%>
+			
+			<% if(currentPage < maxPage){ %>
+			<li><a href="<%=request.getContextPath()%>/selectList.bo?currentPage=<%=maxPage%>">▶▶</a></li>
+			<%} %>
+		</ul>
+		</div>
 
-
-
-
+<%} %>
 
 	<script>
 		$("#listArea td").mouseenter(function(){

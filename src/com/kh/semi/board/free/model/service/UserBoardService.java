@@ -230,6 +230,28 @@ public class UserBoardService {
 		
 		return list;
 	}
+
+
+	public int getListCountad() {
+		Connection con = getConnection();
+		
+		int listCount = new UserBoardDao().getListCountad(con);
+		
+		close(con);
+		
+		return listCount;
+	}
+
+
+	public ArrayList<UserBoard> selectListad(int currentPage, int limit) {
+Connection con = getConnection();
+		
+		ArrayList<UserBoard> list = new UserBoardDao().selectListad(con, currentPage, limit);
+		
+		close(con);
+		
+		return list;
+	}
 	
 	
 	

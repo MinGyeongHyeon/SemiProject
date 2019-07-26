@@ -1,5 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="java.util.*, com.kh.semi.board.free.model.vo.*"%>
+
+<%
+	ArrayList<UserBoard> list = (ArrayList<UserBoard>) request.getAttribute("list");
+	PageInfoFreeBoard pi = (PageInfoFreeBoard) request.getAttribute("pi");
+	int listCount = pi.getListCount();
+	int currentPage = pi.getCurrentPage();
+	int maxPage = pi.getMaxPage();
+	int startPage = pi.getStartPage();
+	int endPage = pi.getEndPage();
+%>
     <%@ include file="/views/common/top_Include.jsp"%>
 <!DOCTYPE html>
 <html>
@@ -18,7 +28,9 @@
       border-bottom:1px solid #888;
       height:30px;
    }
-
+th {
+	text-align: center;
+}
 
 </style>
 </head>
@@ -60,28 +72,33 @@
       <span><h2>회원 게시글 관리</h2></span>
    </div>
 
-   <table class="adta" style=" border-spacing: 0px;" align="center">
+   <table class="table" id="listArea" style=" border-spacing: 0px; width:80%;" align="center">
+     	<thead>
       <tr class="adtr" style="background:rgb(220,220,220);">
-         <td class="adtd" style="width:100px;">No.</td>
-         <td class="adtd" style="width:300px;">게시판 종류</td>
-         <td class="adtd" style="width:500px;">게시글제목</td>
-         <td class="adtd" style="width:100px;">신고수</td>
-         <td class="adtd" style="width:100px;">조회수</td>
+         <th class="adtd" style="width:100px;">No.</th>
+         <th class="adtd" style="width:100px;">게시판 종류</th>
+         <th class="adtd" style="width:300px;">게시글제목</th>
+         <th class="adtd" style="width:200px;">작성자</th>
+         <th class="adtd" style="width:100px;">신고수</th>
+         <th class="adtd" style="width:100px;">조회수</th>
       </tr>
-      <tr class="adtr">
-         <td class="adtd">1</td>
-         <td class="adtd">자유게시판</td>
-         <td class="adtd">기욤이</td>
-         <td class="adtd">2</td>
-         <td class="adtd">12</td>
-      </tr>
-      <tr class="adtr">
-         <td class="adtd">2</td>
-         <td class="adtd">입양후기</td>
-         <td class="adtd">사랑해</td>
-         <td class="adtd">3</td>
-         <td class="adtd">67</td>
-      </tr>
+      </thead>
+      <tbody>
+     <%
+							for (UserBoard ub : list) {
+						%>
+						 <tr class="adtr">
+							<td class="adtd"><%=ub.getbNo()%></td>
+							<td class="adtd"><%=ub.getbKind()%></td>
+							<td class="adtd"><%=ub.getbNm()%></td>
+							<td class="adtd"><%=ub.getbUserNick()%></td>
+							<td class="adtd">1</td>
+							<td class="adtd"><%=ub.getInqCon()%></td>
+						</tr>
+						<%
+							}
+						%>
+</tbody id="remonebody">
    </table >
    <table align="center">
       <tr>
@@ -109,13 +126,50 @@
          </td>
       </tr>
    </table>
-   <ul class="pagination">
-      <li><a href="#">1</a></li>
-      <li><a href="#">2</a></li>
-      <li><a href="#">3</a></li>
-      <li><a href="#">4</a></li>
-      <li><a href="#">5</a></li>
-   </ul>
+  <div class="pagingArea" align="center">
+		<ul class="pagination">
+			
+			
+			<% if(currentPage != 1){ %>
+			<li><a href="<%=request.getContextPath()%>/boardList.ad?currentPage=1">◀◀</a></li>
+			
+			<% }%>
+			
+			
+			<% if(10 >= currentPage){ %>
+			
+			
+			<% }else if(currentPage%10 != 0){ %>
+			<li><a href="<%=request.getContextPath()%>/boardList.ad?currentPage=<%=(int)(Math.floor(currentPage/10))*10%>">◀</a></li>
+			<%}else{ %>
+			<li><a href="<%=request.getContextPath()%>/boardList.ad?currentPage=<%=(int)(Math.floor((currentPage-1)/10))*10%>">◀</a></li>
+			<%} %>
+			
+			<% for(int p = startPage; p <= endPage; p++){ 
+				if(currentPage == p){
+			%>
+					<li ><a style="background:rgb(240,240,240); font-weight:bold;" href="#" disabled><%= p %></a></li>
+					
+			<% } else { %>
+			<li><a href="<%=request.getContextPath()%>/boardList.ad?currentPage=<%=p%>" disabled><%= p %></a></li>
+				
+			<% 
+				}
+			   } 
+			%>
+			
+			<% if(currentPage >= maxPage){ %>
+			
+			<% }else if(Math.floor(maxPage/10)*10 >= currentPage){ %>
+			<li><a href="<%=request.getContextPath()%>/boardList.ad?currentPage=<%=(int)(Math.ceil(currentPage/10))*10+11%>">▶</a></li>
+			
+			<% }%>
+			
+			<% if(currentPage < maxPage){ %>
+			<li><a href="<%=request.getContextPath()%>/boardList.ad?currentPage=<%=maxPage%>">▶▶</a></li>
+			<%} %>
+		</ul>
+		</div>
 
    <br><br>
 
@@ -213,7 +267,23 @@
       <li><a href="#">4</a></li>
       <li><a href="#">5</a></li>
    </ul>
-
+   
+<script>
+$("#listArea td").mouseenter(function(){
+	$(this).parent().css({"background":"rgb(240,240,240)", "cursor":"pointer"});
+}).mouseout(function(){
+	$(this).parent().css({"background":"#FFF"});
+}).click(function(){
+	var num = $(this).parent().children().eq(0).text();
+	
+	//console.log(num);
+	
+	location.href="<%=request.getContextPath()%>/selectOne.bo?num=" + num;
+});
+		
+		
+		
+</script>
 
 
   <%@ include file="/views/common/bottom_Include.jsp"%>
