@@ -53,8 +53,7 @@ public class UpdateServlet extends HttpServlet {
 		String page="";
 
 		if(result>0) {
-
-			// ���� ���� update -> ȸ������ ���� �� ������ ������ ���̵�����
+			
 			HttpSession session = request.getSession();
 			session.setAttribute("loginUser", ur);
 

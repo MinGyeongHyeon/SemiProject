@@ -12,11 +12,11 @@
 </head>
 <body>
 <script type="text/javascript">
-<%-- <% if(msg.equals("Å»¶ô")){%>
-		alert("È¸¿øÁ¤º¸¼öÁ¤À» ½ÇÆÐÇÏ¿´½À´Ï´Ù.")
+<%-- <% if(msg.equals("Å»ï¿½ï¿½")){%>
+		alert("È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.")
 
 <% }else{%>
-alert("È¸¿øÁ¤º¸¼öÁ¤À» ¿Ï·áÇÏ¿´½À´Ï´Ù.")
+alert("È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï·ï¿½ï¿½Ï¿ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.")
 
 <% }%> --%>
 </script>
@@ -25,29 +25,29 @@ alert("È¸¿øÁ¤º¸¼öÁ¤À» ¿Ï·áÇÏ¿´½À´Ï´Ù.")
 	<table>
 
 	<tr>
-		<td><div style="color:black; padding:5px; width:100px">ÀÌ¸§</div></td>
+		<td><div style="color:black; padding:5px; width:100px">ì´ë¦„</div></td>
 		<td><%= loginUser.getUserNm()%></td>
 	</tr>
 
 	<tr>
-		<td><div style="color:black; padding:5px; width:100px">¾ÆÀÌµð</div></td>
+		<td><div style="color:black; padding:5px; width:100px">ì•„ì´ë””</div></td>
 		<td><%= loginUser.getUserId()%><input name="userId" type="hidden" value="<%= loginUser.getUserId()%>"></td>
 	</tr>
 
 	<tr>
-		<td><div style="color:black; padding:5px; width:100px">´Ð³×ÀÓ</div></td>
+		<td><div style="color:black; padding:5px; width:100px">ë‹‰ë„¤ìž„</div></td>
 		<td><input type="text" name="nickNm" value="<%= loginUser.getNickNm()%>"></td>
-		<td><input type="button" value="Áßº¹È®ÀÎ"> <input type="hidden" name="userNo" value="<%=loginUser.getUserNo()%>"></td>
+	    <td><input type="button" value="ì¤‘ë³µ"> <input type="hidden" name="userNo" value="<%=loginUser.getUserNo()%>"></td>
 
 	</tr>
 
 	<tr>
-		<td><div style="color:black; padding:5px; width:100px" >ÀÌ¸ÞÀÏ</div></td>
+		<td><div style="color:black; padding:5px; width:100px" >ì´ë©”ì¼</div></td>
 		<td><input type="text" name="email" value="<%= loginUser.getEmail()%>"></td>
 	</tr>
 
 	<tr>
-		<td><div style="color:black; padding:5px; width:100px">»ý³â¿ùÀÏ</div></td>
+		<td><div style="color:black; padding:5px; width:100px">ìƒë…„ì›”ì¼</div></td>
 		<td>
 		<select name="year">
 <%for(int year=1981; year<=1998; year++) {%>
@@ -82,30 +82,30 @@ alert("È¸¿øÁ¤º¸¼öÁ¤À» ¿Ï·áÇÏ¿´½À´Ï´Ù.")
 	</tr>
 
 	<tr>
-		<td><div style="color:black; padding:5px; width:100px">¼ºº°</div></td>
+		<td><div style="color:black; padding:5px; width:100px">ì„±ë³„</div></td>
 		<td><%= loginUser.getGender()%></td>
 	</tr>
 
 	<tr>
-		<td><div style="color:black; padding:5px; width:100px" >ÁÖ¼Ò</div></td>
+		<td><div style="color:black; padding:5px; width:100px" >ì£¼ì†Œ</div></td>
 		<td><input type="text" name="address" value="<%= loginUser.getAddress()%>"></td>
 	</tr>
 
 	<tr>
-		<td><div style="color:black; padding:5px; width:100px">¹Ý·Á°ß À¯¹«</div></td>
+		<td><div style="color:black; padding:5px; width:100px">ë°˜ë ¤ê²¬ìœ ë¬´</div></td>
 		<td>
 	<% if(loginUser.getDogYn().equals("Y")) {%>
-		<input type="radio" value="Y" name="dogYn" checked>ÀÖ´Ù
-		<input type="radio" value="N" name="dogYn">¾ø´Ù
+		<input type="radio" value="Y" name="dogYn" checked>í‚¤ì›Œìš”
+		<input type="radio" value="N" name="dogYn">ì•ˆí‚¤ì›Œìš”
 	<% } else{ %>
-		<input type="radio" value="Y" name="dogYn" >ÀÖ´Ù
-		<input type="radio" value="N" name="dogYn" checked>¾ø´Ù
+		<input type="radio" value="Y" name="dogYn" >í‚¤ì›Œìš”
+		<input type="radio" value="N" name="dogYn" checked>ì•ˆí‚¤ì›Œìš”
 	<%} %>
 		</td>
 	</tr>
 
 	</table>
-	<input type="submit" value="È®ÀÎ" >
+	<input type="submit" value="ìˆ˜ì •" >
 	</div>
 	</form>
 <%@ include file="../../../common/bottom_Include.jsp"%>

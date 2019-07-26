@@ -57,6 +57,7 @@ public class SignUpServlet extends HttpServlet {
 			}else {
 				day = new java.sql.Date(new GregorianCalendar().getTimeInMillis());
 			}
+			
 			User ur = new User();
 
 			ur.setAddress(addresslist);
