@@ -37,12 +37,17 @@ public class MissingSelectOneServlet extends HttpServlet {
 
 	
 	int num = Integer.parseInt(request.getParameter("num"));
-	
-	System.out.println(num);
+	int uu=0;
+if(request.getParameter("uu")!=null) {
+	uu= Integer.parseInt(request.getParameter("uu"));
+}
 		
 		HashMap<String, Object> hmap = new MissingService().missingselectThumbnailMap(num);
-		
+		int re=  new MissingService().re(num, uu);
+	
 		Missing b = (Missing) hmap.get("board");
+		b.setUu(re);
+
 		System.out.println("보드?????????/"+b);
 		ArrayList<MissingAttachment> fileList = 
 				(ArrayList<MissingAttachment>) hmap.get("attachment");
@@ -53,6 +58,7 @@ public class MissingSelectOneServlet extends HttpServlet {
 			page = "views/member/4_missing/1_fine/3_read.jsp";
 			request.setAttribute("b", b);
 			request.setAttribute("fileList", fileList);
+
 		}/*else {
 			page = "views/common/errorPage.jsp";
 			request.setAttribute("msg", "사진 게시판 상세보기 실패!");
@@ -60,10 +66,9 @@ public class MissingSelectOneServlet extends HttpServlet {
 		*/
 		request.getRequestDispatcher(page).forward(request, response);
 		
-		
+		}
 	
-	
-	}
+
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

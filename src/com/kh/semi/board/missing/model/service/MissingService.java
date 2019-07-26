@@ -12,6 +12,8 @@ import java.util.HashMap;
 import com.kh.semi.board.missing.model.dao.MissingDao;
 import com.kh.semi.board.missing.model.vo.Missing;
 import com.kh.semi.board.missing.model.vo.MissingAttachment;
+import com.kh.semi.board.missing.model.vo.MissingReport;
+import com.kh.semi.board.parcelout.model.dao.UserBoardDao;
 public class MissingService {
 	
 
@@ -561,6 +563,61 @@ Connection con = getConnection();
 
 		return list;
 	}
+
+
+	public int report(MissingReport re) {
+		Connection con = getConnection();
+		int result = 0;
+
+		result = new MissingDao().report(con,re);
+
+		if(result >0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		close(con);
+
+		return result;
+	}
+
+
+	public int re(int num, int uu) {
+		Connection con = getConnection();
+		int result = 0;
+
+		result = new MissingDao().report(con,num,uu);
+
+		if(result >0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		close(con);
+
+		return result;
+		
+		
+	
+	}
+
+
+	public int re2(int test, int test2) {
+		Connection con = getConnection();
+		int result = 0;
+
+		result = new MissingDao().report2(con,test,test2);
+
+		if(result >0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		close(con);
+
+		return result;
+	}
+
 
 
 

@@ -130,7 +130,10 @@ textarea {
 	</table>
 
 	<div align="right">
-		<button>신고하기</button>
+<% if(loginUser != null){ %> 
+					 <button type="button" id="report" onclick="report(<%=loginUser.getUserNo()%>);">신고하기</button>
+	<%} %>
+	
 		<button>추천하기</button>
 	</div>
 
@@ -187,12 +190,23 @@ textarea {
 				$('#modified').click(function(){
 
 					 location.href="<%= request.getContextPath() %>/proUpdate.bo?num=<%= b.getbNo() %>" ;
-				})
+				});
 
 				$('#deleteBoard').click(function(){
 				
 					location.href="<%= request.getContextPath()%>/proDelete.bo?num=<%= b.getbNo()%>" ;
-				})
+				});
+				
+					function report(data){
+					var test = <%= b.getbNo() %>;
+
+					var test2 = data;				
+					
+					var test3 = <%=b.getuNo()%>;
+					console.log("뀨");
+					console.log(test2);
+					window.open("/sixDestiny/views/member/4_missing/2_protect/5_report.jsp?test=" + test + "," + test2 + "," + test3 ,"PopupWin","width=480,height=300","resizable=no");
+				}
 
 				
 				</script>
