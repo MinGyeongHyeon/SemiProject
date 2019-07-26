@@ -1,16 +1,19 @@
 package com.kh.semi.entrance.model.service;
 
+import static com.kh.semi.common.JDBCTemplate.close;
 import static com.kh.semi.common.JDBCTemplate.commit;
 import static com.kh.semi.common.JDBCTemplate.getConnection;
 import static com.kh.semi.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.kh.semi.board.parcelout.model.vo.Attachment;
 import com.kh.semi.entrance.model.dao.EntranceDao;
 import com.kh.semi.entrance.model.vo.Entrance;
 import com.kh.semi.entrance.model.vo.EntranceDogInfo;
+import com.kh.semi.parcelout.model.vo.ParcelOut;
 
 
 public class EntranceService {
@@ -45,6 +48,40 @@ public class EntranceService {
 		}
 
 		return num2;
+	}
+
+	public int getMyEntranceAllListCount(int userNo) {
+		Connection con = getConnection();
+
+		int listCount = new EntranceDao().getMyEntranceAllListCount(con, userNo);
+
+		close(con);
+
+		return listCount;
+	}
+
+	public int getMyParceloutAllListCount(int userNo) {
+		Connection con = getConnection();
+
+		int listCount = new EntranceDao().getMyParceloutAllListCount(con, userNo);
+
+		close(con);
+
+		return listCount;
+	}
+
+	public HashMap<String, Object> selectAllApply(int userNo, int currentPage, int currentPage2, int limit,
+			int limit2) {
+		Connection con = getConnection();
+		HashMap<String, Object> list = new HashMap<String, Object>();
+
+		ArrayList<Entrance> entranceList = new EntranceDao().selectAllentranceApply(con, userNo, currentPage, limit);
+		ArrayList<ParcelOut> parceloutList = new EntranceDao().selectAllparceloutApply(con, userNo, currentPage2, limit2);
+
+		list.put("entranceList", entranceList);
+		list.put("parceloutList", parceloutList);
+
+		return list;
 	}
 
 }
