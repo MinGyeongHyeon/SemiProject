@@ -82,12 +82,14 @@ public class UserBoardService {
 			ArrayList<Coment> list = null;
 
 			int result = new UserBoardDao().updateCount(con , num);
-			System.out.println(result);
+			System.out.println("여기까지 한번.. : " + result);
 
 			if(result > 0) {
 				commit(con);
 				hmap = new UserBoardDao().selectParceloutOne(con, num);
+				System.out.println("해쉬맵 다음은 ?  들옴?: " + hmap.size());
 				list = new UserBoardDao().selectcoment(con,num);
+				System.out.println("list 다음은 ??" + list.size());
 
 			}else {
 				rollback(con);
@@ -234,6 +236,16 @@ public class UserBoardService {
 
 
 		return list;
+	}
+	public int Selectwrite(UserBoard ub) {
+		Connection con = getConnection();
+		int result = 0;
+
+		result = new UserBoardDao().Selectwrite(con,ub);
+
+		close(con);
+
+		return result;
 	}
 
 

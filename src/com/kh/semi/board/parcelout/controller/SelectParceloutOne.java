@@ -30,12 +30,19 @@ public class SelectParceloutOne extends HttpServlet {
 
 			UserBoard ub = (UserBoard) hmap.get("ParceloutBoard");
 
+			System.out.println();
+
 			ArrayList<Attachment> filelist = (ArrayList<Attachment>) hmap.get("attachment");
+
+			System.out.println("filelist 의 값은 ? : " + filelist.size());
 
 			ArrayList<Coment> list = (ArrayList<Coment>) hmap.get("coment");
 
+			System.out.println("list의 값은 ? : " + list.size());
+
 
 			User us = (User) hmap.get("User");
+			System.out.println("us의 값은 ? : " + us.toString());
 
 
 			String page = "";
@@ -45,8 +52,9 @@ public class SelectParceloutOne extends HttpServlet {
 				request.setAttribute("ParceloutBoard", ub);
 				request.setAttribute("filelist", filelist);
 				request.setAttribute("User", us);
+				if(list.size() > 0) {
 				request.setAttribute("coment", list);
-
+				}
 			}
 
 

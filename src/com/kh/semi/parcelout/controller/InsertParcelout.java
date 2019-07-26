@@ -52,39 +52,58 @@ public class InsertParcelout extends HttpServlet {
 
 			String str1 = str[2] + str[0] + str[1] + str3[0] + str3[1];
 
+
 			System.out.println(str1);
 
 			int userNo = Integer.parseInt(request.getParameter("userNo"));
 
 			User us = new User();
-			Application ap = new Application();
+			Application ap = null;
 
-			ap.setApplication(str1);
 			us.setUserNo(userNo);
+			System.out.println(str1);
+			String[] applic = new String[19] ;
+			applic[0] = applic1;
+			applic[1] = applic2;
+			applic[2] = applic3;
+			applic[3] = applic4;
+			applic[4] = applic66;
+			applic[5] = applic7;
+			applic[6] = applic8;
+			applic[7] = applic9;
+			applic[8] = applic10;
+			applic[9] = applic11;
+			applic[10] = applic12;
+			applic[11] = applic13;
+			applic[12] = applic14;
+			applic[13] = applic15;
+			applic[14] = applic16;
+			applic[15] = applic17;
+			applic[16] = applic18;
+			applic[17] = applic19;
+			applic[18] = applic20;
 
-			ArrayList<String> list = new ArrayList<String>();
+
+			ArrayList<Application> list = new ArrayList<Application>();
 
 
 
-				list.add(applic1);
-				list.add(applic2);
-				list.add(applic3);
-				list.add(applic4);
-				list.add(applic66);
-				list.add(applic7);
-				list.add(applic8);
-				list.add(applic9);
-				list.add(applic10);
-				list.add(applic11);
-				list.add(applic12);
-				list.add(applic13);
-				list.add(applic14);
-				list.add(applic15);
-				list.add(applic16);
-				list.add(applic17);
-				list.add(applic18);
-				list.add(applic19);
-				list.add(applic20);
+			for(int i = 0 ; i <= 18; i++) {
+				ap = new Application();
+
+				ap.setApplication(applic[i]);
+
+				list.add(ap);
+
+			}
+			ap = new Application();
+			ap.setDay(str1);
+
+			System.out.println(list.size());
+
+
+
+
 
 
 

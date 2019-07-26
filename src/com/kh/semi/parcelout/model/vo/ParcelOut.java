@@ -1,17 +1,17 @@
 package com.kh.semi.parcelout.model.vo;
 
-import java.sql.Date;
+
 
 public class ParcelOut {
 
 	private int pcoAppNo;
 	private int userNo;
-	private Date selAppDt;
+	private String selAppDt;
 	private String pcoSit;
 
 	public ParcelOut() {}
 
-	public ParcelOut(int pcoAppNo, int userNo, Date selAppDt, String pcoSit) {
+	public ParcelOut(int pcoAppNo, int userNo, String selAppDt, String pcoSit) {
 		super();
 		this.pcoAppNo = pcoAppNo;
 		this.userNo = userNo;
@@ -35,11 +35,11 @@ public class ParcelOut {
 		this.userNo = userNo;
 	}
 
-	public Date getSelAppDt() {
+	public String getSelAppDt() {
 		return selAppDt;
 	}
 
-	public void setSelAppDt(Date selAppDt) {
+	public void setSelAppDt(String selAppDt) {
 		this.selAppDt = selAppDt;
 	}
 

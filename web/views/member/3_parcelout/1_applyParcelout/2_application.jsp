@@ -9,18 +9,19 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
 	<link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
 
 <style>
 #border {
-	height: 2100px;
+	height: 2150px;
 	width: 800px;
-	border: 1px solid black;
-	margin: 0 auto;
+	margin-left:auto;
+	margin-right:auto;
 }
 
-#btn {
-	margin: 0 auto;
-}
+
 
 .entancetr {
 	margin: 0 auto;
@@ -38,17 +39,29 @@
 }
 
 input[type=text] {
-	padding-left: 90px;
+	padding-left: 5px;
 }
 
 p {
 	text-align: left;
 }
+
 </style>
 
 
 </head>
 <body>
+<script>
+$(function() {
+    $( "#testDatepicker" ).datepicker({
+    });
+});
+$(function(){
+	$("#testDatepicker").on("change paste keyup", function() {
+		   $("#selectEntrance").css("opacity", "1");
+	});
+});
+</script>
 
 
 	<form action="<%= request.getContextPath() %>/Insert.po" method="post">
@@ -220,16 +233,19 @@ p {
 				<tr class="entancetr">
 					<td class="entancetd"><input type="radio" value="1" name="applic20">예 <input
 						type="radio" value="2" name="applic20">아니요</td>
-				</tr>
-			<tr>
-						<td style="height:30px" rowspan="2">1:1면담 예약</td>
-						<td colspan="2" style="height:30px" >
-							<input type="text" id="testDatepicker" placeholder="클릭하세요" name="applic21">
-						</td>
+				</tr >
+
+			<tr class="entancetr">
+						<td style="height:30px">1:1면담 예약</td>
 					</tr>
-					<tr>
+						<tr>
+						<td colspan="2" style="height:30px" >
+							<input type="text" style="height:30px; width:22%;" id="testDatepicker" placeholder="클릭하세요" name="applic21">
+						</td>
+						</tr>
+					<tr class="entancetr">
 						<td colspan="2">
-							<select style="height:30px; width:100%; opacity:1;" id="selectEntrance" name="applic22">
+							<select style="height:30px; width:25%; opacity:0;" id="selectEntrance" name="applic22">
 								<option>09:00~10:00</option>
 								<option>10:00~11:00</option>
 								<option>11:00~12:00</option>
@@ -244,19 +260,21 @@ p {
 				<tr >
 					<td ><button type="submit" id="sub" disabled>제출</button></td>
 				</tr>
+
+
 			</table>
-
-
-
-
 
 		</div>
 
-		<br> <br>
-
-
 	</form>
-	<button id="btn">확인</button>
+	<br />
+	<div align="center" style="text-align: center;">
+	<button id="btn" >확인</button>
+	</div>
+
+
+
+
 
 
 	<script>
@@ -277,30 +295,10 @@ p {
 			});
 		});
 
-		$(function(){
-			$(function() {
-			    $( "#testDatepicker" ).datepicker({
-			    });
-			});
-			$("#testDatepicker").on("change paste keyup", function() {
-				   $("#selectEntrance").css("opacity", "1");
-			});
 
 
-			function fn_setAddr() {
-				var width = 500;
-				var height = 600;
-				daum.postcode.load(function(){
-					new daum.Postcode({
-						oncomplete: function(data){
-							$("#zipAddr").val(data.address);
-						}
-					}).open({
-						left: (window.screen.width / 2) - (width / 2),
-						top: (window.screen.height / 2) - (height / 2)
-					});
-				});
-			}
+
+
 			$('#btn').click(function(){
 
 				var i = 0;
@@ -358,7 +356,7 @@ p {
 
 			})
 
-		})
+
 
 	</script>
 		<script>

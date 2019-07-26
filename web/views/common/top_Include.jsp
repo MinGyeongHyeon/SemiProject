@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8" import="com.kh.semi.user.model.vo.*"%>
 <%
 	User loginUser = (User)session.getAttribute("loginUser");
+	int PagingSelect = 0;
 %>
 <!DOCTYPE html>
 <html>
