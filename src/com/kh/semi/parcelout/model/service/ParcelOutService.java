@@ -11,10 +11,10 @@ import com.kh.semi.user.model.vo.User;
 
 public class ParcelOutService {
 
-	public int insertApplication(ArrayList<String> list, User us) {
+	public int insertApplication(ArrayList<String> list, User us, Application ap) {
 		Connection con = getConnection();
 		int resul = 0;
-		int result = new ParcelOutDao().insertApplication(con, us);
+		int result = new ParcelOutDao().insertApplication(con, us ,ap);
 
 		if(result > 0) {
 			commit(con);

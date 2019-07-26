@@ -10,6 +10,8 @@
 
 	User us = (User) request.getAttribute("User");
 
+	ArrayList<Coment> cm = (ArrayList<Coment>) request.getAttribute("coment");
+
 	Attachment Img1 = list.get(0);
 	Attachment Img2 = list.get(1);
 	Attachment Img3 = list.get(2);
@@ -76,10 +78,25 @@
 		<hr>
 
 		<div align="center" style="padding: 20px">
+			<table id="replySelectTable" border="0" align="conter">
+				<tbody>
+				<% for(int i = 0 ; i < cm.size(); i++){ %>
+					<tr>
+						<td>
+						<input type="hidden" value="<%= cm.get(i).getConNo()%>">
+						<input type="hidden" value="<%= cm.get(i).getuNo()%>">
+							<label><%= cm.get(i).getNickNm() %></label>
+							<label><%= cm.get(i).getComent() %></label>
+						</td>
+					</tr>
+					<% } %>
+				</tbody>
+			</table>
 
-			<div>댓글쓴이 : 댓글내용입니다 <% if(loginUser != null &&loginUser.getUserId().equals("admin")){ %>  <button>삭제</button>   <% } %></div>
-			<div>댓글쓴이 : 댓글내용입니다</div>
-			<div>댓글쓴이 : 댓글내용입니다</div>
+			<%-- <% if(loginUser != null &&loginUser.getUserId().equals("admin")){ %>  <button>삭제</button>   <% } %> --%>
+
+			</div>
+
 
 
 
@@ -88,8 +105,8 @@
 		<hr>
 
 	<% if(loginUser != null) { %>
-		댓글 <input type="text" style="width: 600px"> <input
-			type="submit" value="댓글 달기">
+		댓글 <input type="text" style="width: 600px" id="coment">
+		<input type="button" value="댓글 달기" id="comHs">
 
 		<% } %>
 
@@ -130,8 +147,48 @@
 		var test = <%= ub.getbNo() %>;
 		var test2 = $('#uNo').val();
 		var test3 = <%= us.getUserNo()%>;
-		window.open("/sixDestiny/views/member/3_parcelout/2_reviewParcelout/6_report.jsp?test=" + test + "?test2=" + test2 + "?test3=" + test3,"PopupWin","width=450,height=300");
+		window.open("/sixDestiny/views/member/3_parcelout/2_reviewParcelout/6_report.jsp?test=" + test + "," + test2 + "," + test3,"PopupWin","width=480,height=300","resizable=no");
 	})
+
+	$('#comHs').click(function(){
+
+		var coment = $('#coment').val();
+		var uNo = $('#uNo').val();
+		var bNo = $('#bNo').val();
+
+		$.ajax({
+			url:"Insert.coment",
+			data:{coment:coment , uNo:uNo , bNo:bNo},
+			type:"get",
+			success:function(data){
+
+				var $replySelectTable = $('#replySelectTable tbody');
+		
+
+				for(var key in data){
+					var $tr = $('<tr>');
+					var $writeTd = $("<td>").text(data[key].bWriter).css("width","100px");
+					var $contentTd = $("<td>").text(data[key].bContent).css("width","400px");
+					var $dateTd = $("<td>").text(data[key].bDate).css("width","200px");
+
+					$tr.append($writeTd);
+					$tr.append($contentTd);
+					$tr.append($dateTd);
+					$replySelectTable.append($tr);
+
+				}
+
+
+
+			}
+		})
+
+		console.log(coment);
+		console.log(uNo);
+		console.log(bNo);
+	})
+
+
 
 
 </script>

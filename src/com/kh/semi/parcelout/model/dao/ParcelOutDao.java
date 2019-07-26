@@ -36,7 +36,7 @@ public class ParcelOutDao {
 	}
 
 
-	public int insertApplication(Connection con, User us) {
+	public int insertApplication(Connection con, User us, Application ap) {
 			PreparedStatement pstmt = null;
 			int result = 0;
 
@@ -46,7 +46,8 @@ public class ParcelOutDao {
 				pstmt = con.prepareStatement(query);
 
 				pstmt.setInt(1, us.getUserNo());
-				pstmt.setString(2, "분양대기");
+				pstmt.setString(2, ap.getApplication());
+				pstmt.setString(3, "분양대기");
 
 
 

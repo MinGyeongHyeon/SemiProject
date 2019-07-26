@@ -41,13 +41,25 @@ public class InsertParcelout extends HttpServlet {
 			String applic18 = request.getParameter("applic18");
 			String applic19 = request.getParameter("applic19");
 			String applic20 = request.getParameter("applic20");
+			String applic21 = request.getParameter("applic21");
+			String applic22 = request.getParameter("applic22");
 
 			String applic66 = applic5 + "," + applic6;
+
+			String[] str = applic21.split("/");
+			String[] str2 = applic22.split("~");
+			String[] str3 = str2[0].split(":");
+
+			String str1 = str[2] + str[0] + str[1] + str3[0] + str3[1];
+
+			System.out.println(str1);
 
 			int userNo = Integer.parseInt(request.getParameter("userNo"));
 
 			User us = new User();
+			Application ap = new Application();
 
+			ap.setApplication(str1);
 			us.setUserNo(userNo);
 
 			ArrayList<String> list = new ArrayList<String>();
@@ -79,7 +91,8 @@ public class InsertParcelout extends HttpServlet {
 
 
 
-			int result = new ParcelOutService().insertApplication(list,us);
+
+			int result = new ParcelOutService().insertApplication(list,us,ap);
 
 
 

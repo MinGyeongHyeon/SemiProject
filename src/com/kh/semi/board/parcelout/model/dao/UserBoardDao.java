@@ -14,6 +14,8 @@ import java.util.HashMap;
 import java.util.Properties;
 
 import com.kh.semi.board.parcelout.model.vo.Attachment;
+import com.kh.semi.board.parcelout.model.vo.Coment;
+import com.kh.semi.board.parcelout.model.vo.Report;
 import com.kh.semi.board.parcelout.model.vo.UserBoard;
 import com.kh.semi.user.model.vo.User;
 
@@ -266,7 +268,7 @@ public class UserBoardDao {
 		ResultSet rset = null;
 		HashMap<String,Object> hmap = null;
 		UserBoard ub = null;
-		ArrayList<Attachment> list = null;
+		ArrayList<Object> list = null;
 		Attachment at = null;
 		User us = null;
 
@@ -281,7 +283,7 @@ public class UserBoardDao {
 
 			rset = pstmt.executeQuery();
 
-			list = new ArrayList<Attachment>();
+			list = new ArrayList<Object>();
 
 			while(rset.next()) {
 				ub = new UserBoard();
@@ -305,6 +307,9 @@ public class UserBoardDao {
 				at.setFilePath(rset.getString("FILE_PATH"));
 
 
+
+
+
 				list.add(at);
 			}
 
@@ -312,6 +317,7 @@ public class UserBoardDao {
 			hmap.put("ParceloutBoard", ub);
 			hmap.put("attachment", list);
 			hmap.put("User", us);
+
 
 
 
@@ -689,6 +695,108 @@ public class UserBoardDao {
 
 
 	return list;
+	}
+	public int report(Connection con, Report re) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+
+		String query = prop.getProperty("report");
+
+		try {
+			pstmt = con.prepareStatement(query);
+
+			pstmt.setInt(1, re.getReportin());
+			pstmt.setString(2, re.getReason());
+			pstmt.setString(3, "게시글");
+			pstmt.setInt(4, re.getBoardNo());
+			pstmt.setInt(5, re.getReportout());
+
+
+
+
+
+			result = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+
+
+
+		return result;
+	}
+
+
+	public int insertcoment(Connection con, Coment cm) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+
+		String query = prop.getProperty("parceloutComent");
+
+		try {
+
+			pstmt = con.prepareStatement(query);
+
+			pstmt.setString(1, cm.getComent());
+			pstmt.setInt(2, cm.getuNo());
+			pstmt.setInt(3, cm.getbNo());
+
+			result = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+
+
+
+		return result;
+	}
+
+
+	public ArrayList<Coment> selectcoment(Connection con, int bNo) {
+		PreparedStatement pstmt = null;
+		ArrayList<Coment> list = null;
+		ResultSet rset = null;
+		Coment cm = null;
+
+		String query = prop.getProperty("selectcoment");
+
+		try {
+			pstmt = con.prepareStatement(query);
+
+			pstmt.setInt(1, bNo);
+
+
+
+
+			rset = pstmt.executeQuery();
+
+			list = new ArrayList<Coment>();
+			while(rset.next()) {
+				cm = new Coment();
+
+				cm.setComent(rset.getString("COM_CON"));
+				cm.setConNo(rset.getInt("COM_NO"));
+				cm.setuNo(rset.getInt("USER_NO"));
+				cm.setbNo(rset.getInt("BOARD_NO"));
+				cm.setNickNm(rset.getString("NICK_NM"));
+
+				list.add(cm);
+
+			}
+
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		}
+
+
+		return list;
 	}
 
 }

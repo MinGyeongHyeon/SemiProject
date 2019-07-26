@@ -7,10 +7,12 @@
 <title>Insert title here</title>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
+	<link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />
 
 <style>
 #border {
-	height: 2000px;
+	height: 2100px;
 	width: 800px;
 	border: 1px solid black;
 	margin: 0 auto;
@@ -27,7 +29,7 @@
 
 #ta {
 	height: 400px;
-	width: 600px;
+	width: 700px;
 	margin: 0 auto;
 }
 
@@ -212,13 +214,32 @@ p {
 						type="radio" value="2" name="applic19">아니요</td>
 				</tr>
 				<tr class="entancetr">
-					<td class="entancetd"><p>19. 동물보호법(www.law.go.kr/법령/동물보호법)에 대하여 동의하시나요?</p>
+					<td class="entancetd"><p>19. 동물보호법<a href="www.law.go.kr/법령/동물보호법">(www.law.go.kr/법령/동물보호법)</a>에 대하여 동의하시나요?</p>
 					</td>
 				</tr>
 				<tr class="entancetr">
 					<td class="entancetd"><input type="radio" value="1" name="applic20">예 <input
 						type="radio" value="2" name="applic20">아니요</td>
 				</tr>
+			<tr>
+						<td style="height:30px" rowspan="2">1:1면담 예약</td>
+						<td colspan="2" style="height:30px" >
+							<input type="text" id="testDatepicker" placeholder="클릭하세요" name="applic21">
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<select style="height:30px; width:100%; opacity:1;" id="selectEntrance" name="applic22">
+								<option>09:00~10:00</option>
+								<option>10:00~11:00</option>
+								<option>11:00~12:00</option>
+								<option>14:00~15:00</option>
+								<option>15:00~16:00</option>
+								<option>16:00~17:00</option>
+								<option>17:00~18:00</option>
+							</select>
+						</td>
+					</tr>
 
 				<tr >
 					<td ><button type="submit" id="sub" disabled>제출</button></td>
@@ -257,10 +278,42 @@ p {
 		});
 
 		$(function(){
+			$(function() {
+			    $( "#testDatepicker" ).datepicker({
+			    });
+			});
+			$("#testDatepicker").on("change paste keyup", function() {
+				   $("#selectEntrance").css("opacity", "1");
+			});
+
+
+			function fn_setAddr() {
+				var width = 500;
+				var height = 600;
+				daum.postcode.load(function(){
+					new daum.Postcode({
+						oncomplete: function(data){
+							$("#zipAddr").val(data.address);
+						}
+					}).open({
+						left: (window.screen.width / 2) - (width / 2),
+						top: (window.screen.height / 2) - (height / 2)
+					});
+				});
+			}
 			$('#btn').click(function(){
 
 				var i = 0;
 
+				var deprivation1 = $('input[name=applic7]:checked').val(); //3
+				var deprivation2 = $('input[name=applic9]:checked').val(); //2
+				var deprivation3 = $('input[name=applic13]:checked').val(); //2
+				var deprivation4 = $('input[name=applic20]:checked').val(); //2
+
+
+				if(deprivation1 == 3 || deprivation2 == 2 || deprivation3 == 2 || deprivation4 == 2){
+					alert("자격 박탈 되셨습니다.. 신중히 읽어보시고 대답해주세요..")
+				}
 
 
 				$('input[type=text]').each(function(index, item){
@@ -302,11 +355,79 @@ p {
 
 
 
+
 			})
 
 		})
 
 	</script>
+		<script>
+$(function () {
+    $('.button-checkbox').each(function () {
+
+        // Settings
+        var $widget = $(this),
+            $button = $widget.find('button'),
+            $checkbox = $widget.find('input:checkbox'),
+            color = $button.data('color'),
+            settings = {
+                on: {
+                    icon: 'glyphicon glyphicon-check'
+                },
+                off: {
+                    icon: 'glyphicon glyphicon-unchecked'
+                }
+            };
+
+        // Event Handlers
+        $button.on('click', function () {
+            $checkbox.prop('checked', !$checkbox.is(':checked'));
+            $checkbox.triggerHandler('change');
+            updateDisplay();
+        });
+        $checkbox.on('change', function () {
+            updateDisplay();
+        });
+
+        // Actions
+        function updateDisplay() {
+            var isChecked = $checkbox.is(':checked');
+
+            // Set the button's state
+            $button.data('state', (isChecked) ? "on" : "off");
+
+            // Set the button's icon
+            $button.find('.state-icon')
+                .removeClass()
+                .addClass('state-icon ' + settings[$button.data('state')].icon);
+
+            // Update the button's color
+            if (isChecked) {
+                $button
+                    .removeClass('btn-default')
+                    .addClass('btn-' + color + ' active');
+            }
+            else {
+                $button
+                    .removeClass('btn-' + color + ' active')
+                    .addClass('btn-default');
+            }
+        }
+
+        // Initialization
+        function init() {
+
+            updateDisplay();
+
+            // Inject the icon if applicable
+            if ($button.find('.state-icon').length == 0) {
+                $button.prepend('<i class="state-icon ' + settings[$button.data('state')].icon + '"></i> ');
+            }
+        }
+        init();
+    });
+});
+</script>
 
 
 	<%@ include file="../../../common/bottom_Include.jsp"%>
