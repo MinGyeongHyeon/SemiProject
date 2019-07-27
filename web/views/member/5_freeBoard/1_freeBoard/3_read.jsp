@@ -83,11 +83,11 @@
 				data:{nno:nno},
 				success:function(){
 					alert("삭제가 완료되었습니다.");
-					location.href="/sixDestiny/selectList.bo";
+					location.href="/sixDestiny/selectList.bo?what=writer&search=&alignment=date&category=all&currentPage=1";
 				},
 				error:function(){
 					alert("삭제도중 에러가 났습니다.");
-					location.href="/sixDestiny/selectList.bo";
+					location.href="/sixDestiny/selectList.bo?what=writer&search=&alignment=date&category=all&currentPage=1";
 				}
 			});
 		}

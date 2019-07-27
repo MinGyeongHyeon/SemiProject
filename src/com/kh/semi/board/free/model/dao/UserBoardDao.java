@@ -34,6 +34,318 @@ public class UserBoardDao {
 		}
 	}
 
+	public ArrayList<UserBoard> selectListBest(Connection con) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		ArrayList<UserBoard> best = null;
+
+		String query = prop.getProperty("selectBestList");
+
+		try {
+			stmt = con.createStatement();
+
+			rset = stmt.executeQuery(query);
+
+			best = new ArrayList<UserBoard>();
+
+			while(rset.next()) {
+				UserBoard ubbest = new UserBoard();
+
+				ubbest.setbNo(rset.getInt("BOARD_NO"));
+				ubbest.setbKind(rset.getString("BOARD_KIND"));
+				ubbest.setbNm(rset.getString("BOARD_NM"));
+				ubbest.setbDate(rset.getDate("BOARD_DT"));
+				ubbest.setbCon(rset.getString("BOARD_CON"));
+				ubbest.setInqCon(rset.getInt("INQ_COUNT"));
+				ubbest.setRecCon(rset.getInt("REC_COUNT"));
+				ubbest.setsGrade(rset.getInt("STAR_GRADE"));
+				ubbest.setbUserNick(rset.getString("NICK_NM"));
+				ubbest.setStatus(rset.getString("STATUS"));
+
+
+
+				System.out.println(ubbest);
+
+
+
+				best.add(ubbest);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
+		}
+
+		return best;
+	}
+	
+	public int getListCount(Connection con, String category, String alignment) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int listCount = 0;
+		String query = null;
+		
+		if(category.equals("all") ) {
+				query = prop.getProperty("allselectListCount");
+		}else if(category.equals("bragging")) {
+				query = prop.getProperty("braggingselectListCount");
+		}else if(category.equals("tip")) {
+				query = prop.getProperty("tipselectListCount");
+		}else if(category.equals("chat")) {
+				query = prop.getProperty("chatselectListCount");
+		}
+		
+		
+	
+		
+		
+		
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt(1);
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return listCount;
+
+	}
+
+
+	public ArrayList<UserBoard> allselectList(Connection con, int currentPage, int limit, String alignment) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<UserBoard> list = null;
+		
+		String query = null;
+		
+		if(alignment.equals("date") ) {
+			query = prop.getProperty("alldateselectListWithPaging");
+		}else if(alignment.equals("recommend") ) {
+			query = prop.getProperty("allrecommendselectListWithPaging");
+		}else if(alignment.equals("inquiry") ) {
+			query = prop.getProperty("allinquiryselectListWithPaging");
+		}
+		
+		try {
+			pstmt = con.prepareStatement(query);
+
+			//조회를 시작할 행 번호와 마지막 행 번호 계산
+			int startRow = (currentPage - 1) * limit + 1;
+			int endRow = startRow + limit - 1;
+		
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<UserBoard>();
+			
+			while(rset.next()) {
+				UserBoard ub = new UserBoard();
+
+				ub.setbNo(rset.getInt("BOARD_NO"));
+				ub.setbKind(rset.getString("BOARD_KIND"));
+				ub.setbNm(rset.getString("BOARD_NM"));
+				ub.setbDate(rset.getDate("BOARD_DT"));
+				ub.setbCon(rset.getString("BOARD_CON"));
+				ub.setInqCon(rset.getInt("INQ_COUNT"));
+				ub.setRecCon(rset.getInt("REC_COUNT"));
+				ub.setsGrade(rset.getInt("STAR_GRADE"));
+				ub.setbUserNick(rset.getString("NICK_NM"));
+				ub.setStatus(rset.getString("STATUS"));
+
+
+
+				System.out.println(ub);
+
+
+
+				list.add(ub);
+
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		
+		
+		return list;
+	}
+
+	public ArrayList<UserBoard> cateselectList(Connection con, int currentPage, int limit, String category,
+			String alignment) {
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<UserBoard> list = null;
+		
+		String query = null;
+		
+		if(alignment.equals("date") ) {
+			if(category.equals("bragging")) {
+				category = "자랑";
+			}else if(category.equals("tip")) {
+				category = "꿀팁";
+			}else if(category.equals("chat")) {
+				category = "잡담";
+			}
+			query = prop.getProperty("catedateselectListWithPaging");
+			
+		}else if(alignment.equals("recommend") ) {
+			if(category.equals("bragging")) {
+				category = "자랑";
+			}else if(category.equals("tip")) {
+				category = "꿀팁";
+			}else if(category.equals("chat")) {
+				category = "잡담";
+			}
+			query = prop.getProperty("caterecommendselectListWithPaging");
+		}else if(alignment.equals("inquiry") ) {
+			if(category.equals("bragging")) {
+				category = "자랑";
+			}else if(category.equals("tip")) {
+				category = "꿀팁";
+			}else if(category.equals("chat")) {
+				category = "잡담";
+			}
+			query = prop.getProperty("cateinquiryselectListWithPaging");
+		}
+		
+		try {
+			pstmt = con.prepareStatement(query);
+
+			//조회를 시작할 행 번호와 마지막 행 번호 계산
+			int startRow = (currentPage - 1) * limit + 1;
+			int endRow = startRow + limit - 1;
+		
+			pstmt.setString(1, category);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<UserBoard>();
+			
+			while(rset.next()) {
+				UserBoard ub = new UserBoard();
+
+				ub.setbNo(rset.getInt("BOARD_NO"));
+				ub.setbKind(rset.getString("BOARD_KIND"));
+				ub.setbNm(rset.getString("BOARD_NM"));
+				ub.setbDate(rset.getDate("BOARD_DT"));
+				ub.setbCon(rset.getString("BOARD_CON"));
+				ub.setInqCon(rset.getInt("INQ_COUNT"));
+				ub.setRecCon(rset.getInt("REC_COUNT"));
+				ub.setsGrade(rset.getInt("STAR_GRADE"));
+				ub.setbUserNick(rset.getString("NICK_NM"));
+				ub.setStatus(rset.getString("STATUS"));
+
+
+
+				System.out.println(ub);
+
+
+
+				list.add(ub);
+
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		
+		
+		return list;
+	}
+	
+	public UserBoard selectOneub(Connection con, int num) {
+		System.out.println("num : " + num);
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		UserBoard ub = null;
+
+		String query = prop.getProperty("selectOne");
+
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, num);
+			System.out.println("다오 넘 : " + num);
+			rset = pstmt.executeQuery();
+
+			if(rset.next()) {
+				ub = new UserBoard();
+
+				ub.setbNo(rset.getInt("BOARD_NO"));
+				ub.setbKind(rset.getString("BOARD_KIND"));
+				ub.setbNm(rset.getString("BOARD_NM"));
+				ub.setbDate(rset.getDate("BOARD_DT"));
+				ub.setbCon(rset.getString("BOARD_CON"));
+				ub.setInqCon(rset.getInt("INQ_COUNT"));
+				ub.setRecCon(rset.getInt("REC_COUNT"));
+				ub.setbUserNick(rset.getString("NICK_NM"));
+
+			}
+			
+			System.out.println(ub);
+
+
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+
+		return ub;
+	}
+	
+	//조회수 증가
+		public int updateCount(Connection con, int num) {
+			PreparedStatement pstmt = null;
+			int result = 0;
+
+			String query = prop.getProperty("updateCount");
+
+			try {
+				pstmt = con.prepareStatement(query);
+				pstmt.setInt(1, num);
+				pstmt.setInt(2, num);
+
+				result = pstmt.executeUpdate();
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(pstmt);
+			}
+
+			return result;
+		}
+
 
 	//게시물 전체 조회
 	public ArrayList<UserBoard> selectList(Connection con) {
@@ -113,119 +425,13 @@ public class UserBoardDao {
 		return result;
 	}
 
-	//조회수 증가
-	public int updateCount(Connection con, int num) {
-		PreparedStatement pstmt = null;
-		int result = 0;
-
-		String query = prop.getProperty("updateCount");
-
-		try {
-			pstmt = con.prepareStatement(query);
-			pstmt.setInt(1, num);
-			pstmt.setInt(2, num);
-
-			result = pstmt.executeUpdate();
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(pstmt);
-		}
-
-		return result;
-	}
+	
 
 
-	public UserBoard selectOneub(Connection con, int num) {
-		System.out.println("num : " + num);
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		UserBoard ub = null;
-
-		String query = prop.getProperty("selectOne");
-
-		try {
-			pstmt = con.prepareStatement(query);
-			pstmt.setInt(1, num);
-			System.out.println("다오 넘 : " + num);
-			rset = pstmt.executeQuery();
-
-			if(rset.next()) {
-				ub = new UserBoard();
-
-				ub.setbNo(rset.getInt("BOARD_NO"));
-				ub.setbKind(rset.getString("BOARD_KIND"));
-				ub.setbNm(rset.getString("BOARD_NM"));
-				ub.setbDate(rset.getDate("BOARD_DT"));
-				ub.setbCon(rset.getString("BOARD_CON"));
-				ub.setInqCon(rset.getInt("INQ_COUNT"));
-				ub.setRecCon(rset.getInt("REC_COUNT"));
-				ub.setbUserNick(rset.getString("NICK_NM"));
-
-			}
-			
-			System.out.println(ub);
+	
 
 
-		} catch (SQLException e) {
-
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(pstmt);
-		}
-
-		return ub;
-	}
-
-
-	public ArrayList<UserBoard> selectListBest(Connection con) {
-		Statement stmt = null;
-		ResultSet rset = null;
-		ArrayList<UserBoard> best = null;
-
-		String query = prop.getProperty("selectBestList");
-
-		try {
-			stmt = con.createStatement();
-
-			rset = stmt.executeQuery(query);
-
-			best = new ArrayList<UserBoard>();
-
-			while(rset.next()) {
-				UserBoard ubbest = new UserBoard();
-
-				ubbest.setbNo(rset.getInt("BOARD_NO"));
-				ubbest.setbKind(rset.getString("BOARD_KIND"));
-				ubbest.setbNm(rset.getString("BOARD_NM"));
-				ubbest.setbDate(rset.getDate("BOARD_DT"));
-				ubbest.setbCon(rset.getString("BOARD_CON"));
-				ubbest.setInqCon(rset.getInt("INQ_COUNT"));
-				ubbest.setRecCon(rset.getInt("REC_COUNT"));
-				ubbest.setsGrade(rset.getInt("STAR_GRADE"));
-				ubbest.setbUserNick(rset.getString("NICK_NM"));
-				ubbest.setStatus(rset.getString("STATUS"));
-
-
-
-				System.out.println(ubbest);
-
-
-
-				best.add(ubbest);
-			}
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(stmt);
-		}
-
-		return best;
-	}
+	
 
 
 	public ArrayList<UserBoard> selectList(Connection con, int currentPage, int limit) {
@@ -996,6 +1202,8 @@ public class UserBoardDao {
 		
 		return list;
 	}
+
+
 
 
 	

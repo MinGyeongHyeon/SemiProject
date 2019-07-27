@@ -10,16 +10,78 @@ import com.kh.semi.board.free.model.vo.UserBoardAttachment;
 
 import static com.kh.semi.common.JDBCTemplate.*;
 public class UserBoardService {
-
-	public ArrayList<UserBoard> selectList() {
+	public ArrayList<UserBoard> selectListBest() {
 		Connection con = getConnection();
 
-		ArrayList<UserBoard> list = new UserBoardDao().selectList(con);
+		ArrayList<UserBoard> best = new UserBoardDao().selectListBest(con);
+
+		close(con);
+
+		return best;
+	}
+
+	public int getListCount(String category, String what, String search, String alignment) {
+		Connection con = getConnection();
+		int listCount = 0;
+		
+		if(search.equals("")) {
+			listCount = new UserBoardDao().getListCount(con, category, alignment);
+		}else{
+			//listCount = new UserBoardDao().getListCount(con, category, what, search, alignment);
+		}
+		
+		
+		close(con);
+		System.out.println("서비스에서 가져온 listCount : " + listCount);
+		return listCount;
+		
+	}
+
+	public ArrayList<UserBoard> selectList(int currentPage, int limit, String category, String what, String search,
+			String alignment) {
+		Connection con = getConnection();
+		ArrayList<UserBoard> list = null;
+		System.out.println("서비스에서 alignment : " + alignment);
+		System.out.println("서비스에서 category : " + category);
+		System.out.println("서비스에서 search : " + search);
+		if(search.equals("")) {
+			if(category.equals("all")) {
+				list = new UserBoardDao().allselectList(con, currentPage, limit, alignment);
+			}else {
+				list = new UserBoardDao().cateselectList(con, currentPage, limit, category, alignment);
+			}
+		}else {
+			//list = new UserBoardDao().selectList(con, currentPage, limit, category, what, search, alignment);
+		}
+		System.out.println("서비스 리스트 : " + list);
 
 		close(con);
 
 		return list;
+	
 	}
+	
+	public UserBoard selectOneub(int num) {
+		Connection con = getConnection();
+		
+		UserBoard ub = new UserBoardDao().selectOneub(con, num);
+		
+		if(ub != null) {
+			int result = new UserBoardDao().updateCount(con, num);
+			
+			if(result > 0) {
+				commit(con);
+			}else {
+				rollback(con);
+			}
+		}
+		
+		close(con);
+				
+		return ub;
+	}
+
+	
 	
 
 	public ArrayList<UserBoard> selectList(String userId) {
@@ -59,35 +121,9 @@ public class UserBoardService {
 		
 		return result;
 	}
-	public UserBoard selectOneub(int num) {
-		Connection con = getConnection();
-		
-		UserBoard ub = new UserBoardDao().selectOneub(con, num);
-		
-		if(ub != null) {
-			int result = new UserBoardDao().updateCount(con, num);
-			
-			if(result > 0) {
-				commit(con);
-			}else {
-				rollback(con);
-			}
-		}
-		
-		close(con);
-				
-		return ub;
-	}
+	
 
-	public ArrayList<UserBoard> selectListBest() {
-		Connection con = getConnection();
-
-		ArrayList<UserBoard> best = new UserBoardDao().selectListBest(con);
-
-		close(con);
-
-		return best;
-	}
+	
 	public ArrayList<UserBoard> selectList(int currentPage, int limit) {
 		Connection con = getConnection();
 		
@@ -252,7 +288,7 @@ Connection con = getConnection();
 		
 		return list;
 	}
-	
+
 	
 	
 
