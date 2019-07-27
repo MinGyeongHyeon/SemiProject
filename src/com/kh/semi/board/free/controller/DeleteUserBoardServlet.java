@@ -35,7 +35,7 @@ public class DeleteUserBoardServlet extends HttpServlet {
 		String page = "";
 		
 		if(result > 0) {
-			response.sendRedirect("/sixDestiny/selectList.bo");
+			response.sendRedirect("/sixDestiny/selectList.bo?what=writer&search=&alignment=date&category=all&currentPage=1");
 		}else {
 			request.getRequestDispatcher(page).forward(request, response);
 		}

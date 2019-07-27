@@ -6,6 +6,9 @@
 	ArrayList<UserBoard> list = (ArrayList<UserBoard>) request.getAttribute("list");
 	ArrayList<UserBoard> best = (ArrayList<UserBoard>) request.getAttribute("best");
 	String category = request.getParameter("category");
+	String search = request.getParameter("search");
+	String alignment = request.getParameter("alignment");
+	String what = request.getParameter("what");
 	PageInfoFreeBoard pi = (PageInfoFreeBoard) request.getAttribute("pi");
 	int listCount = pi.getListCount();
 	int currentPage = pi.getCurrentPage();
@@ -76,6 +79,7 @@ div {
 th {
 	text-align: center;
 }
+.pagination li a.on { background:rgb(240,240,240); font-weight:bold; }
 </style>
 <title>자유게시판 메인</title>
 
@@ -124,17 +128,18 @@ th {
 			<div style="padding: 30px">
 
 				<div align="right">
-					<select onchange="location.href=this.value" id="categorysel">
-						<option disabled="disabled" style="display: none;">카테고리</option>
-						<option class="optionsel" value="/sixDestiny/selectList.bo">전체</option>
-						<option class="optionsel" value="/sixDestiny/selectListCa.bo?category=자랑">자랑</option>
-						<option class="optionsel" value="/sixDestiny/selectListCa.bo?category=꿀팁">꿀팁</option>
-						<option class="optionsel" value="/sixDestiny/selectListCa.bo?category=잡담">잡담</option>
-					</select> <select>
-						<option selected disabled="disabled" style="display: none;">정렬</option>
-						<option>날짜순</option>
-						<option>추천순</option>
-						<option>조회순</option>
+					<input type="hidden" value=<%=category %> id="categoryval">
+					<select name=category id="categorysel" onchange="letitgo()">
+						<option class="optionsel" value="all" >전체</option>
+						<option class="optionsel" value="bragging" >자랑</option>
+						<option class="optionsel" value="tip">꿀팁</option>
+						<option class="optionsel" value="chat">잡담</option>
+					</select> 
+					<input type="hidden" value=<%=alignment %> id="alignmentval">
+					<select id="alignment"  onchange="letitgo()">
+						<option value="date">날짜순</option>
+						<option value="recommend">추천순</option>
+						<option value="inquiry">조회순</option>
 					</select>
 				</div>
 				<table class="table" id="listArea">
@@ -176,19 +181,23 @@ th {
 	<!-- 전체div -->
 
 
-	<div align="center">
-
-		<select style="height: 27px; margin: 8px" id="searchsel">
-			<option selected disabled="disabled" style="display: none;">검색종류</option>
+	<div align="left" style="margin-left:300px">
+	
+		<input type="hidden" value=<%=what %> id="whatval">
+		<select style="height: 27px; margin: 8px" id="what">
 			<option class="search" value="writer">작성자</option>
 			<option class="search" value="title">제목</option>
 			<option class="search" value="ticon">제목+내용</option>
 		</select> <span class="glyphicon glyphicon-search"
-			style="display: inline-block; margin-right: 500px;"> <input
-			type="text" style="width: 250px" name="search" id="searchtext">
-			<button class="main" onclick="search()">검색</button>
+			style="display: inline-block; margin-right: 400px;"> 
+			<%if(search.equals("")){ %>
+			<input type="text" onkeyup="searchstart()" Placeholder="검색" style="width: 250px" name="search" id="searchtext">
+			<%}else{ %>
+			<input type="text" onkeyup="searchstart()" value=<%=search %> Placeholder="검색" style="width: 250px" name="search" id="searchtext">
+			<%} %>
+			<button class="main" id="mainsearch" type="button" onclick="letitgo()">검색</button>
 		</span>
-
+	
 		<%
 			if (loginUser != null) {
 		%>
@@ -200,13 +209,10 @@ th {
 
 
 	</div>
-	<script>
-		var category = $("#categorysel option:selected").val();
-		console.log(category);
-	</script>
+	
 
 	<%-- 페이징처리 --%>
-	<%if(category != null) {%>
+
 	<div class="pagingArea" align="center">
 		<ul class="pagination">
 
@@ -215,7 +221,7 @@ th {
 				if (currentPage != 1) {
 			%>
 			<li><a
-				href="<%=request.getContextPath()%>/selectListCa.bo?category=<%=category %>&currentPage=1">◀◀</a></li>
+				href="<%=request.getContextPath()%>/selectList.bo?what=<%=what%>&search=<%=search %>&alignment=<%=alignment %>&category=<%=category %>&currentPage=1">◀◀</a></li>
 
 			<%
 				}
@@ -231,12 +237,12 @@ th {
 				} else if (currentPage % 10 != 0) {
 			%>
 			<li><a
-				href="<%=request.getContextPath()%>/selectListCa.bo?category=<%=category %>&currentPage=<%=(int) (Math.floor(currentPage / 10)) * 10%>">◀</a></li>
+				href="<%=request.getContextPath()%>/selectList.bo?what=<%=what%>&search=<%=search %>&alignment=<%=alignment %>&category=<%=category %>&currentPage=<%=(int) (Math.floor(currentPage / 10)) * 10%>">◀</a></li>
 			<%
 				} else {
 			%>
 			<li><a
-				href="<%=request.getContextPath()%>/selectListCa.bo?category=<%=category %>&currentPage=<%=(int) (Math.floor((currentPage - 1) / 10)) * 10%>">◀</a></li>
+				href="<%=request.getContextPath()%>/selectList.bo?what=<%=what%>&search=<%=search %>&alignment=<%=alignment %>&category=<%=category %>&currentPage=<%=(int) (Math.floor((currentPage - 1) / 10)) * 10%>">◀</a></li>
 			<%
 				}
 			%>
@@ -253,7 +259,7 @@ th {
 				} else {
 			%>
 			<li><a
-				href="<%=request.getContextPath()%>/selectListCa.bo?category=<%=category %>&currentPage=<%=p%>"
+				href="<%=request.getContextPath()%>/selectList.bo?what=<%=what%>&search=<%=search %>&alignment=<%=alignment %>&category=<%=category %>&currentPage=<%=p%>"
 				disabled><%=p%></a></li>
 
 			<%
@@ -269,7 +275,7 @@ th {
 				} else if (Math.floor(maxPage / 10) * 10 >= currentPage) {
 			%>
 			<li><a
-				href="<%=request.getContextPath()%>/selectListCa.bo?category=<%=category %>&currentPage=<%=(int) (Math.ceil(currentPage / 10)) * 10 + 11%>">▶</a></li>
+				href="<%=request.getContextPath()%>/selectList.bo?what=<%=what%>&search=<%=search %>&alignment=<%=alignment %>&category=<%=category %>&currentPage=<%=(int) (Math.ceil(currentPage / 10)) * 10 + 11%>">▶</a></li>
 
 			<%
 				}
@@ -279,381 +285,74 @@ th {
 				if (currentPage < maxPage) {
 			%>
 			<li><a
-				href="<%=request.getContextPath()%>/selectListCa.bo?category=<%=category %>&currentPage=<%=maxPage%>">▶▶</a></li>
+				href="<%=request.getContextPath()%>/selectList.bo?what=<%=what%>&search=<%=search %>&alignment=<%=alignment %>&category=<%=category %>&currentPage=<%=maxPage%>">▶▶</a></li>
 			<%
 				}
 			%>
 		</ul>
 	</div>
-	<%}else{ %>
-	<div class="pagingArea" align="center">
-		<ul class="pagination">
-			
-			
-			<% if(currentPage != 1){ %>
-			<li><a href="<%=request.getContextPath()%>/selectList.bo?currentPage=1">◀◀</a></li>
-			
-			<% }%>
-			
-			
-			<% if(10 >= currentPage){ %>
-			
-			
-			<% }else if(currentPage%10 != 0){ %>
-			<li><a href="<%=request.getContextPath()%>/selectList.bo?currentPage=<%=(int)(Math.floor(currentPage/10))*10%>">◀</a></li>
-			<%}else{ %>
-			<li><a href="<%=request.getContextPath()%>/selectList.bo?currentPage=<%=(int)(Math.floor((currentPage-1)/10))*10%>">◀</a></li>
-			<%} %>
-			
-			<% for(int p = startPage; p <= endPage; p++){ 
-				if(currentPage == p){
-			%>
-					<li ><a style="background:rgb(240,240,240); font-weight:bold;" href="#" disabled><%= p %></a></li>
-					
-			<% } else { %>
-			<li><a href="<%=request.getContextPath()%>/selectList.bo?currentPage=<%=p%>" disabled><%= p %></a></li>
-				
-			<% 
-				}
-			   } 
-			%>
-			
-			<% if(currentPage >= maxPage){ %>
-			
-			<% }else if(Math.floor(maxPage/10)*10 >= currentPage){ %>
-			<li><a href="<%=request.getContextPath()%>/selectList.bo?currentPage=<%=(int)(Math.ceil(currentPage/10))*10+11%>">▶</a></li>
-			
-			<% }%>
-			
-			<% if(currentPage < maxPage){ %>
-			<li><a href="<%=request.getContextPath()%>/selectList.bo?currentPage=<%=maxPage%>">▶▶</a></li>
-			<%} %>
-		</ul>
-		</div>
-
-<%} %>
+	
 
 	<script>
-		$("#listArea td").mouseenter(function(){
-			console.log("올라감");
-			$(this).parent().css({"background":"rgb(240,240,240)", "cursor":"pointer"});
-		}).mouseout(function(){
-			$(this).parent().css({"background":"#FFF"});
-		}).click(function(){
-			var num = $(this).parent().children().eq(0).text();
+		// document Ready
+		$(function() {
+			initListTd();	// td 이벤트 세팅
+			initCaption();	// 인기글 이벤트 세팅
 			
-			//console.log(num);
-			
-			location.href="<%=request.getContextPath()%>/selectOne.bo?num=" + num;
+			$("#categorysel").val($("#categoryval").val()).attr("selected", "selected");
+			$("#alignment").val($("#alignmentval").val()).attr("selected", "selected");
+			$("#what").val($("#whatval").val()).attr("selected", "selected");
+			  
+			  if($("#searchtext" ).val()== ''){
+				  $("button#mainsearch").css("color","white").attr('disabled',true);
+				  $("#searchtext").val('');
+			  }
+			  console.log($("#searchtext").val());
 		});
-		
-		
-		$(".caption").click(function(){
-			var num = $(this).val();
-			location.href="<%=request.getContextPath()%>/selectOne.bo?num=" + num;
-		});
-		
-		function search(){
-			if($("#searchsel").val() != null && $("#searchtext").val() != null){
-				var what = $("#searchsel").val();
-				var search = $("#searchtext").val();
-				searchtext
-				console.log(what);
-				///////////검색한 글 불러오기//////////
-				$.ajax({
-					url:"/sixDestiny/search.ub",
-					type:"post",
-					data:{what:what, search:search},
-					success:function(data){
-						$(".pagingArea ul.pagination").remove();
-						$("#remonebody tr").remove();
-						
-						if(data["list"].length != 0){
-						for(var i = 0; i < data["list"].length; i++){
-							console.log("현제 페이지 : " + data["pi"].currentPage);
-							var $tr = $("<tr>");
-							var $td1 = $("<td>");
-							var $td2 = $("<td>");
-							var $td3 = $("<td>");
-							var $td4 = $("<td>");
-							var $td5 = $("<td>");
-							var $td6 = $("<td>");
-							var $td7 = $("<td>");
-							
-							var month = data["list"][i].bDate.substr(0,1);
-							var day= data["list"][i].bDate.substr(3,2);
-							var years = data["list"][i].bDate.substr(7,4);
-						
-							
-							$td1.text(data["list"][i].bNo);
-							$td2.text(data["list"][i].bKind);
-							$td3.text(years +"-"+"0"+month+"-"+day);
-							$td4.text(data["list"][i].bNm);
-							$td5.text(data["list"][i].bUserNick);
-							$td6.text(data["list"][i].inqCon);
-							$td7.text(data["list"][i].recCon);
-							
-							$tr.append($td1);
-							$tr.append($td2);
-							$tr.append($td3);
-							$tr.append($td4);
-							$tr.append($td5);
-							$tr.append($td6);
-							$tr.append($td7);
-							
-							$("#remonebody").append($tr);
-							
-							$("#listArea td").mouseenter(function(){
-								console.log("올라감");
-								$(this).parent().css({"background":"rgb(240,240,240)", "cursor":"pointer"});
-							}).mouseout(function(){
-								$(this).parent().css({"background":"#FFF"});
-							}).click(function(){
-								var num = $(this).parent().children().eq(0).text();
-								
-								//console.log(num);
-								
-								location.href="<%=request.getContextPath()%>/selectOne.bo?num=" + num;
-							});
-							
-							
-						
-							
-							
-						}
-						}else{
-							alert("검색하신 정보가 없습니다!");
-						}
-						
-						
-					////////////////페이징처리/////////////////
-						if(data["pi"].length != 0){
-							var $ul = $('<ul class="pagination">');
-							var $li1 = $("<li>");
-							var $li2 = $("<li>");
-							var $li3 = $("<li>");
-							var $li6 = $("<li>");
-							var $li7 = $("<li>");
-							var $a1 = $("<a>");
-							var $a2 = $("<a>");
-							var $a6 = $("<a>");
-							var $a7 = $("<a>");
-												
-							$a1.text("◀◀");
-							$a2.text("◀");
-							$a6.text("▶");
-							$a7.text("▶▶");
-							$li1.append($a1);
-							$li2.append($a2);
-							 $ul.append($li1);
-							 $ul.append($li2);
-							 
-							 //번호버튼 넣기
-							for(var p = data["pi"].startPage; p <= data["pi"].endPage; p++){
-								var $a5 = $("<a>");
-								var $li5 = $("<li>");
-								$a5.text(p)
-								$li5.append($a5);
-								$ul.append($li5);
-								$a5.click(function(){
-									 var num = $(this).text();
-									 console.log("해당페이지 : " + num);
-										 $.ajax({
-											url:"/sixDestiny/search.ub?currentPage="+num,
-											type:"get",
-											data:{what:what, search:search},
-											success:function(data){
-												console.log(data);
-												$("#remonebody tr").remove();
-												
-												if(data["list"].length != 0){ 
-														
-												for(var i = 0; i < data["list"].length; i++){
-													console.log(i);
-													console.log("현제 페이지 : " + data["pi"].currentPage);
-													var $tr = $("<tr>");
-													var $td1 = $("<td>");
-													var $td2 = $("<td>");
-													var $td3 = $("<td>");
-													var $td4 = $("<td>");
-													var $td5 = $("<td>");
-													var $td6 = $("<td>");
-													var $td7 = $("<td>");
-													
-													var month = data["list"][i].bDate.substr(0,1);
-													var day= data["list"][i].bDate.substr(3,2);
-													var years = data["list"][i].bDate.substr(7,4);
-												
-													
-													$td1.text(data["list"][i].bNo);
-													$td2.text(data["list"][i].bKind);
-													$td3.text(years +"-"+"0"+month+"-"+day);
-													$td4.text(data["list"][i].bNm);
-													$td5.text(data["list"][i].bUserNick);
-													$td6.text(data["list"][i].inqCon);
-													$td7.text(data["list"][i].recCon);
-													
-													$tr.append($td1);
-													$tr.append($td2);
-													$tr.append($td3);
-													$tr.append($td4);
-													$tr.append($td5);
-													$tr.append($td6);
-													$tr.append($td7);
-													
-													$("#remonebody").append($tr);
-													
-													
-												}
-												}else{
-													alert("검색하신 정보가 없습니다!");
-												}
-											},
-											error:function(){
-												
-											}
-										}); 
-							});  
-							   
-							$li6.append($a6);
-							$li7.append($a7);
-							
-							 $ul.append($li6);
-							 $ul.append($li7);
-							
-							 
-							 
-							 $(".pagingArea").append($ul);
-							}
-						
-						//맨뒤로보내기
-						  $a7.click(function(){
-							$.ajax({
-								url:"/sixDestiny/search.ub?currentPage="+data["pi"].maxPage,
-								type:"get",
-								data:{what:what, search:search},
-								success:function(data){
-									console.log(data);
-									$("#remonebody tr").remove();
-									
-									if(data["list"].length != 0){ 
-											
-									for(var i = 0; i < data["list"].length; i++){
-										console.log(i);
-										console.log("현제 페이지 : " + data["pi"].currentPage);
-										var $tr = $("<tr>");
-										var $td1 = $("<td>");
-										var $td2 = $("<td>");
-										var $td3 = $("<td>");
-										var $td4 = $("<td>");
-										var $td5 = $("<td>");
-										var $td6 = $("<td>");
-										var $td7 = $("<td>");
-										
-										var month = data["list"][i].bDate.substr(0,1);
-										var day= data["list"][i].bDate.substr(3,2);
-										var years = data["list"][i].bDate.substr(7,4);
-									
-										
-										$td1.text(data["list"][i].bNo);
-										$td2.text(data["list"][i].bKind);
-										$td3.text(years +"-"+"0"+month+"-"+day);
-										$td4.text(data["list"][i].bNm);
-										$td5.text(data["list"][i].bUserNick);
-										$td6.text(data["list"][i].inqCon);
-										$td7.text(data["list"][i].recCon);
-										
-										$tr.append($td1);
-										$tr.append($td2);
-										$tr.append($td3);
-										$tr.append($td4);
-										$tr.append($td5);
-										$tr.append($td6);
-										$tr.append($td7);
-										
-										$("#remonebody").append($tr);
-									
-									}
-									}else{
-										alert("검색하신 정보가 없습니다!");
-									}
-								},
-								error:function(){
-									
-								}
-							});
-						});  
 
-
-						
-						//맨앞으로보내기
-						  $a1.click(function(){
-							$.ajax({
-								url:"/sixDestiny/search.ub?currentPage=1",
-								type:"get",
-								data:{what:what, search:search},
-								success:function(data){
-									console.log(data);
-									$("#remonebody tr").remove();
-									
-									if(data["list"].length != 0){ 
-											
-									for(var i = 0; i < data["list"].length; i++){
-										console.log(i);
-										console.log("현제 페이지 : " + data["pi"].currentPage);
-										var $tr = $("<tr>");
-										var $td1 = $("<td>");
-										var $td2 = $("<td>");
-										var $td3 = $("<td>");
-										var $td4 = $("<td>");
-										var $td5 = $("<td>");
-										var $td6 = $("<td>");
-										var $td7 = $("<td>");
-										
-										var month = data["list"][i].bDate.substr(0,1);
-										var day= data["list"][i].bDate.substr(3,2);
-										var years = data["list"][i].bDate.substr(7,4);
-									
-										
-										$td1.text(data["list"][i].bNo);
-										$td2.text(data["list"][i].bKind);
-										$td3.text(years +"-"+"0"+month+"-"+day);
-										$td4.text(data["list"][i].bNm);
-										$td5.text(data["list"][i].bUserNick);
-										$td6.text(data["list"][i].inqCon);
-										$td7.text(data["list"][i].recCon);
-										
-										$tr.append($td1);
-										$tr.append($td2);
-										$tr.append($td3);
-										$tr.append($td4);
-										$tr.append($td5);
-										$tr.append($td6);
-										$tr.append($td7);
-										
-										$("#remonebody").append($tr);
-									
-									}
-									}else{
-										alert("검색하신 정보가 없습니다!");
-									}
-								},
-								error:function(){
-									
-								}
-							});
-						});  
-						}
-						
-					},
-					error:function(){
-						console.log("검색실패");
-					}
-				});
-		
-		
-			}	
+		// td 이벤트 세팅
+		function initListTd() {
+			$("#listArea td")
+			.mouseenter(function(){
+				$(this).parent().css({"background":"rgb(240,240,240)", "cursor":"pointer"});
+			})
+			.mouseout(function(){
+				$(this).parent().css({"background":"#FFF"});
+			})
+			.click(function(){
+				var num = $(this).parent().children().eq(0).text();
+				location.href="<%=request.getContextPath()%>/selectOne.bo?num=" + num;
+			});
 		}
+		
+		// 인기글 이벤트 세팅
+		function initCaption() {
+			$(".caption").click(function(){
+				var num = $(this).val();
+				location.href="<%=request.getContextPath()%>/selectOne.bo?num=" + num;
+			});
+		}
+		
+		function searchstart(){
+			$("button#mainsearch").css("color","black").attr('disabled',false)
+			if($("#searchtext" ).val()== ""){
+				  $("button#mainsearch").css("color","white").attr('disabled',true);
+				
+			  }
+		}
+		function letitgo(){
+			if($("#searchtext").val()==""){
+				location.href="selectList.bo?what="+$("#what option:selected").val()+"&search=&alignment="+$("#alignment option:selected").val()+"&category="+$("#categorysel option:selected").val()+"&currentPage=1";
+			}else{
+				location.href="selectList.bo?what="+$("#what option:selected").val()+"&search="+$("#searchtext").val()+"&alignment="+$("#alignment option:selected").val()+"&category="+$("#categorysel option:selected").val()+"&currentPage=1";
+			}
+			
+			
+		}
+		
+		
+
+
 	</script>
 
 

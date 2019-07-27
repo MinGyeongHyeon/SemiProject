@@ -129,7 +129,8 @@ public class InsertBoardServlet extends HttpServlet {
 			int result = new UserBoardService().insertBoard(b, fileList);
 			
 			if(result > 0) {
-				response.sendRedirect(request.getContextPath() + "/selectList.bo");
+				response.sendRedirect(request.getContextPath() + "/selectList.bo??what=writer&search=&alignment=date&category=all&currentPage=1");
+				//request.getRequestDispatcher("selectList.bo").forward(request, response);
 			}else {
 				//실패시 저장된 사진 삭제
 				for(int i = 0; i < saveFiles.size(); i++) {

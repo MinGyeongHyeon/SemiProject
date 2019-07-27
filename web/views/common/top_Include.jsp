@@ -236,7 +236,7 @@ td#log {
 			</ul></li>
 		<li class="meme"><a><div class="ico">자유게시판</div></a>
 			<ul class="submenu">
-				<li class="list"><a href="/sixDestiny/selectList.bo">자유게시판</a></li>
+				<li class="list"><a href="/sixDestiny/selectList.bo?what=writer&search=&alignment=date&category=all&currentPage=1">자유게시판</a></li>
 
 			</ul></li>
 		<li class="meme"><a><div class="ico">후원</div></a>

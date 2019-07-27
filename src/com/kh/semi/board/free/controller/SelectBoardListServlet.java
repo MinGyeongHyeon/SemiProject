@@ -46,7 +46,14 @@ public class SelectBoardListServlet extends HttpServlet {
 		
 		//게시판은 1페이지부터 시작함
 		currentPage = 1;
-		
+		String category = request.getParameter("category");
+		String what = request.getParameter("what");
+		String search = request.getParameter("search");
+		String alignment = request.getParameter("alignment");
+		System.out.println(category);
+		System.out.println(search);
+		System.out.println(what);
+		System.out.println(alignment);
 		if(request.getParameter("currentPage") != null) {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		}
@@ -56,9 +63,9 @@ public class SelectBoardListServlet extends HttpServlet {
 		limit = 10;
 		
 		//전체 목록 갯수를 리턴받음
-		int listCount = new UserBoardService().getListCount();
+		int listCount = new UserBoardService().getListCount(category, what, search, alignment);
 		
-		System.out.println("listCount : " + listCount);
+	
 		
 		//총 페이지 수 계산
 		//예를 들면, 목록 수가 124개이면 페이지 수는 13페이지이다.
@@ -79,11 +86,15 @@ public class SelectBoardListServlet extends HttpServlet {
 		
 		PageInfoFreeBoard pi = new PageInfoFreeBoard(currentPage, listCount, limit, maxPage, startPage, endPage);
 		
-		ArrayList<UserBoard> list = new UserBoardService().selectList(currentPage, limit);
+		ArrayList<UserBoard> list = new UserBoardService().selectList(currentPage, limit, category, what, search, alignment);
 		
 		request.setAttribute("pi", pi);
 		request.setAttribute("list", list);
 		request.setAttribute("best", best);
+		request.setAttribute("category", category);
+		request.setAttribute("search", search);
+		request.setAttribute("what", what);
+		request.setAttribute("alignment", alignment);
 		
 		request.getRequestDispatcher("views/member/5_freeBoard/1_freeBoard/1_main.jsp").forward(request, response);
 	}
