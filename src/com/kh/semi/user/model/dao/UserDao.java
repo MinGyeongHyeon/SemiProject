@@ -628,7 +628,7 @@ public class UserDao {
 
 		try {
 			pstmt = con.prepareStatement(query);
-			
+
 			pstmt.setString(1, ur.getNickNm());
 			pstmt.setDate(2, ur.getUserHb());
 			pstmt.setString(3, ur.getGender());
@@ -646,7 +646,7 @@ public class UserDao {
 		}
 
 		return result;
-		
+
 	}
 
 	public User kakaoLoginCheck(Connection con,String id, String email) {
@@ -655,21 +655,21 @@ public class UserDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		User kakaoLoginUser = null;
-		
+
 		String query = prop.getProperty("kakaoLoginCheck");
-		
+
 		try {
-			
+
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, );
 			pstmt.setString(2, email);
-			
+
 			rset = pstmt.executeQuery();
-			
+
 			if(rset.next()) {
-				
+
 				kakaoLoginUser = new User();
-				
+
 				kakaoLoginUser.setUserNo(rset.getInt("USER_NO"));
 				kakaoLoginUser.setUserId(rset.getString("USER_ID"));
 				kakaoLoginUser.setUserNm(rset.getString("USER_NM"));
@@ -687,9 +687,9 @@ public class UserDao {
 				kakaoLoginUser.setUserPwd(rset.getString("USER_PWD"));
 				kakaoLoginUser.setRtCd(rset.getString("RT_CD"));
 				kakaoLoginUser.setLeaveRsCd(rset.getString("LEAVE_RS_CD"));
-			
+
 			}
-			
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -697,7 +697,7 @@ public class UserDao {
 			close(pstmt);
 			close(rset);
 		}
-		
+
 		return kakaoLoginUser;
 	}
 }

@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.kh.semi.board.parcelout.model.service.UserBoardService;
 import com.kh.semi.board.parcelout.model.vo.Attachment;
 import com.kh.semi.board.parcelout.model.vo.Coment;
+import com.kh.semi.board.parcelout.model.vo.Rec;
 import com.kh.semi.board.parcelout.model.vo.UserBoard;
 import com.kh.semi.user.model.vo.User;
 
@@ -26,23 +27,38 @@ public class SelectParceloutOne extends HttpServlet {
 
 		int num = Integer.parseInt(request.getParameter("num"));
 
-			HashMap<String,Object> hmap = new UserBoardService().selectParceloutOne(num);
+		int uNo = 0;
+
+		if(!request.getParameter("uNo").equals("")) {
+
+			uNo = Integer.parseInt(request.getParameter("uNo"));
+
+		}
+
+
+
+			HashMap<String,Object> hmap = new UserBoardService().selectParceloutOne(num,uNo);
 
 			UserBoard ub = (UserBoard) hmap.get("ParceloutBoard");
 
-			System.out.println();
+
 
 			ArrayList<Attachment> filelist = (ArrayList<Attachment>) hmap.get("attachment");
 
-			System.out.println("filelist 의 값은 ? : " + filelist.size());
 
 			ArrayList<Coment> list = (ArrayList<Coment>) hmap.get("coment");
 
-			System.out.println("list의 값은 ? : " + list.size());
+			ArrayList<Integer> list2 = (ArrayList<Integer>) hmap.get("Rec");
+
+			ArrayList<Integer> list3 = (ArrayList<Integer>) hmap.get("selectRec");
+
+
+
+
 
 
 			User us = (User) hmap.get("User");
-			System.out.println("us의 값은 ? : " + us.toString());
+
 
 
 			String page = "";
@@ -52,8 +68,18 @@ public class SelectParceloutOne extends HttpServlet {
 				request.setAttribute("ParceloutBoard", ub);
 				request.setAttribute("filelist", filelist);
 				request.setAttribute("User", us);
+				request.setAttribute("list3", list3);
+
+				if(list2 != null) {
+
+				request.setAttribute("list2", list2);
+
+				}
+
 				if(list.size() > 0) {
+
 				request.setAttribute("coment", list);
+
 				}
 			}
 

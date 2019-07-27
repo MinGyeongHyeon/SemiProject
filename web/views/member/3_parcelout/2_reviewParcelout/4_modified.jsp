@@ -71,7 +71,7 @@ input[type=text] {
 
 <form action="<%= request.getContextPath() %>/UpdateParceloutCon.po" method="post" >
 		<h3>분양후기 글쓰기</h3>
-
+			<input type="hidden" value="<%= loginUser.getUserNo() %>" name="uNo">
 		<div id="border">
 			<br>
 			<br>

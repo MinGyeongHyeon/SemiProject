@@ -25,7 +25,6 @@ public class SelectParceloutUploadFilesList extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String ajax = request.getParameter("ajax");
 
-		System.out.println("에이작스 실행시 값 : " + ajax);
 
 		int currentPage;
 		int limit;
@@ -90,10 +89,6 @@ public class SelectParceloutUploadFilesList extends HttpServlet {
 				request.setAttribute("pi", pi);
 				request.setAttribute("PagingSelect", 0);
 
-				System.out.println(filelist);
-				System.out.println(filelist2);
-				System.out.println(pi);
-				System.out.println(page);
 
 			}
 			request.getRequestDispatcher(page).forward(request, response);

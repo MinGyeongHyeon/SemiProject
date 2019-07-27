@@ -12,6 +12,7 @@ import java.util.HashMap;
 import com.kh.semi.board.parcelout.model.dao.UserBoardDao;
 import com.kh.semi.board.parcelout.model.vo.Attachment;
 import com.kh.semi.board.parcelout.model.vo.Coment;
+import com.kh.semi.board.parcelout.model.vo.Rec;
 import com.kh.semi.board.parcelout.model.vo.Report;
 import com.kh.semi.board.parcelout.model.vo.UserBoard;
 import com.kh.semi.board.parcelout.model.dao.UserBoardDao;
@@ -75,21 +76,36 @@ public class UserBoardService {
 
 		return list;
 	}
-	public HashMap<String, Object> selectParceloutOne(int num) {
+	public HashMap<String, Object> selectParceloutOne(int num, int uNo) {
 			Connection con = getConnection();
 
 			HashMap<String , Object> hmap = null;
 			ArrayList<Coment> list = null;
+			ArrayList<Integer> list2 = null;
+			ArrayList<Integer> list3 = null;
 
 			int result = new UserBoardDao().updateCount(con , num);
-			System.out.println("여기까지 한번.. : " + result);
+
+
+			System.out.println("uNo 의 값  서비스 에서 : " + uNo);
 
 			if(result > 0) {
 				commit(con);
+
 				hmap = new UserBoardDao().selectParceloutOne(con, num);
-				System.out.println("해쉬맵 다음은 ?  들옴?: " + hmap.size());
+
 				list = new UserBoardDao().selectcoment(con,num);
-				System.out.println("list 다음은 ??" + list.size());
+
+
+				if(uNo > 0) {
+
+				list2 = new UserBoardDao().selectRec(con,num,uNo);
+
+				}
+
+				list3 = new UserBoardDao().selectRecCount(con,num);
+
+
 
 			}else {
 				rollback(con);
@@ -97,16 +113,18 @@ public class UserBoardService {
 
 			close(con);
 			hmap.put("coment", list);
+			hmap.put("Rec", list2);
+			hmap.put("selectRec", list3);
 
 		return hmap;
 
 
 
 	}
-	public int updateRec(int num) {
+	public int updateRec(Rec re) {
 			Connection con = getConnection();
 
-			int result = new UserBoardDao().updateRec(con,num);
+			int result = new UserBoardDao().updateRec(con,re);
 
 			if(result >0) {
 				commit(con);
@@ -170,10 +188,11 @@ public class UserBoardService {
 
 		return list;
 	}
-	public ArrayList<HashMap<String, Object>> outselectConUno(String outselect, String selectinput) {
+	public ArrayList<HashMap<String, Object>> outselectConUno(String outselect, String selectinput, String currentPage4, int currentPage3, int limit) {
 		Connection con = getConnection();
 
-		ArrayList<HashMap<String,Object>> list = new UserBoardDao().outselectConUno(con,outselect,selectinput);
+
+		ArrayList<HashMap<String,Object>> list = new UserBoardDao().outselectConUno(con,outselect,selectinput,currentPage4,currentPage3,limit);
 
 		close(con);
 
@@ -181,7 +200,6 @@ public class UserBoardService {
 	}
 	public ArrayList<HashMap<String, Object>> selectOutList3(int currentPage, int limit) {
 		Connection con = getConnection();
-
 		ArrayList<HashMap<String,Object>> list = new UserBoardDao().selectOutList3(con,currentPage,limit);
 
 
@@ -242,6 +260,32 @@ public class UserBoardService {
 		int result = 0;
 
 		result = new UserBoardDao().Selectwrite(con,ub);
+
+		close(con);
+
+		return result;
+	}
+	public int deleteRec(Rec re) {
+			Connection con = getConnection();
+			int result = 0;
+
+			result = new UserBoardDao().deletRec(con,re);
+
+			if(result > 0) {
+				commit(con);
+			}else {
+				rollback(con);
+			}
+
+			close(con);
+
+		return result;
+	}
+	public int selectRecajax(Rec re) {
+		Connection con = getConnection();
+		int result = 0;
+
+		result = new UserBoardDao().selectRecajax(con,re);
 
 		close(con);
 
