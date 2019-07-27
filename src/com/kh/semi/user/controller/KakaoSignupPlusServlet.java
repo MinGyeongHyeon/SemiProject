@@ -19,21 +19,26 @@ import com.kh.semi.user.model.vo.User;
 @WebServlet("/kakaosignupplus")
 public class KakaoSignupPlusServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public KakaoSignupPlusServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		User user = (User) request.getSession().getAttribute("loginUser");
+		//입력받은 값들 가져오기
+		String NickNm = request.getParameter("userNickName");
+		String userHb = request.getParameter("birthday");
+		String gender = request.getParameter("gender");
+		String address = request.getParameter("address");
+		String address2 = request.getParameter("address2");
+		String dogYn = request.getParameter("dogYn");
+		String rtcd = request.getParameter("rtcd");
+		//userId userName email도 추가로 받기
+		//User 객체에 값 setter 하기
+		
+		//해당 정보들 database에 insert
+		int result = UserService().signupKakao(User객체);
+		
+		if(result > 0) {
+			//메인화면으로 돌아가게
+		}
 
 		request.setAttribute("user", user);
 

@@ -54,8 +54,6 @@
 						 Kakao.API.request({
 							url: '/v1/user/me',
 							success : function(res) {
-								//alert(JSON.stringify(res));
-								//alert(JSON.stringify(authObj));
 								
 								var userId = res.id;
 								var email = res.kaccount_email;
@@ -67,6 +65,11 @@
 									data : {userId:userId,email:email,userName:userName},
 									type:"post",
 									success:function(data){
+										var args = '?';
+										args += (data.userId == undefined)? '' : 'userId='+data.userId+'&';
+										args += (data.email == undefined)? '' : 'email='+data.email+'&';
+										args += (data.userName == undefined)? '' : 'userName='+data.userName+'&';
+										location.href = data.returnUrl+args;
 										<%-- console.log(data);
 										result가 1이면 DB에없는 신규회원으로 추가정보입력받아야함
 										if(data = 1){								
@@ -81,16 +84,6 @@
 								})
 								
 								alert("카카오톡 로그인에 성공하였습니다");
-								//console.log(res.id);
-								//console.log(res.kaccount_email);
-								//console.log(res.properties['nickname']);
-								
-								console.log(userId);
-								console.log(email);
-								console.log(userName);
-								
-								//console.log(authObj.access_token); 
-								//alert(JSON.stringify(authObj));
 							}
 						})
 					},
