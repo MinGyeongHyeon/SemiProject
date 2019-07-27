@@ -13,8 +13,8 @@ import com.kh.semi.adminboard.model.vo.PageInfo;
 import com.kh.semi.entrance.model.service.EntranceService;
 import com.kh.semi.user.model.vo.User;
 
-@WebServlet("/myApply.ap")
-public class SelectMyApplyHistoryServlet extends HttpServlet {
+@WebServlet("/selectAllUser.app")
+public class SelectAllUserApplyHistoryServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -28,7 +28,6 @@ public class SelectMyApplyHistoryServlet extends HttpServlet {
 		int maxPage2;
 		int startPage2;
 		int endPage2;
-		int userNo = ((User) request.getSession().getAttribute("loginUser")).getUserNo();
 
 		currentPage = 1;
 		currentPage2 = 1;
@@ -41,8 +40,8 @@ public class SelectMyApplyHistoryServlet extends HttpServlet {
 		limit = 5;
 		limit2 = 5;
 
-		int listCount = new EntranceService().getMyEntranceAllListCount(userNo);
-		int listCount2 = new EntranceService().getMyParceloutAllListCount(userNo);
+		int listCount = new EntranceService().getMyEntranceAllUserListCount();
+		int listCount2 = new EntranceService().getMyParceloutAllUserListCount();
 
 		//System.out.println("list Count : " + listCount);
 
@@ -66,7 +65,7 @@ public class SelectMyApplyHistoryServlet extends HttpServlet {
 		PageInfo pi = new PageInfo(currentPage, listCount, limit, maxPage, startPage, endPage);
 		PageInfo pi2 = new PageInfo(currentPage2, listCount2, limit2, maxPage2, startPage2, endPage2);
 
-		HashMap<String, Object> list = new EntranceService().selectAllApply(userNo, currentPage, currentPage2, limit, limit2);
+		HashMap<String, Object> list = new EntranceService().selectAllUserApply(currentPage, currentPage2, limit, limit2);
 
 		System.out.println("입소 : " + list.get("entranceList"));
 		System.out.println("분양 : " + list.get("parceloutList"));
@@ -80,7 +79,7 @@ public class SelectMyApplyHistoryServlet extends HttpServlet {
 			System.out.println("오류났당");
 		}
 
-		request.getRequestDispatcher("views/member/7_member/3_mypage/4_entranceHistory.jsp").forward(request, response);
+		request.getRequestDispatcher("views/admin/1_admin/2_applyManagement.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -1,6 +1,6 @@
 package com.kh.semi.parcelout.model.vo;
 
-
+import java.sql.Date;
 
 public class ParcelOut {
 
@@ -9,21 +9,46 @@ public class ParcelOut {
 	private String selAppDt;
 	private String pcoSit;
 	private Date ansDt;
+	private String userNm;
+	private String companionRs;
 
 	public ParcelOut() {}
 
 
-	public ParcelOut(int pcoAppNo, int userNo, String selAppDt, String pcoSit) {
 
+	public ParcelOut(int pcoAppNo, int userNo, String selAppDt, String pcoSit, Date ansDt, String userNm,
+			String companionRs) {
 		super();
 		this.pcoAppNo = pcoAppNo;
 		this.userNo = userNo;
 		this.selAppDt = selAppDt;
 		this.pcoSit = pcoSit;
 		this.ansDt = ansDt;
+		this.userNm = userNm;
+		this.companionRs = companionRs;
 	}
 
 
+
+	public String getCompanionRs() {
+		return companionRs;
+	}
+
+
+
+	public void setCompanionRs(String companionRs) {
+		this.companionRs = companionRs;
+	}
+
+
+
+	public String getUserNm() {
+		return userNm;
+	}
+
+	public void setUserNm(String userNm) {
+		this.userNm = userNm;
+	}
 
 	public Date getAnsDt() {
 		return ansDt;

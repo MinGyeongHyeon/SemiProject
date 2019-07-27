@@ -9,18 +9,41 @@ public class Entrance {
 	private Date writeDt;
 	private String selHopeDt;
 	private String appSit;
+	private String userNm;
+	private String companionRs;
 
 	public Entrance() {}
 
-
-
-	public Entrance(int entAppNo, int userNo, Date writeDt, String selHopeDt, String appSit) {
+	public Entrance(int entAppNo, int userNo, Date writeDt, String selHopeDt, String appSit, String userNm,
+			String companionRs) {
 		super();
 		this.entAppNo = entAppNo;
 		this.userNo = userNo;
 		this.writeDt = writeDt;
 		this.selHopeDt = selHopeDt;
 		this.appSit = appSit;
+		this.userNm = userNm;
+		this.companionRs = companionRs;
+	}
+
+
+
+	public String getCompanionRs() {
+		return companionRs;
+	}
+
+	public void setCompanionRs(String companionRs) {
+		this.companionRs = companionRs;
+	}
+
+	public String getUserNm() {
+		return userNm;
+	}
+
+
+
+	public void setUserNm(String userNm) {
+		this.userNm = userNm;
 	}
 
 

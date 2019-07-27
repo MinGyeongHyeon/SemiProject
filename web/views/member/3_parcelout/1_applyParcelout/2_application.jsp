@@ -227,7 +227,7 @@ $(function(){
 						type="radio" value="2" name="applic19">아니요</td>
 				</tr>
 				<tr class="entancetr">
-					<td class="entancetd"><p>19. 동물보호법<a href="www.law.go.kr/법령/동물보호법">(www.law.go.kr/법령/동물보호법)</a>에 대하여 동의하시나요?</p>
+					<td class="entancetd"><p>19. 동물보호법<a href="/www.law.go.kr/법령/동물보호법">(www.law.go.kr/법령/동물보호법)</a>에 대하여 동의하시나요?</p>
 					</td>
 				</tr>
 				<tr class="entancetr">

@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="java.util.*, com.kh.semi.entrance.model.vo.*, com.kh.semi.parcelout.model.vo.*"%>
+    pageEncoding="UTF-8" import="java.util.*, com.kh.semi.entrance.model.vo.*, com.kh.semi.parcelout.model.vo.*, com.kh.semi.adminboard.model.vo.PageInfo"%>
  <%
 	ArrayList<Entrance> list = (ArrayList<Entrance>) request.getAttribute("entranceList");
 	ArrayList<ParcelOut> list2 = (ArrayList<ParcelOut>) request.getAttribute("parceloutList");
@@ -32,9 +32,9 @@
 </head>
 <body>
 	<div class="container">
-  <h1 style="font-family: 'Sunflower', sans-serif;">후원 내역</h1>
+  <h1 style="font-family: 'Sunflower', sans-serif;">신청 내역</h1>
   <br><br>
-  <p style="font-family: 'Sunflower', sans-serif; font-size:1.3em"><%=loginUser.getNickNm()%>님의 금전후원 내역 현황입니다.</p>
+  <p style="font-family: 'Sunflower', sans-serif; font-size:1.3em"><%=loginUser.getNickNm()%>님의 입소신청 내역 현황입니다.</p>
   <br>
   <table class="table table-hover">
     <thead>
@@ -51,7 +51,7 @@
 			<td style="font-family: 'Sunflower', sans-serif;"><%= et.getWriteDt() %></td>
 			<td style="font-family: 'Sunflower', sans-serif;"><%= et.getSelHopeDt() %></td>
 			<td style="font-family: 'Sunflower', sans-serif;">
-				<button class="btn btn-default" style="font-family: 'Sunflower', sans-serif;" onclick="viewEntranceApply();">신청서</button>
+				<button class="btn btn-default" style="font-family: 'Sunflower', sans-serif;" onclick="viewEntranceApply(<%=et.getEntAppNo()%>);">신청서</button>
 			</td>
 			<td style="font-family: 'Sunflower', sans-serif;">
 				<% if(et.getAppSit().equals("N")){ %>
@@ -60,16 +60,8 @@
 					<button class="btn btn-default" style="font-family: 'Sunflower', sans-serif; background:white;" name="insertMoney" onclick="entranceReault();">입소신청 반려</button>
 				<% }else if(et.getAppSit().equals("E")){ %>
 					<button class="btn btn-default" style="font-family: 'Sunflower', sans-serif; background:white;" name="insertMoney" onclick="entranceSel();">입소상담 수락</button>
-				<% }else if(ms.getStatus().equals("T")){ %>
-					<p style="font-family: 'Sunflower', sans-serif;">납입대기</p>
-				<% }else if(ms.getSupKind().equals("정기") && ms.getStatus().equals("N")){ %>
-					<button class="btn btn-default" style="font-family: 'Sunflower', sans-serif; background:white;" name="insertMoney" onclick="goRegMoney(<%= ms.getSupAppNo()%>);">납입하기</button>
-				<% }else if(ms.getStatus().equals("C")){ %>
-					<p style="font-family: 'Sunflower', sans-serif;">취소대기</p>
-				<% }else if(ms.getStatus().equals("E")){ %>
-					<p style="font-family: 'Sunflower', sans-serif;">취소완료</p>
 				<% }else{ %>
-					<p style="font-family: 'Sunflower', sans-serif;">후원완료</p>
+					<p style="font-family: 'Sunflower', sans-serif;">입소완료</p>
 				<% } %>
 			</td>
 		</tr>
@@ -105,38 +97,36 @@
 		</div>
 
   <br><br><br>
-  <p style="font-family: 'Sunflower', sans-serif; font-size:1.3em"><%=loginUser.getNickNm()%>님의 금전후원 내역 현황입니다.</p>
+  <p style="font-family: 'Sunflower', sans-serif; font-size:1.3em"><%=loginUser.getNickNm()%>님의 분양신청 내역 현황입니다.</p>
   <br>
   <table class="table table-hover">
     <thead>
       <tr>
-        <td style="font-family: 'Sunflower', sans-serif; font-weight:bold;">카테고리</td>
-        <td style="font-family: 'Sunflower', sans-serif; font-weight:bold;">후원물품</td>
-        <td style="font-family: 'Sunflower', sans-serif; font-weight:bold;">후원일</td>
-        <td style="font-family: 'Sunflower', sans-serif; font-weight:bold;">후원물품현황</td>
+        <td style="font-family: 'Sunflower', sans-serif; font-weight:bold;">신청일자</td>
+        <td style="font-family: 'Sunflower', sans-serif; font-weight:bold;">상담 희망일자</td>
+        <td style="font-family: 'Sunflower', sans-serif; font-weight:bold;">신청서보기</td>
+        <td style="font-family: 'Sunflower', sans-serif; font-weight:bold;">신청처리</td>
       </tr>
     </thead>
     <tbody>
-      <% for(ParcelOut ps : list2) {%>
+      <% for(ParcelOut po : list2) {%>
 		<tr>
+			<td style="font-family: 'Sunflower', sans-serif;"><%= po.getAnsDt() %></td>
+			<td style="font-family: 'Sunflower', sans-serif;"><%= po.getSelAppDt() %></td>
 			<td style="font-family: 'Sunflower', sans-serif;">
-				<% if(ps.getCtgCd().equals("C1")) {%>
-					사료 및 간식
-				<% }else if(ps.getCtgCd().equals("C2")) {%>
-					이불 및 담요
-				<% }else if(ps.getCtgCd().equals("C3")) {%>
-					건강용품
-				<% }else{ %>
-					장난감 및 의류
-				<% } %>
+				<button class="btn btn-default" style="font-family: 'Sunflower', sans-serif;" onclick="viewParcelApply(<%=po.getPcoAppNo()%>);">신청서</button>
 			</td>
-			<td style="font-family: 'Sunflower', sans-serif;"><%= ps.getPdNm() %></td>
-			<td style="font-family: 'Sunflower', sans-serif;"><%= ps.getSupDt() %></td>
 			<td style="font-family: 'Sunflower', sans-serif;">
-				<% if(ps.getStatus().equals("Y")){ %>
-					인수완료
-				<%}else{%>
-					인수중
+				<% if(po.getPcoSit().equals("N")){ %>
+					<p style="font-family: 'Sunflower', sans-serif;">신청수락 대기</p>
+				<% }else if(po.getPcoSit().equals("I")){ %>
+					<button class="btn btn-default" style="font-family: 'Sunflower', sans-serif; background:white;" name="insertMoney" onclick="parcelReault();">분양신청 반려</button>
+				<% }else if(po.getPcoSit().equals("E")){ %>
+					<button class="btn btn-default" style="font-family: 'Sunflower', sans-serif; background:white;" name="insertMoney" onclick="parcelSel();">분양상담 수락</button>
+				<% }else if(po.getPcoSit().equals("Y")){ %>
+					<p style="font-family: 'Sunflower', sans-serif;">분양대기</p>
+				<% }else{ %>
+					<button class="btn btn-default" style="font-family: 'Sunflower', sans-serif; background:white;" name="insertMoney" onclick="endParcelout();">분양완료</button>
 				<% } %>
 			</td>
 		</tr>
@@ -171,5 +161,12 @@
 			<button onclick="location.href='<%=request.getContextPath()%>/myApply.ap?currentPage2=<%=maxPage2%>&currentPage=1'" class="btn btn-default">>></button>
 		</div>
   </div>
+
+  <script type="text/javascript">
+  	function viewEntranceApply(entAppNo) {
+		var entAppNo = entAppNo;
+	}
+  </script>
+  <%@ include file="../../../common/bottom_Include.jsp"%>
 </body>
 </html>
