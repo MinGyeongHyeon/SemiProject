@@ -257,20 +257,5 @@ public int kakaosignup(User ur) {
 	return result;
 }
 
-public User kakaoLoginCheck(String id, String email) {
-	
-	Connection con = getConnection();
-	
-	System.out.println("kakaoLoginCheck con 호출 :" + con);
-	
-	User kakaoLoginUser = new UserDao().kakaoLoginCheck(con,id,email);
-	
-	
-	
-	close(con);
-	
-	return kakaoLoginUser;
-}
-
 
 }

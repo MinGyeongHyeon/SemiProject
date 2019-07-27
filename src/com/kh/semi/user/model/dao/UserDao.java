@@ -649,6 +649,7 @@ public class UserDao {
 
 	}
 
+
 	public User kakaoLoginCheck(Connection con,String id, String email) {
 
 
@@ -699,5 +700,6 @@ public class UserDao {
 		}
 
 		return kakaoLoginUser;
-	}
-}
+
+}	}
+
