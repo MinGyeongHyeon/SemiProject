@@ -3,6 +3,7 @@
 <%@ include file="../../../common/top_Include.jsp"%>
 
 <%
+	ArrayList<Integer> list2 = null;
 
 	UserBoard ub = (UserBoard) request.getAttribute("ParceloutBoard");
 
@@ -11,6 +12,13 @@
 	User us = (User) request.getAttribute("User");
 
 	ArrayList<Coment> cm = (ArrayList<Coment>) request.getAttribute("coment");
+
+	if(request.getAttribute("list2") != null){
+	 list2 = (ArrayList<Integer>) request.getAttribute("list2");
+
+	}
+
+	ArrayList<Integer> list3 = (ArrayList<Integer>) request.getAttribute("list3");
 
 	Attachment Img1 = list.get(0);
 
@@ -48,12 +56,19 @@
 						<th>제목 : <%= ub.getbNm() %></th>
 						<th>작성자 : <%= us.getNickNm() %></th>
 						<th>작성일 : <%= ub.getbDate() %></th>
-						<th>조회수 : <%= ub.getInqCon() %></th>
-						<th>추천수 : <%= ub.getRecCon() %></th>
-						<th><input type="button" value="추천" id="parcleup">
+						<th id="thtest2">조회수 : <%= ub.getInqCon() %></th>
+						<th id="thtest">추천수 : <%= list3.get(0) %></th>
+
 						<% if(loginUser != null) {%>
+							<%if (list2.get(0) == 1){ %>
+							<th class="classt"><button type="button" id="parcleup" style="background: none;  border: none;"><img src="/sixDestiny/images/test1.jpg" width="30px;" height="30px;" id="imgtest"></button><!-- <input type="button" value="추천" id="parcleup"> -->
+							<input type="button" value="신고" id="reportPr"></th>
+							<% }else { %>
+						<th class="classt"><button type="button" id="parcleup" style="background: none;  border: none;"><img src="/sixDestiny/images/test3.jpeg" width="30px;" height="30px;" id="imgtest"></button><!-- <input type="button" value="추천" id="parcleup"> -->
 						<input type="button" value="신고" id="reportPr"></th>
+							<% } %>
 						<% } %>
+
 						<% if(loginUser != null) { %>
 							<% if(loginUser.getUserNo() == us.getUserNo() || loginUser.getUserId().equals("admin")){ %>
 									<th><input type="button" value="수정" id="modified"></th>
@@ -116,21 +131,119 @@
 
 <script>
 	$('#parcleup').click(function(){
-		var num = $('#uNo').val();
+		var uNo = $('#uNo').val();
+		var bNo = $('#bNo').val();
+
+		console.log(uNo);
+		console.log(bNo);
+
+
 
 		$.ajax({
 			url:"updateRec.po",
 			type:"get",
-			data:{num:num},
+			data:{uNo:uNo,bNo:bNo},
 			success:function(data){
-				alert("추천 하셨습니다.");
+					console.log(data);
+				if(data[0] == 1){
+
+					var $parcleup = $('#parcleup');
+
+					var $imgtest = $('#imgtest');
+
+					$imgtest.remove();
+
+					var $img2 = ('<img src="/sixDestiny/images/test1.jpg" width="30px;" height="30px;" id="imgtest" >');
+
+					$parcleup.append($img2);
+
+					var $table = $('#thtest');
+
+					$table.remove();
+
+					var $th = $('<th id="thtest">');
+					$th.text("추천수 : " + data[1]);
+					var $th2 = $('#thtest2');
+
+
+					$th2.after($th);
+
+
+
+
+					/*
+					var $parcleup = $('parcleup');
+					var $imgtest = $('imgtest');
+					$imgtest.remove();
+
+					/* <img src="/sixDestiny/images/test3.jpeg" width="30px;" height="30px;" id="imgtest"> */
+
+					/* var $img = ('<img>');
+					$img.attr({'width':'30px','height':'30px'});
+					$img.attr('id','imgtest');
+					$img.attr('src' , '/sixDestiny/images/test.jpg');
+
+					$parcleup.append($img); */
+
+
+				}else{
+
+					$.ajax({
+						url:"DeleteRec.dr",
+						data:{uNo:uNo,bNo:bNo},
+						type:"post",
+						success:function(data){
+							if(data[0] > 0){
+
+								var $parcleup = $('#parcleup');
+
+								var $imgtest = $('#imgtest');
+
+								$imgtest.remove();
+
+								var $img2 = ('<img src="/sixDestiny/images/test3.jpeg" width="30px;" height="30px;" id="imgtest" >');
+
+								$parcleup.append($img2);
+
+								var $table = $('#thtest');
+
+								$table.remove();
+
+								var $th = $('<th id="thtest">');
+								$th.text("추천수 : " + data[1]);
+								var $th2 = $('#thtest2');
+
+
+								$th2.after($th);
+
+
+							}
+
+
+
+						}
+
+					})
+
+				/* 	var $parcleup = $('#parcleup');
+
+					var $imgtest = $('#imgtest');
+
+					$imgtest.remove();
+
+					var $img2 = ('<img src="/sixDestiny/images/test1.jpg" width="30px;" height="30px;" id="imgtest" >');
+
+					$parcleup.append($img2);
+ */
+
 
 
 			}
+			}
+
+			});
+
 		});
-
-	})
-
 
 	$('#modified').click(function(){
 

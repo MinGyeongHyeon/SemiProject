@@ -15,6 +15,7 @@ import java.util.Properties;
 
 import com.kh.semi.board.parcelout.model.vo.Attachment;
 import com.kh.semi.board.parcelout.model.vo.Coment;
+import com.kh.semi.board.parcelout.model.vo.Rec;
 import com.kh.semi.board.parcelout.model.vo.Report;
 import com.kh.semi.board.parcelout.model.vo.UserBoard;
 import com.kh.semi.user.model.vo.User;
@@ -334,7 +335,7 @@ public class UserBoardDao {
 	}
 
 
-	public int updateRec(Connection con, int num) {
+	public int updateRec(Connection con, Rec re) {
 			PreparedStatement pstmt = null;
 			int result = 0;
 
@@ -343,8 +344,8 @@ public class UserBoardDao {
 			try {
 				pstmt = con.prepareStatement(query);
 
-				pstmt.setInt(1, num);
-				pstmt.setInt(2, num);
+				pstmt.setInt(1, re.getuNo());
+				pstmt.setInt(2, re.getbNo());
 
 
 				result = pstmt.executeUpdate();
@@ -522,7 +523,7 @@ public class UserBoardDao {
 	}
 
 
-	public ArrayList<HashMap<String, Object>> outselectConUno(Connection con, String outselect, String selectinput) {
+	public ArrayList<HashMap<String, Object>> outselectConUno(Connection con, String outselect, String selectinput, String currentPage4, int currentPage3, int limit) {
 		 	PreparedStatement pstmt = null;
 		 	ResultSet rset = null;
 		 	ArrayList<HashMap<String,Object>> list = null ;
@@ -530,19 +531,57 @@ public class UserBoardDao {
 		 	String test = "";
 		 	String query = "";
 
-		 	if(outselect.equals("NICK_NM")) {
+
+		 	int startRow = (currentPage3 - 1) * limit + 1;
+			int endRow = startRow + limit - 1;
+
+
+		 	if(outselect != null) {
+
+		 		if(outselect.equals("NICK_NM")) {
 
 		 		query = prop.getProperty("outselectConUno");
-		 	}else {
+
+
+		 		}else {
+
 		 		query = prop.getProperty("outselectBnm");
+
+
+
+		 		}
+		 	}else if(currentPage4 != null ) {
+
+		 		if(currentPage4.equals("NICK_NM")) {
+
+		 			query = prop.getProperty("outselectConUno");
+
+
+		 		}else {
+
+		 			query = prop.getProperty("outselectBnm");
+
+
+		 		}
 		 	}
 
 
 		 	try {
 				pstmt = con.prepareStatement(query);
-				System.out.println("스테이트먼트 들어가기전에 넌 무슨값이냐 : " +selectinput);
 
-				pstmt.setString(1, selectinput);
+				if(outselect != null) {
+
+					pstmt.setString(1, selectinput);
+
+				}else {
+					System.out.println("검색할 조건 값 : " + currentPage4);
+					pstmt.setString(1, selectinput);
+
+				}
+
+
+				pstmt.setInt(2, startRow);
+				pstmt.setInt(3, endRow);
 
 
 				rset = pstmt.executeQuery();
@@ -828,6 +867,136 @@ public class UserBoardDao {
 
 
 		System.out.println("넘어가는 리절트값 : " + result);
+
+
+		return result;
+	}
+
+
+	public int deletRec(Connection con, Rec re) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+
+		String query = prop.getProperty("deletRec");
+
+		try {
+			pstmt = con.prepareStatement(query);
+
+			pstmt.setInt(1, re.getuNo());
+			pstmt.setInt(2, re.getbNo());
+
+			result = pstmt.executeUpdate();
+
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+
+
+
+		return result;
+	}
+
+
+	public ArrayList<Integer> selectRec(Connection con, int num, int uNo) {
+		PreparedStatement pstmt = null;
+		ArrayList<Integer> list2 = null;
+		ResultSet rset = null;
+		System.out.println("게시글 번호 : " +num);
+		System.out.println("유저 번호 : " + uNo);
+
+		String query = prop.getProperty("selectRec");
+
+		try {
+			pstmt = con.prepareStatement(query);
+
+			pstmt.setInt(1, uNo);
+			pstmt.setInt(2, num);
+
+			rset = pstmt.executeQuery();
+
+			if(rset.next()) {
+				list2 = new ArrayList<Integer>();
+
+				list2.add(1);
+			}else {
+				list2 = new ArrayList<Integer>();
+
+				list2.add(0);
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+
+
+		return list2;
+	}
+
+
+	public ArrayList<Integer> selectRecCount(Connection con, int num) {
+		PreparedStatement pstmt = null;
+		ArrayList<Integer> list3 = null;
+		ResultSet rset = null;
+
+		String query = prop.getProperty("selectRecCount");
+
+		try {
+			list3 = new ArrayList<Integer>();
+
+			pstmt = con.prepareStatement(query);
+
+			pstmt.setInt(1, num);
+
+			rset = pstmt.executeQuery();
+
+			if(rset.next()) {
+				list3.add(rset.getInt("COUNT")) ;
+
+				System.out.println("count 의 값 :" + rset.getInt("COUNT") );
+			}
+
+
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+
+		return list3;
+	}
+
+
+	public int selectRecajax(Connection con, Rec re) {
+			PreparedStatement pstmt = null;
+			int result = 0;
+			ResultSet rset = null;
+
+			String query = prop.getProperty("selectRecCount");
+
+			try {
+				pstmt = con.prepareStatement(query);
+
+				pstmt.setInt(1, re.getbNo());
+
+				rset = pstmt.executeQuery();
+
+				if(rset.next()) {
+					result = rset.getInt("COUNT") ;
+				}
+
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 
 
 		return result;

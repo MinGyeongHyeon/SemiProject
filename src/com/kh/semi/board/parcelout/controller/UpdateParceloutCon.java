@@ -23,6 +23,8 @@ public class UpdateParceloutCon extends HttpServlet {
 		String title = request.getParameter("title");
 		int boardNo = Integer.parseInt(request.getParameter("boardNo"));
 
+		String uNo = request.getParameter("uNo");
+
 		UserBoard ub = new UserBoard();
 
 		ub.setbCon(content);
@@ -33,7 +35,8 @@ public class UpdateParceloutCon extends HttpServlet {
 
 		String page = "";
 		if(result > 0) {
-			response.sendRedirect("/sixDestiny/selectParceloutOne.tn?num=" + boardNo);
+			response.sendRedirect("/sixDestiny/selectParceloutOne.tn?num=" + boardNo + "&uNo=" + uNo);
+
 
 		}
 

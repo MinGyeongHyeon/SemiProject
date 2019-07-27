@@ -13,10 +13,8 @@ import com.kh.semi.board.parcelout.model.service.UserBoardService;
 import com.kh.semi.board.parcelout.model.vo.Rec;
 
 
-
-
-@WebServlet("/updateRec.po")
-public class UpdateParceloutRec extends HttpServlet {
+@WebServlet("/DeleteRec.dr")
+public class DeleteParceloutRec extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 
@@ -25,9 +23,6 @@ public class UpdateParceloutRec extends HttpServlet {
 		int uNo = Integer.parseInt(request.getParameter("uNo"));
 		int bNo = Integer.parseInt(request.getParameter("bNo"));
 
-		System.out.println("넘어온 uNo 값 : " + uNo);
-		System.out.println("넘어온 bNo 값 : " + bNo);
-
 		Rec re = new Rec();
 
 		re.setbNo(bNo);
@@ -35,20 +30,12 @@ public class UpdateParceloutRec extends HttpServlet {
 
 		int[] result = new int[2];
 
-		result[0] = new UserBoardService().updateRec(re);
+		result[0] = new UserBoardService().deleteRec(re);
 		result[1] = new UserBoardService().selectRecajax(re);
-
-
-
 
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
 		new Gson().toJson(result, response.getWriter());
-
-
-
-
-
 
 	}
 
