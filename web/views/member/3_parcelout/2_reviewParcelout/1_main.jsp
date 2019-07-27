@@ -7,6 +7,10 @@
 	ArrayList<HashMap<String, Object>> list = (ArrayList<HashMap<String, Object>>) request.getAttribute("filelist");
 	ArrayList<HashMap<String, Object>> list2 = (ArrayList<HashMap<String, Object>>) request.getAttribute("filelist2");
 
+	PagingSelect = (int) request.getAttribute("PagingSelect");
+
+	String selectinput = (String) request.getAttribute("selectinput");
+
 	PageInfo pi = (PageInfo) request.getAttribute("pi");
 
 int listCount = pi.getListCount();
@@ -15,7 +19,7 @@ int maxPage = pi.getMaxPage();
 int startPage = pi.getStartPage();
 int endPage = pi.getEndPage();
 
-//
+
 %>
 
 <!DOCTYPE html>
@@ -143,7 +147,9 @@ div {
 						<option value="3">조회순</option>
 					</select>
 				</div>
-
+					<% if(loginUser != null){ %>
+						<input type="hidden" value="<%= loginUser.getUserNo() %>" id="userNo">
+						<% } %>
 
 <div id="testdiv">
 
@@ -162,6 +168,7 @@ div {
 
 				<div class="title">
 						<input type="hidden" value="<%= hmap.get("boardNo")%>" id="boardNo">
+
 								<p id="boardP">제목 : <%= hmap.get("boardNm") %><br>
 								조회수 : <%= hmap.get("inqCount") %><br>
 								추천수 : <%= hmap.get("recCount") %><br>
@@ -178,7 +185,7 @@ div {
 			<% } %>
 		</div>
 </div>
-
+<%-- location.href="<%= request.getContextPath() %>/selectParceloutOne.tn?bNo=" + bNo + '&uNo=' + uNo; --%>
 	<script>
 	function Inq(data){
 
@@ -238,8 +245,14 @@ div {
 				}
 				$('.title').click(function(){
 					var num = $(this).children().eq(0).val();
+					<% if(loginUser != null){ %>
+					var uNo = $('#userNo').val();
+					<% } %>
 
-					location.href="<%= request.getContextPath() %>/selectParceloutOne.tn?num=" + num
+					location.href="<%= request.getContextPath() %>/selectParceloutOne.tn?num=" + num + "&uNo="
+					<% if(loginUser != null){ %>
+					+ uNo;
+					<% } %>
 
 				})
 
@@ -310,8 +323,14 @@ div {
 				}
 				$('.title').click(function(){
 					var num = $(this).children().eq(0).val();
+					<% if(loginUser != null){ %>
+					var uNo = $('#userNo').val();
+					<% } %>
 
-					location.href="<%= request.getContextPath() %>/selectParceloutOne.tn?num=" + num
+					location.href="<%= request.getContextPath() %>/selectParceloutOne.tn?num=" + num + "&uNo="
+					<% if(loginUser != null){ %>
+					+ uNo;
+					<% } %>
 
 				})
 
@@ -326,14 +345,26 @@ div {
 
 	$('.title').click(function(){
 		var num = $(this).children().eq(0).val();
+		<% if(loginUser != null){ %>
+		var uNo = $('#userNo').val();
+		<% } %>
 
-		location.href="<%= request.getContextPath() %>/selectParceloutOne.tn?num=" + num
+		location.href="<%= request.getContextPath() %>/selectParceloutOne.tn?num=" + num + "&uNo="
+		<% if(loginUser != null){ %>
+		+ uNo;
+		<% } %>
 
-	})
+	});
 	$('.thumbnail').click(function(){
 		var num = $(this).children().eq(0).val();
+		<% if(loginUser != null){ %>
+		var uNo = $('#userNo').val();
+		<% } %>
 
-		location.href="<%= request.getContextPath() %>/selectParceloutOne.tn?num=" + num
+		location.href="<%= request.getContextPath() %>/selectParceloutOne.tn?num=" + num + "&uNo="
+		<% if(loginUser != null){ %>
+		+ uNo;
+		<% } %>
 	})
 
 	$('.Sort').change(function(){
@@ -398,8 +429,14 @@ div {
 					}
 					$('.title').click(function(){
 						var num = $(this).children().eq(0).val();
+						<% if(loginUser != null){ %>
+						var uNo = $('#userNo').val();
+						<% } %>
 
-						location.href="<%= request.getContextPath() %>/selectParceloutOne.tn?num=" + num
+						location.href="<%= request.getContextPath() %>/selectParceloutOne.tn?num=" + num + "&uNo="
+						<% if(loginUser != null){ %>
+						+ uNo;
+						<% } %>
 
 					})
 
@@ -533,8 +570,14 @@ div {
 
 					$('.title').click(function(){
 						var num = $(this).children().eq(0).val();
+						<% if(loginUser != null){ %>
+						var uNo = $('#userNo').val();
+						<% } %>
 
-						location.href="<%= request.getContextPath() %>/selectParceloutOne.tn?num=" + num
+						location.href="<%= request.getContextPath() %>/selectParceloutOne.tn?num=" + num + "&uNo="
+						<% if(loginUser != null){ %>
+						+ uNo;
+						<% } %>
 
 					})
 
@@ -671,9 +714,14 @@ div {
 
 				$('.title').click(function(){
 					var num = $(this).children().eq(0).val();
+					<% if(loginUser != null){ %>
+					var uNo = $('#userNo').val();
+					<% } %>
 
-					location.href="<%= request.getContextPath() %>/selectParceloutOne.tn?num=" + num
-
+					location.href="<%= request.getContextPath() %>/selectParceloutOne.tn?num=" + num + "&uNo="
+					<% if(loginUser != null){ %>
+					+ uNo;
+					<% } %>
 				})
 
 
@@ -691,7 +739,6 @@ div {
 			<hr>
 
 
-
 	<form action="<%= request.getContextPath()%>/outSelect.po" method="get">
 	<div align="center">
 		<p>
@@ -703,18 +750,18 @@ div {
 				<input type="submit" value="검색" id="outselect">
 				<span></span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				<% if(loginUser != null){ %>
-				<input type="button" value="글쓰기" onclick="location.href='/sixDestiny/views/member/3_parcelout/2_reviewParcelout/2_write.jsp'">
+				<input type="button" value="글쓰기" onclick="write2(<%= loginUser.getUserNo() %>)">
 				<% } %>
 		</p>
 
 	</div>
 </form>
-
+<!-- location.href='/sixDestiny/views/member/3_parcelout/2_reviewParcelout/2_write.jsp' -->
 
 			<div class="pagingArea" align="center">
 		<ul class="pagination">
 
-
+<% if(PagingSelect == 0) { %>
 			<% if(currentPage != 1){ %>
 			<li><a href="<%=request.getContextPath()%>/selectOutList.tn?currentPage=1">◀◀</a></li>
 
@@ -753,8 +800,116 @@ div {
 			<% if(currentPage < maxPage){ %>
 			<li><a href="<%=request.getContextPath()%>/selectOutList.tn?currentPage=<%=maxPage%>">▶▶</a></li>
 			<%} %>
+
+
+
+
+
+<% }else if(PagingSelect == 1){ %>
+			<% if(currentPage != 1){ %>
+			<li><a href="<%=request.getContextPath()%>/outSelect.po?currentPage1=1,BOARD_NM,<%= selectinput %>">◀◀</a></li>
+
+			<% }%>
+
+
+			<% if(10 >= currentPage){ %>
+
+
+			<% }else if(currentPage%10 != 0){ %>
+				<li><a href="<%=request.getContextPath()%>/outSelect.po?currentPage1=<%=(int)(Math.floor(currentPage/10))*10%>,BOARD_NM,<%= selectinput %>">◀</a></li>
+				<%}else{ %>
+				<li><a href="<%=request.getContextPath()%>/outSelect.po?currentPage1=<%=(int)(Math.floor((currentPage-1)/10))*10%>,BOARD_NM,<%= selectinput %>">◀</a></li>
+				<%} %>
+
+				<% for(int p = startPage; p <= endPage; p++){
+					if(currentPage == p){
+				%>
+						<li ><a style="background:rgb(240,240,240); font-weight:bold;" href="#" disabled><%= p %></a></li>
+
+				<% } else { %>
+				<li><a href="<%=request.getContextPath()%>/outSelect.po?currentPage1=<%=p%>,BOARD_NM,<%= selectinput %>" disabled><%= p %></a></li>
+
+				<%
+					}
+				   }
+				%>
+
+				<% if(currentPage >= maxPage){ %>
+
+				<% }else if(Math.floor(maxPage/10)*10 >= currentPage){ %>
+				<li><a href="<%=request.getContextPath()%>/outSelect.po?currentPage1=<%=(int)(Math.ceil(currentPage/10))*10+11%>,BOARD_NM,<%= selectinput %>">▶</a></li>
+
+				<% }%>
+
+				<% if(currentPage < maxPage){ %>
+				<li><a href="<%=request.getContextPath()%>/outSelect.po?currentPage1=<%=maxPage%>,BOARD_NM,<%= selectinput %>">▶▶</a></li>
+				<%} %>
+
+
+<% }else if (PagingSelect == 2){ %>
+
+				<% if(currentPage != 1){ %>
+				<li><a href="<%=request.getContextPath()%>/outSelect.po?currentPage1=<%=(int)(Math.floor(currentPage/10))*10%>,NICK_NM,<%= selectinput %>">◀</a></li>
+				<%}else{ %>
+				<li><a href="<%=request.getContextPath()%>/outSelect.po?currentPage1=<%=(int)(Math.floor((currentPage-1)/10))*10%>,NICK_NM,<%= selectinput %>">◀</a></li>
+				<%} %>
+
+				<% for(int p = startPage; p <= endPage; p++){
+					if(currentPage == p){
+				%>
+						<li ><a style="background:rgb(240,240,240); font-weight:bold;" href="#" disabled><%= p %></a></li>
+
+				<% } else { %>
+				<li><a href="<%=request.getContextPath()%>/outSelect.po?currentPage1=<%=p%>,NICK_NM,<%= selectinput %>" disabled><%= p %></a></li>
+
+				<%
+					}
+				   }
+				%>
+
+				<% if(currentPage >= maxPage){ %>
+
+				<% }else if(Math.floor(maxPage/10)*10 >= currentPage){ %>
+				<li><a href="<%=request.getContextPath()%>/outSelect.po?currentPage1=<%=(int)(Math.ceil(currentPage/10))*10+11%>,NICK_NM,<%= selectinput %>">▶</a></li>
+
+				<% }%>
+
+				<% if(currentPage < maxPage){ %>
+				<li><a href="<%=request.getContextPath()%>/outSelect.po?currentPage1=<%=maxPage%>,NICK_NM,<%= selectinput %>">▶▶</a></li>
+				<%}
+				}%>
+
+
+
 		</ul>
 		</div>
+
+		<script>
+			function write2(userNo){
+
+				var uNo = userNo;
+
+				$.ajax({
+					url:"SelectWrite.sw",
+					data:{uNo:uNo},
+					type:"post",
+					success:function(data){
+						if(data == 1){
+
+							location.href='/sixDestiny/views/member/3_parcelout/2_reviewParcelout/2_write.jsp'
+
+						}else{
+							alert("분양을 하지 않으셨습니다 ㅠㅠ");
+						}
+
+					}
+				})
+
+
+
+			}
+
+		</script>
 
 
 <%@ include file="../../../common/bottom_Include.jsp"%>

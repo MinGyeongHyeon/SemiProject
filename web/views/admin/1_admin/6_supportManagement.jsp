@@ -103,7 +103,7 @@
 			<button onclick="location.href='<%=request.getContextPath()%>/selectAllUser.su?currentPage=<%=maxPage%>&currentPage2=1'" class="btn btn-default">>></button>
 		</div>
 
-  <br><br><br>
+  <br><br><br><br><br>
   <p style="font-family: 'Sunflower', sans-serif; font-size:1.3em">육인연 회원들의 물품후원 내역 현황입니다.</p>
   <br>
   <table class="table table-hover">

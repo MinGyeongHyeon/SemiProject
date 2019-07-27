@@ -24,13 +24,24 @@ public class Missing implements java.io.Serializable{
 	private int rewardPc;
 	private String missPlaceDetail;
 	private String uName;
+	private int uu;
 	
+	public int getUu() {
+		return uu;
+	}
+
+
+	public void setUu(int uu) {
+		this.uu = uu;
+	}
+
+
 	public Missing() {}
 
 
 	public Missing(String uName,int bNo, String bKind, String bNm, Date bDate, String bCon, int inqCon, int recCon, int sGrade,
 			int uNo, String status, int boardNo, String missPlace, String missDt, String missGender, String missPhone,
-			String boardDiv, int rewardPc,String missPlaceDetail) {
+			String boardDiv, int rewardPc,String missPlaceDetail,int uu) {
 		super();
 		this.bNo = bNo;
 		this.bKind = bKind;
@@ -50,6 +61,7 @@ public class Missing implements java.io.Serializable{
 		this.boardDiv = boardDiv;
 		this.rewardPc = rewardPc;
 		this.missPlaceDetail=missPlaceDetail;
+		this.uu=uu;
 	}
 
 

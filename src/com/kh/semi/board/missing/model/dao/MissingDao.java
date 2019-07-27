@@ -15,6 +15,7 @@ import java.util.Properties;
 
 import com.kh.semi.board.missing.model.vo.Missing;
 import com.kh.semi.board.missing.model.vo.MissingAttachment;
+import com.kh.semi.board.missing.model.vo.MissingReport;
 
 public class MissingDao {
 	private Properties prop = new Properties();
@@ -2266,7 +2267,91 @@ public class MissingDao {
 
 	return list;
 	}
-	
+
+
+	public int report(Connection con, MissingReport re) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+
+		String query = prop.getProperty("missingreport");
+
+		try {
+			pstmt = con.prepareStatement(query);
+
+			pstmt.setInt(1, re.getuNo());
+			pstmt.setString(2, re.getReason());
+			pstmt.setInt(3, re.getbNo());
+			pstmt.setInt(4, re.getuNo2());
+
+
+			result = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+
+
+
+		return result;
+	}
+
+
+	public int report(Connection con, int num, int uu) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+
+		String query = prop.getProperty("re");
+
+		try {
+			pstmt = con.prepareStatement(query);
+
+			pstmt.setInt(1, num);
+			pstmt.setInt(2, uu);
+		
+
+			result = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+
+
+
+		return result;
+	}
+
+
+	public int report2(Connection con, int test, int test2) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+
+		String query = prop.getProperty("inre");
+
+		try {
+			pstmt = con.prepareStatement(query);
+
+			pstmt.setInt(1, test2);
+			pstmt.setInt(2, test);
+		
+
+			result = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+
+
+
+		return result;
+	}
+
+
 	
 	
 	

@@ -335,6 +335,7 @@ th {
 
 	<script>
 		$("#listArea td").mouseenter(function(){
+			console.log("올라감");
 			$(this).parent().css({"background":"rgb(240,240,240)", "cursor":"pointer"});
 		}).mouseout(function(){
 			$(this).parent().css({"background":"#FFF"});
@@ -358,19 +359,18 @@ th {
 				var search = $("#searchtext").val();
 				searchtext
 				console.log(what);
+				///////////검색한 글 불러오기//////////
 				$.ajax({
 					url:"/sixDestiny/search.ub",
 					type:"post",
 					data:{what:what, search:search},
 					success:function(data){
-						
-						
+						$(".pagingArea ul.pagination").remove();
 						$("#remonebody tr").remove();
 						
 						if(data["list"].length != 0){
-								
 						for(var i = 0; i < data["list"].length; i++){
-							console.log(i);
+							console.log("현제 페이지 : " + data["pi"].currentPage);
 							var $tr = $("<tr>");
 							var $td1 = $("<td>");
 							var $td2 = $("<td>");
@@ -387,7 +387,7 @@ th {
 							
 							$td1.text(data["list"][i].bNo);
 							$td2.text(data["list"][i].bKind);
-							$td3.text(years +"-"+month+"-"+day);
+							$td3.text(years +"-"+"0"+month+"-"+day);
 							$td4.text(data["list"][i].bNm);
 							$td5.text(data["list"][i].bUserNick);
 							$td6.text(data["list"][i].inqCon);
@@ -403,8 +403,21 @@ th {
 							
 							$("#remonebody").append($tr);
 							
+							$("#listArea td").mouseenter(function(){
+								console.log("올라감");
+								$(this).parent().css({"background":"rgb(240,240,240)", "cursor":"pointer"});
+							}).mouseout(function(){
+								$(this).parent().css({"background":"#FFF"});
+							}).click(function(){
+								var num = $(this).parent().children().eq(0).text();
+								
+								//console.log(num);
+								
+								location.href="<%=request.getContextPath()%>/selectOne.bo?num=" + num;
+							});
 							
 							
+						
 							
 							
 						}
@@ -412,21 +425,122 @@ th {
 							alert("검색하신 정보가 없습니다!");
 						}
 						
-						var $btn = $("<button>").css("width", "50px");
-						$("#remonebody").append($btn);
 						
-						$btn.click(function(){
+					////////////////페이징처리/////////////////
+						if(data["pi"].length != 0){
+							var $ul = $('<ul class="pagination">');
+							var $li1 = $("<li>");
+							var $li2 = $("<li>");
+							var $li3 = $("<li>");
+							var $li6 = $("<li>");
+							var $li7 = $("<li>");
+							var $a1 = $("<a>");
+							var $a2 = $("<a>");
+							var $a6 = $("<a>");
+							var $a7 = $("<a>");
+												
+							$a1.text("◀◀");
+							$a2.text("◀");
+							$a6.text("▶");
+							$a7.text("▶▶");
+							$li1.append($a1);
+							$li2.append($a2);
+							 $ul.append($li1);
+							 $ul.append($li2);
+							 
+							 //번호버튼 넣기
+							for(var p = data["pi"].startPage; p <= data["pi"].endPage; p++){
+								var $a5 = $("<a>");
+								var $li5 = $("<li>");
+								$a5.text(p)
+								$li5.append($a5);
+								$ul.append($li5);
+								$a5.click(function(){
+									 var num = $(this).text();
+									 console.log("해당페이지 : " + num);
+										 $.ajax({
+											url:"/sixDestiny/search.ub?currentPage="+num,
+											type:"get",
+											data:{what:what, search:search},
+											success:function(data){
+												console.log(data);
+												$("#remonebody tr").remove();
+												
+												if(data["list"].length != 0){ 
+														
+												for(var i = 0; i < data["list"].length; i++){
+													console.log(i);
+													console.log("현제 페이지 : " + data["pi"].currentPage);
+													var $tr = $("<tr>");
+													var $td1 = $("<td>");
+													var $td2 = $("<td>");
+													var $td3 = $("<td>");
+													var $td4 = $("<td>");
+													var $td5 = $("<td>");
+													var $td6 = $("<td>");
+													var $td7 = $("<td>");
+													
+													var month = data["list"][i].bDate.substr(0,1);
+													var day= data["list"][i].bDate.substr(3,2);
+													var years = data["list"][i].bDate.substr(7,4);
+												
+													
+													$td1.text(data["list"][i].bNo);
+													$td2.text(data["list"][i].bKind);
+													$td3.text(years +"-"+"0"+month+"-"+day);
+													$td4.text(data["list"][i].bNm);
+													$td5.text(data["list"][i].bUserNick);
+													$td6.text(data["list"][i].inqCon);
+													$td7.text(data["list"][i].recCon);
+													
+													$tr.append($td1);
+													$tr.append($td2);
+													$tr.append($td3);
+													$tr.append($td4);
+													$tr.append($td5);
+													$tr.append($td6);
+													$tr.append($td7);
+													
+													$("#remonebody").append($tr);
+													
+													
+												}
+												}else{
+													alert("검색하신 정보가 없습니다!");
+												}
+											},
+											error:function(){
+												
+											}
+										}); 
+							});  
+							   
+							$li6.append($a6);
+							$li7.append($a7);
+							
+							 $ul.append($li6);
+							 $ul.append($li7);
+							
+							 
+							 
+							 $(".pagingArea").append($ul);
+							}
+						
+						//맨뒤로보내기
+						  $a7.click(function(){
 							$.ajax({
-								url:"/sixDestiny/search.ub?currentPage=2",
+								url:"/sixDestiny/search.ub?currentPage="+data["pi"].maxPage,
 								type:"get",
 								data:{what:what, search:search},
-								success:function(){
+								success:function(data){
+									console.log(data);
 									$("#remonebody tr").remove();
 									
-									if(data["list"].length != 0){
+									if(data["list"].length != 0){ 
 											
 									for(var i = 0; i < data["list"].length; i++){
 										console.log(i);
+										console.log("현제 페이지 : " + data["pi"].currentPage);
 										var $tr = $("<tr>");
 										var $td1 = $("<td>");
 										var $td2 = $("<td>");
@@ -443,7 +557,7 @@ th {
 										
 										$td1.text(data["list"][i].bNo);
 										$td2.text(data["list"][i].bKind);
-										$td3.text(years +"-"+month+"-"+day);
+										$td3.text(years +"-"+"0"+month+"-"+day);
 										$td4.text(data["list"][i].bNm);
 										$td5.text(data["list"][i].bUserNick);
 										$td6.text(data["list"][i].inqCon);
@@ -458,7 +572,7 @@ th {
 										$tr.append($td7);
 										
 										$("#remonebody").append($tr);
-
+									
 									}
 									}else{
 										alert("검색하신 정보가 없습니다!");
@@ -468,16 +582,77 @@ th {
 									
 								}
 							});
-						});
+						});  
+
+
+						
+						//맨앞으로보내기
+						  $a1.click(function(){
+							$.ajax({
+								url:"/sixDestiny/search.ub?currentPage=1",
+								type:"get",
+								data:{what:what, search:search},
+								success:function(data){
+									console.log(data);
+									$("#remonebody tr").remove();
+									
+									if(data["list"].length != 0){ 
+											
+									for(var i = 0; i < data["list"].length; i++){
+										console.log(i);
+										console.log("현제 페이지 : " + data["pi"].currentPage);
+										var $tr = $("<tr>");
+										var $td1 = $("<td>");
+										var $td2 = $("<td>");
+										var $td3 = $("<td>");
+										var $td4 = $("<td>");
+										var $td5 = $("<td>");
+										var $td6 = $("<td>");
+										var $td7 = $("<td>");
+										
+										var month = data["list"][i].bDate.substr(0,1);
+										var day= data["list"][i].bDate.substr(3,2);
+										var years = data["list"][i].bDate.substr(7,4);
+									
+										
+										$td1.text(data["list"][i].bNo);
+										$td2.text(data["list"][i].bKind);
+										$td3.text(years +"-"+"0"+month+"-"+day);
+										$td4.text(data["list"][i].bNm);
+										$td5.text(data["list"][i].bUserNick);
+										$td6.text(data["list"][i].inqCon);
+										$td7.text(data["list"][i].recCon);
+										
+										$tr.append($td1);
+										$tr.append($td2);
+										$tr.append($td3);
+										$tr.append($td4);
+										$tr.append($td5);
+										$tr.append($td6);
+										$tr.append($td7);
+										
+										$("#remonebody").append($tr);
+									
+									}
+									}else{
+										alert("검색하신 정보가 없습니다!");
+									}
+								},
+								error:function(){
+									
+								}
+							});
+						});  
+						}
 						
 					},
 					error:function(){
 						console.log("검색실패");
 					}
-				})
+				});
 		
 		
-			}
+			}	
 		}
 	</script>
 

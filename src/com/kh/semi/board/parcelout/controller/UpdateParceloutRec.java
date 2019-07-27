@@ -8,7 +8,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
 import com.kh.semi.board.parcelout.model.service.UserBoardService;
+import com.kh.semi.board.parcelout.model.vo.Rec;
 
 
 
@@ -20,25 +22,31 @@ public class UpdateParceloutRec extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		int num = Integer.parseInt(request.getParameter("num"));
+		int uNo = Integer.parseInt(request.getParameter("uNo"));
+		int bNo = Integer.parseInt(request.getParameter("bNo"));
 
-		System.out.println("넘어온 num 값 : " + num);
+		System.out.println("넘어온 uNo 값 : " + uNo);
+		System.out.println("넘어온 bNo 값 : " + bNo);
 
-		int result = new UserBoardService().updateRec(num);
-		System.out.println("리절트 값 : " + result);
+		Rec re = new Rec();
+
+		re.setbNo(bNo);
+		re.setuNo(uNo);
+
+		int[] result = new int[2];
+
+		result[0] = new UserBoardService().updateRec(re);
+		result[1] = new UserBoardService().selectRecajax(re);
 
 
-	/*		String page = "";
-		if(result > 0) {
-			System.out.println(request.getHeader("referer"));
-			page = "/selectParceloutOne.tn?num=" + num;
-			//response.sendRedirect(request.getContextPath() + "/selectParceloutOne.tn?num=" + num );
-			//response.sendRedirect(request.getHeader("referer")) ;
 
-		}
-		System.out.println(page);
-		request.getRequestDispatcher(page).forward(request, response);
-*/
+
+		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
+		new Gson().toJson(result, response.getWriter());
+
+
+
 
 
 
