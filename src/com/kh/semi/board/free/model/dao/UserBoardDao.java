@@ -1203,6 +1203,276 @@ public class UserBoardDao {
 		return list;
 	}
 
+	public int getListCount(Connection con, String category, String what, String search, String alignment) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int listCount = 0;
+		String query = null;
+		System.out.println("다오 카운트 category : " + category);
+		if(category.equals("all") ) {
+			if(what.equals("writer")) {
+				query = prop.getProperty("allwritersearchselectListCount");
+			}else if(what.equals("title")){
+				query = prop.getProperty("alltitlesearchselectListCount");
+			}else if(what.equals("ticon")) {
+				query = prop.getProperty("allticonsearchselectListCount");
+			}
+				
+		}else if(category.equals("bragging")) {
+			if(what.equals("writer")) {
+				query = prop.getProperty("braggingwritersearchselectListCount3");
+			}else if(what.equals("title")){
+				query = prop.getProperty("braggingtitlesearchselectListCount");
+			}else if(what.equals("ticon")) {
+				query = prop.getProperty("braggingticonsearchselectListCount");
+			}
+		}else if(category.equals("tip")) {
+			if(what.equals("writer")) {
+				query = prop.getProperty("tipwritersearchselectListCount");
+			}else if(what.equals("title")){
+				query = prop.getProperty("tiptitlesearchselectListCount");
+			}else if(what.equals("ticon")) {
+				query = prop.getProperty("tipticonsearchselectListCount");
+			}
+		}else if(category.equals("chat")) {
+			if(what.equals("writer")) {
+				query = prop.getProperty("chatwritersearchselectListCount");
+			}else if(what.equals("title")){
+				query = prop.getProperty("chattitlesearchselectListCount");
+			}else if(what.equals("ticon")) {
+				query = prop.getProperty("chatticonsearchselectListCount");
+			}
+		}
+		
+		
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setString(1, search);
+			
+			if(what.equals("ticon")) {
+				pstmt.setString(2, search);
+			}
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt(1);
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return listCount;
+	}
+
+	public ArrayList<UserBoard> allsearchselectList(Connection con, int currentPage, int limit, String what, String search,
+			String alignment) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<UserBoard> list = null;
+		
+		String query = null;
+		
+		if(alignment.equals("date") ) {
+			if(what.equals("writer")) {
+				query = prop.getProperty("alldatesearchwriterselectListWithPaging");
+			}else if(what.equals("title")){
+				query = prop.getProperty("alldatesearchtitleselectListWithPaging");
+			}else if(what.equals("ticon")) {
+				query = prop.getProperty("alldatesearchticonselectListWithPaging");
+			}
+			
+		}else if(alignment.equals("recommend") ) {
+			if(what.equals("writer")) {
+				query = prop.getProperty("allrecommendsearchwriterselectListWithPaging");
+			}else if(what.equals("title")){
+				query = prop.getProperty("allrecommendsearchtitleselectListWithPaging");
+			}else if(what.equals("ticon")) {
+				query = prop.getProperty("allrecommendsearchticonselectListWithPaging");
+			}
+			
+		}else if(alignment.equals("inquiry") ) {
+			if(what.equals("writer")) {
+				query = prop.getProperty("allinquirysearchwriterselectListWithPaging");
+			}else if(what.equals("title")){
+				query = prop.getProperty("allinquirysearchtitlerselectListWithPaging");
+			}else if(what.equals("ticon")) {
+				query = prop.getProperty("allinquirysearchticonrselectListWithPaging");
+			}
+			
+		}
+		
+		try {
+			pstmt = con.prepareStatement(query);
+
+			//조회를 시작할 행 번호와 마지막 행 번호 계산
+			int startRow = (currentPage - 1) * limit + 1;
+			int endRow = startRow + limit - 1;
+		
+			
+			if(what.equals("ticon")) {
+				pstmt.setString(1, search);
+				pstmt.setString(2, search);
+				pstmt.setInt(3, startRow);
+				pstmt.setInt(4, endRow);
+			}else {
+				pstmt.setString(1, search);
+				pstmt.setInt(2, startRow);
+				pstmt.setInt(3, endRow);
+			}
+		
+			
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<UserBoard>();
+			
+			while(rset.next()) {
+				UserBoard ub = new UserBoard();
+
+				ub.setbNo(rset.getInt("BOARD_NO"));
+				ub.setbKind(rset.getString("BOARD_KIND"));
+				ub.setbNm(rset.getString("BOARD_NM"));
+				ub.setbDate(rset.getDate("BOARD_DT"));
+				ub.setbCon(rset.getString("BOARD_CON"));
+				ub.setInqCon(rset.getInt("INQ_COUNT"));
+				ub.setRecCon(rset.getInt("REC_COUNT"));
+				ub.setsGrade(rset.getInt("STAR_GRADE"));
+				ub.setbUserNick(rset.getString("NICK_NM"));
+				ub.setStatus(rset.getString("STATUS"));
+
+
+
+				System.out.println(ub);
+
+
+
+				list.add(ub);
+
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		
+		
+		return list;
+	}
+
+	public ArrayList<UserBoard> catesearchselectList(Connection con, int currentPage, int limit, String what, String search,
+			String category, String alignment) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<UserBoard> list = null;
+		
+		String query = null;
+		if(category.equals("bragging")) {
+			category = "자랑";
+		}else if(category.equals("tip")) {
+			category = "꿀팁";
+		}else if(category.equals("chat")) {
+			category = "잡담";
+		}
+		
+		if(alignment.equals("date")) {
+			if(what.equals("writer")) {
+				query = prop.getProperty("datesearchwriterselectListWithPaging");
+			}else if(what.equals("title")){
+				query = prop.getProperty("datesearchtitleselectListWithPaging");
+			}else if(what.equals("ticon")) {
+				query = prop.getProperty("datesearchticonselectListWithPaging");
+			}	
+		}else if(alignment.equals("recommend")) {
+			if(what.equals("writer")) {
+				query = prop.getProperty("recommendsearchwriterselectListWithPaging");
+			}else if(what.equals("title")){
+				query = prop.getProperty("recommendsearchtitleselectListWithPaging");
+			}else if(what.equals("ticon")) {
+				query = prop.getProperty("recommendsearchticonselectListWithPaging");
+			}	
+		}else if(alignment.equals("inquiry") ) {
+			if(what.equals("writer")) {
+				query = prop.getProperty("inquirysearchwriterselectListWithPaging");
+			}else if(what.equals("title")){
+				query = prop.getProperty("inquirysearchtitleselectListWithPaging");
+			}else if(what.equals("ticon")) {
+				query = prop.getProperty("inquirysearchticonselectListWithPaging");
+			}
+		}
+		
+		try {
+			pstmt = con.prepareStatement(query);
+
+			//조회를 시작할 행 번호와 마지막 행 번호 계산
+			int startRow = (currentPage - 1) * limit + 1;
+			int endRow = startRow + limit - 1;
+		
+			
+			if(what.equals("ticon")) {
+				pstmt.setString(1, search);
+				pstmt.setString(2, search);
+				pstmt.setString(3, category);
+				pstmt.setInt(4, startRow);
+				pstmt.setInt(5, endRow);
+			}else {
+				pstmt.setString(1, search);
+				pstmt.setString(2, category);
+				pstmt.setInt(3, startRow);
+				pstmt.setInt(4, endRow);
+			}
+			
+			
+			
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<UserBoard>();
+			
+			while(rset.next()) {
+				UserBoard ub = new UserBoard();
+
+				ub.setbNo(rset.getInt("BOARD_NO"));
+				ub.setbKind(rset.getString("BOARD_KIND"));
+				ub.setbNm(rset.getString("BOARD_NM"));
+				ub.setbDate(rset.getDate("BOARD_DT"));
+				ub.setbCon(rset.getString("BOARD_CON"));
+				ub.setInqCon(rset.getInt("INQ_COUNT"));
+				ub.setRecCon(rset.getInt("REC_COUNT"));
+				ub.setsGrade(rset.getInt("STAR_GRADE"));
+				ub.setbUserNick(rset.getString("NICK_NM"));
+				ub.setStatus(rset.getString("STATUS"));
+
+
+
+				System.out.println(ub);
+
+
+
+				list.add(ub);
+
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		
+		
+		return list;
+	}
+
 
 
 
