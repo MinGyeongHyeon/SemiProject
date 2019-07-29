@@ -619,23 +619,27 @@ public class UserDao {
 
 	}
 
-	public int kakaosignup(Connection con, User ur) {
+	public int kakaoSignup(Connection con, User ur) {
 
 		PreparedStatement pstmt = null;
 		int result = 0;
 
-		String query = prop.getProperty("kakaoSignupPlus");
+		String query = prop.getProperty("kakaoSignup");
 
 		try {
 			pstmt = con.prepareStatement(query);
 			
-			pstmt.setString(1, ur.getNickNm());
-			pstmt.setDate(2, ur.getUserHb());
-			pstmt.setString(3, ur.getGender());
-			pstmt.setString(4, ur.getAddress());
-			pstmt.setString(5, ur.getDogYn());
-			pstmt.setString(6, ur.getRtCd());
-
+			pstmt.setString(1,ur.getUserId());
+			pstmt.setString(2, ur.getUserNm());
+			pstmt.setString(3, ur.getNickNm());
+			pstmt.setString(4, ur.getEmail());
+			pstmt.setString(5, ur.getPhone());
+			pstmt.setDate(6, ur.getUserHb());
+			pstmt.setString(7, ur.getGender());
+			pstmt.setString(8, ur.getAddress());
+			pstmt.setString(9, ur.getDogYn());
+			pstmt.setString(10, ur.getRtCd());
+			
 			result = pstmt.executeUpdate();
 
 		} catch (SQLException e) {
@@ -648,4 +652,5 @@ public class UserDao {
 		return result;
 		
 	}
+
 }

@@ -66,7 +66,7 @@
 		<h5 style="font-family: 'Sunflower', sans-serif;">* 은 필수 입력사항입니다.</h5>
 		<br>
 		
-		<form action="<%= request.getContextPath() %>/kakaosignupplus" method="post">
+		<form action="<%= request.getContextPath() %>/kakaosignup" method="post">
 			<table id="loginTable">
 
 				<tr>
@@ -79,12 +79,6 @@
 					<button type="button" class="btn btn-default" style="font-family: 'Sunflower', sans-serif; width: 50px; height: 50px;" onclick="checkNickNm();">중복</button>
 					</td>
 				</tr>
-				
-				<%-- <tr>
-					<td><div style="color:black; padding:5px; width:100px">아이디</div></td>
-					<td><%= loginUser.getUserId()%><input name="userId" type="hidden" value="<%= loginUser.getUserId()%>"></td>
-				</tr> --%>
-				
 				
 			</table>
 		
@@ -191,20 +185,7 @@
 
 
 <script type="text/javascript">
-	function fn_setAddr() {
-		var width = 500;
-		var height = 600;
-		daum.postcode.load(function(){
-			new daum.Postcode({
-				oncomplete: function(data){
-					$("#zipAddr").val(data.address);
-				}
-			}).open({
-				left: (window.screen.width / 2) - (width / 2),
-				top: (window.screen.height / 2) - (height / 2)
-			});
-		});
-	} 
+	
 
  	$(function(){
 		$('input:checkbox[value=N]').prop('checked', false);

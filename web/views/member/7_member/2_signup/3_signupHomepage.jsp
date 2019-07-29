@@ -74,8 +74,7 @@
 					<td style="font-family: 'Sunflower', sans-serif;" colspan="2">*이름</td>
 				</tr>
 				<tr>
-					<td colspan="2"><input type="text" name="userName"
-						style="width: 400px; height: 50px;"></td>
+					<td colspan="2"><input type="text" name="userName"style="width: 400px; height: 50px;"></td>
 				</tr>
 				<tr>
 					<td><br></td>

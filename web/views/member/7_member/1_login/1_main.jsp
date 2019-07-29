@@ -22,7 +22,6 @@
 	Color: white;
 }
 
-
 </style>
 <body>
 	<div>
