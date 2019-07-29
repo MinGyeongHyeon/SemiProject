@@ -14,6 +14,7 @@ Missing b = (Missing) request.getAttribute("b");
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+	<script src="//code.jquery.com/jquery.min.js"></script> 
 <style>
 #bt1 {
 	background: dimgray;
@@ -107,14 +108,14 @@ textarea {
 color:red;
 }
 .b{
-color:blue;
+color:gray
 }
 #1{
-color:red;
+color:gray;
 
 }
 #2{
-color:blue;
+color:red;
 }
 
 </style>
@@ -169,10 +170,11 @@ color:blue;
 					 <button type="button" id="report" onclick="report(<%=loginUser.getUserNo()%>);">신고하기</button>
 					 <div class="ddd">
 					 <%if(b.getUu()==0){ %>
-					 	<button class="btn-like" id="1" <%-- onclick="upbnt(<%=loginUser.getUserNo()%>)" --%>>👍1</button>
+					 	<%System.out.print("추천안돼있음"+b.getUu()); %>
+					 	<button class="btn-like a"  onclick="upbnt(<%=b.getUu()%>)">추천♡</button>
 					 	<%}else{ %>
-					 	
-					 	<button class="btn-like" id="1" <%--  onclick="upbnt(<%=loginUser.getUserNo()%>)" --%>>👍2</button>
+					 	<%System.out.print("추천ㅇㅋ"+b.getUu()); %>
+					 	<button class="btn-like b"    onclick="upbnt(<%=b.getUu()%>)">추천♡</button>
 	<%} %>
 	</div>
 	<%} %>
@@ -263,31 +265,53 @@ color:blue;
 				
 				</script>
 		
-	<!-- 	<script src="//code.jquery.com/jquery.min.js"></script> -->
+
 <script>
 
 
 
-<%-- 
 function upbnt(data){
 	console.log("ddddddddd");
 	var test = <%= b.getbNo() %>;
-	var test2= data;
- 	var result=<%=b.getUu()%>
+	var test2= <%=loginUser.getUserNo()%>;
+ 	var result= data;
  	
- 	
+ 	/* console.log("1 : " + test);
+ 	console.log("2 : " + test2);
+ 	console.log("3 : " + result); */
 	$.ajax({
 			url:"missingrec.bo",
 			data:{test:test,test2:test2,result:result},
 			type:"get",
 			success:function(data){
-				console.log(data);
+				console.log(data + " data?");
 				var $div = $(".ddd");
 					$div.html("");
+					
 				console.log("보드"+test);
 				console.log("re"+result);
 					var $btn = $("<button>");
-					$btn.text("👍");
+					$btn.text("추천♡")
+				 
+				if(data==0){
+					$div.append($btn).click(function(){upbnt(data);});
+					$btn.addClass("a");
+				}else{
+					$div.append($btn).click(function(){upbnt(data);});
+					$btn.addClass("b");
+				}
+				
+				
+				/* 
+				$btn.click(function(){
+					
+					var $div = $(".ddd");
+					$div.html("");
+					
+				console.log("보드"+test);
+				console.log("re"+result);
+					var $btn = $("<button>");
+					$btn.text("👍")
 				 $div.append($btn);
 				if(result==0){
 
@@ -296,12 +320,19 @@ function upbnt(data){
 					
 					$btn.addClass("b");
 				}
+					
+					
+
+					
+				}); */
 				
 			}
+			
+			
+			
 	});
 
 }
- --%>
 
 <%-- 
 	<%}else{%>
@@ -313,7 +344,7 @@ function upbnt(data){
 
 	<%}%> --%>
 
-	$(function(){
+	<%-- $(function(){
 
 	$('#1').click(function(){
 	
@@ -353,47 +384,52 @@ function upbnt(data){
 	;
 	
 	});	
-	
+	 --%>
 	
 	
 </script> 
 
 
-			</tr>
-			<tr>
-				<td width="900px">제목: 댓글</td>
-				<td>작성자: 전지용</td>
-			</tr>
 
-		</table>
-		<table border="1" width="1200px" id="reply_area">
-			<tr reply_type="all">
-				<td colspan="4"></td>
-			</tr>
-			<!-- 댓글 공간 -->
-		</table>
-		<table border="1" width="1200px" bordercolor="#46AA46">
-			<tr>
-				<td width="500px">이름: <input type="text" id="reply_writer"
-					name="reply_writer" style="width: 170px;" maxlength="10"
-					placeholder="작성자" /> 패스워드: <input type="password"
-					id="reply_password" name="reply_password" style="width: 170px;"
-					maxlength="10" placeholder="패스워드" />
-					<button id="reply_save" name="reply_save">댓글 등록</button>
-				</td>
-			</tr>
-			<tr>
-				<td><textarea id="reply_content" name="reply_content" rows="4"
-						cols="50" placeholder="댓글을 입력하세요."></textarea></td>
-			</tr>
-		</table>
-		<table width="1200px">
-			<tr>
-				<td align="right">
-					<button id="list" name="list">게시판</button>
-				</td>
-			</tr>
-		</table>
+		<div align="center" style="padding: 20px">
+			<table id="replySelectTable" border="0" align="conter">
+				<tbody>
+				<% if(cm != null){ %>
+				<% for(int i = 0 ; i < cm.size(); i++){ %>
+					<tr >
+						<td>
+						<input type="hidden" value="<%= cm.get(i).getConNo()%>" class="repotCon">
+						<input type="hidden" value="<%= cm.get(i).getuNo()%>" class="repotUser">
+							<label style="width:100px"><%= cm.get(i).getNickNm() %></label>
+							<label style="width:400px"><%= cm.get(i).getComent() %></label>
+						<button class="reportCom" style="background: none;  border: none;"><img src="/sixDestiny/images/reportcoment.PNG" width="30px;" height="30px;" id="imgtest"></button>
+						<!-- <input type="button" value="신고" class="reportCom"> -->
+						</td>
+					</tr>
+					<% } %>
+				<% } %>
+				</tbody>
+			</table>
+
+			<%-- <% if(loginUser != null &&loginUser.getUserId().equals("admin")){ %>  <button>삭제</button>   <% } %> --%>
+
+			</div>
+
+
+
+
+
+		</div>
+		<hr>
+
+	<% if(loginUser != null) { %>
+		댓글 <input type="text" style="width: 600px" id="coment">
+		<input type="button" value="댓글 달기" id="comHs">
+
+		<% } %>
+
+
+
 	</div>
 <%@ include file="../../../common/bottom_Include.jsp"%>
 </body>
