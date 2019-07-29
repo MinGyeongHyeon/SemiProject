@@ -14,8 +14,11 @@
 <div class="container">
 
   <button type="button" class="btn btn-default" onclick="location.href='/sixDestiny/views/member/7_member/3_mypage/1_main.jsp'">회원정보</button>
+  &nbsp; 
   <button type="button" class="btn btn-default" onclick="location.href='/sixDestiny/myApply.ap'">신청내역</button>
+  &nbsp; 
   <button type="button" class="btn btn-default" onclick="location.href='/sixDestiny/mypage.bo'">내게시글</button>
+  &nbsp; 
   <button type="button" class="btn btn-default" onclick="location.href='/sixDestiny/mySupport.su'">후원내역</button>
 
 </div>

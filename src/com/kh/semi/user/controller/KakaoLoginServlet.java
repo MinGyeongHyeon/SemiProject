@@ -38,6 +38,7 @@ public class KakaoLoginServlet extends HttpServlet {
 		User loginUser = new UserService().getUser(userId);
 
 		// 유저정보 있음 -> 메인페이지
+		// 닉네임 
 		if(loginUser != null && loginUser.getNickNm() != null && loginUser.getDogYn() != null) {
 			HttpSession session = request.getSession();
 			session.setAttribute("loginUser", loginUser);
@@ -52,6 +53,7 @@ public class KakaoLoginServlet extends HttpServlet {
 		}
 		// 유저정보 없음 -> 추가정보 입력 페이지
 		else {
+			
 			Map<String, String> result = new HashMap<>();
 			result.put("userId", userId);		//userId
 			result.put("email", email);			//email

@@ -8,7 +8,6 @@ import static com.kh.semi.common.JDBCTemplate.rollback;
 import java.sql.Connection;
 import java.util.ArrayList;
 
-
 import com.kh.semi.user.controller.LoginServlet;
 import com.kh.semi.user.model.dao.UserDao;
 import com.kh.semi.user.model.vo.User;
@@ -16,33 +15,33 @@ import com.kh.semi.user.model.vo.User;
 public class UserService {
 
 	public User loginCheck(User reqUser) {
-		
+
 		Connection con = getConnection();
 		int result = 0;
 		User loginUser = new User();
 		UserDao md = new UserDao();
 
-		if(reqUser.getPwdHis().equals("Y")) {
+		if (reqUser.getPwdHis().equals("Y")) {
 			int remember = md.rememberPwd(con, reqUser);
-			if(remember > 0) {
+			if (remember > 0) {
 				commit(con);
-			}else {
+			} else {
 				rollback(con);
 			}
-		}else {
+		} else {
 
 		}
 
 		result = md.checkStatus(con, reqUser);
 		System.out.println("결과숫자 : " + result);
 
-		if(result == LoginServlet.LOGIN_OK) {
+		if (result == LoginServlet.LOGIN_OK) {
 			loginUser = md.selectOne(con, reqUser);
 			loginUser.setStatusNum(LoginServlet.LOGIN_OK);
 			System.out.println("결과객체  : " + loginUser);
-		}else if(result == LoginServlet.WRONG_PASSWORD) {
+		} else if (result == LoginServlet.WRONG_PASSWORD) {
 			loginUser.setStatusNum(LoginServlet.WRONG_PASSWORD);
-		}else {
+		} else {
 			loginUser.setStatusNum(LoginServlet.EXIT_NOT_MEMBER);
 		}
 
@@ -56,15 +55,13 @@ public class UserService {
 
 		UserDao ud = new UserDao();
 
-		int result = ud.signupUser(con,ur);
+		int result = ud.signupUser(con, ur);
 
 		if (result > 0) {
 			commit(con);
-		}else {
+		} else {
 			rollback(con);
 		}
-
-
 
 		return result;
 	}
@@ -75,10 +72,10 @@ public class UserService {
 
 		int result = new UserDao().updateUser(con, u);
 
-		if(result > 0) {
+		if (result > 0) {
 			commit(con);
 			loginUser = new UserDao().updateSelect(con, u);
-		}else {
+		} else {
 			rollback(con);
 		}
 		close(con);
@@ -89,7 +86,7 @@ public class UserService {
 
 	public ArrayList<User> selectList(int currentPage, int limit) {
 
-		Connection con= getConnection();
+		Connection con = getConnection();
 
 		ArrayList<User> list = new UserDao().selectList(con, currentPage, limit);
 
@@ -103,9 +100,9 @@ public class UserService {
 
 		int result = new UserDao().secessionUser(con, leaveRsCd, userNo);
 
-		if(result > 0) {
+		if (result > 0) {
 			commit(con);
-		}else {
+		} else {
 			rollback(con);
 		}
 		close(con);
@@ -113,17 +110,17 @@ public class UserService {
 		return result;
 	}
 
-public int deleteUser(int userNo) {
+	public int deleteUser(int userNo) {
 
 		Connection con = getConnection();
 		User deleteUser = null;
 
-		int result = new UserDao().deleteUser(con,userNo);
+		int result = new UserDao().deleteUser(con, userNo);
 
-		if(result>0) {
+		if (result > 0) {
 			commit(con);
 
-		}else {
+		} else {
 			rollback(con);
 		}
 		close(con);
@@ -131,131 +128,126 @@ public int deleteUser(int userNo) {
 		return result;
 	}
 
-public int modifyUser(User ur) {
+	public int modifyUser(User ur) {
 
-	Connection con = getConnection();
+		Connection con = getConnection();
 
-	int result = new UserDao().modifyUser(con, ur);
+		int result = new UserDao().modifyUser(con, ur);
 
-	if(result>0) {
-		commit(con);
-	}else {
-		rollback(con);
-	}
-	close(con);
+		if (result > 0) {
+			commit(con);
+		} else {
+			rollback(con);
+		}
+		close(con);
 
-	return result;
+		return result;
 
-
-}
-
-public User getUser(String userId) {
-
-    Connection con= getConnection();
-
-    User user = new UserDao().getUser(con, userId);
-
-    close(con);
-
-    return user;
- }
-
-public int getListCount() {
-	Connection con = getConnection();
-
-	int listCount = new UserDao().getListCount(con);
-
-	close(con);
-
-	return listCount;
-}
-
-public User rememberPwd(String userId) {
-	Connection con = getConnection();
-
-	User u = new UserDao().rememberPwd2(con, userId);
-
-	close(con);
-
-	return u;
-
-}
-
-public User passLoginUser(String userId) {
-	Connection con = getConnection();
-
-	User u = new UserDao().passLoginUser(con, userId);
-
-	close(con);
-
-	return u;
-}
-
-public int idCheck(String userId) {
-	Connection con = getConnection();
-
-	int result = new UserDao().idCheck(con, userId);
-
-	close(con);
-
-	return result;
-}
-
-public int NickCheck(String nickNm) {
-	Connection con = getConnection();
-
-	int result = new UserDao().NickCheck(con, nickNm);
-
-	close(con);
-
-	return result;
-}
-
-public User userInfo(int userNo) {
-	
-	Connection con = getConnection();
-	
-	User user = new UserDao().getUserInfo(con, userNo);
-	
-	close(con);
-	
-	return user;
-	
-}
-
-public int kakaologin(User ur) {
-
-	Connection con = getConnection();
-	
-	int result = new UserDao().kakaologin(con,ur);
-
-	if (result > 0) {
-		commit(con);
-	}else {
-		rollback(con);
 	}
 
+	public User getUser(String userId) {
 
-	return result;
-	
-	
-}
+		Connection con = getConnection();
 
-public int kakaosignup(User ur) {
-	
-	Connection con = getConnection();
-	
-	int result = new UserDao().kakaosignup(con,ur);
-	
-	if(result>0) {
-		commit(con);
-	}else {
-		rollback(con);
+		User user = new UserDao().getUser(con, userId);
+
+		close(con);
+
+		return user;
 	}
-	close(con);
 
-	return result;
-}
+	public int getListCount() {
+		Connection con = getConnection();
 
+		int listCount = new UserDao().getListCount(con);
+
+		close(con);
+
+		return listCount;
+	}
+
+	public User rememberPwd(String userId) {
+		Connection con = getConnection();
+
+		User u = new UserDao().rememberPwd2(con, userId);
+
+		close(con);
+
+		return u;
+
+	}
+
+	public User passLoginUser(String userId) {
+		Connection con = getConnection();
+
+		User u = new UserDao().passLoginUser(con, userId);
+
+		close(con);
+
+		return u;
+	}
+
+	public int idCheck(String userId) {
+		Connection con = getConnection();
+
+		int result = new UserDao().idCheck(con, userId);
+
+		close(con);
+
+		return result;
+	}
+
+	public int NickCheck(String nickNm) {
+		Connection con = getConnection();
+
+		int result = new UserDao().NickCheck(con, nickNm);
+
+		close(con);
+
+		return result;
+	}
+
+	public User userInfo(int userNo) {
+
+		Connection con = getConnection();
+
+		User user = new UserDao().getUserInfo(con, userNo);
+
+		close(con);
+
+		return user;
+
+	}
+
+	public int kakaologin(User ur) {
+
+		Connection con = getConnection();
+
+		int result = new UserDao().kakaologin(con, ur);
+
+		if (result > 0) {
+			commit(con);
+		} else {
+			rollback(con);
+		}
+
+		return result;
+
+	}
+
+	public int kakaoSignup(User ur) {
+
+		Connection con = getConnection();
+
+		int result = new UserDao().kakaoSignup(con, ur);
+
+		if (result > 0) {
+			commit(con);
+		} else {
+			rollback(con);
+		}
+
+		return result;
+	}
 
 }
