@@ -779,13 +779,13 @@ div {
 			<% }%>
 
 
-			<% if(10 >= currentPage){ %>
+			<% if(5 >= currentPage){ %>
 
 
-			<% }else if(currentPage%10 != 0){ %>
-			<li><a href="<%=request.getContextPath()%>/selectOutList.tn?currentPage=<%=(int)(Math.floor(currentPage/10))*10%>">◀</a></li>
+			<% }else if(currentPage%5 != 0){ %>
+			<li><a href="<%=request.getContextPath()%>/selectOutList.tn?currentPage=<%=(int)(Math.floor(currentPage/10))*10+1%>">◀</a></li>
 			<%}else{ %>
-			<li><a href="<%=request.getContextPath()%>/selectOutList.tn?currentPage=<%=(int)(Math.floor((currentPage-1)/10))*10%>">◀</a></li>
+			<li><a href="<%=request.getContextPath()%>/selectOutList.tn?currentPage=<%=(int)(Math.floor((currentPage-1)/10))*10+1%>">◀</a></li>
 			<%} %>
 
 			<% for(int p = startPage; p <= endPage; p++){
@@ -803,8 +803,8 @@ div {
 
 			<% if(currentPage >= maxPage){ %>
 
-			<% }else if(Math.floor(maxPage/10)*10 >= currentPage){ %>
-			<li><a href="<%=request.getContextPath()%>/selectOutList.tn?currentPage=<%=(int)(Math.ceil(currentPage/10))*10+11%>">▶</a></li>
+			<% }else if(Math.floor(maxPage/5)*5 >= currentPage){ %>
+			<li><a href="<%=request.getContextPath()%>/selectOutList.tn?currentPage=<%=(int)(Math.ceil(currentPage/5))*5+6%>">▶</a></li>
 
 			<% }%>
 
@@ -848,7 +848,7 @@ div {
 				<% if(currentPage >= maxPage){ %>
 
 				<% }else if(Math.floor(maxPage/10)*10 >= currentPage){ %>
-				<li><a href="<%=request.getContextPath()%>/outSelect.po?currentPage1=<%=(int)(Math.ceil(currentPage/10))*10+11%>,BOARD_NM,<%= selectinput %>">▶</a></li>
+				<li><a href="<%=request.getContextPath()%>/outSelect.po?currentPage1=<%=(int)(Math.ceil(currentPage/5))*5+6%>,BOARD_NM,<%= selectinput %>">▶</a></li>
 
 				<% }%>
 
