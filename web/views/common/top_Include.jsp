@@ -266,6 +266,9 @@ td#log {
 			</ul></li>
 	</div>
 	<div style="height: 150px"></div>
+	<DIV style="margin-left:20px; width:100px; position: fixed">
+		<button type="button">실시간상담</button>
+	</DIV>
 
 
 </body>

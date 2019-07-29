@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Properties;
 
 import com.kh.semi.sel.model.vo.SelSit;
@@ -77,6 +78,64 @@ public class SelSitDao {
 				list.add(day);
 			}
 
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+
+		return list;
+	}
+
+	public ArrayList<String> selectAllSelEntranceDate(Connection con, String result) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<String> list = null;
+
+		String query = prop.getProperty("selectAllSelEntranceDate");
+
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, result);
+			rset = pstmt.executeQuery();
+
+			list = new ArrayList<String>();
+			while(rset.next()) {
+				String day = rset.getString("SEL_DT");
+
+				list.add(day);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+
+		return list;
+	}
+
+	public ArrayList<String> selectAllSelParceloutDate(Connection con, String result) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<String> list = null;
+
+		String query = prop.getProperty("selectAllSelParceloutDate");
+
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, result);
+			rset = pstmt.executeQuery();
+
+			list = new ArrayList<String>();
+			while(rset.next()) {
+				String day = rset.getString("SEL_DT");
+
+				list.add(day);
+			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
