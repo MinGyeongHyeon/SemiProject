@@ -23,7 +23,6 @@ public class OutSelectConUno extends HttpServlet {
 
 		String outselect = request.getParameter("outselect");
 		String selectinput = null;
-		System.out.println("제발 이걸로 돌파구가 생겨라 .. : " + outselect);
 
 		selectinput = request.getParameter("selectinput");
 
@@ -37,7 +36,7 @@ public class OutSelectConUno extends HttpServlet {
 		String[] currentPage2 = null;
 		int currentPage3 = 0;
 		String currentPage4 = null;
-
+		int listCount = 0;
 
 	if(request.getParameter("currentPage1") == null) {
 		if (outselect.equals("NICK_NM")) {
@@ -61,15 +60,19 @@ public class OutSelectConUno extends HttpServlet {
 
 			if (!currentPage4.equals("NICK_NM")) {
 				number = 1;
+				listCount = new UserBoardService().getListoutCount3(selectinput);
+
 
 			} else {
 				number = 2;
+				listCount = new UserBoardService().getListoutCount2(selectinput);
 			}
 			if (currentPage4.equals("NICK_NM")) {
-
+				listCount = new UserBoardService().getListoutCount2(selectinput);
 				number = 2;
 			} else {
 				number = 1;
+				listCount = new UserBoardService().getListoutCount3(selectinput);
 			}
 
 		}
@@ -84,7 +87,20 @@ public class OutSelectConUno extends HttpServlet {
 
 		limit = 5;
 
-		int listCount = new UserBoardService().getListoutCount();
+
+
+		if(outselect != null) {
+
+			if(outselect.equals("NICK_NM")) {
+
+				listCount = new UserBoardService().getListoutCount2(selectinput);
+
+			}else {
+				listCount = new UserBoardService().getListoutCount3(selectinput);
+			}
+		}
+
+
 
 		maxPage = (int) ((double) listCount / limit + 0.8);
 
