@@ -2301,9 +2301,14 @@ public class MissingDao {
 	public int report(Connection con, int num, int uu) {
 		PreparedStatement pstmt = null;
 		int result = 0;
+		ResultSet rset =null;
 
 		String query = prop.getProperty("re");
 
+		System.out.println(num+"보드볻부드붇붇ㅂ다저");
+		System.out.println(uu+"유저ㅜ어주어줭다저");
+		
+		
 		try {
 			pstmt = con.prepareStatement(query);
 
@@ -2311,12 +2316,18 @@ public class MissingDao {
 			pstmt.setInt(2, uu);
 		
 
-			result = pstmt.executeUpdate();
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				result = rset.getInt(1);
+			}
+			
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
 			close(pstmt);
+			close(rset);
 		}
 
 
@@ -2336,6 +2347,33 @@ public class MissingDao {
 
 			pstmt.setInt(1, test2);
 			pstmt.setInt(2, test);
+		
+
+			result = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+
+
+
+		return result;
+	}
+
+
+	public int report3(Connection con, int test, int test2) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+
+		String query = prop.getProperty("dere");
+
+		try {
+			pstmt = con.prepareStatement(query);
+
+			pstmt.setInt(1, test);
+
 		
 
 			result = pstmt.executeUpdate();

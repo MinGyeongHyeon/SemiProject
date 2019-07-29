@@ -134,7 +134,7 @@ table tr td img {
           <div class="title">
      
             <input type="hidden" value="<%=hmap.get("boardNo")%>" id="Bno">
-              
+                <input type="hidden" value="<%=loginUser.getUserNo()%>" >
 <%if(hmap.get("changeNm") !=null){ %>
 
             <img src="/sixDestiny/thumbnail_uploadFiles/<%=hmap.get("changeNm")%>" 
@@ -735,12 +735,12 @@ table tr td img {
       $(function() {
          $(".title").click( function() {
  	var num=     $(this).children().eq(0).val();
-
-                           console.log(num);
+ 	var uu=     $(this).children().eq(1).val();
+                           console.log(uu);
                 
 
 
-   location.href = "<%=request.getContextPath()%>/missingSelectOne.bo?num=" + num ;
+   location.href = "<%=request.getContextPath()%>/missingSelectOne.bo?num=" + num +"&uu="+uu ;
             });
          
          

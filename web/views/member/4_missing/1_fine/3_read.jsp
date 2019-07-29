@@ -86,7 +86,7 @@ textarea {
 	border: 2px solid #FFBB00;
 }
 
- .btn-like {
+/*  .btn-like {
   color: transparent;
   text-shadow: 0 0 2px rgba(255,255,255,.7), 0 0 0 #000;
 }
@@ -100,7 +100,23 @@ textarea {
 .btn-like.done:hover {
   color: transparent;
   text-shadow: 0 0 0 #777;
-} 
+}   */
+
+
+.a{
+color:red;
+}
+.b{
+color:blue;
+}
+#1{
+color:red;
+
+}
+#2{
+color:blue;
+}
+
 </style>
 <link rel="stylesheet" href="/css/bootstrap.css">
 
@@ -147,10 +163,18 @@ textarea {
 	</table>
 
 	<div align="right">
+	<%System.out.print("뭐냐고고오오오오옹"+b.getUu()); %>
 
 <% if(loginUser != null){ %> 
 					 <button type="button" id="report" onclick="report(<%=loginUser.getUserNo()%>);">신고하기</button>
-					 	<button class="btn-like">👍</button>
+					 <div class="ddd">
+					 <%if(b.getUu()==0){ %>
+					 	<button class="btn-like" id="1" <%-- onclick="upbnt(<%=loginUser.getUserNo()%>)" --%>>👍1</button>
+					 	<%}else{ %>
+					 	
+					 	<button class="btn-like" id="1" <%--  onclick="upbnt(<%=loginUser.getUserNo()%>)" --%>>👍2</button>
+	<%} %>
+	</div>
 	<%} %>
 	
  
@@ -239,20 +263,47 @@ textarea {
 				
 				</script>
 		
-		<script src="//code.jquery.com/jquery.min.js"></script>
+	<!-- 	<script src="//code.jquery.com/jquery.min.js"></script> -->
 <script>
 
-$(".btn-like").click(function() {
 
-	<%
-	if(b.getUu()%2==0){ %>
-	$(this).toggleClass("done");
-		var test = <%= b.getbNo() %>;
-		var test2= <%=loginUser.getUserNo()%>
-		console.log('추천취소');
-	 location.href="<%= request.getContextPath() %>/missingrec.bo?test="+test+"&&test2="+test2; 
-	
 
+<%-- 
+function upbnt(data){
+	console.log("ddddddddd");
+	var test = <%= b.getbNo() %>;
+	var test2= data;
+ 	var result=<%=b.getUu()%>
+ 	
+ 	
+	$.ajax({
+			url:"missingrec.bo",
+			data:{test:test,test2:test2,result:result},
+			type:"get",
+			success:function(data){
+				console.log(data);
+				var $div = $(".ddd");
+					$div.html("");
+				console.log("보드"+test);
+				console.log("re"+result);
+					var $btn = $("<button>");
+					$btn.text("👍");
+				 $div.append($btn);
+				if(result==0){
+
+					$btn.addClass("a");
+				}else{
+					
+					$btn.addClass("b");
+				}
+				
+			}
+	});
+
+}
+ --%>
+
+<%-- 
 	<%}else{%>
 	$(this).toggleClass("done");
 	var test = <%= b.getbNo() %>;
@@ -260,9 +311,51 @@ $(".btn-like").click(function() {
 	console.log('추천');
  location.href="<%= request.getContextPath() %>/missingrec.bo?test="+test+"&&test2="+test2; 
 
-	<%}%>
+	<%}%> --%>
+
+	$(function(){
+
+	$('#1').click(function(){
 	
-})
+		console.log("ddddddddd");
+		var test = <%= b.getbNo() %>;
+		var test2= data;
+	 	var result=<%=b.getUu()%>
+	 	
+	 	
+		$.ajax({
+				url:"missingrec.bo",
+				data:{test:test,test2:test2,result:result},
+				type:"get",
+				success:function(data){
+					console.log(data);
+					var $div = $(".ddd");
+						$div.html("");
+					console.log("보드"+test);
+					console.log("re"+result);
+					
+						var $btn = $("<button>");
+						$btn.text("👍");
+					 $div.append($btn);
+					if(result==0){
+
+						$btn.addClass("a");
+					}else{
+						
+						$btn.addClass("b");
+					}
+					
+				}
+		});
+
+		
+	})
+	;
+	
+	});	
+	
+	
+	
 </script> 
 
 

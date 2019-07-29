@@ -38,8 +38,10 @@ public class MissingSelectOneServlet extends HttpServlet {
 	
 	int num = Integer.parseInt(request.getParameter("num"));
 	int uu=0;
+
 if(request.getParameter("uu")!=null) {
 	uu= Integer.parseInt(request.getParameter("uu"));
+	System.out.println(uu+"uuuuuuuuuuuu");
 }
 		
 		HashMap<String, Object> hmap = new MissingService().missingselectThumbnailMap(num);

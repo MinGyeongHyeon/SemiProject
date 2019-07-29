@@ -28,12 +28,20 @@ public class MissingRecServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
 		int test = Integer.parseInt(request.getParameter("test"));
 		int test2 = Integer.parseInt(request.getParameter("test2"));
+		int result = Integer.parseInt(request.getParameter("result"));
 		System.out.println("보트넘버"+test);
-		int re=  new MissingService().re2(test, test2);
-	
+		System.out.println("resu;t넘버"+result);
+		
+		if(result==0) {
+		int re=  new MissingService().re2(test, test2);}
+		else {
+			
+			int re=  new MissingService().re3(test, test2);
+			
+		}
+		
 	}
 
 	/**
