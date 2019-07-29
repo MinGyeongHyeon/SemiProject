@@ -6,6 +6,7 @@ import static com.kh.semi.common.JDBCTemplate.getConnection;
 import static com.kh.semi.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -126,11 +127,25 @@ public class EntranceService {
 
 	public int okEntranceApply(int entAppNo) {
 		Connection con = getConnection();
+		int result = 0;
 
-		int result = new EntranceDao().okEntranceApply(con, entAppNo);
+		String selHopeDate = new EntranceDao().getSelHopeDate(con, entAppNo);
 
-		if(result > 0) {
+		if(selHopeDate != null) {
 			commit(con);
+			int num = new EntranceDao().insertSelDate(con, entAppNo, selHopeDate);
+
+			if(num > 0) {
+				commit(con);
+				result = new EntranceDao().okEntranceApply(con, entAppNo);
+				if(result > 0) {
+					commit(con);
+				}else {
+					rollback(con);
+				}
+			}else {
+				rollback(con);
+			}
 		}else {
 			rollback(con);
 		}
@@ -154,25 +169,42 @@ public class EntranceService {
 
 	public int okEntrance(int entAppNo) {
 		Connection con = getConnection();
+		int num = 0;
 
 		int result = new EntranceDao().okEntrance(con, entAppNo);
 
 		if(result > 0) {
 			commit(con);
+			num = new EntranceDao().updateDogInfoOk(con, entAppNo);
 		}else {
 			rollback(con);
 		}
 
-		return result;
+		return num;
 	}
 
 	public int noEntrance(int entAppNo, String reason) {
 		Connection con = getConnection();
+		int result = 0;
 
-		int result = new EntranceDao().noEntrance(con, entAppNo, reason);
+		int num = new EntranceDao().noEntrance(con, entAppNo, reason);
 
-		if(result > 0) {
+		if(num > 0) {
 			commit(con);
+			int num2 = new EntranceDao().updateDogEntranceSit(con, entAppNo);
+
+			if(num2 > 0) {
+				commit(con);
+				result = new EntranceDao().updateDogInfoSit(con, entAppNo);
+
+				if(result > 0) {
+					commit(con);
+				}else {
+					rollback(con);
+				}
+			}else {
+				rollback(con);
+			}
 		}else {
 			rollback(con);
 		}
@@ -192,11 +224,28 @@ public class EntranceService {
 
 	public int okParceloutApply(int pcoAppNo) {
 		Connection con = getConnection();
+		int result = 0;
 
-		int result = new EntranceDao().okParceloutApply(con, pcoAppNo);
+		Date selHopeDate = new EntranceDao().getSelHopeDateParcle(con, pcoAppNo);
+		System.out.println("서비스의 데이트 1 : " + selHopeDate);
 
-		if(result > 0) {
+		if(selHopeDate != null) {
 			commit(con);
+			int num = new EntranceDao().insertSelDateParcel(con, pcoAppNo, selHopeDate);
+
+			if(num > 0) {
+				commit(con);
+				result = new EntranceDao().okParceloutApply(con, pcoAppNo);
+
+				if(result > 0) {
+					commit(con);
+				}else {
+					rollback(con);
+				}
+			}else {
+				rollback(con);
+			}
+
 		}else {
 			rollback(con);
 		}
@@ -244,6 +293,51 @@ public class EntranceService {
 		}
 
 		return result;
+	}
+
+	public String selectNoEntranceApplyReason(int entAppNo) {
+		Connection con = getConnection();
+		String reason = null;
+
+		reason = new EntranceDao().selectNoEntranceApplyReason(con, entAppNo);
+
+		close(con);
+
+		return reason;
+	}
+
+	public String selectEntranceSElDate(int entAppNo) {
+		Connection con = getConnection();
+		String result = null;
+
+		result = new EntranceDao().selectEntranceSElDate(con, entAppNo);
+
+		System.out.println("Afdsdfsgs : " + result);
+
+		close(con);
+
+		return result;
+	}
+
+	public int getMyEntranceDogListCount() {
+		Connection con = getConnection();
+		int result = 0;
+
+		result = new EntranceDao().getMyEntranceDogListCount(con);
+
+		close(con);
+
+		return result;
+	}
+
+	public ArrayList<EntranceDogInfo> selectAllEntranceDog(int currentPage, int limit) {
+		Connection con = getConnection();
+
+		ArrayList<EntranceDogInfo> list = new EntranceDao().selectAllEntranceDog(con, currentPage, limit);
+
+		close(con);
+
+		return list;
 	}
 
 }

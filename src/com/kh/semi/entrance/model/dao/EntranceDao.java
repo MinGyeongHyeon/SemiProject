@@ -5,6 +5,7 @@ import static com.kh.semi.common.JDBCTemplate.close;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -698,5 +699,293 @@ public class EntranceDao {
 
 		return result;
 	}
+
+	public String getSelHopeDate(Connection con, int entAppNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String selHopeDate = null;
+
+		String query = prop.getProperty("getSelHopeDate");
+
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, entAppNo);
+
+			rset = pstmt.executeQuery();
+
+			if(rset.next()) {
+				selHopeDate = rset.getString("SEL_HOPE_DT");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+
+		return selHopeDate;
+	}
+
+	public int insertSelDate(Connection con, int entAppNo, String selHopeDate) {
+		PreparedStatement pstmt = null;
+		int num = 0;
+
+		String query = prop.getProperty("insertSelDate");
+
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, entAppNo);
+			pstmt.setString(2, selHopeDate);
+
+			num = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+
+
+		return num;
+	}
+
+	public int updateDogEntranceSit(Connection con, int entAppNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+
+		String query = prop.getProperty("updateDogEntranceSit");
+
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, "입소반려");
+			pstmt.setInt(2, entAppNo);
+
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+
+		return result;
+	}
+
+	public Date getSelHopeDateParcle(Connection con, int pcoAppNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Date selHopeDate = null;
+
+		String query = prop.getProperty("getSelHopeDateParcle");
+
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, pcoAppNo);
+
+			rset = pstmt.executeQuery();
+
+			if(rset.next()) {
+				selHopeDate = rset.getDate("SEL_APP_DT");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+
+		return selHopeDate;
+	}
+
+	public int insertSelDateParcel(Connection con, int pcoAppNo, Date selHopeDate) {
+		PreparedStatement pstmt = null;
+		int num = 0;
+
+		String query = prop.getProperty("insertSelDateParcel");
+
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, pcoAppNo);
+			pstmt.setDate(2, selHopeDate);
+
+			num = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+
+
+		return num;
+	}
+
+	public String selectNoEntranceApplyReason(Connection con, int entAppNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String reason = null;
+
+		String query = prop.getProperty("selectNoEntranceApplyReason");
+
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, entAppNo);
+
+			rset = pstmt.executeQuery();
+
+			if(rset.next()) {
+				reason = rset.getString("COMPANION_RS");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return reason;
+	}
+
+	public String selectEntranceSElDate(Connection con, int entAppNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String result = null;
+
+		String query = prop.getProperty("selectEntranceSElDate");
+
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, entAppNo);
+
+			rset = pstmt.executeQuery();
+
+			if(rset.next()) {
+				result = rset.getString("SEL_DT");
+				System.out.println("오호라 : " + result);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+
+		return result;
+	}
+
+	public int getMyEntranceDogListCount(Connection con) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		int result = 0;
+
+		String query = prop.getProperty("getMyEntranceDogListCount");
+
+		try {
+			stmt = con.createStatement();
+
+			rset = stmt.executeQuery(query);
+
+			if(rset.next()) {
+				result = rset.getInt("CON");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return result;
+	}
+
+	public ArrayList<EntranceDogInfo> selectAllEntranceDog(Connection con, int currentPage, int limit) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<EntranceDogInfo> list = null;
+
+		String query = prop.getProperty("selectAllEntranceDog");
+
+		try {
+			pstmt = con.prepareStatement(query);
+
+			int startRow = (currentPage - 1) * limit + 1;
+			int endRow = startRow + limit - 1;
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+
+			rset = pstmt.executeQuery();
+
+			list = new ArrayList<EntranceDogInfo>();
+
+			while(rset.next()) {
+				EntranceDogInfo dog = new EntranceDogInfo();
+				dog.setEntNo(rset.getInt("ENT_NO"));
+				dog.setDogNm(rset.getString("DOG_NM"));
+				dog.setDogGender(rset.getString("DOG_GENDER"));
+				dog.setDogKind(rset.getString("DOG_KIND"));
+				dog.setDogSit(rset.getString("DOG_SIT"));
+				dog.setEntAppNo(rset.getInt("ENT_APP_NO"));
+
+				list.add(dog);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return list;
+
+	}
+
+	public int updateDogInfoSit(Connection con, int entAppNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+
+		String query = prop.getProperty("updateDogInfoSit");
+
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, "입소반려");
+			pstmt.setInt(2, entAppNo);
+
+			result = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+
+		return result;
+	}
+
+	public int updateDogInfoOk(Connection con, int entAppNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+
+		String query = prop.getProperty("updateDogInfoOk");
+
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, "분양대기");
+			pstmt.setInt(2, entAppNo);
+
+			result = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+		return result;
+	}
+
+
 
 }
