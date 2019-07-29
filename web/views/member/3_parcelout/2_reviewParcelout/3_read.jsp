@@ -61,13 +61,13 @@
 
 						<% if(loginUser != null) {%>
 							<%if (list2.get(0) == 1){ %>
-							<th class="classt"><button type="button" id="parcleup" style="background: none;  border: none;"><img src="/sixDestiny/images/test1.jpg" width="30px;" height="30px;" id="imgtest"></button>
+							<th class="classt"><button type="button" id="parcleup" style="background: none;  border: none;"><img src="/sixDestiny/images/test1.png" width="30px;" height="30px;" id="imgtest"></button>
 							</th>
 							<% }else { %>
 						<th class="classt"><button type="button" id="parcleup" style="background: none;  border: none;"><img src="/sixDestiny/images/test3.jpeg" width="30px;" height="30px;" id="imgtest"></button>
 							<% } %>
-						<% } %>
 						<th><input type="button" value="신고" id="reportPr"></th>
+						<% } %>
 
 
 						<% if(loginUser != null) { %>
@@ -103,7 +103,7 @@
 							<label style="width:100px"><%= cm.get(i).getNickNm() %></label>
 							<label style="width:400px"><%= cm.get(i).getComent() %></label>
 						<button class="reportCom" style="background: none;  border: none;"><img src="/sixDestiny/images/reportcoment.PNG" width="30px;" height="30px;" id="imgtest"></button>
-						<!-- <input type="button" value="신고" class="reportCom"> -->
+
 						</td>
 					</tr>
 					<% } %>
@@ -156,16 +156,16 @@
 			type:"get",
 			data:{uNo:uNo,bNo:bNo},
 			success:function(data){
-					console.log(data);
+
 				if(data[0] == 1){
 
 					var $parcleup = $('#parcleup');
 
-					var $imgtest = $('#imgtest');
+					var $imgtest = $('#imgtest'); 
 
 					$imgtest.remove();
 
-					var $img2 = ('<img src="/sixDestiny/images/test1.jpg" width="30px;" height="30px;" id="imgtest" >');
+					var $img2 = ('<img src="/sixDestiny/images/test1.png" width="30px;" height="30px;" id="imgtest" >');
 
 					$parcleup.append($img2);
 
@@ -180,22 +180,6 @@
 
 					$th2.after($th);
 
-
-
-
-					/*
-					var $parcleup = $('parcleup');
-					var $imgtest = $('imgtest');
-					$imgtest.remove();
-
-					/* <img src="/sixDestiny/images/test3.jpeg" width="30px;" height="30px;" id="imgtest"> */
-
-					/* var $img = ('<img>');
-					$img.attr({'width':'30px','height':'30px'});
-					$img.attr('id','imgtest');
-					$img.attr('src' , '/sixDestiny/images/test.jpg');
-
-					$parcleup.append($img); */
 
 
 				}else{
@@ -236,17 +220,6 @@
 						}
 
 					})
-
-				/* 	var $parcleup = $('#parcleup');
-
-					var $imgtest = $('#imgtest');
-
-					$imgtest.remove();
-
-					var $img2 = ('<img src="/sixDestiny/images/test1.jpg" width="30px;" height="30px;" id="imgtest" >');
-
-					$parcleup.append($img2);
- */
 
 
 

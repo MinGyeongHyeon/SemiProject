@@ -12,6 +12,7 @@
 	width: 800px;
 	border: 1px solid black;
 	margin: 0 auto;
+	font-family: 'Sunflower', sans-serif;
 }
 
 #btn {
@@ -41,7 +42,7 @@ table tr td.title {
 }
 
 input[type=text] {
-	padding-left: 90px;
+	padding-left: 5px;
 }
 
 .starR {

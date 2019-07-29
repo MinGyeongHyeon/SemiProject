@@ -76,11 +76,16 @@ public class SelectParceloutOne extends HttpServlet {
 
 				}
 
-				if(list.size() > 0) {
+				if(list != null) {
 
-				request.setAttribute("coment", list);
+					if(list.size() > 0) {
+
+						request.setAttribute("coment", list);
+
+					}
 
 				}
+
 			}
 
 

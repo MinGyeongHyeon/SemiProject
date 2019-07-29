@@ -55,7 +55,7 @@ public class InsertParceloutReport extends HttpServlet {
 			request.getRequestDispatcher(page).forward(request, response);
 
 		}else {
-			msg = "다시 신고 해주세요";
+			msg = "이미 신고 하셨습니다 ^^ 감사합니다.";
 			request.setAttribute("msg", msg);
 			request.getRequestDispatcher(page).forward(request, response);
 		}

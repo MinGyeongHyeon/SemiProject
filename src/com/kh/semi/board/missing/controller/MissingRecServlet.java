@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
 import com.kh.semi.board.missing.model.service.MissingService;
 
 /**
@@ -34,13 +35,20 @@ public class MissingRecServlet extends HttpServlet {
 		System.out.println("보트넘버"+test);
 		System.out.println("resu;t넘버"+result);
 		
+		int num = 0;
+		
 		if(result==0) {
-		int re=  new MissingService().re2(test, test2);}
-		else {
+			int re =  new MissingService().re2(test, test2);
+			num = 1;
+		}else {
 			
 			int re=  new MissingService().re3(test, test2);
-			
+			num = 0;
 		}
+		
+		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
+		new Gson().toJson(num, response.getWriter());
 		
 	}
 

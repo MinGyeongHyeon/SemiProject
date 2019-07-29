@@ -134,7 +134,9 @@ table tr td img {
           <div class="title">
      
             <input type="hidden" value="<%=hmap.get("boardNo")%>" id="Bno">
+        <%if(loginUser!=null){%>
                 <input type="hidden" value="<%=loginUser.getUserNo()%>" >
+                  <%}%> 
 <%if(hmap.get("changeNm") !=null){ %>
 
             <img src="/sixDestiny/thumbnail_uploadFiles/<%=hmap.get("changeNm")%>" 
@@ -249,14 +251,23 @@ table tr td img {
                
       $(function() {
          $(".title").click( function() {
+        	 
+        	 <%if(loginUser!=null){%>
  	var num=     $(this).children().eq(0).val();
  	var uu= $(this).children().eq(1).val();
 
                            console.log(uu);
                 
-
+                     
 
    location.href = "<%=request.getContextPath()%>/missingSelectOne.bo?num="+num+"&uu="+uu;
+   
+	 <%}else{%>
+		var num=     $(this).children().eq(0).val();
+	 
+		 location.href = "<%=request.getContextPath()%>/missingSelectOne.bo?num="+num;
+		 <%}%>
+   
             });
       });
          
@@ -763,7 +774,7 @@ table tr td img {
    				
    					/* var lastkey=data.length-1; */
    					
-   				for(var i=0;i<data.length-1;i++){
+   				for(var i=0;i<data.length;i++){
    					
    						var $table=$("<table>").addClass("thumb-list");
    						var $div2=$("<div>");

@@ -22,6 +22,7 @@
 <body>
 
 	<div>
+	
 
 		<div class="container">
 			<table class="table table-hover">
@@ -35,8 +36,7 @@
 						<th>추천수 : <%=ub.getRecCon() %></th>
 						<th>조회수 : <%=ub.getInqCon() %></th>
 						<% if(loginUser != null){ %>
-						<th><input type="button" value="추천"> <input
-							type="button" value="신고"></th>
+						<th><input type="button" value="추천">  <input type="button" value="신고" id="reportPr" onclick="report(<%= loginUser.getUserNo()%>)"></th>
 					<%} %>
 					</tr>
 				</thead>
@@ -113,6 +113,16 @@
 				});
 			}
 		}
+	
+	
+	 function report(data){
+		var test = <%= ub.getbNo() %>; //현제 게시글 번호
+		var test2 = <%= ub.getuNo() %>;   //해당게시글을 쓴유저의 번호
+		var test3 = data;// 신고할 사람의 번호
+	
+		
+		window.open("/sixDestiny/views/member/5_freeBoard/1_freeBoard/5_report.jsp?test=" + test + "," + test2 + "," + test3,"PopupWin","width=480,height=300","resizable=no");
+	}) 
 	
 	</script>
 <%@ include file="../../../common/bottom_Include.jsp"%>

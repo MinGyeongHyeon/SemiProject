@@ -25,8 +25,7 @@ public class UpdateParceloutRec extends HttpServlet {
 		int uNo = Integer.parseInt(request.getParameter("uNo"));
 		int bNo = Integer.parseInt(request.getParameter("bNo"));
 
-		System.out.println("넘어온 uNo 값 : " + uNo);
-		System.out.println("넘어온 bNo 값 : " + bNo);
+
 
 		Rec re = new Rec();
 

@@ -47,7 +47,7 @@ public class ParcelOutDao {
 
 				pstmt.setInt(1, us.getUserNo());
 				pstmt.setString(2, ap.getday());
-				pstmt.setString(3, "분양대기");
+				pstmt.setString(3, "N");
 
 
 
