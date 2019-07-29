@@ -849,7 +849,7 @@ public class UserBoardDao {
 			pstmt = con.prepareStatement(query);
 
 			pstmt.setInt(1, ub.getuNo());
-			pstmt.setString(2, "분양완료");
+			pstmt.setString(2, "Y");
 
 
 			rset = pstmt.executeQuery();
@@ -1211,10 +1211,10 @@ public class UserBoardDao {
 		try {
 			pstmt = con.prepareStatement(query);
 
-			pstmt.setInt(1, re.getReportout());
-			pstmt.setString(2, re.getReason());
-			pstmt.setInt(3, re.getBoardNo());
-			pstmt.setInt(4, re.getReportin());
+			pstmt.setInt(1, re.getBoardNo());
+			pstmt.setInt(2, re.getReportin());
+			pstmt.setInt(3, re.getReportout());
+			pstmt.setString(4, re.getReason());
 
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {

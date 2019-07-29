@@ -28,7 +28,6 @@ public class SelectWrite extends HttpServlet {
 
 			int result = new UserBoardService().Selectwrite(ub);
 
-			System.out.println("서블릿 리절트 값 : " + result);
 
 			response.setContentType("application/json");
 			response.setCharacterEncoding("UTF-8");
