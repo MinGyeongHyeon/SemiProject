@@ -12,24 +12,28 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 import com.kh.semi.support.money.model.service.MoneySupService;
 
-@WebServlet("/okCancle.pro")
-public class OkCancleSupportServlet extends HttpServlet {
+@WebServlet("/confirmRs.mon")
+public class SelectMoneySupportCancleResultServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int monSupNo = Integer.parseInt(request.getParameter("monSupNo"));
 
-		System.out.println("악!" + monSupNo);
+		String result = new MoneySupService().selectSupportCancleReason(monSupNo);
+		System.out.println("사유사유 : " + result);
 
-		int result = new MoneySupService().okCancleSupport(monSupNo);
+		HashMap<String, Object> hmap = new HashMap<String, Object>();
+		hmap.put("result", result);
+		hmap.put("monSupNo", monSupNo);
 
-		if(result > 0) {
+		if(result != null) {
 			System.out.println("서블릿 성공!");
 			response.setContentType("application/json");
 			response.setCharacterEncoding("UTF-8");
-			new Gson().toJson(result, response.getWriter());
+			new Gson().toJson(hmap, response.getWriter());
 		}else {
 		}
+
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
