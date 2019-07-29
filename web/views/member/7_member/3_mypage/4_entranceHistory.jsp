@@ -57,9 +57,9 @@
 				<% if(et.getAppSit().equals("N")){ %>
 					<p style="font-family: 'Sunflower', sans-serif;">신청수락 대기</p>
 				<% }else if(et.getAppSit().equals("I")){ %>
-					<button class="btn btn-default" style="font-family: 'Sunflower', sans-serif; background:white;" name="insertMoney" onclick="entranceReault();">입소신청 반려</button>
+					<button class="btn btn-default" style="font-family: 'Sunflower', sans-serif; background:white;" name="insertMoney" onclick="entranceReault(<%=et.getEntAppNo()%>);">입소신청 반려</button>
 				<% }else if(et.getAppSit().equals("E")){ %>
-					<button class="btn btn-default" style="font-family: 'Sunflower', sans-serif; background:white;" name="insertMoney" onclick="entranceSel();">입소상담 수락</button>
+					<button class="btn btn-default" style="font-family: 'Sunflower', sans-serif; background:white;" name="insertMoney" onclick="entranceSel(<%=et.getEntAppNo()%>);">입소상담 수락</button>
 				<% }else{ %>
 					<p style="font-family: 'Sunflower', sans-serif;">입소완료</p>
 				<% } %>
@@ -165,6 +165,39 @@
   <script type="text/javascript">
   	function viewEntranceApply(entAppNo) {
 		var entAppNo = entAppNo;
+	}
+
+  	function entranceReault(entAppNo){
+  		var entAppNo = entAppNo;
+  		$.ajax({
+  			url:"/sixDestiny/selectReason.ent",
+  			type:"post",
+  			data:{entAppNo:entAppNo},
+  			success:function(data){
+  				console.log(data);
+				var reason = data;
+				alert("회원님의 입소신청 반려 사유  : " + reason);
+  			},
+  			error:function(data){
+
+  			}
+  		});
+  	}
+
+  	function entranceSel(entAppNo) {
+		var entAppNo = entAppNo;
+		$.ajax({
+			url:"/sixDestiny/selectSelData.ent",
+			type:"post",
+			data:{entAppNo:entAppNo},
+			success:function(data){
+				var date = data
+				alert("회원님의 상담 날짜는 " + date + "입니다.");
+			},
+			error:function(){
+
+			}
+		});
 	}
   </script>
   <%@ include file="../../../common/bottom_Include.jsp"%>
