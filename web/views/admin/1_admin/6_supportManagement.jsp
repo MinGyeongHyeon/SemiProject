@@ -303,25 +303,37 @@
 	}
 
   	function okCancle(monSupNo) {
-		if(confirm("정기후원 취소 처리 하시겠습니까?")){
-			var monSupNo = monSupNo;
+  		var monSupNo = monSupNo;
+  		$.ajax({
+  			url:"/sixDestiny/confirmRs.mon",
+  			type:"post",
+  			data:{monSupNo:monSupNo},
+  			success:function(data){
+  				console.log("aa");
+  				var monSupNo = data["monSupNo"];
+  				var result = data["result"];
+  				if(confirm("정기후원 취소 처리 하시겠습니까?" +" \n후원취소사유 : " + result)){
+  				$.ajax({
+  					url:"/sixDestiny/okCancle.pro",
+  					type:"post",
+  					data:{monSupNo:monSupNo},
+  					success:function(data){
+  						location.href="/sixDestiny/selectAllUser.su";
+  						console.log("성공성공!")
+  					},
+  					error:function(){
 
-			$.ajax({
-				url:"/sixDestiny/okCancle.pro",
-				type:"post",
-				data:{monSupNo:monSupNo},
-				success:function(data){
-					location.href="/sixDestiny/selectAllUser.su";
-					console.log("성공성공!")
-				},
-				error:function(){
+  					}
+  				});
 
-				}
-			});
+  				}else{
+  					return;
+  				}
+  			},
+  			error:function(){
 
-		}else{
-			return;
-		}
+  			}
+  		});
 	}
   </script>
 	<%@ include file="../../common/bottom_Include.jsp"%>

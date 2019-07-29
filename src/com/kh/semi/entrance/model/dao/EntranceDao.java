@@ -156,8 +156,8 @@ public class EntranceDao {
 
 				try {
 					pstmt = con.prepareStatement(query);
-					pstmt.setString(1, dogInfo.getT1()[i]);
-					pstmt.setInt(2, dogCurrval);
+					pstmt.setInt(1, dogCurrval);
+					pstmt.setString(2, dogInfo.getT1()[i]);
 
 					num1 = pstmt.executeUpdate();
 				} catch (SQLException e) {

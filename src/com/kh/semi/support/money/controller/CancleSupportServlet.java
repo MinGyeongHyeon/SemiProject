@@ -22,6 +22,7 @@ public class CancleSupportServlet extends HttpServlet {
 		String selectCancle = request.getParameter("selectCancle");
 
 		System.out.println("악!" + monSupNo);
+		System.out.println("취소사유? + " + selectCancle);
 
 		int result = new MoneySupService().cancleSupportMoney(monSupNo, selectCancle);
 
