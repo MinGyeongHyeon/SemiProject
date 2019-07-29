@@ -39,7 +39,7 @@ public class MissingSelectOneServlet extends HttpServlet {
 	int num = Integer.parseInt(request.getParameter("num"));
 	int uu=0;
 
-if(request.getParameter("uu")!=null) {
+if(request.getParameter("uu")!="") {
 	uu= Integer.parseInt(request.getParameter("uu"));
 	System.out.println(uu+"uuuuuuuuuuuu");
 }

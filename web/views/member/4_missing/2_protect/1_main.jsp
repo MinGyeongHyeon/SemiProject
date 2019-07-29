@@ -128,6 +128,7 @@ table tr td img {
          <td >
          <div class="title">
             <input type="hidden" value="<%=hmap.get("boardNo")%>" id="Bno">
+            <%System.out.print(hmap.get("boardNo")) ;%>
 <%if(hmap.get("changeNm") !=null){ %>
             <img src="/sixDestiny/thumbnail_uploadFiles/<%=hmap.get("changeNm")%>"
                style="width: 200px; height: 200px; cursor: pointer;">
@@ -160,7 +161,7 @@ table tr td img {
          $(".title").click( function() {
  	var num=     $(this).children().eq(0).val();
 
-                           console.log(num);
+                           console.log("num???"+num);
                 
 
 

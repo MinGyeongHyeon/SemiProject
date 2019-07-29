@@ -231,10 +231,10 @@ public class MissingDao {
 		try {
 			for(int i = 0; i < fileList.size(); i++) {
 				pstmt = con.prepareStatement(query);
-				pstmt.setString(1,"실종");
-				pstmt.setString(2, fileList.get(i).getOriginNm());
-				pstmt.setString(3, fileList.get(i).getChangeNm());
-				pstmt.setString(4, fileList.get(i).getFilePath());
+				pstmt.setString(4,"실종");
+				pstmt.setString(1, fileList.get(i).getOriginNm());
+				pstmt.setString(2, fileList.get(i).getChangeNm());
+				pstmt.setString(3, fileList.get(i).getFilePath());
 				pstmt.setString(5,"1");
 				int level = 0;
 				if(i == 0) {
@@ -980,10 +980,10 @@ public class MissingDao {
 		try {
 			for(int i = 0; i < fileList.size(); i++) {
 				pstmt = con.prepareStatement(query);
-				pstmt.setString(1,"실종");
-				pstmt.setString(2, fileList.get(i).getOriginNm());
-				pstmt.setString(3, fileList.get(i).getChangeNm());
-				pstmt.setString(4, fileList.get(i).getFilePath());
+				pstmt.setString(4,"실종");
+				pstmt.setString(1, fileList.get(i).getOriginNm());
+				pstmt.setString(2, fileList.get(i).getChangeNm());
+				pstmt.setString(3, fileList.get(i).getFilePath());
 				pstmt.setString(5,"1");
 				int level = 0;
 				if(i == 0) {
