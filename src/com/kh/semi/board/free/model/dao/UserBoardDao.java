@@ -735,10 +735,11 @@ public class UserBoardDao {
 		try {
 			for(int i = 0; i < fileList.size(); i++) {
 				pstmt = con.prepareStatement(query);
-				pstmt.setString(1,"자유");
-				pstmt.setString(2, fileList.get(i).getOriginNm());
-				pstmt.setString(3, fileList.get(i).getChangeNm());
-				pstmt.setString(4, fileList.get(i).getFilePath());
+				
+				pstmt.setString(1, fileList.get(i).getOriginNm());
+				pstmt.setString(2, fileList.get(i).getChangeNm());
+				pstmt.setString(3, fileList.get(i).getFilePath());
+				pstmt.setString(4,"자유");
 				pstmt.setString(5,"0");
 				
 				int level = 0;
@@ -790,6 +791,7 @@ public class UserBoardDao {
 				ub.setInqCon(rset.getInt("INQ_COUNT"));
 				ub.setRecCon(rset.getInt("REC_COUNT"));
 				ub.setbUserNick(rset.getString("NICK_NM"));
+				ub.setuNo(rset.getInt("USER_NO"));
 				
 				at = new UserBoardAttachment();
 				at.setFileKind(rset.getString("FILE_KIND"));

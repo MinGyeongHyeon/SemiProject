@@ -161,7 +161,7 @@
 
 					var $parcleup = $('#parcleup');
 
-					var $imgtest = $('#imgtest');
+					var $imgtest = $('#imgtest'); 
 
 					$imgtest.remove();
 
