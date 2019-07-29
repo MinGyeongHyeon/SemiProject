@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="../../../common/top_Include.jsp"%>
-<!DOCTYPE htm>
+<!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -22,7 +22,6 @@
 	Color: white;
 }
 
-
 </style>
 <body>
 	<div>
@@ -37,7 +36,6 @@
 		</div>
 		<br>
 		<div>
-
 			<%-- 카카오톡 로그인 --%>
 
 			<a id="kakao-login-btn"></a> <a
@@ -65,21 +63,17 @@
 									data : {userId:userId,email:email,userName:userName},
 									type:"post",
 									success:function(data){
+										console.log(data["userId"]);
+										console.log(data["email"]);
+										console.log(data["userName"]);
+										
+										/* data["userId"];
+										data["email"] */
 										var args = '?';
 										args += (data.userId == undefined)? '' : 'userId='+data.userId+'&';
 										args += (data.email == undefined)? '' : 'email='+data.email+'&';
 										args += (data.userName == undefined)? '' : 'userName='+data.userName+'&';
 										location.href = data.returnUrl+args;
-										<%-- console.log(data);
-										result가 1이면 DB에없는 신규회원으로 추가정보입력받아야함
-										if(data = 1){								
-											location.href = "/sixDestiny/views/member/7_member/2_signup/4_signupKakao.jsp";
-											console.log(data);
-											
-										}else{								
-											location.href = "/sixDestiny/index.jsp";
-											console.log(data);
-										} --%>
 									}
 								})
 								

@@ -2,6 +2,7 @@ package com.kh.semi.user.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 
 import javax.servlet.ServletException;
@@ -34,49 +35,55 @@ public class KakaoSignupServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		//필수정보입력
+		String userNm = request.getParameter("userName");	//카카오정보
+		String userId = request.getParameter("userId");		//카카오정보
+		String NickNm = request.getParameter("userNickName");
+		String email = request.getParameter("email");		//카카오정보
 		
-		String id = request.getParameter("userId");
-		String email = request.getParameter("email");
-		String name = request.getParameter("userName");
-		
-		System.out.println(id);
-		System.out.println(email);
-		System.out.println(name);
+		//추가정보입력
+		String userHb = request.getParameter("birthday");
+		String gender = request.getParameter("gender");
+		String address = request.getParameter("address");
+		String address2 = request.getParameter("address2");
+		String dogYn = request.getParameter("dogYn");
+		String rtcd = request.getParameter("rtcd");
+
+		String addresslist = address + " " + address2;
+
+		java.sql.Date day = null;
+
+		if(!userHb.equals("")) {
+
+			day =java.sql.Date.valueOf(userHb);
+
+		}else {
+			day = new java.sql.Date(new GregorianCalendar().getTimeInMillis());
+		}
 		
 		User ur = new User();
-
-		ur.setUserId(id);
+		
+		ur.setUserNm(userNm);
+		ur.setUserId(userId);
+		ur.setNickNm(NickNm);
 		ur.setEmail(email);
-		ur.setUserNm(name);
+		ur.setUserHb(day);
+		ur.setGender(gender);
+		ur.setAddress(addresslist);
+		ur.setDogYn(dogYn);
+		ur.setRtCd(rtcd);
 		
-		int result = new UserService().kakaologin(ur);
-		//page전환을 위한 값
-		int result2 = 0;
-		
-
-		String msg = "";
-		String page = "/sixDestiny/";
-		
-		System.out.println("result값: "+result);
-		
+		int result = new UserService().kakaoSignup(ur);
 		
 		if(result > 0) {
-			//새로운 회원, result=1;
-			result2 = 1;
-			ArrayList kakaoUser = new ArrayList();
-			kakaoUser.add(id);
-			kakaoUser.add(result2);
-			new Gson().toJson(kakaoUser, response.getWriter());
-			
-		}else{
-			//기존회원, result=0;
-			System.out.println("카카오서블렛 호출...");
-			result2 = 2;
-			ArrayList kakaoUser = new ArrayList();
-			kakaoUser.add(id);
-			kakaoUser.add(result2);
-			new Gson().toJson(kakaoUser, response.getWriter());
+
+			response.sendRedirect("/sixDestiny/");
+		}else {
+
+			request.getRequestDispatcher("/sixDestiny/").forward(request, response);
 		}
+		
+		
 	}
 
 	/**

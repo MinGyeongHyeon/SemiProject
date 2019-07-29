@@ -9,7 +9,8 @@
 
 <style>
 #mypage {
-	margin-left: 40%;
+	margin: 0 auto;
+	width:500px;
 }
 
 #mypagebutton {
@@ -36,7 +37,7 @@ table tr td.category2 {
 }
 
 .br {
-	margin-top: 5%;
+	margin: 0 auto;
 }
 
 label {
@@ -53,6 +54,7 @@ label {
 	<div id="mypage">
 		<div>
 			<form action="">
+			<br>
 				<table>
 					<tr>
 						<td><br /></td>
@@ -85,6 +87,22 @@ label {
 					<tr>
 						<td><br /></td>
 					</tr>
+					
+					<tr>
+						<td class=category><label for="">핸드폰번호</label></td>
+						<td class="category2">
+							<% if(loginUser.getPhone()==null) { %>
+							<label>정보없음</label>
+							<%} else {%>
+							<%=loginUser.getPhone()%>
+							<%} %>
+						</td>
+					</tr>
+					
+					<tr>
+						<td><br /></td>
+					</tr>
+					
 					<tr>
 						<td class=category><label for="">생년월일</label></td>
 						<td class="category2"><label><%=loginUser.getUserHb()%></label></td>
@@ -114,6 +132,9 @@ label {
 						<td><br /></td>
 					</tr>
 				</table>
+				
+				<br>
+				
 				<table class="br">
 					<tr>
 						<td><input type="button" value="회원정보 수정" onclick="location.href='/sixDestiny/views/member/7_member/3_mypage/3_modify.jsp'"></td>
