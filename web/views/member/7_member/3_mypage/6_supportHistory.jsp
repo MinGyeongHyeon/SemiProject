@@ -106,7 +106,7 @@
 		</div>
 
   <br><br><br>
-  <p style="font-family: 'Sunflower', sans-serif; font-size:1.3em"><%=loginUser.getNickNm()%>님의 금전후원 내역 현황입니다.</p>
+  <p style="font-family: 'Sunflower', sans-serif; font-size:1.3em"><%=loginUser.getNickNm()%>님의 물품후원 내역 현황입니다.</p>
   <br>
   <table class="table table-hover">
     <thead>

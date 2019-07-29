@@ -144,4 +144,14 @@ public class MoneySupService {
 		return result;
 	}
 
+	public String selectSupportCancleReason(int monSupNo) {
+		Connection con = getConnection();
+
+		String result = new MoneySupDao().selectSupportCancleReason(con, monSupNo);
+
+		close(con);
+
+		return result;
+	}
+
 }

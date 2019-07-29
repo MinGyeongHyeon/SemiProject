@@ -278,4 +278,31 @@ public class MoneySupDao {
 		return result;
 	}
 
+	public String selectSupportCancleReason(Connection con, int monSupNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String result = "";
+
+		String query = prop.getProperty("selectSupportCancleReason");
+
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, monSupNo);
+
+			rset = pstmt.executeQuery();
+
+			if(rset.next()) {
+				result = rset.getString("CANCLE_RS");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+
+		return result;
+	}
+
 }
