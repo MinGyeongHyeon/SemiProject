@@ -588,11 +588,13 @@ Connection con = getConnection();
 
 		result = new MissingDao().report(con,num,uu);
 
-		if(result >0) {
+		
+		System.out.println(result+"DDDDDDDDDDDDDDDDDDDDDD");
+	/*	if(result >0) {
 			commit(con);
 		}else {
 			rollback(con);
-		}
+		}*/
 		close(con);
 
 		return result;
@@ -607,6 +609,23 @@ Connection con = getConnection();
 		int result = 0;
 
 		result = new MissingDao().report2(con,test,test2);
+
+		if(result >0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		close(con);
+
+		return result;
+	}
+
+
+	public int re3(int test, int test2) {
+		Connection con = getConnection();
+		int result = 0;
+
+		result = new MissingDao().report3(con,test,test2);
 
 		if(result >0) {
 			commit(con);
