@@ -15,6 +15,7 @@ import com.kh.semi.entrance.model.dao.EntranceDao;
 import com.kh.semi.entrance.model.vo.Entrance;
 import com.kh.semi.entrance.model.vo.EntranceDogInfo;
 import com.kh.semi.parcelout.model.vo.ParcelOut;
+import com.kh.semi.parcelout.model.vo.ParcelOutResult;
 
 
 public class EntranceService {
@@ -226,7 +227,7 @@ public class EntranceService {
 		Connection con = getConnection();
 		int result = 0;
 
-		Date selHopeDate = new EntranceDao().getSelHopeDateParcle(con, pcoAppNo);
+		String selHopeDate = new EntranceDao().getSelHopeDateParcle(con, pcoAppNo);
 		System.out.println("서비스의 데이트 1 : " + selHopeDate);
 
 		if(selHopeDate != null) {
@@ -330,14 +331,55 @@ public class EntranceService {
 		return result;
 	}
 
-	public ArrayList<EntranceDogInfo> selectAllEntranceDog(int currentPage, int limit) {
+	public HashMap<String, Object> selectAllEntranceDog(int currentPage, int currentPage2, int limit, int limit2) {
 		Connection con = getConnection();
+		HashMap<String, Object> list = new HashMap<String, Object>();
 
-		ArrayList<EntranceDogInfo> list = new EntranceDao().selectAllEntranceDog(con, currentPage, limit);
+		ArrayList<EntranceDogInfo> entranceDogInfo = new EntranceDao().selectAllEntranceDog(con, currentPage, limit);
+		ArrayList<ParcelOutResult> parcelOutResult = new EntranceDao().selectAllParcelOutResult(con, currentPage2, limit2);
+
+		System.out.println("service 분양 : " + entranceDogInfo);
+		System.out.println("service 입소 : " + parcelOutResult);
+
+		list.put("entranceDogInfo", entranceDogInfo);
+		list.put("parcelOutResult", parcelOutResult);
 
 		close(con);
 
 		return list;
+
+	}
+
+	public int updateFinalSit(int entNo, int userNo) {
+		Connection con = getConnection();
+		int result = 0;
+
+		int num = new EntranceDao().updateFinalSit(con, entNo, userNo);
+
+		if(num > 0) {
+			commit(con);
+			/*int num2 = new EntranceDao().selectParceloutApply(con, entNo, userNo);*/
+			int num3 = new EntranceDao().updateParcleoutApply(con, entNo, userNo);
+
+			if(num3 > 0) {
+				commit(con);
+				result = new EntranceDao().updateParcelOut(con, num3, entNo);
+
+				if(result > 0) {
+					commit(con);
+				}else {
+					rollback(con);
+				}
+			}else {
+				rollback(con);
+			}
+		}else {
+			rollback(con);
+		}
+
+		close(con);
+
+		return result;
 	}
 
 }

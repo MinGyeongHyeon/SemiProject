@@ -5,12 +5,14 @@
 <html>
 <head>
 <title>Insert title here</title>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-	<script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
-	<link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />
+
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+
 <script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
 
 <style>
@@ -63,189 +65,184 @@ $(function(){
 });
 </script>
 
-
 	<form action="<%= request.getContextPath() %>/Insert.po" method="post">
-		<h3>분양 설문조사</h3>
-	<input type="hidden" value="<%= loginUser.getUserNo() %>" name="userNo">
+		<h1 style="font-family: 'Sunflower', sans-serif;">분양 설문조사</h1>
+		<input type="hidden" value="<%= loginUser.getUserNo() %>" name="userNo">
+		<div style="width:70%; margin:0 auto;">
+			<br><br>
 
-		<div id="border">
-			<br> <br>
-
-
-			<table id="ta">
-
+			<table border="1" style="width:100%; height: 30px; text-align:center;">
 				<tr class="entancetr">
-					<td class="entancetd"><p>1. 입양을 원하시는 가장 큰 이유는 무엇인가요?</p>
+					<td class="entancetd"><p style="font-family: 'Sunflower', sans-serif; font-weight:bold;">&nbsp;&nbsp;1. 입양을 원하시는 가장 큰 이유는 무엇인가요?</p></td>
+				</tr>
+				<tr class="entancetr">
+					<td class="entancetd"><input type="text" id="q1" size="90" name="applic1" style="width:100%; height:40px;"></td>
+				</tr>
+				<tr class="entancetr">
+					<td class="entancetd"><p style="font-family: 'Sunflower', sans-serif; font-weight:bold;">&nbsp;&nbsp;2. 입양을 결정하시기까지 얼마나 많은 시간을 고민하셨나요?</p>
 					</td>
 				</tr>
 				<tr class="entancetr">
-					<td class="entancetd"><input type="text" id="q1" size="90" name="applic1"></td>
+					<td class="entancetd"><input type="text" id="q2" size="90" name="applic2" style="width:100%; height:40px;"></td>
 				</tr>
 				<tr class="entancetr">
-					<td class="entancetd"><p>2. 입양을 결정하시기까지 얼마나 많은 시간을 고민하셨나요?</p>
+					<td class="entancetd"><p style="font-family: 'Sunflower', sans-serif; font-weight:bold;">&nbsp;&nbsp;3. 키우고 있는 반려동물이 있으신가요?</p>
 					</td>
 				</tr>
 				<tr class="entancetr">
-					<td class="entancetd"><input type="text" id="q2" size="90" name="applic2"></td>
+					<td class="entancetd"><input type="text" id="q3" size="90" name="applic3" style="width:100%; height:40px;"></td>
 				</tr>
 				<tr class="entancetr">
-					<td class="entancetd"><p>3. 키우고 있는 반려동물이 있으신가요?</p>
+					<td class="entancetd"><p style="font-family: 'Sunflower', sans-serif; font-weight:bold;">&nbsp;&nbsp;4. 몇인가구이시며 가족구성원이 어떻게 되시나요?</p>
 					</td>
 				</tr>
 				<tr class="entancetr">
-					<td class="entancetd"><input type="text" id="q3" size="90" name="applic3"></td>
+					<td class="entancetd">&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio"  value="1" name="applic4">&nbsp;&nbsp;<span style="font-family: 'Sunflower', sans-serif;">1인가구</span>&nbsp;&nbsp;&nbsp;&nbsp; <input
+						type="radio" value="2" name="applic4">&nbsp;&nbsp;<span style="font-family: 'Sunflower', sans-serif;">2인가구</span>&nbsp;&nbsp;&nbsp;&nbsp; <input
+						type="radio" value="3" name="applic4">&nbsp;&nbsp;<span style="font-family: 'Sunflower', sans-serif;">3인가구 이상</span></td>
 				</tr>
 				<tr class="entancetr">
-					<td class="entancetd"><p>4. 몇인가구이시며 가족구성원이 어떻게 되시나요?</p>
+					<td class="entancetd"><p style="font-family: 'Sunflower', sans-serif; font-weight:bold;">&nbsp;&nbsp;5. 반려동물을 개인 사정으로 유기 시킨경험이 있으신가요? 있으시다면 이유는 무멋인가요?</p>
 					</td>
 				</tr>
 				<tr class="entancetr">
-					<td class="entancetd"><input type="radio"  value="1" name="applic4">1인가구 <input
-						type="radio" value="2" name="applic4">2인가구 <input
-						type="radio" value="3" name="applic4">3인가구 이상</td>
+					<td class="entancetd">&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="applic5" value="Y" >&nbsp;&nbsp;<span style="font-family: 'Sunflower', sans-serif;">예</span>
+						&nbsp;&nbsp;<input type="text" name="applic6" size="40" id="test" >&nbsp;&nbsp;&nbsp;&nbsp; <input
+						type="radio" name="applic5" value="N" >&nbsp;&nbsp;<span style="font-family: 'Sunflower', sans-serif;">아니요</span></td>
 				</tr>
 				<tr class="entancetr">
-					<td class="entancetd"><p>5. 반려동물을 개인 사정으로 유기 시킨경험이 있으신가요? 있으시다면 이유는 무멋인가요?</p>
+					<td class="entancetd"><p style="font-family: 'Sunflower', sans-serif; font-weight:bold;">&nbsp;&nbsp;6. 입양결정에 가족 모두가 동의 하십니까?</p>
 					</td>
 				</tr>
 				<tr class="entancetr">
-					<td class="entancetd"><input type="radio" name="applic5" value="Y" ><label>예</label>
-						<input type="text" name="applic6" size="20" id="test" > <input
-						type="radio" name="applic5" value="N" ><label>아니요</label></td>
+					<td class="entancetd">&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" value="1" name="applic7">&nbsp;&nbsp;<span style="font-family: 'Sunflower', sans-serif;">동의</span>&nbsp;&nbsp;&nbsp;&nbsp; <input
+						type="radio" value="2" name="applic7">&nbsp;&nbsp;<span style="font-family: 'Sunflower', sans-serif;">일부동의</span> &nbsp;&nbsp;&nbsp;&nbsp;<input
+						type="radio" value="3" name="applic7">&nbsp;&nbsp;<span style="font-family: 'Sunflower', sans-serif;">반대</span></td>
 				</tr>
 				<tr class="entancetr">
-					<td class="entancetd"><p>6. 입양결정에 가족 모두가 동의 하십니까?</p>
+					<td class="entancetd"><p style="font-family: 'Sunflower', sans-serif; font-weight:bold;">&nbsp;&nbsp;7. 주거형태는 어떻게 되나요?</p>
 					</td>
 				</tr>
 				<tr class="entancetr">
-					<td class="entancetd"><input type="radio" value="1" name="applic7">동의 <input
-						type="radio" value="2" name="applic7">일부동의 <input
-						type="radio" value="3" name="applic7">반대</td>
+					<td class="entancetd">&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" value="1" name="applic8">&nbsp;&nbsp;<span style="font-family: 'Sunflower', sans-serif;">단독주택</span>&nbsp;&nbsp;&nbsp;&nbsp; <input
+						type="radio"  value="2" name="applic8">&nbsp;&nbsp;<span style="font-family: 'Sunflower', sans-serif;">공동주택</span>&nbsp;&nbsp;&nbsp;&nbsp; <input
+						type="radio"  value="3" name="applic8">&nbsp;&nbsp;<span style="font-family: 'Sunflower', sans-serif;">아파트</span></td>
 				</tr>
 				<tr class="entancetr">
-					<td class="entancetd"><p>7. 주거형태는 어떻게 되나요?</p>
+					<td class="entancetd"><p style="font-family: 'Sunflower', sans-serif; font-weight:bold;">&nbsp;&nbsp;8. 임대주택의 경우 집주인의 동의를 얻으셨나요?</p>
 					</td>
 				</tr>
 				<tr class="entancetr">
-					<td class="entancetd"><input type="radio" value="1" name="applic8">단독주택 <input
-						type="radio"  value="2" name="applic8">공동주택 <input
-						type="radio"  value="3" name="applic8">아파트</td>
+					<td class="entancetd">&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" value="1" name="applic9">&nbsp;&nbsp;<span style="font-family: 'Sunflower', sans-serif;">예</span> &nbsp;&nbsp;&nbsp;&nbsp;<input
+						type="radio"  value="2" name="applic9">&nbsp;&nbsp;<span style="font-family: 'Sunflower', sans-serif;">아니요</span></td>
 				</tr>
 				<tr class="entancetr">
-					<td class="entancetd"><p>8. 임대주택의 경우 집주인의 동의를 얻으셨나요?</p>
-					</td>
-				</tr>
-				<tr class="entancetr">
-					<td class="entancetd"><input type="radio" value="1" name="applic9">예 <input
-						type="radio"  value="2" name="applic9">아니요</td>
-				</tr>
-				<tr class="entancetr">
-					<td class="entancetd"><p>9. 소음이나 위생 등으로 인한 이웃과의 마찰로 입양동물의 양육이 불가능해질 경우 어떻게
+					<td class="entancetd"><p style="font-family: 'Sunflower', sans-serif; font-weight:bold;">&nbsp;&nbsp;9. 소음이나 위생 등으로 인한 이웃과의 마찰로 입양동물의 양육이 불가능해질 경우 어떻게
 							하실건가요?</p>
 					</td>
 				</tr>
 				<tr class="entancetr">
-					<td class="entancetd"><input type="text" id="q9" size="70" name="applic10"></td>
+					<td class="entancetd"><input type="text" id="q9" size="70" name="applic10" style="width:100%; height:40px;"></td>
 				</tr>
 				<tr class="entancetr">
-					<td class="entancetd"><p>10. 이사 또는 해외로 이주 시 반려동물의 거취문제에 대해 어떻게 생각하십니까?</p>
+					<td class="entancetd"><p style="font-family: 'Sunflower', sans-serif; font-weight:bold;">&nbsp;&nbsp;10. 이사 또는 해외로 이주 시 반려동물의 거취문제에 대해 어떻게 생각하십니까?</p>
 					</td>
 				</tr>
 				<tr class="entancetr">
-					<td class="entancetd"><input type="text" id="q10" size="70" name="applic11"></td>
+					<td class="entancetd"><input type="text" id="q10" size="70" name="applic11" style="width:100%; height:40px;"></td>
 				</tr>
 				<tr class="entancetr">
-					<td class="entancetd"><p>11. 앞으로 결혼, 임신, 출산 등 가족의 변화가 있는 경우 반려동물의 거취문제에 대해
+					<td class="entancetd"><p style="font-family: 'Sunflower', sans-serif; font-weight:bold;">&nbsp;&nbsp;11. 앞으로 결혼, 임신, 출산 등 가족의 변화가 있는 경우 반려동물의 거취문제에 대해
 							어떻게 생각하십니까?</p>
 					</td>
 				</tr>
 				<tr class="entancetr">
-					<td class="entancetd"><input type="text" id="q11" size="70" name="applic12"></td>
+					<td class="entancetd"><input type="text" id="q11" size="70" name="applic12" style="width:100%; height:40px;"></td>
 				</tr>
 
 
 
 				<tr class="entancetr">
-					<td class="entancetd"><p>12. 입양 시에, 유기동물의 구조와 치료, 보호비로 사용되는 일정금액의 맞음비 7만원을
+					<td class="entancetd"><p style="font-family: 'Sunflower', sans-serif; font-weight:bold;">&nbsp;&nbsp;12. 입양 시에, 유기동물의 구조와 치료, 보호비로 사용되는 일정금액의 맞음비 7만원을
 							납부해주셔야 합니다. (임시보호의 경우 제외) 동의하십니까?</p>
 					</td>
 				</tr>
 				<tr class="entancetr">
-					<td class="entancetd"><input type="radio"  value="1" name="applic13">예 <input
-						type="radio"  value="2" name="applic13">아니요</td>
+					<td class="entancetd">&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio"  value="1" name="applic13">&nbsp;&nbsp;<span style="font-family: 'Sunflower', sans-serif;">예</span>&nbsp;&nbsp;&nbsp;&nbsp; <input
+						type="radio"  value="2" name="applic13">&nbsp;&nbsp;<span style="font-family: 'Sunflower', sans-serif;">아니요</span></td>
 				</tr>
 				<tr class="entancetr">
-					<td class="entancetd"><p>13. 동물 관련 활동경험이 있으신가요? 또는 평소 알고 있던 동물단체들이 있다면 아는대로
+					<td class="entancetd"><p style="font-family: 'Sunflower', sans-serif; font-weight:bold;">&nbsp;&nbsp;13. 동물 관련 활동경험이 있으신가요? 또는 평소 알고 있던 동물단체들이 있다면 아는대로
 							적어주세요.</p>
 					</td>
 				</tr>
 				<tr class="entancetr">
-					<td class="entancetd"><input type="text" id="q13" size="70" name="applic14"></td>
+					<td class="entancetd"><input type="text" id="q13" size="70" name="applic14" style="width:100%; height:40px;"></td>
 				</tr>
 				<tr class="entancetr">
-					<td class="entancetd"><p>14. 길고양이에게 밥을 주신 적이 있으신가요? 유기동물 구조 경험이 있으신가요?</p>
+					<td class="entancetd"><p style="font-family: 'Sunflower', sans-serif; font-weight:bold;">&nbsp;&nbsp;14. 길고양이에게 밥을 주신 적이 있으신가요? 유기동물 구조 경험이 있으신가요?</p>
 					</td>
 				</tr>
 				<tr class="entancetr">
-					<td class="entancetd"><input type="radio"value="1" name="applic15">예 <input
-						type="radio" value="2" name="applic15">아니요</td>
+					<td class="entancetd">&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio"value="1" name="applic15">&nbsp;&nbsp;<span style="font-family: 'Sunflower', sans-serif;">예</span> &nbsp;&nbsp;&nbsp;&nbsp;<input
+						type="radio" value="2" name="applic15">&nbsp;&nbsp;<span style="font-family: 'Sunflower', sans-serif;">아니요</span></td>
 				</tr>
 				<tr class="entancetr">
-					<td class="entancetd"><p>15. 본인에게 병력이나 전염병이 있으신가요?</p>
+					<td class="entancetd"><p style="font-family: 'Sunflower', sans-serif; font-weight:bold;">&nbsp;&nbsp;15. 본인에게 병력이나 전염병이 있으신가요?</p>
 					</td>
 				</tr>
 				<tr class="entancetr">
-					<td class="entancetd"><input type="radio"  value="1" name="applic16">예 <input
-						type="radio" value="2" name="applic16">아니요</td>
+					<td class="entancetd">&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio"  value="1" name="applic16">&nbsp;&nbsp;<span style="font-family: 'Sunflower', sans-serif;">예</span>&nbsp;&nbsp;&nbsp;&nbsp; <input
+						type="radio" value="2" name="applic16">&nbsp;&nbsp;<span style="font-family: 'Sunflower', sans-serif;">아니요</span></td>
 				</tr>
 				<tr class="entancetr">
-					<td class="entancetd"><p>16. 분양받은 반려견들에게 자신의 생활비 제외하고 양육비를 얼마정도 예상하시나요?</p>
+					<td class="entancetd"><p style="font-family: 'Sunflower', sans-serif; font-weight:bold;">&nbsp;&nbsp;16. 분양받은 반려견들에게 자신의 생활비 제외하고 양육비를 얼마정도 예상하시나요?</p>
 					</td>
 				</tr>
 				<tr class="entancetr">
-					<td class="entancetd"><input type="radio"  value="1" name="applic17">0 ~
-						50,000 미만 <input type="radio"  value="2" name="applic17">50,000
-						~ 100,000 미만 <input type="radio"  value="3" name="applic17">
-						100,000 이상</td>
+					<td class="entancetd">&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio"  value="1" name="applic17">&nbsp;&nbsp;<span style="font-family: 'Sunflower', sans-serif;">0 ~
+						50,000 미만</span>&nbsp;&nbsp;&nbsp;&nbsp; <input type="radio"  value="2" name="applic17">&nbsp;&nbsp;<span style="font-family: 'Sunflower', sans-serif;">50,000
+						~ 100,000 미만</span>&nbsp;&nbsp;&nbsp;&nbsp; <input type="radio"  value="3" name="applic17">
+						&nbsp;&nbsp;<span style="font-family: 'Sunflower', sans-serif;">100,000 이상</span></td>
 				</tr>
 				<tr class="entancetr">
-					<td class="entancetd"><p>17. 분양받은 반려견이 질병에 걸렸을시 얼마정도의 치료비를 사용하실수 있으신가요?</p>
+					<td class="entancetd"><p style="font-family: 'Sunflower', sans-serif; font-weight:bold;">&nbsp;&nbsp;17. 분양받은 반려견이 질병에 걸렸을시 얼마정도의 치료비를 사용하실수 있으신가요?</p>
 					</td>
 				</tr>
 				<tr class="entancetr">
-					<td class="entancetd"><input type="radio"  value="1" name="applic18">0 ~
-						50,000 미만 <input type="radio" value="2" name="applic18">50,000
-						~ 100,000 미만 <input type="radio" value="3" name="applic18">
-						100,000 이상</td>
+					<td class="entancetd">&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio"  value="1" name="applic18">&nbsp;&nbsp;<span style="font-family: 'Sunflower', sans-serif;">0 ~
+						50,000 미만</span> &nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" value="2" name="applic18">&nbsp;&nbsp;<span style="font-family: 'Sunflower', sans-serif;">50,000
+						~ 100,000 미만</span>&nbsp;&nbsp;&nbsp;&nbsp; <input type="radio" value="3" name="applic18">
+						&nbsp;&nbsp;<span style="font-family: 'Sunflower', sans-serif;">100,000 이상</span></td>
 				</tr>
 				<tr class="entancetr">
-					<td class="entancetd"><p>18. 반려동물의 수명은 15년 이상입니다. 10년이상 키우실 수 있으십니까?</p>
+					<td class="entancetd"><p style="font-family: 'Sunflower', sans-serif; font-weight:bold;">&nbsp;&nbsp;18. 반려동물의 수명은 15년 이상입니다. 10년이상 키우실 수 있으십니까?</p>
 					</td>
 				</tr>
 				<tr class="entancetr">
-					<td class="entancetd"><input type="radio"  value="1" name="applic19">예 <input
-						type="radio" value="2" name="applic19">아니요</td>
+					<td class="entancetd">&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio"  value="1" name="applic19">&nbsp;&nbsp;<span style="font-family: 'Sunflower', sans-serif;">예</span>&nbsp;&nbsp;&nbsp;&nbsp; <input
+						type="radio" value="2" name="applic19">&nbsp;&nbsp;<span style="font-family: 'Sunflower', sans-serif;">아니요</span>&nbsp;&nbsp;&nbsp;&nbsp;</td>
 				</tr>
 				<tr class="entancetr">
-					<td class="entancetd"><p>19. 동물보호법<a href="/www.law.go.kr/법령/동물보호법">(www.law.go.kr/법령/동물보호법)</a>에 대하여 동의하시나요?</p>
+					<td class="entancetd"><p style="font-family: 'Sunflower', sans-serif; font-weight:bold;">&nbsp;&nbsp;19. 동물보호법<a href="/www.law.go.kr/법령/동물보호법">(www.law.go.kr/법령/동물보호법)</a>에 대하여 동의하시나요?</p>
 					</td>
 				</tr>
 				<tr class="entancetr">
-					<td class="entancetd"><input type="radio" value="1" name="applic20">예 <input
-						type="radio" value="2" name="applic20">아니요</td>
+					<td class="entancetd">&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" value="1" name="applic20">&nbsp;&nbsp;<span style="font-family: 'Sunflower', sans-serif;">예</span>&nbsp;&nbsp;&nbsp;&nbsp; <input
+						type="radio" value="2" name="applic20">&nbsp;&nbsp;<span style="font-family: 'Sunflower', sans-serif;">아니요</span></td>
 				</tr >
 
-			<tr class="entancetr">
-						<td style="height:30px">1:1면담 예약</td>
+				<tr class="entancetr">
+						<td style="height:30px"><span style="font-family: 'Sunflower', sans-serif; font-weight:bold;">1:1면담 예약</span></td>
 					</tr>
 						<tr>
-						<td colspan="2" style="height:30px" >
-							<input type="text" style="height:30px; width:22%;" id="testDatepicker" placeholder="클릭하세요" name="applic21">
+						<td>
+							<input type="text" style="height:40px; width:100%;" id="testDatepicker" placeholder="클릭하세요" name="applic21">
 						</td>
 						</tr>
 					<tr class="entancetr">
 						<td colspan="2">
-							<select style="height:30px; width:25%; opacity:0;" id="selectEntrance" name="applic22">
+							<select style="height:40px; width:100%; opacity:0;" id="selectEntrance" name="applic22">
 								<option>09:00~10:00</option>
 								<option>10:00~11:00</option>
 								<option>11:00~12:00</option>
@@ -257,21 +254,13 @@ $(function(){
 						</td>
 					</tr>
 
-				<tr >
+				<tr>
 					<td ><button type="submit" id="sub" disabled>제출</button></td>
 				</tr>
-
-
 			</table>
-
 		</div>
 
 	</form>
-	<br />
-	<div align="center" style="text-align: center;">
-	<button id="btn" >확인</button>
-	</div>
-
 
 
 
@@ -432,6 +421,77 @@ $(function () {
         init();
     });
 });
+</script>
+<script type="text/javascript">
+	$(function(){
+		$("#testDatepicker").change(function(){
+			var date = $("#testDatepicker").val();
+			console.log(date);
+			$.ajax({
+				url:"/sixDestiny/selectDay.pco",
+				type:"post",
+				data:{date:date},
+				success:function(data){
+					console.log(data);
+					$("#selectEntrance option").remove();
+
+					$option1 = $("<option>").val("0900").text("09:00~10:00");
+					$option2 = $("<option>").val("1000").text("10:00~11:00");
+					$option3 = $("<option>").val("1100").text("11:00~12:00");
+					$option4 = $("<option>").val("1400").text("14:00~15:00");
+					$option5 = $("<option>").val("1500").text("15:00~16:00");
+					$option6 = $("<option>").val("1600").text("16:00~17:00");
+					$option7 = $("<option>").val("1700").text("17:00~18:00");
+
+					$("#selectEntrance").append($option1);
+					$("#selectEntrance").append($option2);
+					$("#selectEntrance").append($option3);
+					$("#selectEntrance").append($option4);
+					$("#selectEntrance").append($option5);
+					$("#selectEntrance").append($option6);
+					$("#selectEntrance").append($option7);
+
+					console.log($option1.val());
+
+					for(var i = 0; i < data.length; i++){
+						if($option1.val() == data[i]){
+							console.log("1");
+							$option1.prop("disabled", true);
+						}
+						if($option2.val() == data[i]){
+							console.log("2");
+							$option2.prop("disabled", true);
+						}
+						if($option3.val() == data[i]){
+							console.log("3");
+							$option3.prop("disabled", true);
+						}
+						if($option4.val() == data[i]){
+							console.log("4");
+							$option4.prop("disabled", true);
+						}
+						if($option5.val() == data[i]){
+							console.log("5");
+							$option5.prop("disabled", true);
+						}
+						if($option6.val() == data[i]){
+							console.log("6");
+							$option6.prop("disabled", true);
+						}
+						if($option7.val() == data[i]){
+							console.log("7");
+							$option7.prop("disabled", true);
+						}
+					}
+
+
+				},
+				error:function(){
+
+				}
+			});
+		});
+	});
 </script>
 
 
