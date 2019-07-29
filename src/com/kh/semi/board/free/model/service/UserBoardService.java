@@ -27,7 +27,7 @@ public class UserBoardService {
 		if(search.equals("")) {
 			listCount = new UserBoardDao().getListCount(con, category, alignment);
 		}else{
-			//listCount = new UserBoardDao().getListCount(con, category, what, search, alignment);
+			listCount = new UserBoardDao().getListCount(con, category, what, search, alignment);
 		}
 		
 		
@@ -51,7 +51,12 @@ public class UserBoardService {
 				list = new UserBoardDao().cateselectList(con, currentPage, limit, category, alignment);
 			}
 		}else {
-			//list = new UserBoardDao().selectList(con, currentPage, limit, category, what, search, alignment);
+			if(category.equals("all")) {
+				list = new UserBoardDao().allsearchselectList(con, currentPage, limit, what, search, alignment);
+			}else {
+				list = new UserBoardDao().catesearchselectList(con, currentPage, limit, what, search, category, alignment);
+			}
+			
 		}
 		System.out.println("서비스 리스트 : " + list);
 

@@ -28,7 +28,7 @@ div#bot {
 		<table id="bot2" style="margin:auto auto;">
 			<tr><td><br></td></tr>
 			<tr>
-				<td style="text-align:left"><label style="font-family: 'Sunflower', sans-serif; font-size:2em;">(주) 육 인 연</label></td>
+				<td style="text-align:left"><label style="font-family: 'Sunflower', sans-serif; font-size:2em;">육 인 연</label></td>
 				<td></td>
 				<td></td>
 				<td></td>
@@ -40,7 +40,7 @@ div#bot {
 				<td style="text-align:left" colspan="2"><label style="font-family: 'Sunflower', sans-serif;">사업자 등록번호 : 031-2357-231-21 </label></td>
 			</tr>
 			<tr>
-				<td style="text-align:left" colspan="2"><label style="font-family: 'Sunflower', sans-serif;">대표자 : 민경현 </label></td>
+				<td style="text-align:left" colspan="2"><label style="font-family: 'Sunflower', sans-serif;">대표자 : 김은혜 </label></td>
 				<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
 				<td style="text-align:left" colspan="2"><label style="font-family: 'Sunflower', sans-serif;">대표 메일 : sixDestiny@gmail.com </label></td>
 			</tr>
