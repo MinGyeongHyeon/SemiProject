@@ -25,6 +25,15 @@ int endPage = pi.getEndPage();
 <!DOCTYPE html>
 <html>
 <head>
+
+<link rel="stylesheet" type="text/css" href="semantic/semantic.css">
+<script
+  src="https://code.jquery.com/jquery-3.1.1.min.js"
+  integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+  crossorigin="anonymous"></script>
+<script src="semantic/semantic.js"></script>
+
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet"
@@ -79,6 +88,7 @@ div {
 
 </head>
 <body>
+
 
 	<div style="height: 1800px;">
 		<h3>인기글 BEST 5</h3>
@@ -182,6 +192,7 @@ div {
 					</p>
 				</div>
 			</div>
+
 			<% } %>
 		</div>
 </div>

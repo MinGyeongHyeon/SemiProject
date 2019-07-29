@@ -61,13 +61,14 @@
 
 						<% if(loginUser != null) {%>
 							<%if (list2.get(0) == 1){ %>
-							<th class="classt"><button type="button" id="parcleup" style="background: none;  border: none;"><img src="/sixDestiny/images/test1.jpg" width="30px;" height="30px;" id="imgtest"></button><!-- <input type="button" value="추천" id="parcleup"> -->
-							<input type="button" value="신고" id="reportPr"></th>
+							<th class="classt"><button type="button" id="parcleup" style="background: none;  border: none;"><img src="/sixDestiny/images/test1.jpg" width="30px;" height="30px;" id="imgtest"></button>
+							</th>
 							<% }else { %>
-						<th class="classt"><button type="button" id="parcleup" style="background: none;  border: none;"><img src="/sixDestiny/images/test3.jpeg" width="30px;" height="30px;" id="imgtest"></button><!-- <input type="button" value="추천" id="parcleup"> -->
-						<input type="button" value="신고" id="reportPr"></th>
+						<th class="classt"><button type="button" id="parcleup" style="background: none;  border: none;"><img src="/sixDestiny/images/test3.jpeg" width="30px;" height="30px;" id="imgtest"></button>
 							<% } %>
 						<% } %>
+						<th><input type="button" value="신고" id="reportPr"></th>
+
 
 						<% if(loginUser != null) { %>
 							<% if(loginUser.getUserNo() == us.getUserNo() || loginUser.getUserId().equals("admin")){ %>
@@ -95,12 +96,14 @@
 				<tbody>
 				<% if(cm != null){ %>
 				<% for(int i = 0 ; i < cm.size(); i++){ %>
-					<tr>
+					<tr >
 						<td>
-						<input type="hidden" value="<%= cm.get(i).getConNo()%>">
-						<input type="hidden" value="<%= cm.get(i).getuNo()%>">
-							<label><%= cm.get(i).getNickNm() %></label>
-							<label><%= cm.get(i).getComent() %></label>
+						<input type="hidden" value="<%= cm.get(i).getConNo()%>" class="repotCon">
+						<input type="hidden" value="<%= cm.get(i).getuNo()%>" class="repotUser">
+							<label style="width:100px"><%= cm.get(i).getNickNm() %></label>
+							<label style="width:400px"><%= cm.get(i).getComent() %></label>
+						<button class="reportCom" style="background: none;  border: none;"><img src="/sixDestiny/images/reportcoment.PNG" width="30px;" height="30px;" id="imgtest"></button>
+						<!-- <input type="button" value="신고" class="reportCom"> -->
 						</td>
 					</tr>
 					<% } %>
@@ -130,6 +133,15 @@
 	</div>
 
 <script>
+	$('.reportCom').click(function(){
+		var cNo = $(this).prevAll('.repotCon').val();
+		var uNo = $(this).prevAll('.repotUser').val();
+		var u2No = <%= us.getUserNo()%>;
+
+		window.open("/sixDestiny/views/member/3_parcelout/2_reviewParcelout/7_report_coment.jsp?uNo=" + uNo + "&cNo=" + cNo  + "&u2No=" + u2No ,"PopupWin","width=480,height=300","resizable=no");
+
+	})
+
 	$('#parcleup').click(function(){
 		var uNo = $('#uNo').val();
 		var bNo = $('#bNo').val();
@@ -285,24 +297,38 @@
 
 				for(var key in data){
 					var $tr = $('<tr>');
+					var $td = $('<td>');
+					var $button = $('<button style="background: none; border:none;" class="reportCom">');
+					var $img = $('<img src="/sixDestiny/images/reportcoment.PNG" width="30px;" height="30px;" id="imgtest">');
 					var $input = $('<input value=' + data[key].conNo + " >" );
 					$input.attr('type','hidden');
 					var $input2 = $('<input value=' + data[key].uNo + '>' );
 					$input2.attr('type','hidden');
-					var $nickNm = $("<td>").text(data[key].nickNm).css("width","100px");
-					var $coment = $("<td>").text(data[key].coment).css("width","400px");
+					var $nickNm = $("<label>").text(data[key].nickNm).css("width","100px");
+					var $coment = $("<label>").text(data[key].coment).css("width","400px");
 
 
-					$tr.append($input);
-					$tr.append($input2);
-					$tr.append($nickNm);
-					$tr.append($coment);
+					$button.append($img);
+					$td.append($input);
+					$td.append($input2);
+					$td.append($nickNm);
+					$td.append($coment);
+					$td.append($button);
+					$tr.append($td);
 
 					$replySelectTable.append($tr);
 
+
 				}
 
+				$('.reportCom').click(function(){
+					var cNo = $(this).prevAll('.repotCon').val();
+					var uNo = $(this).prevAll('.repotUser').val();
+					var u2No = <%= us.getUserNo()%>;
 
+					window.open("/sixDestiny/views/member/3_parcelout/2_reviewParcelout/7_report_coment.jsp?uNo=" + uNo + "&cNo=" + cNo  + "&u2No=" + u2No ,"PopupWin","width=480,height=300","resizable=no");
+
+				})
 
 			}
 		})

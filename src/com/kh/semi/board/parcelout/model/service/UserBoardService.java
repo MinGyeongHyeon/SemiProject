@@ -22,7 +22,6 @@ import com.kh.semi.board.parcelout.model.dao.UserBoardDao;
 public class UserBoardService {
 
 
-
 	public int getListoutCount() {
 
 		Connection con = getConnection();
@@ -33,6 +32,28 @@ public class UserBoardService {
 
 		return listCount;
 	}
+	public int getListoutCount2(String selectinput) {
+		Connection con = getConnection();
+
+		int listCount = new UserBoardDao().getListoutCount2(con,selectinput);
+		close(con);
+
+		return listCount;
+
+	}
+	public int getListoutCount3(String selectinput) {
+		Connection con = getConnection();
+
+		int listCount = new UserBoardDao().getListoutCount3(con, selectinput);
+
+		close(con);
+
+		return listCount;
+
+	}
+
+
+
 	public int insertOutuploadFiles(UserBoard b, ArrayList<Attachment> fileList) {
 		Connection con = getConnection();
 
@@ -288,6 +309,62 @@ public class UserBoardService {
 		result = new UserBoardDao().selectRecajax(con,re);
 
 		close(con);
+
+		return result;
+	}
+	public ArrayList selectRec10() {
+		Connection con = getConnection();
+		ArrayList list = null;
+		ArrayList list2 = null;
+		int result = 0;
+		int result2 = 0;
+
+		list = new UserBoardDao().selectRec10(con);
+
+		list2 = new UserBoardDao().selectRec13(con);
+
+
+		if(list2 != null) {
+
+			result2 = new UserBoardDao().selectRec12(con,list2);
+
+			if(result2 > 0) {
+				commit(con);
+			}else {
+				rollback(con);
+			}
+		}
+
+
+		if(list != null) {
+
+			result = new UserBoardDao().selectRec11(con, list);
+
+			if(result > 0) {
+				commit(con);
+			}else {
+				rollback(con);
+			}
+
+		}
+		close(con);
+
+
+
+		return list;
+	}
+	public int reportCon(Report re) {
+		Connection con = getConnection();
+		int result = 0;
+
+		result = new UserBoardDao().reportCon(con,re);
+		if(result > 0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		close(con);
+
 
 		return result;
 	}

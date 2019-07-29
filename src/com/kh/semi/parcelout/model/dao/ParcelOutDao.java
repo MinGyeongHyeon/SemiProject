@@ -47,6 +47,7 @@ public class ParcelOutDao {
 
 				pstmt.setInt(1, us.getUserNo());
 				pstmt.setString(2, ap.getday());
+				pstmt.setString(3, "분양대기");
 
 
 
@@ -70,7 +71,7 @@ public class ParcelOutDao {
 	public int insertApplication2(Connection con, ArrayList<Application> list) {
 			PreparedStatement pstmt = null;
 			int result = 0;
-			System.out.println("그럼 여기는 ?");
+
 
 
 

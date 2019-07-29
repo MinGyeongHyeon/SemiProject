@@ -102,16 +102,21 @@ public class InsertParcelout extends HttpServlet {
 			System.out.println(list.size());
 
 
-
-
-
-
-
-
-
-
-
 			int result = new ParcelOutService().insertApplication(list,us,ap);
+
+			String page = "";
+			String msg = "";
+			if(result > 0) {
+				msg = "신청이 완료 되었습니다. 검토후 연락 드리겠습니다 ^^";
+				page = "index.jsp";
+				request.setAttribute("msg", msg);
+			}else {
+				msg = "신청 중 오류가 발생했습니다. 다시 신청해주시기 바랍니다 .";
+				page = "index.jsp";
+				request.setAttribute("msg", msg);
+			}
+
+			request.getRequestDispatcher(page).forward(request, response);
 
 
 

@@ -70,6 +70,8 @@ public class SelectParceloutUploadFilesList extends HttpServlet {
 
 
 
+				ArrayList list = new UserBoardService().selectRec10();
+
 
 
 			ArrayList<HashMap<String,Object>> filelist = new UserBoardService().selectOutList(currentPage,limit);

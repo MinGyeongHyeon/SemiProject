@@ -1002,6 +1002,236 @@ public class UserBoardDao {
 		return result;
 	}
 
+
+	public int getListoutCount2(Connection con, String selectinput) {
+		PreparedStatement pstmt = null;
+		int listCount = 0;
+		ResultSet rset = null;
+		System.out.println("혹시 모르니 selectinput 값 확인  : " + selectinput);
+
+		String query = prop.getProperty("selectoutlist10");
+
+
+		try {
+			pstmt = con.prepareStatement(query);
+
+			pstmt.setString(1, "분양후기");
+			pstmt.setString(2, selectinput);
+
+			rset = pstmt.executeQuery();
+
+			if(rset.next()) {
+				listCount = rset.getInt(1);
+			}
+
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+
+		return listCount;
+
+
+	}
+
+	public int getListoutCount3(Connection con, String selectinput) {
+		PreparedStatement pstmt = null;
+		int listCount = 0;
+		ResultSet rset = null;
+		System.out.println("혹시 모르니 selectinput 값 확인  : " + selectinput);
+
+		String query = prop.getProperty("selectoutlist11");
+
+
+		try {
+			pstmt = con.prepareStatement(query);
+
+			pstmt.setString(1, "분양후기");
+			pstmt.setString(2, selectinput);
+
+			rset = pstmt.executeQuery();
+
+			if(rset.next()) {
+				listCount = rset.getInt(1);
+			}
+
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+
+		return listCount;
+
+
+	}
+
+
+	public ArrayList selectRec10(Connection con) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		ArrayList list = null;
+		int result = 0;
+
+		String query = prop.getProperty("selectRec10");
+
+		try {
+			stmt = con.createStatement();
+
+
+			rset = stmt.executeQuery(query);
+
+			list = new ArrayList();
+			while(rset.next()) {
+
+
+				result = rset.getInt("BOARD_NO");
+
+
+				list.add(result);
+			}
+
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return list;
+	}
+
+
+	public int selectRec11(Connection con, ArrayList list) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+
+		String query = prop.getProperty("selectRec11");
+
+		try {
+			for(int i = 0;  i < list.size(); i++) {
+				pstmt = con.prepareStatement(query);
+
+				pstmt.setInt(1, (int) list.get(i));
+				pstmt.setInt(2, (int) list.get(i));
+
+				result = pstmt.executeUpdate();
+
+			}
+
+
+
+
+
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+
+		return result;
+	}
+
+
+	public int selectRec12(Connection con, ArrayList list) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+
+		String query = prop.getProperty("selectRec12");
+
+		try {
+
+			for(int i = 0; i < list.size(); i++) {
+
+				pstmt = con.prepareStatement(query);
+
+				pstmt.setInt(1, (int) list.get(i));
+
+
+				result = pstmt.executeUpdate();
+			}
+
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+
+		return result;
+	}
+
+
+	public ArrayList selectRec13(Connection con) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList list = null;
+		int result = 0;
+
+		String query = prop.getProperty("selectRec13");
+
+		try {
+			pstmt = con.prepareStatement(query);
+
+			pstmt.setString(1, "분양후기");
+
+			rset = pstmt.executeQuery();
+
+			list = new ArrayList();
+
+			while(rset.next()) {
+
+			result = rset.getInt("BOARD_NO");
+
+				list.add(result);
+
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+
+
+
+
+		return list;
+	}
+
+
+	public int reportCon(Connection con, Report re) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+
+		String query = prop.getProperty("reportCon");
+
+		try {
+			pstmt = con.prepareStatement(query);
+
+			pstmt.setInt(1, re.getReportout());
+			pstmt.setString(2, re.getReason());
+			pstmt.setInt(3, re.getBoardNo());
+			pstmt.setInt(4, re.getReportin());
+
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+
+		}finally {
+			close(pstmt);
+		}
+
+
+		return result;
+	}
+
+
+
+
 }
 
 

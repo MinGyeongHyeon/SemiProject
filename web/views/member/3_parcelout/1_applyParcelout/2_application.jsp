@@ -172,7 +172,7 @@ $(function(){
 				</tr>
 				<tr class="entancetr">
 					<td class="entancetd"><input type="radio"  value="1" name="applic13">예 <input
-						type="radio"  value="2" name="applic11">아니요</td>
+						type="radio"  value="2" name="applic13">아니요</td>
 				</tr>
 				<tr class="entancetr">
 					<td class="entancetd"><p>13. 동물 관련 활동경험이 있으신가요? 또는 평소 알고 있던 동물단체들이 있다면 아는대로
@@ -188,7 +188,7 @@ $(function(){
 				</tr>
 				<tr class="entancetr">
 					<td class="entancetd"><input type="radio"value="1" name="applic15">예 <input
-						type="radio" value="2" name="applic13">아니요</td>
+						type="radio" value="2" name="applic15">아니요</td>
 				</tr>
 				<tr class="entancetr">
 					<td class="entancetd"><p>15. 본인에게 병력이나 전염병이 있으신가요?</p>
@@ -282,8 +282,7 @@ $(function(){
 
 			// 라디오버튼 클릭시 이벤트 발생
 			$("input:radio[name=applic5]").click(function() {
-						console.log("들어오냐");
-						console.log($('#test').val())
+
 				if ($("input:radio[name=applic5]:checked").val() == "Y") {
 
 					$("input:text[name=applic6]").attr("disabled", false);
@@ -309,9 +308,6 @@ $(function(){
 				var deprivation4 = $('input[name=applic20]:checked').val(); //2
 
 
-				if(deprivation1 == 3 || deprivation2 == 2 || deprivation3 == 2 || deprivation4 == 2){
-					alert("자격 박탈 되셨습니다.. 신중히 읽어보시고 대답해주세요..")
-				}
 
 
 				$('input[type=text]').each(function(index, item){
@@ -336,7 +332,13 @@ $(function(){
 						alert("값을 모두 쓰셔야합니다");
 
 					}else{
-						$('#sub').attr("disabled" , false);
+						if(deprivation1 == 3 || deprivation2 == 2 || deprivation3 == 2 || deprivation4 == 2){
+							alert("자격 박탈 되셨습니다.. 신중히 읽어보시고 대답해주세요..")
+						}else{
+							$('#sub').attr("disabled" , false)
+
+						}
+
 
 					}
 
@@ -347,7 +349,12 @@ $(function(){
 						alert("값을 모두 쓰셔야합니다");
 
 					}else{
-						$('#sub').attr("disabled" , false);
+						if(deprivation1 == 3 || deprivation2 == 2 || deprivation3 == 2 || deprivation4 == 2){
+							alert("자격 박탈 되셨습니다.. 신중히 읽어보시고 대답해주세요..")
+						}else{
+							$('#sub').attr("disabled" , false)
+
+						}
 					}
 				}
 
