@@ -165,6 +165,11 @@ color:red;
 		</table>
 	</table>
 
+
+
+
+
+
 	<div align="right">
 	<%System.out.print("뭐냐고고오오오오옹"+b.getUu()); %>
 
@@ -420,10 +425,8 @@ function upbnt(data){
 
 
 
-
-		</div>
 		<hr>
-
+<div></div>
 	<% if(loginUser != null) { %>
 		댓글 <input type="text" style="width: 600px" id="comment">
 		<input type="button" value="댓글 달기" id="comHs">
@@ -468,7 +471,12 @@ function upbnt(data){
 					$input2.attr('type','hidden');
 					var $nickNm = $("<label>").text(data[key].nickNm).css("width","100px");
 					var $comment = $("<label>").text(data[key].comment).css("width","400px");
-
+					
+					var $button2 =$('<button>');
+					$button2.text("수정");
+					var $button3 =$('<button>');
+					$button3.text("삭제");
+					
 
 					$button.append($img);
 					$td.append($input);
@@ -476,6 +484,8 @@ function upbnt(data){
 					$td.append($nickNm);
 					$td.append($comment);
 					$td.append($button);
+					$td.append($button2);
+					$td.append($button3);
 					$tr.append($td);
 
 					$replySelectTable.append($tr);

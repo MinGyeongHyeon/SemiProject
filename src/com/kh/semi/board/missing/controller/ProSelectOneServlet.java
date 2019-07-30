@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.kh.semi.board.missing.model.service.MissingService;
 import com.kh.semi.board.missing.model.vo.Missing;
 import com.kh.semi.board.missing.model.vo.MissingAttachment;
-
+import com.kh.semi.board.missing.model.vo.Comment;
 
 
 /**
@@ -38,11 +38,18 @@ public class ProSelectOneServlet extends HttpServlet {
 
 		
 		int num = Integer.parseInt(request.getParameter("num"));
-		
+		int uu=0;
 		System.out.println("모야모야"+num);
+		
+
+if(request.getParameter("uu")!="") {
+	uu= Integer.parseInt(request.getParameter("uu"));
+	System.out.println(uu+"uuuuuuuuuuuu");
+}
+	
 			
 			HashMap<String, Object> hmap = new MissingService().missingselectThumbnailMap2(num);
-			
+			ArrayList<Comment> list = (ArrayList<Comment>) hmap.get("comment");
 			Missing b = (Missing) hmap.get("board");
 			System.out.println("보드?????????/"+b);
 			ArrayList<MissingAttachment> fileList = 
@@ -54,6 +61,16 @@ public class ProSelectOneServlet extends HttpServlet {
 				page = "views/member/4_missing/2_protect/3_read.jsp";
 				request.setAttribute("b", b);
 				request.setAttribute("fileList", fileList);
+				
+				if(list != null) {
+
+					if(list.size() > 0) {
+
+						request.setAttribute("comment", list);
+
+					}
+
+				}
 			}/*else {
 				page = "views/common/errorPage.jsp";
 				request.setAttribute("msg", "사진 게시판 상세보기 실패!");
