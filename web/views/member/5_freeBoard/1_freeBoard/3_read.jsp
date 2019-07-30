@@ -5,6 +5,7 @@
 	ArrayList<UserBoardAttachment> fileList = (ArrayList<UserBoardAttachment>) request.getAttribute("fileList");
 	UserBoardAttachment titleImg = fileList.get(0);
 	int recCount = (int) request.getAttribute("recCount");
+
 %>
 <%@ include file="../../../common/top_Include.jsp"%>
 <!DOCTYPE html>
@@ -20,6 +21,15 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 	
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+
+<style>
+
+.btn btn-default{
+	height:50px;
+}
+</style>
 
 </head>
 <body>
@@ -39,12 +49,16 @@
 						<th>조회수 : <%=ub.getInqCon() %></th>
 						
 						<th >추천수 : <span id="recCount"> <%=recCount  %></span></th>
-						<% if(loginUser != null) {%>
-						<th id="heart">
-						</th>
-						
+						<% if(loginUser != null && !loginUser.getNickNm().equals(ub.getbUserNick())) {%>
+						<th id="heart">	</th>
 						<th style="padding-bottom: 0px;"><input type="button" value="신고" id="reportPr" style="outline-style:none;" class="btn btn-default" onclick="report(<%= loginUser.getUserNo()%>)"></th>
 						<% } %>
+						<% if(loginUser != null && loginUser.getNickNm().equals(ub.getbUserNick())){ %>
+						
+							<th style="padding-bottom: 0px;"><button class="btn btn-default" onclick="updateBoard()">글수정</button></th>
+								<th style="padding-bottom: 0px;"><button class="btn btn-default" onclick="deleteBoard()">글삭제</button></th>
+							
+							<% } %>
 						
 					</tr>
 				</thead>
@@ -60,24 +74,56 @@
 		</div>
 
 		<hr>
+		
 
-		<div align="center" style="padding: 20px">
+		
+			<table class="ui single line table" style="width:70%; text-align:center; margin-left:auto; margin-right:auto;">
+				  <thead>
+				    <tr>
+				      <th>댓글번호</th>
+				      <th>작성자</th>
+				      <th>내용</th>
+				      <th>날짜</th>
+				      <%if(loginUser != null){ %>
+				      <th>신고</th>
+				      <th>수정 삭제</th>
+				      <%} %>
+				    </tr>
+				  </thead>
+				  <tbody>
+				    <tr>
+				      <td>123</td>
+				      <td id="comwriter">트월킹지효</td>
+				      <td>ㄴㅇ놀엏라ㅗ헔ㄱㄷㅈㄱㄷㅅㅁ굔여샤ㅕㅏ롷ㄹㅇㄴㄷㅅㄱ묜ㅇ샤ㅕ라ㅗㅎㅇㄹㅇㅎㄴㄷㅅㄱ묜샤여ㅣㅗㅓㅇㅎㄹㅇㄱㄷㅅㅛㄱㅁㄴ샤아호롱ㅎㄴㄷ</td>
+				      <td>19/07/30</td>
+				      
+				 <% if(loginUser != null){%>
+				 
+				     
+				      <td style="padding:3px;"><input type="button" value="신고" id="reportPr" style="outline-style:none;" class="btn btn-default"></td>
+			    	  <td style="padding:3px;">	
+				      	<div class="ui buttons">
+					  	<button class="ui button">수정</button>
+					  	<button class="ui button">삭제</button>
+						</div>
+						</td>
+						<%} %>
+					    </tr>
+					  
+					
+				    
+				  </tbody>
+				</table>
+			
 
-			<div>댓글쓴이 : 댓글내용입니다</div>
-			<div>댓글쓴이 : 댓글내용입니다</div>
-			<div>댓글쓴이 : 댓글내용입니다</div>
-
-		</div>
+		
 		<hr>
 		<% if(loginUser != null){ %>
-		댓글 <input type="text" style="width: 600px"> <input
-			type="submit" value="댓글 달기">
+		댓글 : <input type="text" id="comcon" style="width: 800px" placeholder="글자 수는 60자로 제한" maxlength="60"> 
+			<input type="button" value="댓글 달기" class="btn btn-default" onclick="comment()">
 			<%} %>
 			
-			<% if(loginUser != null && loginUser.getNickNm().equals(ub.getbUserNick())){ %>
-				<button onclick="updateBoard()">수정하기</button>
-				<button onclick="deleteBoard()">삭제하기</button>
-				<% } %>
+			
 
 	</div>
 	<script >
@@ -146,12 +192,12 @@
 					console.log("결과? : " + data);
 					if(data==1){
 						alert("추천이 완료되었습니다.")
-						count();
+						
 					}else{
 					alert("이미 추천하신 글입니다")
 					}
 					 heart();
-				
+					 count();
 					
 				
 			 }
@@ -172,11 +218,12 @@
 					console.log("결과? : " + data);
 					if(data==1){
 					alert("추천이 취소되었습니다.")
-					count();
+					
 					}else{
 						alert("이미 취소하신 추천입니다")
 					}
 					 heart();
+					 count();
 				}
 			
 			 });
@@ -218,6 +265,7 @@
 		
 		function count(){
 			var thisBoardNo = $("th").parent().children().eq(0).text();
+			
 			 $.ajax({
 					url:"countRec.ub",
 					data:{thisBoardNo:thisBoardNo},
@@ -229,6 +277,26 @@
 				})
 		
 	}
+		
+		
+		function comment(){
+			var thisBoardNo = $("th").parent().children().eq(0).text();
+			var nowLoginUser= <%=loginUser.getUserNo()%>;
+			var comcon = $("#comcon").val();
+			 $.ajax({
+					url:"insertComment.ub",
+					data:{thisBoardNo:thisBoardNo, nowLoginUser:nowLoginUser, comcon:comcon},
+					type:"get",
+					success:function(data){
+						
+						console.log(data["result"])
+						console.log(data["commentList"])
+						console.log(data["commentList"][0])
+					}
+				})
+		
+	}
+	
 	
 	
 	</script>
