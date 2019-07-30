@@ -38,13 +38,13 @@
 	</div>
 <br><br><br>
 	<div>
-		<form action="#" method="post">
+		<form action="<%= request.getContextPath() %>/SelectfindPasswod.sp" method="post">
 			<table id="loginTable">
 				<tr>
 					<td style="font-family: 'Sunflower', sans-serif;" colspan="2">이름</td>
 				</tr>
 				<tr>
-					<td colspan="2"><input type="text" name="userId" style="width:400px; height:50px;"></td>
+					<td colspan="2"><input type="text" name="userNm" style="width:400px; height:50px;"></td>
 				</tr>
 				<tr>
 					<td><br></td>
@@ -53,7 +53,7 @@
 					<td style="font-family: 'Sunflower', sans-serif;" colspan="2">아이디</td>
 				</tr>
 				<tr>
-					<td colspan="2"><input type="text" name="password" style="width:400px; height:50px;"></td>
+					<td colspan="2"><input type="text" name="userId" style="width:400px; height:50px;"></td>
 				</tr>
 				<tr>
 					<td><br></td>
@@ -63,7 +63,7 @@
 				</tr>
 				<tr>
 					<td>
-						<input type="email" name="password" style="width:330px; height:50px;">
+						<input type="email" name="email" style="width:330px; height:50px;" id="inputEmail">
 					</td>
 					<td>
 						<button type="button" class="btn btn-default" style="font-family: 'Sunflower', sans-serif; width:50px; height:50px;"
@@ -78,10 +78,10 @@
 				</tr>
 				<tr class="hiddenpwd">
 					<td>
-						<input type="email" name="password" style="width:330px; height:50px;">
+						<input type="email" name="" style="width:330px; height:50px;" id="randomNum">
 					</td>
 					<td>
-						<button type="button" class="btn btn-default" style="font-family: 'Sunflower', sans-serif; width:50px; height:50px;">입력</button>
+						<button type="button" class="btn btn-default" style="font-family: 'Sunflower', sans-serif; width:50px; height:50px;" id="pushNum">입력</button>
 					</td>
 				</tr>
 
@@ -100,11 +100,47 @@
 <script type="text/javascript">
       $(function(){
          $('#mailbtn').click(function(){
+        	var inputEmail = $("#inputEmail").val();
+
             $('.hiddenpwd').each(function(){
             	$(this).css('opacity','1');
-            })
+            });
+
+            $.ajax({
+            	url:"/sixDestiny/sendMail",
+            	type:"post",
+            	data:{inputEmail:inputEmail},
+            	success:function(data){
+					console.log(data);
+					$("#randomNum").keyup(function(){
+						var num = $("#randomNum").val();
+
+						if(data == num){
+							$("#randomNum").css("border-color", "transparent");
+						}else{
+							$("#randomNum").css("border-color", "red");
+						}
+					});
+
+					$("#pushNum").click(function(){
+						var num = $("#randomNum").val();
+
+						if(data == num){
+							$("#randomNum").attr("disabled", "true");
+
+						}else{
+							alert("인증번호를 잘못 입력 하셨습니다.");
+						}
+					})
+            	},
+            	error:function(){
+
+            	}
+            });
          });
       });
+
+
 </script>
 
 <%@ include file="../../../common/bottom_Include.jsp"%>

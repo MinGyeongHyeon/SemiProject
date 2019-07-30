@@ -46,7 +46,7 @@ th {
 </style>
 </head>
 <body>
-   <div align="left" style="margin-left:300px;">
+ <!--   <div align="left" style="margin-left:300px;">
       <span><h2>회원 댓글 관리</h2></span>
    </div>
 
@@ -75,7 +75,7 @@ th {
       <li><a href="#">4</a></li>
       <li><a href="#">5</a></li>
    </ul>
-
+ -->
 
    <br><br>
 
@@ -138,6 +138,8 @@ th {
 	  $('#selectboard').change(function(){
 		  var data = $(this).val();
 
+		  console.log(data);
+		if(data == "selectAll" ){
 		  $.ajax({
 				url:"AjaxBoard.ab",
 				data:{data:data},
@@ -160,7 +162,7 @@ th {
 						var $td5 = $('<td class="adtr">');
 						var $td6 = $('<td class="adtr">');
 
-							$td1.text(data.list[i].bNo);
+							$td1.text(data.list[i].boardNo);
 							$td2.text(data.list[i].bKind);
 							$td3.text(data.list[i].bNm);
 							$td4.text(data.list[i].bUserNick);
@@ -179,11 +181,175 @@ th {
 
 					}
 
+					$("#listArea td").mouseenter(function(){
+						$(this).parent().css({"background":"rgb(240,240,240)", "cursor":"pointer"});
+					}).mouseout(function(){
+						$(this).parent().css({"background":"#FFF"});
+					}).click(function(){
+						var num = $(this).parent().children().eq(0).text();
+						var kind = $(this).parent().children().eq(1).text();
+						var uNo = <%= loginUser.getUserNo() %>
+
+						console.log(num);
+
+
+						if(kind == "분양후기"){
+
+						location.href="<%=request.getContextPath()%>/selectParceloutOne.tn?num=" + num + "&uNo=" + uNo;
+
+						}else if(kind == "잡담" || kind == "꿀팁" || kind == "자랑"){
+
+						location.href="<%=request.getContextPath()%>/selectOne.bo?num=" + num ;
+
+						}
+
+					});
+
 
 
 				}
 
 			});
+		}else if(data == "selectfree"){
+
+			 $.ajax({
+					url:"AjaxBoard.ab",
+					data:{data:data},
+					type:"get",
+					success:function(data){
+						console.log(data.list);
+						var $tbody = $('#remonebody')
+
+						$tbody.children().remove();
+
+
+					console.log(data.list);
+						for(var i = 0; i < data.list.length; i++){
+
+						 	var $tr = $('<tr class="adtr">');
+							var $td1 = $('<td class="adtr">');
+							var $td2 = $('<td class="adtr">');
+							var $td3 = $('<td class="adtr">');
+							var $td4 = $('<td class="adtr">');
+							var $td5 = $('<td class="adtr">');
+							var $td6 = $('<td class="adtr">');
+
+								$td1.text(data.list[i].boardNo);
+								$td2.text(data.list[i].bKind);
+								$td3.text(data.list[i].bNm);
+								$td4.text(data.list[i].bUserNick);
+								$td5.text(data.list[i].recCon);
+								$td6.text(data.list[i].inqCon);
+
+								$tr.append($td1);
+								$tr.append($td2);
+								$tr.append($td3);
+								$tr.append($td4);
+								$tr.append($td5);
+								$tr.append($td6);
+
+								$tbody.append($tr);
+
+
+						}
+
+						$("#listArea td").mouseenter(function(){
+							$(this).parent().css({"background":"rgb(240,240,240)", "cursor":"pointer"});
+						}).mouseout(function(){
+							$(this).parent().css({"background":"#FFF"});
+						}).click(function(){
+							var num = $(this).parent().children().eq(0).text();
+							var kind = $(this).parent().children().eq(1).text();
+							var uNo = <%= loginUser.getUserNo() %>
+
+							console.log(num);
+
+
+							if(kind == "잡담" || kind == "꿀팁" || kind == "자랑"){
+
+							location.href="<%=request.getContextPath()%>/selectOne.bo?num=" + num ;
+
+							}
+
+						});
+
+
+
+					}
+
+				});
+
+
+		 }else if(data == "selectparcelout"){
+			 $.ajax({
+					url:"AjaxBoard.ab",
+					data:{data:data},
+					type:"get",
+					success:function(data){
+						console.log(data.list);
+						var $tbody = $('#remonebody')
+
+						$tbody.children().remove();
+
+
+					console.log(data.list);
+						for(var i = 0; i < data.list.length; i++){
+
+						 	var $tr = $('<tr class="adtr">');
+							var $td1 = $('<td class="adtr">');
+							var $td2 = $('<td class="adtr">');
+							var $td3 = $('<td class="adtr">');
+							var $td4 = $('<td class="adtr">');
+							var $td5 = $('<td class="adtr">');
+							var $td6 = $('<td class="adtr">');
+
+								$td1.text(data.list[i].boardNo);
+								$td2.text(data.list[i].bKind);
+								$td3.text(data.list[i].bNm);
+								$td4.text(data.list[i].bUserNick);
+								$td5.text(data.list[i].recCon);
+								$td6.text(data.list[i].inqCon);
+
+								$tr.append($td1);
+								$tr.append($td2);
+								$tr.append($td3);
+								$tr.append($td4);
+								$tr.append($td5);
+								$tr.append($td6);
+
+								$tbody.append($tr);
+
+
+						}
+
+						$("#listArea td").mouseenter(function(){
+							$(this).parent().css({"background":"rgb(240,240,240)", "cursor":"pointer"});
+						}).mouseout(function(){
+							$(this).parent().css({"background":"#FFF"});
+						}).click(function(){
+							var num = $(this).parent().children().eq(0).text();
+							var kind = $(this).parent().children().eq(1).text();
+							var uNo = <%= loginUser.getUserNo() %>
+
+							console.log(num);
+
+
+							if(kind == "분양후기"){
+
+							location.href="<%=request.getContextPath()%>/selectParceloutOne.tn?num=" + num + "&uNo=" + uNo;
+
+							}
+						});
+
+
+
+					}
+
+				});
+
+		 }else if(data == "selectmissing"){
+			 
+		 }
 	  })
    });
 
@@ -272,6 +438,7 @@ $("#listArea td").mouseenter(function(){
          <td class="adtd" style="width:100px;">신고수</td>
          <td class="adtd" style="width:100px;">작성회원번호</td>
       </tr>
+      	<tbody id="listArea2">
          <%
 							for (int i = 0; i < list2.size(); i++) {
 						%>
@@ -286,6 +453,7 @@ $("#listArea td").mouseenter(function(){
 						<%
 							}
 						%>
+		</tbody>
    </table >
    <table align="center">
       <tr>
@@ -298,6 +466,26 @@ $("#listArea td").mouseenter(function(){
 
       </tr>
    </table>
+   <script>
+   $("#listArea2 td").mouseenter(function(){
+		$(this).parent().css({"background":"rgb(240,240,240)", "cursor":"pointer"});
+	}).mouseout(function(){
+		$(this).parent().css({"background":"#FFF"});
+	}).click(function(){
+		var num = $(this).parent().children().eq(0).text();
+		var kind = $(this).parent().children().eq(1).text();
+		var uNo = <%= loginUser.getUserNo() %>
+
+
+		if(kind == "분양후기"){
+
+		location.href="<%=request.getContextPath()%>/selectParceloutOne.tn?num=" + num + "&uNo=" + uNo;
+
+		}
+
+	});
+
+   </script>
    <ul class="pagination">
      <% if(currentPage2 != 1){ %>
 			<li><a href="<%=request.getContextPath()%>/boardList.ad?currentPage1=1">◀◀</a></li>
@@ -341,7 +529,7 @@ $("#listArea td").mouseenter(function(){
 
    <br><br>
 
-   <div align="left" style="margin-left:300px;">
+  <!--  <div align="left" style="margin-left:300px;">
       <span><h2>신고 댓글 관리</h2></span>
    </div>
 
@@ -387,7 +575,7 @@ $("#listArea td").mouseenter(function(){
       <li><a href="#">4</a></li>
       <li><a href="#">5</a></li>
    </ul>
-
+ -->
 
 
   <%@ include file="/views/common/bottom_Include.jsp"%>

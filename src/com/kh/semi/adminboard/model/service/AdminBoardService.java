@@ -182,4 +182,53 @@ public class AdminBoardService {
 		return list;
 	}
 
+	public int getfreeCount() {
+		Connection con = getConnection();
+		int result = 0;
+
+		result = new AdminBoardDao().getfreeCount(con);
+
+		close(con);
+
+
+		return result;
+	}
+
+	public ArrayList<AdminUserBoard> selectfree(int currentPage, int limit) {
+			Connection con = getConnection();
+			ArrayList<AdminUserBoard> list = null;
+
+			list = new AdminBoardDao().selectfree(con, currentPage, limit);
+
+			close(con);
+
+		return list;
+	}
+
+
+
+	public int getparceloutCount() {
+		Connection con = getConnection();
+		int result = 0;
+
+		result = new AdminBoardDao().getparceloutCount(con);
+
+		close(con);
+
+
+		return result;
+	}
+
+	public ArrayList<AdminUserBoard> selectparcelout(int currentPage, int limit) {
+		Connection con = getConnection();
+		ArrayList<AdminUserBoard> list = null;
+
+		list = new AdminBoardDao().selectparcelout(con,currentPage,limit);
+
+		close(con);
+
+
+		return list;
+	}
+
 }

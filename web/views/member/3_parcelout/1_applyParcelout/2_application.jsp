@@ -47,6 +47,9 @@ input[type=text] {
 p {
 	text-align: left;
 }
+#btn{
+	margin-top : 1%;
+}
 
 </style>
 
@@ -261,6 +264,7 @@ $(function(){
 		</div>
 
 	</form>
+		<button id="btn">확인</button>
 
 
 

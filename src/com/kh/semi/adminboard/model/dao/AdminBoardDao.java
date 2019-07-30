@@ -498,6 +498,7 @@ public class AdminBoardDao {
 
 		try {
 			reportCount = new ArrayList<Integer>();
+
 			for(int i = 0; i < list2.size(); i++) {
 
 				pstmt = con.prepareStatement(query);
@@ -581,6 +582,174 @@ public class AdminBoardDao {
 
 
 		return list;
+	}
+
+	public int getfreeCount(Connection con) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int result = 0;
+
+		String query = prop.getProperty("getfreeCount");
+
+		try {
+			pstmt = con.prepareStatement(query);
+
+			pstmt.setString(1, "잡담");
+			pstmt.setString(2, "자랑");
+			pstmt.setString(3, "꿀팁");
+
+
+			rset = pstmt.executeQuery();
+
+			if(rset.next()) {
+
+				result = rset.getInt("COUNT");
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+
+		return result;
+	}
+
+	public ArrayList<AdminUserBoard> selectfree(Connection con, int currentPage, int limit) {
+		PreparedStatement pstmt = null;
+		ArrayList<AdminUserBoard> list = null;
+		ResultSet rset = null;
+		AdminUserBoard ub = null;
+
+
+		int startRow = (currentPage - 1) * limit + 1;
+		int endRow = startRow + limit - 1;
+
+		String query = prop.getProperty("selectfree");
+
+		try {
+			pstmt = con.prepareStatement(query);
+
+			pstmt.setString(1, "잡담");
+			pstmt.setString(2, "꿀팁");
+			pstmt.setString(3, "자랑");
+			pstmt.setInt(4, startRow);
+			pstmt.setInt(5, endRow);
+
+
+			rset = pstmt.executeQuery();
+
+
+			 list = new ArrayList<AdminUserBoard>();
+			while(rset.next()) {
+				ub = new AdminUserBoard();
+
+				ub.setBoardNo(rset.getInt("BOARD_NO"));
+				ub.setbKind(rset.getString("BOARD_KIND"));
+				ub.setbNm(rset.getString("BOARD_NM"));
+				ub.setbDate(rset.getDate("BOARD_DT"));
+				ub.setbCon(rset.getString("BOARD_CON"));
+				ub.setInqCon(rset.getInt("INQ_COUNT"));
+				ub.setRecCon(rset.getInt("REC_COUNT"));
+				ub.setuNo(rset.getInt("USER_NO"));
+				ub.setbUserNick(rset.getString("NICK_NM"));
+
+
+				list.add(ub);
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+
+
+
+		return list;
+	}
+
+	public int getparceloutCount(Connection con) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+
+		String query = prop.getProperty("getparceloutCount");
+
+		try {
+			pstmt = con.prepareStatement(query);
+
+			pstmt.setString(1, "분양후기");
+
+
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+
+
+
+		return result;
+	}
+
+	public ArrayList<AdminUserBoard> selectparcelout(Connection con, int currentPage, int limit) {
+		PreparedStatement pstmt = null;
+		ArrayList<AdminUserBoard> list = null;
+		ResultSet rset = null;
+		AdminUserBoard ub = null;
+
+
+		int startRow = (currentPage - 1) * limit + 1;
+		int endRow = startRow + limit - 1;
+
+		String query = prop.getProperty("selectparcelout");
+
+		try {
+			pstmt = con.prepareStatement(query);
+
+			pstmt.setString(1, "분양후기");
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+
+
+			rset = pstmt.executeQuery();
+
+
+			 list = new ArrayList<AdminUserBoard>();
+			while(rset.next()) {
+				ub = new AdminUserBoard();
+
+				ub.setBoardNo(rset.getInt("BOARD_NO"));
+				ub.setbKind(rset.getString("BOARD_KIND"));
+				ub.setbNm(rset.getString("BOARD_NM"));
+				ub.setbDate(rset.getDate("BOARD_DT"));
+				ub.setbCon(rset.getString("BOARD_CON"));
+				ub.setInqCon(rset.getInt("INQ_COUNT"));
+				ub.setRecCon(rset.getInt("REC_COUNT"));
+				ub.setuNo(rset.getInt("USER_NO"));
+				ub.setbUserNick(rset.getString("NICK_NM"));
+
+
+				list.add(ub);
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+
+
+
+		return list;
+
+
 	}
 
 
