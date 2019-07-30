@@ -111,6 +111,7 @@ public class SelSitDao {
 				ss.setUserNo(rset.getInt("USER_NO"));
 				ss.setUserNm(rset.getString("USER_NM"));
 				ss.setSelSit(rset.getString("SEL_SIT"));
+				ss.setSelNo(rset.getString("SEL_NO"));
 
 				list.add(ss);
 			}
@@ -146,6 +147,7 @@ public class SelSitDao {
 				ss.setUserNo(rset.getInt("USER_NO"));
 				ss.setUserNm(rset.getString("USER_NM"));
 				ss.setSelSit(rset.getString("SEL_SIT"));
+				ss.setSelNo(rset.getString("SEL_NO"));
 
 				list.add(ss);
 			}
@@ -179,6 +181,7 @@ public class SelSitDao {
 				ss.setUserNo(rset.getInt("USER_NO"));
 				ss.setUserNm(rset.getString("USER_NM"));
 				ss.setSelSit(rset.getString("SEL_SIT"));
+				ss.setSelNo(rset.getString("SEL_NO"));
 
 				list.add(ss);
 			}
@@ -213,6 +216,7 @@ public class SelSitDao {
 				ss.setUserNo(rset.getInt("USER_NO"));
 				ss.setUserNm(rset.getString("USER_NM"));
 				ss.setSelSit(rset.getString("SEL_SIT"));
+				ss.setSelNo(rset.getString("SEL_NO"));
 
 				list.add(ss);
 			}
