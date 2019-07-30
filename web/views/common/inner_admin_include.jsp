@@ -15,7 +15,7 @@
 
   <button type="button" class="btn btn-default" onclick="location.href='/sixDestiny/userManage'">회원관리</button>
   <button type="button" class="btn btn-default" onclick="location.href='/sixDestiny/selectAllUser.app'">신청관리</button>
-  <button type="button" class="btn btn-default" onclick="location.href='/sixDestiny/selectAlldog.ent'">신청관리</button>
+  <button type="button" class="btn btn-default" onclick="location.href='/sixDestiny/selectAlldog.ent'">입소견관리</button>
   <button type="button" class="btn btn-default" onclick="location.href='/sixDestiny/views/admin/1_admin/4_scheduleManagement.jsp'">일정관리</button>
   <button type="button" class="btn btn-default" onclick="location.href='/sixDestiny/boardList.ad'">게시판관리</button>
   <button type="button" class="btn btn-default" onclick="location.href='/sixDestiny/selectAllUser.su'">후원관리</button>

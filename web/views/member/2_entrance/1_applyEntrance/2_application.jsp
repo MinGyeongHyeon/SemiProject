@@ -642,6 +642,76 @@ $(function () {
 		document.entrance.submit();
 	}
 
+	$(function(){
+		$("#testDatepicker").change(function(){
+			var date = $("#testDatepicker").val();
+			console.log(date);
+			$.ajax({
+				url:"/sixDestiny/selectDay.sel",
+				type:"post",
+				data:{date:date},
+				success:function(data){
+					console.log(data);
+					$("#selectEntrance option").remove();
+
+					$option1 = $("<option>").val("0900").text("09:00~10:00");
+					$option2 = $("<option>").val("1000").text("10:00~11:00");
+					$option3 = $("<option>").val("1100").text("11:00~12:00");
+					$option4 = $("<option>").val("1400").text("14:00~15:00");
+					$option5 = $("<option>").val("1500").text("15:00~16:00");
+					$option6 = $("<option>").val("1600").text("16:00~17:00");
+					$option7 = $("<option>").val("1700").text("17:00~18:00");
+
+					$("#selectEntrance").append($option1);
+					$("#selectEntrance").append($option2);
+					$("#selectEntrance").append($option3);
+					$("#selectEntrance").append($option4);
+					$("#selectEntrance").append($option5);
+					$("#selectEntrance").append($option6);
+					$("#selectEntrance").append($option7);
+
+					console.log($option1.val());
+
+					for(var i = 0; i < data.length; i++){
+						if($option1.val() == data[i]){
+							console.log("1");
+							$option1.prop("disabled", true);
+						}
+						if($option2.val() == data[i]){
+							console.log("2");
+							$option2.prop("disabled", true);
+						}
+						if($option3.val() == data[i]){
+							console.log("3");
+							$option3.prop("disabled", true);
+						}
+						if($option4.val() == data[i]){
+							console.log("4");
+							$option4.prop("disabled", true);
+						}
+						if($option5.val() == data[i]){
+							console.log("5");
+							$option5.prop("disabled", true);
+						}
+						if($option6.val() == data[i]){
+							console.log("6");
+							$option6.prop("disabled", true);
+						}
+						if($option7.val() == data[i]){
+							console.log("7");
+							$option7.prop("disabled", true);
+						}
+					}
+
+
+				},
+				error:function(){
+
+				}
+			});
+		});
+	});
+
 </script>
 		<%@ include file="../../../common/bottom_Include.jsp"%>
 </body>

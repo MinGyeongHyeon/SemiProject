@@ -16,6 +16,7 @@ import java.util.Properties;
 import com.kh.semi.entrance.model.vo.Entrance;
 import com.kh.semi.entrance.model.vo.EntranceDogInfo;
 import com.kh.semi.parcelout.model.vo.ParcelOut;
+import com.kh.semi.parcelout.model.vo.ParcelOutResult;
 import com.kh.semi.support.money.model.vo.MoneySup;
 
 public class EntranceDao {
@@ -773,10 +774,10 @@ public class EntranceDao {
 		return result;
 	}
 
-	public Date getSelHopeDateParcle(Connection con, int pcoAppNo) {
+	public String getSelHopeDateParcle(Connection con, int pcoAppNo) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		Date selHopeDate = null;
+		String selHopeDate = null;
 
 		String query = prop.getProperty("getSelHopeDateParcle");
 
@@ -787,7 +788,7 @@ public class EntranceDao {
 			rset = pstmt.executeQuery();
 
 			if(rset.next()) {
-				selHopeDate = rset.getDate("SEL_APP_DT");
+				selHopeDate = rset.getString("SEL_APP_DT");
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -800,7 +801,7 @@ public class EntranceDao {
 		return selHopeDate;
 	}
 
-	public int insertSelDateParcel(Connection con, int pcoAppNo, Date selHopeDate) {
+	public int insertSelDateParcel(Connection con, int pcoAppNo, String selHopeDate) {
 		PreparedStatement pstmt = null;
 		int num = 0;
 
@@ -809,7 +810,7 @@ public class EntranceDao {
 		try {
 			pstmt = con.prepareStatement(query);
 			pstmt.setInt(1, pcoAppNo);
-			pstmt.setDate(2, selHopeDate);
+			pstmt.setString(2, selHopeDate);
 
 			num = pstmt.executeUpdate();
 
@@ -976,6 +977,132 @@ public class EntranceDao {
 
 			result = pstmt.executeUpdate();
 
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+		return result;
+	}
+
+	public ArrayList<ParcelOutResult> selectAllParcelOutResult(Connection con, int currentPage2, int limit2) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<ParcelOutResult> list = null;
+
+		String query = prop.getProperty("selectAllParcelOutResult");
+
+		try {
+			pstmt = con.prepareStatement(query);
+
+			int startRow = (currentPage2 - 1) * limit2 + 1;
+			int endRow = startRow + limit2 - 1;
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+
+			rset = pstmt.executeQuery();
+
+			list = new ArrayList<ParcelOutResult>();
+
+			while(rset.next()) {
+				ParcelOutResult pr = new ParcelOutResult();
+				pr.setPcoAppNo(rset.getInt("PCO_APP_NO"));
+				pr.setPcoDt(rset.getDate("PCO_DT"));
+				pr.setEntNo(rset.getInt("ENT_NO"));
+				pr.setUserNm(rset.getString("USER_NM"));
+				pr.setDogNm(rset.getString("DOG_NM"));
+
+				list.add(pr);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return list;
+	}
+
+	public int updateFinalSit(Connection con, int entNo, int userNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+
+		String query = prop.getProperty("updateFinalSit");
+
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, "분양완료");
+			pstmt.setInt(2, entNo);
+
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+		return result;
+	}
+
+	public int selectParceloutApply(Connection con, int entNo, int userNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int result = 0;
+
+		String query = prop.getProperty("selectParceloutApply");
+
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, entNo);
+
+			rset = pstmt.executeQuery();
+
+			if(rset.next()) {
+				result = rset.getInt("ENT_APP_NO");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return result;
+	}
+
+	public int updateParcleoutApply(Connection con, int entNo, int userNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+
+
+		System.out.println("과연이숫자는 ? " + userNo);
+		String query = prop.getProperty("updateParcleoutApply");
+
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, userNo);
+
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return result;
+	}
+
+	public int updateParcelOut(Connection con, int num2, int entNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+
+		String query = prop.getProperty("updateParcelOut");
+
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, num2);
+			pstmt.setInt(2, entNo);
+
+			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
