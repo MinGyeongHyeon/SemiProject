@@ -151,10 +151,10 @@ th {
 						<tr>
 							<th width="50px;">No</th>
 							<th width="70px;">카테고리</th>
-							<th width="100px;">날짜</th>
 							<th width="200px;">제목</th>
 							<th width="70px;">작성자</th>
 							<th width="50px;">조회수</th>
+							<th width="100px;">날짜</th>
 							<th width="50px;">추천수</th>
 						</tr>
 					</thead>
@@ -166,10 +166,10 @@ th {
 						<tr>
 							<td><%=ub.getbNo()%></td>
 							<td><%=ub.getbKind()%></td>
-							<td><%=ub.getbDate()%></td>
 							<td id="bname"><%=ub.getbNm()%></td>
 							<td><%=ub.getbUserNick()%></td>
 							<td><%=ub.getInqCon()%></td>
+							<td><%=ub.getbDate()%></td>
 							<td id="recCount"><%=ub.getRecCon()%></td>
 							
 		

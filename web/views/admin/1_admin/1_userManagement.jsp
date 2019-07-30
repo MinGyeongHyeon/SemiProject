@@ -3,6 +3,7 @@
 <%@ include file="../../common/top_Include.jsp" %>
 <%
    ArrayList<User> list = (ArrayList<User>) request.getAttribute("list");
+   ArrayList<Integer> reportC = (ArrayList<Integer>) request.getAttribute("reportC");
 
 PageInfo pi = (PageInfo) request.getAttribute("pi");
 
@@ -47,16 +48,6 @@ int endPage = pi.getEndPage();
 			});
 		}
 	}
-	
-	
- <%-- 	function userInfo(userNo){
-		console.log("클릭");
-		$("#userData").attr("action","<%=request.getContextPath()%>/userInfo?userNo="+userNo);
-	
-	}  --%>
-
-
-
 </script>
 
 
@@ -107,28 +98,36 @@ int endPage = pi.getEndPage();
             <th style="text-align:center;">성별</th>
             <th style="text-align:center;">이메일</th>
             <th style="text-align:center;">연락처</th>
-             <th style="text-align:center;">가입유무</th>
+            <th style="text-align:center;">가입유무</th>
             <th style="text-align:center;">가입일자</th>
+            <th style="text-align:center;">신고횟수</th>
             <th style="text-align:center;">탈퇴</th>
          </tr>
          </thead>
 
         <tbody>
-         <% for(User u : list){ %>
+         <% for(int i=0; i<list.size(); i++){ %>
 
          <tr>
-            <td><%=u.getUserNo() %></td>
-            <td><%=u.getUserId() %></td>
-            <td><a href="/sixDestiny/userInfo?userNo=<%=u.getUserNo() %>" onclick="window.open(this.href,'_blank', 'width=500,height=700');return false;"><%=u.getUserNm() %></a></td>
-            <td><%=u.getNickNm()%></td>
-            <td><%=u.getGender()  %></td>
-            <td><%=u.getEmail()%></td>
-            <td><%=u.getPhone() %></td>
-            <td><%=u.getUserSit() %></td>
-            <td><%=u.getEnrollDt() %></td>
+            <td><%=list.get(i).getUserNo() %></td>
+            <td><%=list.get(i).getUserId() %></td>
+            <td><a href="/sixDestiny/userInfo?userNo=<%=list.get(i).getUserNo() %>" onclick="window.open(this.href,'_blank', 'width=500,height=700');return false;"><%=list.get(i).getUserNm() %></a></td>
+            <td><%=list.get(i).getNickNm()%></td>
+            <td><%=list.get(i).getGender()  %></td>
+            <td><%=list.get(i).getEmail()%></td>
             <td>
-           <% if(u.getUserSit().equals("가입")){%>
-            	<button class="btn btn-default" id="btn1" onclick="deleteUser(<%=u.getUserNo() %>);">탈퇴</button>
+            	<%if(list.get(i)==null){ %>
+            		정보없음
+            	<%}else{ %>
+            		<%=list.get(i).getPhone() %>
+            	<%} %>
+            </td>
+            <td><%=list.get(i).getUserSit() %></td>
+            <td><%=list.get(i).getEnrollDt() %></td>
+            <td><%=reportC.get(i) %></td>
+            <td>
+           <% if(list.get(i).getUserSit().equals("가입")){%>
+            	<button class="btn btn-default" id="btn1" onclick="deleteUser(<%=list.get(i).getUserNo() %>);">탈퇴</button>
            <% }%>
          	</td>
          </tr>
@@ -138,8 +137,7 @@ int endPage = pi.getEndPage();
 	</table>
 </form>	
 	
-	
-	
+
 	</div>
 
         

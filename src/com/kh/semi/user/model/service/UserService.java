@@ -250,6 +250,16 @@ public class UserService {
 		return result;
 	}
 
+	public ArrayList<Integer> reportCount(ArrayList<User> list) {
+		
+		Connection con = getConnection();
+		
+		ArrayList<Integer> reportCount = null;
+		
+		reportCount = new UserDao().reportCount(con,list);
+	
+		return reportCount;
+
 	public User selectfind(String userId, String email) {
 		Connection con = getConnection();
 
@@ -288,6 +298,7 @@ public class UserService {
 		close(con);
 
 		return result;
+
 	}
 
 }

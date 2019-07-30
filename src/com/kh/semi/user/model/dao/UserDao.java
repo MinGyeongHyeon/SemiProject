@@ -759,5 +759,45 @@ public class UserDao {
 		return result;
 	}
 
+	public ArrayList<Integer> reportCount(Connection con, ArrayList<User> list) {
+		
+		PreparedStatement pstmt = null;
+		ArrayList<Integer> reportCount = null;
+		ResultSet rset = null;
+		int result = 0;
+		
+		String query = prop.getProperty("reportCount");
+		
+		try {
+			
+			reportCount = new ArrayList<Integer>();
+			
+			for(int i=0; i<list.size(); i++) {
+				
+				pstmt=con.prepareStatement(query);
+				
+				pstmt.setInt(1, list.get(i).getUserNo());
+				
+				rset = pstmt.executeQuery();
+				
+				if(rset.next()) {
+					result = rset.getInt("COUNT");
+					
+					reportCount.add(result);
+				}
+				
+			}
+		
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			
+			close(rset);
+			close(pstmt);
+		}
+		
+		return reportCount;
+	}
 
 }
