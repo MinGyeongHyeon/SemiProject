@@ -10,10 +10,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.kh.semi.board.missing.model.dao.MissingDao;
+import com.kh.semi.board.missing.model.vo.Comment;
 import com.kh.semi.board.missing.model.vo.Missing;
 import com.kh.semi.board.missing.model.vo.MissingAttachment;
 import com.kh.semi.board.missing.model.vo.MissingReport;
 import com.kh.semi.board.parcelout.model.dao.UserBoardDao;
+import com.kh.semi.board.parcelout.model.vo.Coment;
 public class MissingService {
 	
 
@@ -73,17 +75,20 @@ Connection con = getConnection();
 Connection con = getConnection();
 		
 		HashMap<String, Object> hmap = null;
-		
+		ArrayList<Comment> list = null;
 		int result = new MissingDao().missingupdateCount(con,num);
 		System.out.println("result"+result);
 		if(result > 0) {
 			commit(con);
 			hmap = new MissingDao().missingselectThumbnailMap(con, num);
+			list = new MissingDao().selectcoment(con,num);
+			
 		}else {
 			rollback(con);
 		}
 		
 		close(con);
+		hmap.put("comment", list);
 		
 		
 		return hmap;
@@ -633,6 +638,46 @@ Connection con = getConnection();
 			rollback(con);
 		}
 		close(con);
+
+		return result;
+	}
+
+
+	public ArrayList<Comment> comment(Comment cm) {
+		Connection con = getConnection();
+		int result = 0;
+		ArrayList<Comment> list = null;
+
+		result = new MissingDao().insertcomment(con,cm);
+
+		if(result > 0) {
+			commit(con);
+			 list = new MissingDao().selectcomment(con,cm.getbNo());
+
+		}else {
+			rollback(con);
+		}
+
+		close(con);
+
+
+
+		return list;
+	}
+
+
+	public int reportCon(MissingReport re) {
+		Connection con = getConnection();
+		int result = 0;
+
+		result = new MissingDao().reportCon(con,re);
+		if(result > 0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		close(con);
+
 
 		return result;
 	}

@@ -1,12 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" import="java.util.*, com.kh.semi.board.missing.model.vo.*"%>
+	pageEncoding="UTF-8" import="java.util.*, com.kh.semi.board.missing.model.vo.*,com.kh.semi.user.model.vo.*"%>
 <%@ include file="../../../common/top_Include.jsp"%>
 <%
 Missing b = (Missing) request.getAttribute("b");
 	ArrayList<MissingAttachment> fileList = 
 			(ArrayList<MissingAttachment>) request.getAttribute("fileList");
 	MissingAttachment titleImg = fileList.get(0);
-	
+	ArrayList<Comment> cm = (ArrayList<Comment>) request.getAttribute("comment");
+
+	User us = (User) request.getAttribute("User");
 	
 	%>
 <!DOCTYPE html>
@@ -401,8 +403,8 @@ function upbnt(data){
 						<input type="hidden" value="<%= cm.get(i).getConNo()%>" class="repotCon">
 						<input type="hidden" value="<%= cm.get(i).getuNo()%>" class="repotUser">
 							<label style="width:100px"><%= cm.get(i).getNickNm() %></label>
-							<label style="width:400px"><%= cm.get(i).getComent() %></label>
-						<button class="reportCom" style="background: none;  border: none;"><img src="/sixDestiny/images/reportcoment.PNG" width="30px;" height="30px;" id="imgtest"></button>
+							<label style="width:400px"><%= cm.get(i).getComment() %></label>
+						<button class="reportCom"  onclick="report2(<%=loginUser.getUserNo()%>);"  style="background: none;  border: none;"><img src="/sixDestiny/images/reportcoment.PNG" width="30px;" height="30px;" id="imgtest"></button>
 						<!-- <input type="button" value="신고" class="reportCom"> -->
 						</td>
 					</tr>
@@ -423,7 +425,7 @@ function upbnt(data){
 		<hr>
 
 	<% if(loginUser != null) { %>
-		댓글 <input type="text" style="width: 600px" id="coment">
+		댓글 <input type="text" style="width: 600px" id="comment">
 		<input type="button" value="댓글 달기" id="comHs">
 
 		<% } %>
@@ -431,6 +433,89 @@ function upbnt(data){
 
 
 	</div>
+	
+	
+	<script>
+	
+	$('#comHs').click(function(){
+
+		var comment = $('#comment').val();
+		var uNo = <%=loginUser.getUserNo()%>
+		var bNo = $('#num').val();
+
+
+		$.ajax({
+			url:"MissingComment",
+			data:{comment:comment , uNo:uNo , bNo:bNo},
+			type:"get",
+			success:function(data){
+
+
+				var $replySelectTable = $('#replySelectTable tbody');
+				$replySelectTable.html("");
+				var $comment = $('#comment');
+				$comment.val("");
+
+
+				for(var key in data){
+					var $tr = $('<tr>');
+					var $td = $('<td>');
+					var $button = $('<button style="background: none; border:none;" class="reportCom">');
+					var $img = $('<img src="/sixDestiny/images/reportcoment.PNG" width="30px;" height="30px;" id="imgtest">');
+					var $input = $('<input value=' + data[key].conNo + " >" );
+					$input.attr('type','hidden');
+					var $input2 = $('<input value=' + data[key].uNo + '>' );
+					$input2.attr('type','hidden');
+					var $nickNm = $("<label>").text(data[key].nickNm).css("width","100px");
+					var $comment = $("<label>").text(data[key].comment).css("width","400px");
+
+
+					$button.append($img);
+					$td.append($input);
+					$td.append($input2);
+					$td.append($nickNm);
+					$td.append($comment);
+					$td.append($button);
+					$tr.append($td);
+
+					$replySelectTable.append($tr);
+
+
+				}
+
+			$('.reportCom').click(function(){
+					var cNo = $(this).prevAll('.repotCon').val();
+					var uNo = $(this).prevAll('.repotUser').val();
+					var u2No = <%=loginUser.getUserNo()%>
+
+					window.open("/sixDestiny/views/member/4_missing/1_fine/7_report_comment.jsp?uNo=" + uNo + "&cNo=" + cNo  + "&u2No=" + u2No ,"PopupWin","width=480,height=300","resizable=no");
+
+				}) 
+
+			}
+		})
+
+		console.log(comment);
+		console.log(uNo);
+		console.log(bNo);
+	})
+	
+	
+	
+	
+				function report2(data){
+		var cNo = $('.reportCom').prevAll('.repotCon').val();
+		var uNo = $('.reportCom').prevAll('.repotUser').val();
+		var u2No = data;
+					console.log("뀨");
+					window.open("/sixDestiny/views/member/4_missing/1_fine/7_report_comment.jsp?uNo=" + uNo + "&cNo=" + cNo  + "&u2No=" + u2No ,"PopupWin","width=480,height=300","resizable=no");
+	}
+
+
+
+	
+	</script>
+	
 <%@ include file="../../../common/bottom_Include.jsp"%>
 </body>
 </html>
