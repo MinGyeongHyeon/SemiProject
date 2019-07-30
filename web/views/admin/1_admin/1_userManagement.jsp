@@ -22,6 +22,7 @@ int endPage = pi.getEndPage();
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<link href="https://fonts.googleapis.com/css?family=Nanum+Gothic&display=swap" rel="stylesheet">
 <title>Insert title here</title>
 	<%@ include file="../../common/inner_admin_include.jsp" %>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -64,6 +65,7 @@ int endPage = pi.getEndPage();
       width:1000px;
       margin:0 auto;
       text-align:left;
+      font-family: 'Nanum Gothic', sans-serif;
    }
 
    #order{

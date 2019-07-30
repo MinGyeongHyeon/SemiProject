@@ -83,7 +83,12 @@ tr:hover {background-color:#f5f5f5;}
 	
 	<tr>
 		<td>생년월일</td>
-		<td><%=u.getUserHb() %></td>
+		<td><% if(u.getUserHb()==null){ %>
+				정보없음
+			<%} else { %>
+				<%=u.getUserHb() %>
+			<%} %>
+		</td>
 	</tr>	
 	
 	<tr>
