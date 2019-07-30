@@ -4,10 +4,11 @@
 	UserBoard ub = (UserBoard) request.getAttribute("ub");
 	ArrayList<UserBoardAttachment> fileList = (ArrayList<UserBoardAttachment>) request.getAttribute("fileList");
 	UserBoardAttachment titleImg = fileList.get(0);
+	int recCount = (int) request.getAttribute("recCount");
 %>
 <%@ include file="../../../common/top_Include.jsp"%>
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <title>자유게시판 글보기</title>
 <meta charset="utf-8">
@@ -18,6 +19,8 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+	
+
 </head>
 <body>
 
@@ -33,11 +36,16 @@
 						<th>제목 : <%=ub.getbNm()%></th>
 						<th>글쓴이 : <%=ub.getbUserNick() %></th>
 						<th> 작성날짜 : <%=ub.getbDate() %></th>
-						<th>추천수 : <%=ub.getRecCon() %></th>
 						<th>조회수 : <%=ub.getInqCon() %></th>
-						<% if(loginUser != null){ %>
-						<th><input type="button" value="추천">  <input type="button" value="신고" id="reportPr" onclick="report(<%= loginUser.getUserNo()%>)"></th>
-					<%} %>
+						
+						<th >추천수 : <span id="recCount"> <%=recCount  %></span></th>
+						<% if(loginUser != null) {%>
+						<th id="heart">
+						</th>
+						
+						<th style="padding-bottom: 0px;"><input type="button" value="신고" id="reportPr" style="outline-style:none;" class="btn btn-default" onclick="report(<%= loginUser.getUserNo()%>)"></th>
+						<% } %>
+						
 					</tr>
 				</thead>
 			</table>
@@ -117,12 +125,111 @@
 	
 	 function report(data){
 		var test = <%= ub.getbNo() %>; //현제 게시글 번호
-		var test2 = <%= ub.getuNo() %>;   //해당게시글을 쓴유저의 번호
-		var test3 = data;// 신고할 사람의 번호
+		var test2 = data;// 신고할 사람의 번호
+		var test3 = <%= ub.getuNo() %>;   //해당게시글을 쓴유저의 번호
 	
-		
 		window.open("/sixDestiny/views/member/5_freeBoard/1_freeBoard/5_report.jsp?test=" + test + "," + test2 + "," + test3,"PopupWin","width=480,height=300","resizable=no");
-	}) 
+		
+	 }
+	 
+	 
+	 function insertRec() {
+		 	var thisBoardNo = $("th").parent().children().eq(0).text();
+			var nowLoginUser= <%=loginUser.getUserNo()%>;
+		 	
+		 
+			 $.ajax({
+				url:"updateRec.ub",
+				data:{thisBoardNo:thisBoardNo,nowLoginUser:nowLoginUser},
+				type:"get",
+				success:function(data){
+					console.log("결과? : " + data);
+					if(data==1){
+						alert("추천이 완료되었습니다.")
+						count();
+					}else{
+					alert("이미 추천하신 글입니다")
+					}
+					 heart();
+				
+					
+				
+			 }
+			 })
+	 }
+	 
+
+	 function deleteRec() {
+		 	var thisBoardNo = $("th").parent().children().eq(0).text();
+			var nowLoginUser= <%=loginUser.getUserNo()%>;
+		 	
+		 
+			 $.ajax({
+				url:"deleteRec.ub",
+				data:{thisBoardNo:thisBoardNo,nowLoginUser:nowLoginUser},
+				type:"get",
+				success:function(data){
+					console.log("결과? : " + data);
+					if(data==1){
+					alert("추천이 취소되었습니다.")
+					count();
+					}else{
+						alert("이미 취소하신 추천입니다")
+					}
+					 heart();
+				}
+			
+			 });
+	 }
+	 
+	
+		 $(document).ready(function(){
+			 heart();
+
+		});
+		function heart(){
+			var thisBoardNo = $("th").parent().children().eq(0).text();
+			var nowLoginUser= <%=loginUser.getUserNo()%>;
+			var red = $('<button class="parcleup" id="redHeart" style="background: none; outline-color:pink; border: none;" onclick="deleteRec()"><img src="/sixDestiny/images/redheart.png" width="25px;" height="20px;" id="imgtest"></button>');
+			var gray = $('<button class="parcleup" id="grayHeart" style="background: none; outline-color:pink; border: none;" onclick="insertRec()"><img src="/sixDestiny/images/grayheart.png" width="25px;" height="20px;" id="imgtest"></button>');
+			
+			 $.ajax({
+					url:"checkHeart.ub",
+					data:{thisBoardNo:thisBoardNo, nowLoginUser:nowLoginUser},
+					type:"get",
+					success:function(data){
+						console.log(data["heart"])
+						if(data["heart"]!=1){
+							$("thead tr th#heart").append(red);
+							$("#grayHeart").remove();
+						}else{
+							$("thead tr th#heart").append(gray);
+							$("#redHeart").remove();
+							
+						
+						}
+						 $("#recCount").html(data["recCount"]);  
+						
+						
+						
+					}
+				})
+		}
+		
+		function count(){
+			var thisBoardNo = $("th").parent().children().eq(0).text();
+			 $.ajax({
+					url:"countRec.ub",
+					data:{thisBoardNo:thisBoardNo},
+					type:"get",
+					success:function(data){
+						
+						console.log("성공")
+					}
+				})
+		
+	}
+	
 	
 	</script>
 <%@ include file="../../../common/bottom_Include.jsp"%>

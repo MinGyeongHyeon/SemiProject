@@ -87,6 +87,8 @@ public class SelectBoardListServlet extends HttpServlet {
 		PageInfoFreeBoard pi = new PageInfoFreeBoard(currentPage, listCount, limit, maxPage, startPage, endPage);
 		
 		ArrayList<UserBoard> list = new UserBoardService().selectList(currentPage, limit, category, what, search, alignment);
+		 
+		
 		
 		request.setAttribute("pi", pi);
 		request.setAttribute("list", list);

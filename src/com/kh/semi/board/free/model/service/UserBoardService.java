@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.kh.semi.board.free.model.dao.UserBoardDao;
+import com.kh.semi.board.free.model.vo.Recub;
 import com.kh.semi.board.free.model.vo.UserBoard;
 import com.kh.semi.board.free.model.vo.UserBoardAttachment;
 
@@ -295,7 +296,73 @@ Connection con = getConnection();
 	}
 
 	
+	public int uprecommendUserBoard(int thisBoardNo, int nowLoginUser) {
+		Connection con = getConnection();
+		int result = 0;
+
+		result = new UserBoardDao().uprecommendUserBoard(con, thisBoardNo, nowLoginUser);
+		
+		if(result >0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		close(con);
+
+		return result;
+	}
 	
+	public int derecommendUserBoard(int thisBoardNo, int nowLoginUser) {
+		Connection con = getConnection();
+		int result = 0;
+
+		result = new UserBoardDao().derecommendUserBoard(con,thisBoardNo,nowLoginUser);
+
+		if(result >0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		close(con);
+
+		return result;
+	}
+
+	public Recub selectRec(int num, int logUno) {
+		Connection con = getConnection();
+		
+		Recub rec = new UserBoardDao().selectRec(con, num, logUno);
+		
+		commit(con);
+
+		return rec;
+	}
+
+	public int selectRecCount(int num) {
+		Connection con = getConnection();
+		
+		int rec = new UserBoardDao().selectRecCount(con, num);
+		
+		commit(con);
+
+		return rec;
+	}
+
+	public int selectRecCountmain(int thisBoardNo) {
+		Connection con = getConnection();
+		
+		int rec = new UserBoardDao().selectRecCountmain(con, thisBoardNo);
+		
+		if(rec > 0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		close(con);
+
+		return rec;
+		
+	}
 
 
 
