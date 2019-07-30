@@ -1,6 +1,26 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="java.text.SimpleDateFormat, java.util.Calendar"%>
+    pageEncoding="UTF-8" import="java.text.SimpleDateFormat, java.util.*, com.kh.semi.sel.model.vo.*"%>
 <%@ include file="../../common/top_Include.jsp"%>
+<%
+	ArrayList<SelSit> entrance = (ArrayList<SelSit>) request.getAttribute("entrance");
+	ArrayList<SelSit> parcelout = (ArrayList<SelSit>) request.getAttribute("parcelout");
+	String[] time = new String[7];
+	time[0] = "09:00~10:00";
+	time[1] = "10:00~11:00";
+	time[2] = "11:00~12:00";
+	time[3] = "14:00~15:00";
+	time[4] = "15:00~16:00";
+	time[5] = "16:00~17:00";
+	time[6] = "17:00~18:00";
+	String[] result = new String[7];
+	result[0] = "0900";
+	result[1] = "1000";
+	result[2] = "1100";
+	result[3] = "1200";
+	result[4] = "1400";
+	result[5] = "1500";
+	result[6] = "1600";
+%>
 <%
 	Calendar cal = Calendar.getInstance();
 
@@ -86,71 +106,40 @@ A:hover {
 	color: red;
 	text-decoration: none;
 } */
+
+.inline {
+ 	display:inline-block;
+}
 </style>
 <%@ include file="../../common/inner_admin_include.jsp" %>
 </head>
 <body class="calender">
-
-<form name="calendarFrm" id="calendarFrm" action="" method="post">
-
-<div id="content">
-
-
-
-<!--날짜 네비게이션  -->
-
-<table id="KOO" style="margin:0 auto; width:700px">
-
-
-
-<tr>
-
-<td height="60">
-
-
-
-       <table>
-
-       <tr>
-
-             <td height="10">
-
-             </td>
-
-       </tr>
-
-
-
-       <tr align="center">
-
-             <td align="center" style="font-family: 'Sunflower', sans-serif; width:700px;">
-
-                    <a href="/sixDestiny/views/admin/1_admin/4_scheduleManagement.jsp?year=<%=year-1%>&amp;month=<%=month%>" target="_self">
-
-                           <b>&lt;&lt;</b><!-- 이전해 -->
-
-                    </a>
+		<table>
+		<tr>
+		<td rowspan="2">
+		<div class="inline" id="content" style="width:60%;">
+			<table id="KOO" style="margin:0 auto; width:100%;">
+				<tr>
+					<td height="60">
+			<table>
+				<tr>
+					<td height="10"></td>
+				</tr>
+				<tr align="center">
+					<td align="center" style="font-family: 'Sunflower', sans-serif; width:700px;">
+						<a href="/sixDestiny/views/admin/1_admin/4_scheduleManagement.jsp?year=<%=year-1%>&amp;month=<%=month%>" target="_self">
+							<b>&lt;&lt;</b><!-- 이전해 -->
+						</a>
 
                     <%if(month > 0 ){ %>
-
-                    <a href="/sixDestiny/views/admin/1_admin/4_scheduleManagement.jsp?year=<%=year%>&amp;month=<%=month-1%>" target="_self">
-
-                           <b>&lt;</b><!-- 이전달 -->
-
-                    </a>
-
-                    <%} else {%>
-
-                           <b>&lt;</b>
-
-                    <%} %>
-
-                    &nbsp;&nbsp;
+						<a href="/sixDestiny/views/admin/1_admin/4_scheduleManagement.jsp?year=<%=year%>&amp;month=<%=month-1%>" target="_self">
+							<b>&lt;</b><!-- 이전달 -->
+						</a>
+					 <%} else {%>
+							<b>&lt;</b>
+                    <%} %> &nbsp;&nbsp;
 
                     <%=year%>년
-
-
-
                     <%=month+1%>월
 
                     &nbsp;&nbsp;
@@ -158,50 +147,26 @@ A:hover {
                     <%if(month < 11 ){ %>
 
                     <a href="/sixDestiny/views/admin/1_admin/4_scheduleManagement.jsp?year=<%=year%>&amp;month=<%=month+1%>" target="_self">
-
                            <!-- 다음달 --><b>&gt;</b>
-
                     </a>
-
                     <%}else{%>
-
                            <b>&gt;</b>
-
                     <%} %>
-
                     <a href="/sixDestiny/views/admin/1_admin/4_scheduleManagement.jsp?year=<%=year+1%>&amp;month=<%=month%>" target="_self">
-
                            <!-- 다음해 --><b>&gt;&gt;</b>
-
                     </a>
-
              </td>
-
        </tr>
        <tr>
-
        <td align ="right">
-
-             <input class="btn btn-default" style="font-family: 'Sunflower', sans-serif;" type="button" onclick="javascript:location.href='/sixDestiny/views/admin/1_admin/4_scheduleManagement.jsp'" value="오늘"/>
-
+             <input class="btn btn-default" style="font-family: 'Sunflower', sans-serif;" type="button" onclick="javascript:location.href='/sixDestiny/selectDday.sel'" value="오늘"/>
        </td>
-
-
-
 </tr>
-
        </table>
-
-
-
 </td>
-
 </tr>
-
 </table>
-
 <br>
-
 <table style="border:1px solid black; margin:0 auto;">
 
 <THEAD>
@@ -251,142 +216,164 @@ A:hover {
        </TD>
 
 </TR>
-
 </THEAD>
-
 <TBODY style="font-family: 'Sunflower', sans-serif;">
-
 <TR>
 
 <%
 
-
-
 //처음 빈공란 표시
-
 for(int index = 1; index < start ; index++ )
-
 {
-
   out.println("<TD >&nbsp;</TD>");
-
   newLine++;
-
 }
 
-
-
 for(int index = 1; index <= endDay; index++)
-
 {
-
        String color = "";
 
-
-
        if(newLine == 0){          color = "RED";
-
        }else if(newLine == 6){    color = "#529dbc";
-
        }else{                     color = "BLACK"; };
 
-
-
        String sUseDate = Integer.toString(year);
-
        sUseDate += Integer.toString(month+1).length() == 1 ? "0" + Integer.toString(month+1) : Integer.toString(month+1);
-
        sUseDate += Integer.toString(index).length() == 1 ? "0" + Integer.toString(index) : Integer.toString(index);
 
-
-
        int iUseDate = Integer.parseInt(sUseDate);
-
-
-
-
 
        String backColor = "#EFEFEF";
 
        if(iUseDate == intToday ) {
-
              backColor = "#c9c9c9";
-
        }
 
        out.println("<TD valign='top' name='clickSelect' align='left' height='92px' bgcolor='"+backColor+"' nowrap>");
-
        %>
        <font color='<%=color%>'>
              <%=index %>
        </font>
        <%
-
-
-
-       out.println("<BR>");
-
+      out.println("<BR>");
        /* out.println(iUseDate); */
-
        out.println("<BR>");
-
-
-
-
 
        //기능 제거
-
        out.println("</TD>");
-
        newLine++;
 
-
-
        if(newLine == 7)
-
        {
-
          out.println("</TR>");
-
          if(index <= endDay)
-
          {
-
            out.println("<TR>");
-
          }
-
          newLine=0;
-
        }
 
 }
 
-//마지막 공란 LOOP
 
 while(newLine > 0 && newLine < 7)
-
 {
-
   out.println("<TD>&nbsp;</TD>");
-
   newLine++;
-
 }
 
 %>
 
 </TR>
 
-
-
 </TBODY>
 
 </TABLE>
 
 </DIV>
-
-</form>
+</td>
+<td>
+<div class="container inline" style="width:500px">
+  <br><br>
+  <table class="table table-hover" style="width:500px">
+    <thead>
+      <tr>
+        <td style="font-family: 'Sunflower', sans-serif; font-weight:bold;">상담시간</td>
+        <td style="font-family: 'Sunflower', sans-serif; font-weight:bold;">회원번호</td>
+        <td style="font-family: 'Sunflower', sans-serif; font-weight:bold;">회원이름</td>
+        <td style="font-family: 'Sunflower', sans-serif; font-weight:bold;">상담현황</td>
+        <td style="font-family: 'Sunflower', sans-serif; font-weight:bold;">현황처리</td>
+      </tr>
+    </thead>
+    <tbody>
+    	<% for(int i = 0; i < 7; i++){ %>
+    		<tr>
+    		<td style="font-family: 'Sunflower', sans-serif;"><p><%= time[i] %></p></td>
+   		<% for(SelSit ss : entrance){ %>
+			<% if(result[i].equals(ss.getDay())) {%>
+						<td style="font-family: 'Sunflower', sans-serif;"><p><%= ss.getUserNo() %></p></td>
+						<td style="font-family: 'Sunflower', sans-serif;"><p><%= ss.getUserNm() %></p></td>
+						<td style="font-family: 'Sunflower', sans-serif;"><p><%= ss.getSelSit() %></p></td>
+						<td style="font-family: 'Sunflower', sans-serif;">
+							<% if(ss.getSelSit().equals("상담대기")){ %>
+									<button>내역 변경</button>
+							<% }else if(ss.getSelSit().equals("상담취소")){ %>
+									<p>상담취소</p>
+							<% }else{ %>
+									<p>상담대기</p>
+							<% } %>
+						</td>
+				<% }%>
+    		<% } %>
+    		</tr>
+    	<% } %>
+    </tbody>
+  </table>
+</div>
+</td>
+</tr>
+<tr>
+	<td>
+<div class="container inline" style="width:500px">
+  <br><br>
+  <table class="table table-hover" style="width:500px">
+    <thead>
+      <tr>
+        <td style="font-family: 'Sunflower', sans-serif; font-weight:bold;">상담시간</td>
+        <td style="font-family: 'Sunflower', sans-serif; font-weight:bold;">회원번호</td>
+        <td style="font-family: 'Sunflower', sans-serif; font-weight:bold;">회원이름</td>
+        <td style="font-family: 'Sunflower', sans-serif; font-weight:bold;">상담현황</td>
+        <td style="font-family: 'Sunflower', sans-serif; font-weight:bold;">현황처리</td>
+      </tr>
+    </thead>
+    <tbody>
+    	<% for(int i = 0; i < 7; i++){ %>
+    		<tr>
+    		<td style="font-family: 'Sunflower', sans-serif;"><p><%= time[i] %></p></td>
+   		<% for(SelSit ss : parcelout){ %>
+			<% if(result[i].equals(ss.getDay())) {%>
+						<td style="font-family: 'Sunflower', sans-serif;"><p><%= ss.getUserNo() %></p></td>
+						<td style="font-family: 'Sunflower', sans-serif;"><p><%= ss.getUserNm() %></p></td>
+						<td style="font-family: 'Sunflower', sans-serif;"><p><%= ss.getSelSit() %></p></td>
+						<td style="font-family: 'Sunflower', sans-serif;">
+							<% if(ss.getSelSit().equals("상담대기")){ %>
+									<button>내역 변경</button>
+							<% }else if(ss.getSelSit().equals("상담취소")){ %>
+									<p>상담취소</p>
+							<% }else{ %>
+									<p>상담대기</p>
+							<% } %>
+						</td>
+				<% }%>
+    		<% } %>
+    		</tr>
+    	<% } %>
+    </tbody>
+  </table>
+</div>
+</td>
+</tr>
+</table>
 <script type="text/javascript">
 	/* function goSelDate() {
 		console.log($(this).t());
@@ -404,6 +391,7 @@ while(newLine > 0 && newLine < 7)
 				data:{day:day, month:month},
 				success:function(data){
 					console.log(data);
+
 				},
 				error:function(){
 
@@ -411,6 +399,7 @@ while(newLine > 0 && newLine < 7)
 			});
 		});
 	});
+
 </script>
 
 <%@ include file="../../common/bottom_Include.jsp"%>
