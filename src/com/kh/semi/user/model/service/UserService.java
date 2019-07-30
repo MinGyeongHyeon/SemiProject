@@ -250,4 +250,15 @@ public class UserService {
 		return result;
 	}
 
+	public ArrayList<Integer> reportCount(ArrayList<User> list) {
+		
+		Connection con = getConnection();
+		
+		ArrayList<Integer> reportCount = null;
+		
+		reportCount = new UserDao().reportCount(con,list);
+	
+		return reportCount;
+	}
+
 }

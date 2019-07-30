@@ -75,7 +75,7 @@
 				</tr>
 				<tr>
 					<td colspan="2"><input type="text" name="userName"
-						style="width: 400px; height: 50px;"></td>
+						style="width: 400px; height: 50px;" required></td>
 				</tr>
 				<tr>
 					<td><br></td>
@@ -84,12 +84,10 @@
 					<td style="font-family: 'Sunflower', sans-serif;" colspan="2">*아이디</td>
 				</tr>
 				<tr>
-					<td><input type="text" name="userId"
-						style="width: 330px; height: 50px;" id="userId"></td>
+					<td><input type="text" name="userId" style="width: 330px; height: 50px;" id="userId" required></td>
 					<td>
 						<button type="button" class="btn btn-default"
-							style="font-family: 'Sunflower', sans-serif; width: 50px; height: 50px;"
-							onclick="idCheck();">중복</button>
+							style="font-family: 'Sunflower', sans-serif; width: 50px; height: 50px;" onclick="idCheck();">중복</button>
 					</td>
 				</tr>
 				<tr>
@@ -101,7 +99,7 @@
 				</tr>
 				<tr>
 					<td colspan="2"><input type="password" name="password"
-						style="width: 400px; height: 50px;" id="passwordArea"></td>
+						style="width: 400px; height: 50px;" id="passwordArea" required></td>
 				</tr>
 				<tr>
 					<td><br></td>
@@ -112,7 +110,7 @@
 				</tr>
 				<tr>
 					<td colspan="2"><input type="password" name="password2"
-						style="width: 400px; height: 50px;" id="passwordpass"></td>
+						style="width: 400px; height: 50px;" id="passwordpass" required></td>
 				</tr>
 				<tr>
 					<td><br></td>
@@ -122,7 +120,7 @@
 				</tr>
 				<tr>
 					<td><input type="text" name="userNickName"
-						style="width: 330px; height: 50px;" id="nickNm"></td>
+						style="width: 330px; height: 50px;" id="nickNm" required></td>
 					<td>
 						<button type="button" class="btn btn-default"
 							style="font-family: 'Sunflower', sans-serif; width: 50px; height: 50px;" onclick="checkNickNm();">중복</button>
@@ -136,7 +134,7 @@
 				</tr>
 				<tr>
 					<td><input type="email" name="email"
-						style="width: 330px; height: 50px;" id="inputEmail"></td>
+						style="width: 330px; height: 50px;" id="inputEmail" required></td>
 					<td>
 						<button type="button" class="btn btn-default"
 							style="font-family: 'Sunflower', sans-serif; width: 50px; height: 50px;"
@@ -151,7 +149,7 @@
 				</tr>
 				<tr class="hiddenpwd">
 					<td><input type="email" name=""
-						style="width: 330px; height: 50px;" id="randomNum"></td>
+						style="width: 330px; height: 50px;" id="randomNum" required></td>
 					<td>
 						<button type="button" class="btn btn-default"
 							style="font-family: 'Sunflower', sans-serif; width: 50px; height: 50px;"

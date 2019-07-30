@@ -67,8 +67,6 @@
 										console.log(data["email"]);
 										console.log(data["userName"]);
 										
-										/* data["userId"];
-										data["email"] */
 										var args = '?';
 										args += (data.userId == undefined)? '' : 'userId='+data.userId+'&';
 										args += (data.email == undefined)? '' : 'email='+data.email+'&';
