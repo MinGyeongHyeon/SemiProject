@@ -9,10 +9,29 @@
 <head>
 <link href="https://fonts.googleapis.com/css?family=Gaegu&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Gaegu|Sunflower:300&display=swap" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+
 <title>육 인 연</title>
 <style>
 body.main {
 	text-align: center;
+}
+#cattimg{
+	width:50px;
+	height:50px;
+	-webkit-transform:scale(1);
+	 -webkit-transition:.3s;
+}
+#catt{
+	background:none;
+	border:none;
+	outline-style:none;
+
+}
+
+#cattimg:hover{
+	-webkit-transform:scale(1.2);
 }
 
 img.main {
@@ -265,11 +284,68 @@ td#log {
 				<li class="list"><a href="/sixDestiny/selectSup.his">후원내역</a></li>
 			</ul></li>
 	</div>
-	<div style="height: 150px"></div>
-	<DIV style="margin-left:20px; width:100px; position: fixed">
-		<button type="button">실시간상담</button>
-	</DIV>
+	<div style="height:150px"></div>
+	<% if(loginUser != null && loginUser.getUserId().equals("admin")){ %>
+	<div style="position: fixed; width:97%; margin-top:200px" align="right">
+		<button type="button" id="catt2"><img src="/sixDestiny/images/chatting.png" id="cattimg"></button>
+	</div>
+	<%}else if(loginUser != null){ %>
+	<div style="position: fixed; width:97%; margin-top:200px" align="right">
+		<button type="button" id="catt" onclick="gochat(<%=loginUser.getUserNo()%>);"><img src="/sixDestiny/images/chatting.png" id="cattimg"></button>
+	</div>
+	<% } %>
 
+<script type="text/javascript">
+	var wsUri = "ws://localhost:8002/sixDestiny/confirm";
 
+	function gochat(userNo) {
+		console.log("Aaa");
+		var userNo = userNo;
+		window.open("/sixDestiny/views/common/catting.jsp?userNo="+userNo, "window", "width=400,height=500");
+	}
+
+	$(function(){
+		confirmChat();
+	});
+
+	function confirmChat(){
+		websocket = new WebSocket(wsUri);
+		websocket.onopen = function(evt) {
+            onOpen(evt);
+        };
+
+        websocket.onmessage = function(evt) {
+            onMessage(evt);
+        };
+
+        websocket.onerror = function(evt) {
+            /* onError(evt); */
+        };
+	}
+
+	function onOpen(evt) {
+
+    }
+
+	function onMessage(evt){
+		var result = evt.data;
+		console.log(result);
+		if(result == "confirm"){
+			console.log("들어왔다!	")
+			setInterval(function()
+	  			    {
+	  			    	  $("#catt2").css("width", "70px");
+
+	  			    },500);
+
+	  		 setInterval(function()
+	   			    {
+	  					$("#catt2").css("width", "50px");
+	   			    },1000);
+		}
+	}
+
+	//3be7cdf5e8cbf48b2a23b8c72856c080
+</script>
 </body>
 </html>
