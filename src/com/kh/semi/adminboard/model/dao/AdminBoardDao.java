@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import com.kh.semi.adminboard.model.vo.AdminBoard;
+import com.kh.semi.adminboard.model.vo.AdminUserBoard;
 import com.kh.semi.board.parcelout.model.vo.Attachment;
 
 public class AdminBoardDao {
@@ -270,6 +271,9 @@ public class AdminBoardDao {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
 		}
 
 
@@ -300,11 +304,283 @@ public class AdminBoardDao {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
 		}
 
 
 
 		return ac;
+	}
+
+	public int getListCountad(Connection con) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		int result = 0;
+
+		String query = prop.getProperty("getListCountad");
+
+
+
+		try {
+			stmt = con.createStatement();
+
+
+
+			rset = stmt.executeQuery(query);
+
+			if(rset.next()) {
+				result = rset.getInt(1);
+			}
+
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(stmt);
+			close(rset);
+		}
+
+
+
+
+		return result;
+	}
+	public int getListCountad2(Connection con) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		int result = 0;
+
+		String query = prop.getProperty("getListCountad2");
+
+
+
+		try {
+			stmt = con.createStatement();
+
+
+
+			rset = stmt.executeQuery(query);
+
+			if(rset.next()) {
+				result = rset.getInt(1);
+			}
+
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(stmt);
+			close(rset);
+		}
+
+
+
+
+		return result;
+	}
+
+	public ArrayList<AdminUserBoard> selectListad(Connection con, int currentPage, int limit) {
+		PreparedStatement pstmt = null;
+		ArrayList<AdminUserBoard> list = null;
+		ResultSet rset = null;
+		AdminUserBoard ub = null;
+
+
+		int startRow = (currentPage - 1) * limit + 1;
+		int endRow = startRow + limit - 1;
+
+		String query = prop.getProperty("selectListad");
+
+		try {
+			pstmt = con.prepareStatement(query);
+
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+
+
+			rset = pstmt.executeQuery();
+
+
+			 list = new ArrayList<AdminUserBoard>();
+			while(rset.next()) {
+				ub = new AdminUserBoard();
+
+				ub.setBoardNo(rset.getInt("BOARD_NO"));
+				ub.setbKind(rset.getString("BOARD_KIND"));
+				ub.setbNm(rset.getString("BOARD_NM"));
+				ub.setbDate(rset.getDate("BOARD_DT"));
+				ub.setbCon(rset.getString("BOARD_CON"));
+				ub.setInqCon(rset.getInt("INQ_COUNT"));
+				ub.setRecCon(rset.getInt("REC_COUNT"));
+				ub.setuNo(rset.getInt("USER_NO"));
+				ub.setbUserNick(rset.getString("NICK_NM"));
+
+
+				list.add(ub);
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+
+
+
+		return list;
+	}
+	public ArrayList<AdminUserBoard> selectListad2(Connection con, int currentPage, int limit) {
+		PreparedStatement pstmt = null;
+		ArrayList<AdminUserBoard> list = null;
+		ResultSet rset = null;
+		AdminUserBoard ub = null;
+
+
+		int startRow = (currentPage - 1) * limit + 1;
+		int endRow = startRow + limit - 1;
+
+		String query = prop.getProperty("selectListad2");
+
+		try {
+			pstmt = con.prepareStatement(query);
+
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+
+
+			rset = pstmt.executeQuery();
+
+
+			 list = new ArrayList<AdminUserBoard>();
+			while(rset.next()) {
+				ub = new AdminUserBoard();
+
+				ub.setBoardNo(rset.getInt("BOARD_NO"));
+				ub.setbKind(rset.getString("BOARD_KIND"));
+				ub.setbNm(rset.getString("BOARD_NM"));
+				ub.setbDate(rset.getDate("BOARD_DT"));
+				ub.setbCon(rset.getString("BOARD_CON"));
+				ub.setInqCon(rset.getInt("INQ_COUNT"));
+				ub.setRecCon(rset.getInt("REC_COUNT"));
+				ub.setuNo(rset.getInt("USER_NO"));
+				ub.setbUserNick(rset.getString("NICK_NM"));
+
+
+				list.add(ub);
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+
+
+
+		return list;
+	}
+
+	public ArrayList<Integer> reportCount(Connection con, ArrayList<AdminUserBoard> list2) {
+		PreparedStatement pstmt = null;
+		ArrayList<Integer> reportCount = null;
+		ResultSet rset = null;
+		int rseult = 0;
+
+		String query = prop.getProperty("reportCount");
+
+		try {
+			reportCount = new ArrayList<Integer>();
+			for(int i = 0; i < list2.size(); i++) {
+
+				pstmt = con.prepareStatement(query);
+
+				pstmt.setInt(1, list2.get(i).getBoardNo());
+
+
+				rset = pstmt.executeQuery();
+
+				if(rset.next()) {
+
+					 rseult = rset.getInt("COUNT");
+
+					reportCount.add(rseult);
+
+				}
+
+			}
+
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+
+		}
+
+
+
+
+		return reportCount;
+	}
+
+	public ArrayList<AdminUserBoard> selectAll(Connection con, int currentPage, int limit) {
+		PreparedStatement pstmt = null;
+		ArrayList<AdminUserBoard> list = null;
+		ResultSet rset = null;
+		AdminUserBoard ub = null;
+
+
+		int startRow = (currentPage - 1) * limit + 1;
+		int endRow = startRow + limit - 1;
+
+		String query = prop.getProperty("selectListad");
+
+		try {
+			pstmt = con.prepareStatement(query);
+
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+
+
+			rset = pstmt.executeQuery();
+
+
+			 list = new ArrayList<AdminUserBoard>();
+			while(rset.next()) {
+				ub = new AdminUserBoard();
+
+				ub.setBoardNo(rset.getInt("BOARD_NO"));
+				ub.setbKind(rset.getString("BOARD_KIND"));
+				ub.setbNm(rset.getString("BOARD_NM"));
+				ub.setbDate(rset.getDate("BOARD_DT"));
+				ub.setbCon(rset.getString("BOARD_CON"));
+				ub.setInqCon(rset.getInt("INQ_COUNT"));
+				ub.setRecCon(rset.getInt("REC_COUNT"));
+				ub.setuNo(rset.getInt("USER_NO"));
+				ub.setbUserNick(rset.getString("NICK_NM"));
+
+
+				list.add(ub);
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+
+
+
+		return list;
 	}
 
 

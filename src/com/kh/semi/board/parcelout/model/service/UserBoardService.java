@@ -105,6 +105,7 @@ public class UserBoardService {
 			ArrayList<Integer> list2 = null;
 			ArrayList<Integer> list3 = null;
 
+			System.out.println("num 의 값 : " + num);
 			int result = new UserBoardDao().updateCount(con , num);
 
 
@@ -133,6 +134,8 @@ public class UserBoardService {
 			}
 
 			close(con);
+
+
 			hmap.put("coment", list);
 			hmap.put("Rec", list2);
 			hmap.put("selectRec", list3);
