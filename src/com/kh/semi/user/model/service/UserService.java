@@ -250,4 +250,44 @@ public class UserService {
 		return result;
 	}
 
+	public User selectfind(String userId, String email) {
+		Connection con = getConnection();
+
+		User us = new UserDao().selectfind(con,userId,email);
+
+		close(con);
+
+		return us;
+	}
+
+	public int selectfindpwd(User us) {
+		Connection con = getConnection();
+
+		int result = 0;
+
+		result = new UserDao().selectfindpwd(con,us);
+
+		close(con);
+
+		return result;
+	}
+
+	public int updatesign(User us) {
+		Connection con = getConnection();
+
+		int result = 0;
+
+		result = new UserDao().updatesign(con,us);
+
+		if(result > 0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+
+		close(con);
+
+		return result;
+	}
+
 }

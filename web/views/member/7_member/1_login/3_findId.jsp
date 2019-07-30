@@ -29,7 +29,7 @@
 	</div>
 <br><br><br>
 	<div>
-		<form action="#" method="post">
+		<form action="<%= request.getContextPath() %>/SelectFindld.sf" method="post">
 			<table id="loginTable">
 				<tr>
 					<td style="font-family: 'Sunflower', sans-serif;">이름</td>
@@ -44,7 +44,7 @@
 					<td style="font-family: 'Sunflower', sans-serif;">이메일</td>
 				</tr>
 				<tr>
-					<td><input type="email" name="password" style="width:400px; height:50px;"></td>
+					<td><input type="email" name="email" style="width:400px; height:50px;"></td>
 				</tr>
 			</table>
 		<br><br><br><br>
