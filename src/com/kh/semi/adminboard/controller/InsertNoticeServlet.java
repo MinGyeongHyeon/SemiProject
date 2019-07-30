@@ -19,7 +19,7 @@ public class InsertNoticeServlet extends HttpServlet {
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
 		int userNo = Integer.parseInt(request.getParameter("userNo"));
-
+		
 		System.out.println("title : " + title);
 		System.out.println("content : " + content);
 		System.out.println("userNo : " + userNo);
@@ -28,6 +28,8 @@ public class InsertNoticeServlet extends HttpServlet {
 		ab.setTitle(title);
 		ab.setAdBoardCon(content);
 		ab.setAdNo(userNo);
+		
+		
 
 		int result = new AdminBoardService().insertBoard(ab);
 
@@ -38,6 +40,7 @@ public class InsertNoticeServlet extends HttpServlet {
 			/*request.setAttribute("msg", "게시판 작성 실패!");
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);*/
 		}
+		
 
 	}
 

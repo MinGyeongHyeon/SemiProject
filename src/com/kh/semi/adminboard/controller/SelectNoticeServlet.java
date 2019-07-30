@@ -63,7 +63,7 @@ public class SelectNoticeServlet extends HttpServlet {
 		String page = "";
 
 		System.out.println("공지객체  : " + list);
-
+		
 		if(list != null) {
 			page = "views/member/1_introduce/2_notice/1_main.jsp";
 			request.setAttribute("list", list);

@@ -24,6 +24,7 @@ public class SelectOneNoticeServlet extends HttpServlet {
 		if(ab != null) {
 			page = "views/member/1_introduce/2_notice/3_read.jsp";
 			request.setAttribute("ab", ab);
+			
 		}else {
 			/*page = "views/common/errorPage.jsp";
 			request.setAttribute("msg", "공지사항 상세 보기 실패!!");*/

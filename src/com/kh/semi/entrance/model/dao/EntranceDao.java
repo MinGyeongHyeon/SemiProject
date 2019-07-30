@@ -931,7 +931,6 @@ public class EntranceDao {
 				list.add(dog);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -953,12 +952,11 @@ public class EntranceDao {
 			result = pstmt.executeUpdate();
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			close(pstmt);
 		}
-
+		
 
 		return result;
 	}
@@ -977,7 +975,7 @@ public class EntranceDao {
 			result = pstmt.executeUpdate();
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		} finally {
 			close(pstmt);

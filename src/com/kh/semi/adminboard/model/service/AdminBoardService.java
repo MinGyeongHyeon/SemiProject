@@ -27,6 +27,7 @@ public class AdminBoardService {
 		return listCount;
 	}
 
+
 	public ArrayList<AdminBoard> selectList(int currentPage, int limit) {
 		Connection con = getConnection();
 
@@ -67,7 +68,7 @@ public class AdminBoardService {
 	public int insertSupportMoneyBoard(AdminBoard ab, ArrayList<Attachment> fileList) {
 		Connection con = getConnection();
 		int result = 0;
-
+		
 		int result1 = new AdminBoardDao().insertThumbnailSupportContent(con, ab);
 
 		if(result1 > 0) {
@@ -109,5 +110,6 @@ public class AdminBoardService {
 
 		return ac;
 	}
+
 
 }

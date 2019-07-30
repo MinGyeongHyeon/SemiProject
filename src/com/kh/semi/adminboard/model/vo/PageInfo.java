@@ -21,6 +21,7 @@ public class PageInfo implements java.io.Serializable{
 		this.endPage = endPage;
 	}
 
+
 	public int getCurrentPage() {
 		return currentPage;
 	}

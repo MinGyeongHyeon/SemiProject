@@ -28,6 +28,7 @@ public class AdminBoardDao {
 			e.printStackTrace();
 		}
 	}
+	//No/제목/작성일/작성자/조회수
 
 	public int getListCount(Connection con) {
 		PreparedStatement pstmt = null;
@@ -35,7 +36,7 @@ public class AdminBoardDao {
 		ResultSet rset = null;
 
 		String query = prop.getProperty("selectListCount");
-
+		
 		try {
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, "공지");
@@ -125,6 +126,8 @@ public class AdminBoardDao {
 
 		return result;
 	}
+	
+	
 
 	public AdminBoard selectOne(Connection con, int num) {
 		PreparedStatement pstmt = null;
@@ -138,7 +141,7 @@ public class AdminBoardDao {
 			pstmt.setInt(1, num);
 
 			rset = pstmt.executeQuery();
-
+			
 			if(rset.next()) {
 				ab = new AdminBoard();
 				ab.setAdBoardNo(rset.getInt("AD_BOARD_NO"));
@@ -280,13 +283,13 @@ public class AdminBoardDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		Attachment ac = null;
+		
 
 		String query = prop.getProperty("selectSupportAttachment");
 
 		try {
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, String.valueOf(currentPage).toString());
-
 			rset = pstmt.executeQuery();
 
 			if(rset.next()) {

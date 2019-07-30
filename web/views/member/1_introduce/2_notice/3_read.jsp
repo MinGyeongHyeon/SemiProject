@@ -52,7 +52,7 @@
 		<tr>
 			<td colspan="2" style="font-family: 'Sunflower', sans-serif; height:500px;">
 				<%= ab.getAdBoardCon() %>
-			</td>
+			</td> 
 		</tr>
 	</table>
 	<div align="center">
