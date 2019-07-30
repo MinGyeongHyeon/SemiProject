@@ -11,8 +11,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.kh.semi.board.missing.model.service.MissingService;
+import com.kh.semi.board.missing.model.vo.Comment;
 import com.kh.semi.board.missing.model.vo.Missing;
 import com.kh.semi.board.missing.model.vo.MissingAttachment;
+import com.kh.semi.board.parcelout.model.vo.Coment;
 
 
 /**
@@ -44,7 +46,10 @@ if(request.getParameter("uu")!="") {
 	System.out.println(uu+"uuuuuuuuuuuu");
 }
 		
+
+
 		HashMap<String, Object> hmap = new MissingService().missingselectThumbnailMap(num);
+		ArrayList<Comment> list = (ArrayList<Comment>) hmap.get("comment");
 		int re=  new MissingService().re(num, uu);
 	
 		Missing b = (Missing) hmap.get("board");
@@ -60,6 +65,16 @@ if(request.getParameter("uu")!="") {
 			page = "views/member/4_missing/1_fine/3_read.jsp";
 			request.setAttribute("b", b);
 			request.setAttribute("fileList", fileList);
+			
+			if(list != null) {
+
+				if(list.size() > 0) {
+
+					request.setAttribute("comment", list);
+
+				}
+
+			}
 
 		}/*else {
 			page = "views/common/errorPage.jsp";

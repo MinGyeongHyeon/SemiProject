@@ -2,7 +2,7 @@ package com.kh.semi.board.missing.model.vo;
 
 public class Comment {
 
-	private String coment;
+	private String comment;
 	private int bNo;
 	private int uNo;
 	private int conNo;
@@ -10,9 +10,9 @@ public class Comment {
 
 	public Comment() {}
 
-	public Comment(String coment, int bNo, int uNo , int conNo ,String nickNm) {
+	public Comment(String comment, int bNo, int uNo , int conNo ,String nickNm) {
 		super();
-		this.coment = coment;
+		this.comment = comment;
 		this.bNo = bNo;
 		this.uNo = uNo;
 		this.conNo = conNo;
@@ -33,12 +33,12 @@ public class Comment {
 		this.conNo = conNo;
 	}
 
-	public String getComent() {
-		return coment;
+	public String getComment() {
+		return comment;
 	}
 
-	public void setComent(String coment) {
-		this.coment = coment;
+	public void setComment(String comment) {
+		this.comment = comment;
 	}
 
 	public int getbNo() {

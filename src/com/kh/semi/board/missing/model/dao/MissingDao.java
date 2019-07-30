@@ -13,9 +13,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Properties;
 
+import com.kh.semi.board.missing.model.vo.Comment;
 import com.kh.semi.board.missing.model.vo.Missing;
 import com.kh.semi.board.missing.model.vo.MissingAttachment;
 import com.kh.semi.board.missing.model.vo.MissingReport;
+import com.kh.semi.board.parcelout.model.vo.Coment;
 
 public class MissingDao {
 	private Properties prop = new Properties();
@@ -2384,6 +2386,147 @@ public class MissingDao {
 			close(pstmt);
 		}
 
+
+
+		return result;
+	}
+
+
+	public int insertcomment(Connection con, Comment cm) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+
+		String query = prop.getProperty("missingComent");
+
+		try {
+
+			pstmt = con.prepareStatement(query);
+
+			pstmt.setString(1, cm.getComment());
+			pstmt.setInt(2, cm.getuNo());
+			pstmt.setInt(3, cm.getbNo());
+
+			result = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+
+
+
+		return result;
+	}
+
+
+	public ArrayList<Comment> selectcomment(Connection con, int getbNo) {
+		PreparedStatement pstmt = null;
+		ArrayList<Comment> list = null;
+		ResultSet rset = null;
+		Comment cm = null;
+
+		String query = prop.getProperty("selectcoment");
+
+		try {
+			pstmt = con.prepareStatement(query);
+
+			pstmt.setInt(1, getbNo);
+
+
+
+
+			rset = pstmt.executeQuery();
+
+			list = new ArrayList<Comment>();
+			while(rset.next()) {
+				cm = new Comment();
+
+				cm.setComment(rset.getString("COM_CON"));
+				cm.setConNo(rset.getInt("COM_NO"));
+				cm.setuNo(rset.getInt("USER_NO"));
+				cm.setbNo(rset.getInt("BOARD_NO"));
+				cm.setNickNm(rset.getString("NICK_NM"));
+
+				list.add(cm);
+
+			}
+
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		}
+
+
+		return list;
+	}
+
+
+	public ArrayList<Comment> selectcoment(Connection con, int num) {
+		PreparedStatement pstmt = null;
+		ArrayList<Comment> list = null;
+		ResultSet rset = null;
+		Comment cm = null;
+
+		String query = prop.getProperty("selectcoment");
+
+		try {
+			pstmt = con.prepareStatement(query);
+
+			pstmt.setInt(1, num);
+
+
+
+
+			rset = pstmt.executeQuery();
+
+			list = new ArrayList<Comment>();
+			while(rset.next()) {
+				cm = new Comment();
+
+				cm.setComment(rset.getString("COM_CON"));
+				cm.setConNo(rset.getInt("COM_NO"));
+				cm.setuNo(rset.getInt("USER_NO"));
+				cm.setbNo(rset.getInt("BOARD_NO"));
+				cm.setNickNm(rset.getString("NICK_NM"));
+
+				list.add(cm);
+
+			}
+
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		}
+
+
+		return list;
+	}
+
+
+	public int reportCon(Connection con, MissingReport re) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+
+		String query = prop.getProperty("reportCon");
+
+		try {
+			pstmt = con.prepareStatement(query);
+
+			pstmt.setInt(1, re.getbNo());
+			pstmt.setInt(2, re.getuNo());
+			pstmt.setInt(3, re.getuNo2());
+			pstmt.setString(4, re.getReason());
+
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+
+		}finally {
+			close(pstmt);
+		}
 
 
 		return result;
