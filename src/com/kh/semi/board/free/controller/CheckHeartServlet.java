@@ -1,7 +1,6 @@
 package com.kh.semi.board.free.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.servlet.ServletException;
@@ -10,23 +9,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
+import com.google.gson.Gson;
 import com.kh.semi.board.free.model.service.UserBoardService;
 import com.kh.semi.board.free.model.vo.Recub;
-import com.kh.semi.board.free.model.vo.UserBoard;
-import com.kh.semi.board.free.model.vo.UserBoardAttachment;
 
 /**
- * Servlet implementation class SelectOneNoticeServlet
+ * Servlet implementation class CheckHeartServlet
  */
-@WebServlet("/selectOne.bo")
-public class SelectOneBoardServlet extends HttpServlet {
+@WebServlet("/checkHeart.ub")
+public class CheckHeartServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SelectOneBoardServlet() {
+    public CheckHeartServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -35,39 +32,39 @@ public class SelectOneBoardServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int num = Integer.parseInt(request.getParameter("num"));
-	
-		System.out.println("현재 글번호" + num);
+		int num = Integer.parseInt(request.getParameter("thisBoardNo"));
+		int logUno = Integer.parseInt(request.getParameter("nowLoginUser"));
+		HashMap<String, Integer> map = new HashMap<String, Integer>();
 		
-
-		HashMap<String, Object> hmap = new UserBoardService().selectOne(num);
-		
-		UserBoard ub = (UserBoard) hmap.get("board");
-		ArrayList<UserBoardAttachment> fileList = 
-				(ArrayList<UserBoardAttachment>) hmap.get("attachment");
-		
-		String page = "";
-
-		 int recCount = new UserBoardService().selectRecCount(num);
-			
+		if(logUno > 0) {
+			Recub rec = new UserBoardService().selectRec(num,logUno);
+			int heart = 0;
+			if(rec==null) {
+				heart = 1;
+			}else {
+				heart = 0;
+			}
+			map.put("heart", heart);
 	
-	
-		if(hmap != null) {
-			request.setAttribute("ub", ub);
-			request.setAttribute("fileList", fileList);
-			request.setAttribute("recCount", recCount);
-			page = "views/member/5_freeBoard/1_freeBoard/3_read.jsp";
-		}else {
-			page = "views/common/errorPage.jsp";
-			request.setAttribute("msg", "사진 게시판 상세보기 실패!");
 		}
 		
-		request.getRequestDispatcher(page).forward(request, response);
+		
+		 int recCount = new UserBoardService().selectRecCount(num);
+			
+			
+			
+			request.setAttribute("recCount", recCount);
 
-		
-		
-		
-		
+			
+			
+			
+			map.put("recCount", recCount);
+
+			
+			response.setContentType("application/json");
+			response.setCharacterEncoding("UTF-8");
+			new Gson().toJson(map, response.getWriter());
+			
 	}
 
 	/**
@@ -79,15 +76,3 @@ public class SelectOneBoardServlet extends HttpServlet {
 	}
 
 }
-
-
-
-
-
-
-
-
-
-
-
-

@@ -24,7 +24,7 @@ span.red {color:#da1846}
 </head>
 <body>
 <table width="100%" height="300" border="0" cellspacing="0" cellpadding="0">
-  <form id="report" name="report" method="post" action="<%= request.getContextPath() %>/InsertReport.ir" onsubmit="return check();">
+  <form id="report" name="report" method="post" action="<%= request.getContextPath() %>/insertReport.ub" onsubmit="return check();">
   <tbody><tr>
 	<td style=" background:black url(/images/m/navi_bg.gif) center repeat;padding:8px 0 8px 0;text-align:center;font-weight:bold;color:white;">
 		신고하기

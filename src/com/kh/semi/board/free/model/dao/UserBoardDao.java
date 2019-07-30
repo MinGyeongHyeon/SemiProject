@@ -14,7 +14,7 @@ import java.util.Properties;
 
 import static com.kh.semi.common.JDBCTemplate.*;
 
-
+import com.kh.semi.board.free.model.vo.Recub;
 import com.kh.semi.board.free.model.vo.UserBoard;
 import com.kh.semi.board.free.model.vo.UserBoardAttachment;
 
@@ -1477,7 +1477,149 @@ public class UserBoardDao {
 
 
 
+public int uprecommendUserBoard(Connection con, int thisBoardNo, int nowLoginUser) {
 
+		
+		PreparedStatement pstmt = null;
+		int result = 0;
+		System.out.println("다오" + thisBoardNo);
+		System.out.println("다오"+nowLoginUser);
+		String query = prop.getProperty("insertRecommend");
+
+		try {
+			pstmt = con.prepareStatement(query);
+
+			pstmt.setInt(1, nowLoginUser);
+			pstmt.setInt(2, thisBoardNo);
+			
+
+			result = pstmt.executeUpdate();
+			System.out.println("최종 결과" + result);
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+
+		}finally {
+			close(pstmt);
+		}
+
+
+		return result;
+	}
+
+
+	public int derecommendUserBoard(Connection con, int thisBoardNo, int nowLoginUser) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		System.out.println("다오" + thisBoardNo);
+		System.out.println("다오"+nowLoginUser);
+		String query = prop.getProperty("deleteRecommend");
+
+		try {
+			pstmt = con.prepareStatement(query);
+
+			pstmt.setInt(1, nowLoginUser);
+			pstmt.setInt(2, thisBoardNo);
+			
+
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+
+		}finally {
+			close(pstmt);
+		}
+
+
+		return result;
+	}
+
+	public Recub selectRec(Connection con, int num, int logUno) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Recub rec = null;
+		
+		String query = prop.getProperty("selectRecub");
+		System.out.println("다오에서 " + logUno);
+		System.out.println("다오에서 " + num);
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, logUno);
+			pstmt.setInt(2, num);
+			
+			rset = pstmt.executeQuery();
+		
+			if(rset.next()) {
+				rec = new Recub();
+				
+				rec.setbNo(rset.getInt("BOARD_NO"));
+				rec.setuNo(rset.getInt("USER_NO"));
+				
+				
+			}
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		System.out.println("다오에서 rec" + rec);
+		return rec;
+	}
+
+	public int selectRecCount(Connection con, int num) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int recCount = 0;
+		
+		String query = prop.getProperty("selectRecCountub");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, num);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				recCount = rset.getInt(1);
+			}
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return recCount;
+	}
+
+	public int selectRecCountmain(Connection con, int thisBoardNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+
+		String query = prop.getProperty("updaterecom");
+
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, thisBoardNo);
+			pstmt.setInt(2, thisBoardNo);
+			
+
+			result = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+
+		return result;
+	}
 	
 	
 }

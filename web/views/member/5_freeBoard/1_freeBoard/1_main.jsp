@@ -30,6 +30,10 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 
 <style>
+button.main:hover{
+	font-weight: bold;
+}
+
 .div1 {
 	overflow: hidden;
 	text-overflow: ellipsis;
@@ -157,6 +161,7 @@ th {
 					<tbody id="remonebody">
 						<%
 							for (UserBoard ub : list) {
+								
 						%>
 						<tr>
 							<td><%=ub.getbNo()%></td>
@@ -165,9 +170,16 @@ th {
 							<td id="bname"><%=ub.getbNm()%></td>
 							<td><%=ub.getbUserNick()%></td>
 							<td><%=ub.getInqCon()%></td>
-							<td><%=ub.getRecCon()%></td>
+							<td id="recCount"><%=ub.getRecCon()%></td>
+							<script>
+							$(document).ready(function() {
+				              
+				                	count(<%=ub.getbNo() %>);
+				                });
 
-						</tr>
+							</script>
+		
+							</tr>
 						<%
 							}
 						%>
@@ -349,6 +361,22 @@ th {
 			
 			
 		}
+		
+		function count(thisBoardNo){
+			 
+				 $.ajax({
+						url:"countRec.ub",
+						data:{thisBoardNo:thisBoardNo},
+						type:"get",
+						success:function(data){
+							console.log(data)
+							console.log("성공")
+						}
+					})
+			
+		}
+			
+		
 		
 		
 
