@@ -159,14 +159,24 @@ table tr td img {
                <script>
       $(function() {
          $(".title").click( function() {
- 	var num=     $(this).children().eq(0).val();
+        	 <%if(loginUser!=null){%>
+        	 	var num=     $(this).children().eq(0).val();
+        	 	var uu= $(this).children().eq(1).val();
 
-                           console.log("num???"+num);
-                
+        	                           console.log(uu);
+        	                
+        	                     
 
+        	   location.href = "<%=request.getContextPath()%>/proSelectOne.bo?num="+num+"&uu="+uu;
+        	   
+        		 <%}else{%>
+        			var num=     $(this).children().eq(0).val();
+        		 
 
    location.href = "<%=request.getContextPath()%>/proSelectOne.bo?num=" + num ;
-            });
+	 <%}%>
+        		 
+        		 });
          });
       </script>
       
