@@ -10,10 +10,17 @@ public class SelSit {
 	private int entAppNo;
 	private int pcoAppNo;
 	private Date selDt;
+	private String day;
+	private int userNo;
+	private String userNm;
+	private String NickNm;
 
 	public SelSit() {}
 
-	public SelSit(String selNo, String selSit, String appDiv, int entAppNo, int pcoAppNo, Date selDt) {
+
+
+	public SelSit(String selNo, String selSit, String appDiv, int entAppNo, int pcoAppNo, Date selDt, String day,
+			int userNo, String userNm, String nickNm) {
 		super();
 		this.selNo = selNo;
 		this.selSit = selSit;
@@ -21,7 +28,61 @@ public class SelSit {
 		this.entAppNo = entAppNo;
 		this.pcoAppNo = pcoAppNo;
 		this.selDt = selDt;
+		this.day = day;
+		this.userNo = userNo;
+		this.userNm = userNm;
+		NickNm = nickNm;
 	}
+
+
+
+	public int getUserNo() {
+		return userNo;
+	}
+
+
+
+	public void setUserNo(int userNo) {
+		this.userNo = userNo;
+	}
+
+
+
+	public String getUserNm() {
+		return userNm;
+	}
+
+
+
+	public void setUserNm(String userNm) {
+		this.userNm = userNm;
+	}
+
+
+
+	public String getNickNm() {
+		return NickNm;
+	}
+
+
+
+	public void setNickNm(String nickNm) {
+		NickNm = nickNm;
+	}
+
+
+
+	public String getDay() {
+		return day;
+	}
+
+
+
+	public void setDay(String day) {
+		this.day = day;
+	}
+
+
 
 	public String getSelNo() {
 		return selNo;

@@ -628,7 +628,7 @@ public class UserDao {
 
 		try {
 			pstmt = con.prepareStatement(query);
-			
+
 			pstmt.setString(1,ur.getUserId());
 			pstmt.setString(2, ur.getUserNm());
 			pstmt.setString(3, ur.getNickNm());
@@ -639,7 +639,7 @@ public class UserDao {
 			pstmt.setString(8, ur.getAddress());
 			pstmt.setString(9, ur.getDogYn());
 			pstmt.setString(10, ur.getRtCd());
-			
+
 			result = pstmt.executeUpdate();
 
 		} catch (SQLException e) {
@@ -650,7 +650,113 @@ public class UserDao {
 		}
 
 		return result;
-		
+
+	}
+
+	public User selectfind(Connection con, String userId, String email) {
+			PreparedStatement pstmt = null;
+			ResultSet rset = null;
+			User us = null;
+
+			String query = prop.getProperty("selectfind");
+
+			try {
+
+				pstmt = con.prepareStatement(query);
+
+				pstmt.setString(1, userId);
+				pstmt.setString(2, email);
+
+				rset = pstmt.executeQuery();
+
+				us = new User();
+
+				if(rset.next()) {
+
+					us.setUserId(rset.getString("USER_ID"));
+					us.setUserNm(rset.getString("USER_NM"));
+				}
+
+
+
+			} catch (SQLException e) {
+
+				e.printStackTrace();
+			}finally {
+				close(pstmt);
+				close(rset);
+			}
+
+
+
+
+
+		return us;
+	}
+
+	public int selectfindpwd(Connection con, User us) {
+			PreparedStatement pstmt = null;
+			ResultSet rset = null;
+			int result = 0;
+
+			String query = prop.getProperty("selectfindpwd");
+
+			try {
+				pstmt = con.prepareStatement(query);
+
+				pstmt.setString(1, us.getUserNm());
+				pstmt.setString(2, us.getUserId());
+				pstmt.setString(3, us.getEmail());
+
+				rset = pstmt.executeQuery();
+
+				if(rset.next()) {
+					result = 1;
+				}
+
+			} catch (SQLException e) {
+
+				e.printStackTrace();
+
+			}
+
+
+
+
+
+
+		return result;
+	}
+
+	public int updatesign(Connection con, User us) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+
+		String query = prop.getProperty("updatesign");
+		System.out.println("들어가기전 패스워드 값 : " + us.getUserPwd());
+		System.out.println("들어가기전 아이디 값 : " + us.getUserId());
+
+		try {
+			pstmt = con.prepareStatement(query);
+
+			pstmt.setString(1, us.getUserPwd());
+			pstmt.setString(2, us.getUserId());
+
+
+
+			result = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+
+		}
+
+
+
+
+		return result;
 	}
 
 	public ArrayList<Integer> reportCount(Connection con, ArrayList<User> list) {

@@ -2533,6 +2533,42 @@ public class MissingDao {
 	}
 
 
+	public int changCo(Connection con, int cNo, String con2) {
+
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("updateCo");
+
+	
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, con2);
+	
+			pstmt.setInt(2,cNo);
+	
+			
+	
+			
+			
+			
+			result = pstmt.executeUpdate();
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+		
+		
+		
+		
+		
+	}
+
+
 	
 	
 	

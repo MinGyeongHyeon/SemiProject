@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.kh.semi.board.free.model.dao.UserBoardDao;
+import com.kh.semi.board.free.model.vo.Commentub;
 import com.kh.semi.board.free.model.vo.Recub;
 import com.kh.semi.board.free.model.vo.UserBoard;
 import com.kh.semi.board.free.model.vo.UserBoardAttachment;
@@ -362,6 +363,32 @@ Connection con = getConnection();
 
 		return rec;
 		
+	}
+
+	public int insertComment(Commentub comment) {
+		Connection con = getConnection();
+		
+		int result = new UserBoardDao().insertComment(con, comment);
+		
+		if(result > 0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		
+		close(con);
+		
+		return result;
+	}
+
+	public ArrayList<Commentub> selectListComment() {
+		Connection con = getConnection();
+
+		ArrayList<Commentub> commentList = new UserBoardDao().selectListComment(con);
+
+		close(con);
+
+		return commentList;
 	}
 
 

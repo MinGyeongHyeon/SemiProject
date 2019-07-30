@@ -43,7 +43,27 @@ public class SelectAjaxBoard extends HttpServlet {
 			limit = 10;
 
 			//전체 목록 갯수를 리턴받음
-			int listCount = new AdminBoardService().getListCountad();
+			int listCount = 0;
+			if(data != null) {
+				if(data.equals("selectAll")) {
+
+					listCount = new AdminBoardService().getListCountad();
+
+				}else if(data.equals("selectfree")) {
+
+					listCount = new AdminBoardService().getfreeCount();
+
+				}else if(data.equals("selectparcelout")) {
+
+					listCount = new AdminBoardService().getparceloutCount();
+
+				}else if(data.equals("selectmissing")) {
+
+				}else if(data.equals("selectmissing2")) {
+
+				}
+
+			}
 
 			System.out.println("listCount 게시판: " + listCount);
 
@@ -73,6 +93,14 @@ public class SelectAjaxBoard extends HttpServlet {
 			if(data.equals("selectAll")){
 
 				list = new AdminBoardService().selectAll(currentPage , limit);
+
+			}else if(data.equals("selectfree")) {
+
+				list = new AdminBoardService().selectfree(currentPage , limit);
+
+			}else if(data.equals("selectparcelout")) {
+
+				list = new AdminBoardService().selectparcelout(currentPage,limit);
 
 			}
 

@@ -35,8 +35,23 @@ public class SelSitService {
 		Connection con = getConnection();
 		HashMap<String, Object> list = new HashMap<String, Object>();
 
-		ArrayList<String> list1 = new SelSitDao().selectAllSelEntranceDate(con, result);
-		ArrayList<String> list2 = new SelSitDao().selectAllSelParceloutDate(con, result);
+		ArrayList<SelSit> list1 = new SelSitDao().selectAllSelEntranceDate(con, result);
+		ArrayList<SelSit> list2 = new SelSitDao().selectAllSelParceloutDate(con, result);
+
+		list.put("entrance", list1);
+		list.put("parcelout", list2);
+
+		close(con);
+
+		return list;
+	}
+
+	public HashMap<String, Object> selectTodaySelHistory() {
+		Connection con = getConnection();
+		HashMap<String, Object> list = new HashMap<String, Object>();
+
+		ArrayList<SelSit> list1 = new SelSitDao().selectTodaySelEntranceHistory(con);
+		ArrayList<SelSit> list2 = new SelSitDao().selectTodaySelParcelHistory(con);
 
 		list.put("entrance", list1);
 		list.put("parcelout", list2);

@@ -14,6 +14,7 @@ import java.util.Properties;
 
 import static com.kh.semi.common.JDBCTemplate.*;
 
+import com.kh.semi.board.free.model.vo.Commentub;
 import com.kh.semi.board.free.model.vo.Recub;
 import com.kh.semi.board.free.model.vo.UserBoard;
 import com.kh.semi.board.free.model.vo.UserBoardAttachment;
@@ -1619,6 +1620,75 @@ public int uprecommendUserBoard(Connection con, int thisBoardNo, int nowLoginUse
 
 
 		return result;
+	}
+
+	public int insertComment(Connection con, Commentub comment) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertCommnet");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, comment.getCommentCon());
+			pstmt.setInt(2, comment.getUserNo());
+			pstmt.setInt(3, comment.getBoardNo());
+			
+			
+			result = pstmt.executeUpdate();
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+	
+		return result;
+	}
+
+	public ArrayList<Commentub> selectListComment(Connection con) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		ArrayList<Commentub> commentList = null;
+
+		String query = prop.getProperty("selectListComment");
+
+		try {
+			stmt = con.createStatement();
+
+			rset = stmt.executeQuery(query);
+
+			commentList = new ArrayList<Commentub>();
+
+			while(rset.next()) {
+				Commentub comment = new Commentub();
+
+				
+				comment.setBoardNo(rset.getInt("BOARD_NO"));
+				comment.setCommentCon(rset.getString("COM_CON"));
+				comment.setCommentNo(rset.getInt("COM_NO"));
+				comment.setUserNo(rset.getInt("USER_NO"));
+				comment.setNickNm(rset.getString("NICK_NM"));
+				comment.setWriteDay(rset.getDate("WRITE_DT"));
+			
+
+
+
+				System.out.println(comment);
+
+
+
+				commentList.add(comment);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
+		}
+
+		return commentList;
 	}
 	
 	

@@ -171,13 +171,7 @@ th {
 							<td><%=ub.getInqCon()%></td>
 							<td><%=ub.getbDate()%></td>
 							<td id="recCount"><%=ub.getRecCon()%></td>
-							<script>
-							$(document).ready(function() {
-				              
-				                	count(<%=ub.getbNo() %>);
-				                });
-
-							</script>
+							
 		
 							</tr>
 						<%
@@ -362,19 +356,7 @@ th {
 			
 		}
 		
-		function count(thisBoardNo){
-			 
-				 $.ajax({
-						url:"countRec.ub",
-						data:{thisBoardNo:thisBoardNo},
-						type:"get",
-						success:function(data){
-							console.log(data)
-							console.log("성공")
-						}
-					})
-			
-		}
+		
 			
 		
 		

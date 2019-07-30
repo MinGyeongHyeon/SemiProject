@@ -1,17 +1,18 @@
 package com.kh.semi.sel.model.dao;
 
+import static com.kh.semi.common.JDBCTemplate.close;
+
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Properties;
 
 import com.kh.semi.sel.model.vo.SelSit;
-import static com.kh.semi.common.JDBCTemplate.*;
 
 public class SelSitDao {
 	private Properties prop = new Properties();
@@ -89,10 +90,10 @@ public class SelSitDao {
 		return list;
 	}
 
-	public ArrayList<String> selectAllSelEntranceDate(Connection con, String result) {
+	public ArrayList<SelSit> selectAllSelEntranceDate(Connection con, String result) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		ArrayList<String> list = null;
+		ArrayList<SelSit> list = null;
 
 		String query = prop.getProperty("selectAllSelEntranceDate");
 
@@ -101,11 +102,17 @@ public class SelSitDao {
 			pstmt.setString(1, result);
 			rset = pstmt.executeQuery();
 
-			list = new ArrayList<String>();
+			list = new ArrayList<SelSit>();
 			while(rset.next()) {
-				String day = rset.getString("SEL_DT");
+				SelSit ss = new SelSit();
+				ss.setDay(rset.getString("SEL_DT"));
+				ss.setEntAppNo(rset.getInt("ENT_APP_NO"));
+				ss.setAppDiv(rset.getString("APP_DIV"));
+				ss.setUserNo(rset.getInt("USER_NO"));
+				ss.setUserNm(rset.getString("USER_NM"));
+				ss.setSelSit(rset.getString("SEL_SIT"));
 
-				list.add(day);
+				list.add(ss);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -118,10 +125,10 @@ public class SelSitDao {
 		return list;
 	}
 
-	public ArrayList<String> selectAllSelParceloutDate(Connection con, String result) {
+	public ArrayList<SelSit> selectAllSelParceloutDate(Connection con, String result) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		ArrayList<String> list = null;
+		ArrayList<SelSit> list = null;
 
 		String query = prop.getProperty("selectAllSelParceloutDate");
 
@@ -130,11 +137,17 @@ public class SelSitDao {
 			pstmt.setString(1, result);
 			rset = pstmt.executeQuery();
 
-			list = new ArrayList<String>();
+			list = new ArrayList<SelSit>();
 			while(rset.next()) {
-				String day = rset.getString("SEL_DT");
+				SelSit ss = new SelSit();
+				ss.setDay(rset.getString("SEL_DT"));
+				ss.setPcoAppNo(rset.getInt("PCO_APP_NO"));
+				ss.setAppDiv(rset.getString("APP_DIV"));
+				ss.setUserNo(rset.getInt("USER_NO"));
+				ss.setUserNm(rset.getString("USER_NM"));
+				ss.setSelSit(rset.getString("SEL_SIT"));
 
-				list.add(day);
+				list.add(ss);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -142,6 +155,73 @@ public class SelSitDao {
 		} finally {
 			close(rset);
 			close(pstmt);
+		}
+
+		return list;
+	}
+
+	public ArrayList<SelSit> selectTodaySelEntranceHistory(Connection con) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		ArrayList<SelSit> list = new ArrayList<SelSit>();
+
+		String query = prop.getProperty("selectTodaySelEntranceHistory");
+
+		try {
+			stmt = con.createStatement();
+
+			rset = stmt.executeQuery(query);
+			while(rset.next()) {
+				SelSit ss = new SelSit();
+				ss.setDay(rset.getString("SEL_DT"));
+				ss.setEntAppNo(rset.getInt("ENT_APP_NO"));
+				ss.setAppDiv(rset.getString("APP_DIV"));
+				ss.setUserNo(rset.getInt("USER_NO"));
+				ss.setUserNm(rset.getString("USER_NM"));
+				ss.setSelSit(rset.getString("SEL_SIT"));
+
+				list.add(ss);
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
+		}
+
+		return list;
+	}
+
+	public ArrayList<SelSit> selectTodaySelParcelHistory(Connection con) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		ArrayList<SelSit> list = new ArrayList<SelSit>();
+
+		String query = prop.getProperty("selectTodaySelParcelHistory");
+
+		try {
+			stmt = con.createStatement();
+
+			rset = stmt.executeQuery(query);
+			while(rset.next()) {
+				SelSit ss = new SelSit();
+				ss.setDay(rset.getString("SEL_DT"));
+				ss.setPcoAppNo(rset.getInt("PCO_APP_NO"));
+				ss.setAppDiv(rset.getString("APP_DIV"));
+				ss.setUserNo(rset.getInt("USER_NO"));
+				ss.setUserNm(rset.getString("USER_NM"));
+				ss.setSelSit(rset.getString("SEL_SIT"));
+
+				list.add(ss);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
 		}
 
 		return list;

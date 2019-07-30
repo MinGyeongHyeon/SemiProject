@@ -50,7 +50,9 @@ public class InsertParcelout extends HttpServlet {
 			String[] str2 = applic22.split("~");
 			String[] str3 = str2[0].split(":");
 
-			String str1 = str[2] + str[0] + str[1] + str3[0] + str3[1];
+
+
+			String str1 = str[2] + str[0] + str[1] + str3[0] ;
 
 
 			System.out.println(str1);

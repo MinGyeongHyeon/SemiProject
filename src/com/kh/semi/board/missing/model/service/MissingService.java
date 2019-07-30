@@ -683,6 +683,47 @@ Connection con = getConnection();
 	}
 
 
+	public ArrayList<Comment> comment2(Comment cm) {
+		Connection con = getConnection();
+		int result = 0;
+		ArrayList<Comment> list = null;
+
+		result = new MissingDao().insertcomment(con,cm);
+
+		if(result > 0) {
+			commit(con);
+			 list = new MissingDao().selectcomment(con,cm.getbNo());
+
+		}else {
+			rollback(con);
+		}
+
+		close(con);
+
+
+
+		return list;
+	}
+
+
+	public int changeCo(int cNo,String con2) {
+		Connection con = getConnection();
+		int result = 0;
+		
+		result = new MissingDao().changCo(con,cNo,con2);
+		
+		if(result > 0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		close(con);
+
+
+		return result;
+	}
+
+
 
 
 
