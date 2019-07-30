@@ -29,11 +29,15 @@ public class SelectParceloutOne extends HttpServlet {
 
 		int uNo = 0;
 
-		if(!request.getParameter("uNo").equals("")) {
 
-			uNo = Integer.parseInt(request.getParameter("uNo"));
 
-		}
+			if(!request.getParameter("uNo").equals("")) {
+
+				uNo = Integer.parseInt(request.getParameter("uNo"));
+
+			}
+
+
 
 
 

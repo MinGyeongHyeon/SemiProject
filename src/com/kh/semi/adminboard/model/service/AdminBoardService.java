@@ -1,13 +1,16 @@
 package com.kh.semi.adminboard.model.service;
 
-import static com.kh.semi.common.JDBCTemplate.*;
+import static com.kh.semi.common.JDBCTemplate.close;
+import static com.kh.semi.common.JDBCTemplate.commit;
 import static com.kh.semi.common.JDBCTemplate.getConnection;
+import static com.kh.semi.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
 import java.util.ArrayList;
 
 import com.kh.semi.adminboard.model.dao.AdminBoardDao;
 import com.kh.semi.adminboard.model.vo.AdminBoard;
+import com.kh.semi.adminboard.model.vo.AdminUserBoard;
 import com.kh.semi.board.parcelout.model.vo.Attachment;
 
 public class AdminBoardService {
@@ -108,6 +111,75 @@ public class AdminBoardService {
 		close(con);
 
 		return ac;
+	}
+
+	public int getListCountad() {
+		Connection con = getConnection();
+		int result = 0;
+
+		result = new AdminBoardDao().getListCountad(con);
+
+		close(con);
+
+		return result;
+	}
+	public int getListCountad2() {
+		Connection con = getConnection();
+		int result = 0;
+
+		result = new AdminBoardDao().getListCountad2(con);
+
+		close(con);
+
+		return result;
+	}
+
+	public ArrayList<AdminUserBoard> selectListad(int currentPage, int limit) {
+		Connection con = getConnection();
+
+		ArrayList<AdminUserBoard> list = new AdminBoardDao().selectListad(con,currentPage,limit);
+
+		close(con);
+
+
+
+		return list;
+	}
+	public ArrayList<AdminUserBoard> selectListad2(int currentPage, int limit) {
+		Connection con = getConnection();
+
+		ArrayList<AdminUserBoard> list = new AdminBoardDao().selectListad2(con,currentPage,limit);
+
+		close(con);
+
+
+
+		return list;
+	}
+
+	public ArrayList<Integer> reportCount(ArrayList<AdminUserBoard> list2) {
+		Connection con = getConnection();
+		ArrayList<Integer> reportCount = null;
+
+		reportCount = new AdminBoardDao().reportCount(con,list2);
+
+		close(con);
+
+
+		return reportCount;
+	}
+
+	public ArrayList<AdminUserBoard> selectAll(int currentPage, int limit) {
+		Connection con = getConnection();
+		ArrayList<AdminUserBoard> list = null;
+
+		list = new AdminBoardDao().selectAll(con,currentPage,limit);
+
+		close(con);
+
+
+
+		return list;
 	}
 
 }

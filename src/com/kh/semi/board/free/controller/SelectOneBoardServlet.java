@@ -1,6 +1,7 @@
 package com.kh.semi.board.free.controller;
 
 import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -37,6 +38,7 @@ public class SelectOneBoardServlet extends HttpServlet {
 		int num = Integer.parseInt(request.getParameter("num"));
 		
 		HashMap<String, Object> hmap = new UserBoardService().selectOne(num);
+		
 		
 		UserBoard ub = (UserBoard) hmap.get("board");
 		ArrayList<UserBoardAttachment> fileList = 
