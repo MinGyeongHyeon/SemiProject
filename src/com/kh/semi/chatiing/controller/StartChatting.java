@@ -1,9 +1,10 @@
 package com.kh.semi.chatiing.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.websocket.OnClose;
 import javax.websocket.OnError;
@@ -15,28 +16,83 @@ import javax.websocket.server.ServerEndpoint;
 @ServerEndpoint("/start")
 public class StartChatting {
 
-	private static Set<Session> clients = Collections.synchronizedSet(new HashSet<Session>());
+	private static Map<String, Session> user = Collections.synchronizedMap(new HashMap<String, Session>());
+	private static Map<String, Session> admin = Collections.synchronizedMap(new HashMap<String, Session>());
+	private Chattstorage chat = new Chattstorage();
+	//private static Map<String, ArrayList<String>> chat = Collections.synchronizedMap(new HashMap<String, ArrayList<String>>());
+
 
 	@OnOpen
 	public void onOpen(Session session) {
-		//서버 연결한 시점에 동작하는 메소드
 		System.out.println("start 웹소켓");
-		//기존 사용자 리스트에 새로 연결 요청이 들어온 사용자를 추가한다
-		clients.add(session);
+		String chatmember = session.getQueryString();
+		System.out.println("start 웹소켓 쿼리 : " + chatmember);
+
+		String[] member = chatmember.split("&");
+		String[] keyrArr = member[0].split(":");
+		String[] kindArr = member[1].split(":");
+
+		String key = keyrArr[1];
+		String kind = kindArr[1];
+
+		if(kind.equals("user")) {
+			user.put(key, session);
+		}else {
+			admin.put(key, session);
+			chat.intoChattstorage(key);
+			System.out.println("첫번째 ccc");
+		}
+
+		if(chat.getChat().get(key) != null) {
+			System.out.println("세번째 ccc");
+			ArrayList<String> chatting = chat.getChat().get(key);
+			for(int i = 0; i < chatting.size(); i++) {
+				System.out.println("해당채팅내용 : " + chatting.get(i) );
+				synchronized(admin) {
+					try {
+						admin.get(key).getBasicRemote().sendText(chatting.get(i));
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		}
+
+
+
+
+
 	}
 
 	@OnMessage
 	public void onMessage(String msg, Session session) throws IOException {
-		//서버로부터 데이터를 전송받을 경우 동작할 메소드
-		System.out.println(msg);
-		//하나의 일 처리를 수행하는동안 사용자의 변경이 일어나면 안된다.
-		//즉 NullPointer를 방지하기 위해 동기화 처리를 해준다.
-		synchronized(clients) {
-			for(Session client : clients) {
-				client.getBasicRemote().sendText(msg);
 
+		System.out.println(msg);
+
+		String[] msgArr = msg.split("#");
+		String key = "";
+		String message = "";
+
+		for(int i = 0; i < msgArr.length; i++) {
+			if(i == 0) {
+				key = msgArr[i];
+			}else {
+				message += msgArr[i];
 			}
 		}
+
+		/*chat.intoChattstorage(key, message);*/
+
+		synchronized(user) {
+			user.get(key).getBasicRemote().sendText(message);
+		}
+
+		synchronized(admin) {
+			admin.get(key).getBasicRemote().sendText(message);
+		}
+
+
+
 	}
 
 	@OnError
@@ -48,7 +104,8 @@ public class StartChatting {
 	@OnClose
 	public void onClose(Session session) {
 		//지워주지 않으면 Set에 이미 나간 사용자가 남아있기 때문에 메세지 전송시 에러 난다.
-		clients.remove(session);
+		user.remove(session);
+		admin.remove(session);
 	}
 
 }

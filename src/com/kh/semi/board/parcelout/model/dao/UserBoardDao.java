@@ -1257,6 +1257,34 @@ public class UserBoardDao {
 	}
 
 
+	public int updateComment(Connection con, Coment cm) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+
+
+		String query = prop.getProperty("updateComment");
+
+		try {
+			pstmt = con.prepareStatement(query);
+
+			pstmt.setString(1, cm.getComent());
+			pstmt.setInt(2, cm.getConNo());
+
+
+
+			result = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+
+
+		return result;
+	}
+
+
 
 
 }

@@ -7,48 +7,94 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-	<%@ include file="../../../common/inner_user_include.jsp" %>
+<%@ include file="../../../common/inner_user_include.jsp" %>
+	
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<style>
+	#outer{
+
+		border:none; 
+		width:700px; 
+		height:auto; 
+		margin:0 auto;
+		padding-left:30px;
+
+
+	}	
+	
+	#div1{
+		 
+		text-align:center;
+		border-radius:0.5em;
+		margin:0 auto;
+	
+	}
+	
+	table tr td.td1{
+		background: rgb(204, 230, 255);
+		width: 95px;
+		height: 45px;
+		font-weight: bold;	
+	
+	}
+
+
+
+</style>
 </head>
 <body>
-<script type="text/javascript">
-<%-- <% if(msg.equals("Ż��")){%>
-		alert("ȸ������������ �����Ͽ����ϴ�.")
-
-<% }else{%>
-alert("ȸ������������ �Ϸ��Ͽ����ϴ�.")
-
-<% }%> --%>
-</script>
+<br><br>
 	<form action="/sixDestiny/update.user" method="post">
-	<div align="center" style="border:1px solid; width:500px; height:auto; margin:0 auto;">
+	<div align="center" id="outer">
+	
+	<div id="div1">	
 	<table>
-
 	<tr>
-		<td><div style="color:black; padding:5px; width:100px">이름</div></td>
-		<td><%= loginUser.getUserNm()%></td>
+		<td class="td1">이름</td>
+		<td class="td2"><%= loginUser.getUserNm()%></td>
+	</tr>
+	
+	<tr>
+		<td><br></td>
+	</tr>
+	
+	
+	<tr>
+		<td class="td1">아이디</td>
+		<td class="td2"><%= loginUser.getUserId()%><input name="userId" type="hidden" value="<%= loginUser.getUserId()%>"></td>
+	</tr>
+	
+	<tr>
+		<td><br></td>
 	</tr>
 
 	<tr>
-		<td><div style="color:black; padding:5px; width:100px">아이디</div></td>
-		<td><%= loginUser.getUserId()%><input name="userId" type="hidden" value="<%= loginUser.getUserId()%>"></td>
+		<td class="td1">닉네임</td>
+		<td class="td2"><input type="text" style="margin-left:30px" name="nickNm" value="<%= loginUser.getNickNm()%>" id="nickNm"></td>
+	    <td>&emsp;</td>
+	    <td class="td2">
+	    	<input type="button" id="btn1" class="btn btn-default" value="중복" onclick="checkNickNm();"> 
+	    	<input type="hidden" name="userNo" value="<%=loginUser.getUserNo()%>">
+	    </td>
+	</tr>
+	
+	<tr>
+		<td><br></td>
 	</tr>
 
 	<tr>
-		<td><div style="color:black; padding:5px; width:100px">닉네임</div></td>
-		<td><input type="text" name="nickNm" value="<%= loginUser.getNickNm()%>"></td>
-	    <td><input type="button" value="중복"> <input type="hidden" name="userNo" value="<%=loginUser.getUserNo()%>"></td>
-
+		<td class="td1">이메일</td>
+		<td class="td2"><input type="text" name="email" style="margin-left:30px" value="<%= loginUser.getEmail()%>"></td>
 	</tr>
+	
+	<tr>
+		<td><br></td>
+	</tr>
+	
 
 	<tr>
-		<td><div style="color:black; padding:5px; width:100px" >이메일</div></td>
-		<td><input type="text" name="email" value="<%= loginUser.getEmail()%>"></td>
-	</tr>
-
-	<tr>
-		<td><div style="color:black; padding:5px; width:100px">생년월일</div></td>
-		<td>
+		<td class="td1">생년월일</td>
+		<td class="td2">
 		<select name="year">
 <%for(int year=1981; year<=1998; year++) {%>
 	<%if(loginUser.getUserHb() != null && year == Integer.parseInt(loginUser.getUserHb().toString().substring(0, 4))) { %>
@@ -80,34 +126,67 @@ alert("ȸ������������ �Ϸ��Ͽ����ϴ�.")
 		</select>
 		</td>
 	</tr>
-
+	
 	<tr>
-		<td><div style="color:black; padding:5px; width:100px">성별</div></td>
-		<td><%= loginUser.getGender()%></td>
+		<td><br></td>
 	</tr>
 
 	<tr>
-		<td><div style="color:black; padding:5px; width:100px" >주소</div></td>
-		<td><input type="text" name="address" value="<%= loginUser.getAddress()%>"></td>
+		<td class="td1">성별</td>
+		<td class="td2"><%= loginUser.getGender()%></td>
+	</tr>
+	
+	<tr>
+		<td><br></td>
 	</tr>
 
 	<tr>
-		<td><div style="color:black; padding:5px; width:100px">반려견유무</div></td>
+		<td class="td1">주소</td>
+		<td class="td2"><input type="text" name="address" style="margin-left:30px; width:400px;" value="<%= loginUser.getAddress()%>"></td>
+	</tr>
+	
+	<tr>
+		<td><br></td>
+	</tr>
+
+	<tr>
+		<td class="td1">반려견유무</td>
 		<td>
 	<% if(loginUser.getDogYn().equals("Y")) {%>
-		<input type="radio" value="Y" name="dogYn" checked>키워요
+		<input type="radio" value="Y" name="dogYn" id="radio" checked>키워요
+		&nbsp;
 		<input type="radio" value="N" name="dogYn">안키워요
 	<% } else{ %>
 		<input type="radio" value="Y" name="dogYn" >키워요
+		&nbsp;
 		<input type="radio" value="N" name="dogYn" checked>안키워요
 	<%} %>
 		</td>
 	</tr>
-
 	</table>
-	<input type="submit" value="수정" >
+	</div>
+	<br><br><br>
+	<input type="submit" value="수정"  style="width:300px" class="btn btn-default">
 	</div>
 	</form>
+	
+	<script>
+	function checkNickNm(){
+		var nickNm = $("#nickNm").val();
+
+		$.ajax({
+			url:"/sixDestiny/nickNmCheck.user",
+			type:"post",
+			data:{nickNm:nickNm},
+			success:function(data){
+				alert(data);
+			},
+			error:function(){
+			}
+		});
+	}
+	
+	</script>
 <%@ include file="../../../common/bottom_Include.jsp"%>
 </body>
 </html>

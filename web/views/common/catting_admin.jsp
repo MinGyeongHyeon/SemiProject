@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%-- <%
+<%
 	int userNo = Integer.parseInt(request.getParameter("userNo"));
-%> --%>
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -37,12 +37,14 @@
 	var reset = 0;
 
 	function confirmchat(){
-		var wsUri = "ws://localhost:8002/sixDestiny/start";
+		var userNo = <%=userNo%>
+		var wsUri = "ws://localhost:8002/sixDestiny/start?userNo:"+userNo+"&kind:admin";
 		ws = new WebSocket(wsUri);
 		//서버 시작할 때 동작
 		ws.onopen = function(evt){
 			if(reset == 0){
-				ws.send("상담원이 연결되었습니다. 상담을 시작하세요!");
+				var message = userNo + "#상담원이 연결되었습니다. 상담을 시작하세요!"
+				ws.send(message);
 				reset++;
 				console.log(reset);
 			}else{
@@ -69,7 +71,7 @@
 	        if(key.keyCode == 13){
 	        	console.log("엔터!");
 	        	var message = $("#message").val();
-	        	var result = "상담원 : " + message
+	        	var result = userNo + "#상담원 : " + message
 				console.log(result);
 				ws.send(result);
 				$("#message").val('');
@@ -82,7 +84,7 @@
 			console.log("클릭!");
 
 				var message = $("#message").val();
-				var result = "상담원 : " + message
+				var result = userNo+ "#상담원 : " + message
 				console.log(result);
 				ws.send(result);
 				$("#message").val('');

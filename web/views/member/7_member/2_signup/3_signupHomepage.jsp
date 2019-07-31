@@ -175,14 +175,15 @@
 				</tr>
 				<tr>
 					<td><span class="button-checkbox">
-							<button type="button" class="btn" data-color="info"
-								style="font-family: 'Sunflower', sans-serif; width: 170px; height: 50px">남자</button>
+							<button type="button" class="btn" data-color="info" style="font-family: 'Sunflower', sans-serif; width: 170px; height: 50px">남자</button>
 							<input type="checkbox" class="hidden" name="gender" value="M">
-					</span> <span class="button-checkbox">
-							<button type="button" class="btn" data-color="info"
-								style="font-family: 'Sunflower', sans-serif; width: 170px; height: 50px">여자</button>
+						</span> 
+						
+						<span class="button-checkbox">
+							<button type="button" class="btn" data-color="info" style="font-family: 'Sunflower', sans-serif; width: 170px; height: 50px">여자</button>
 							<input type="checkbox" class="hidden" name="gender" value="F">
-					</span></td>
+						</span>
+					</td>
 				</tr>
 				<tr>
 					<td><br></td>
@@ -467,6 +468,8 @@ $(function () {
 		});
 	}
 </script>
+
+
 
 	<%@ include file="../../../common/bottom_Include.jsp"%>
 </body>

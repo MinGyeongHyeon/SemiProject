@@ -43,7 +43,7 @@
 		ws = new WebSocket(wsUri);
 		//서버 시작할 때 동작
 		ws.onopen = function(evt){
-			var confirm = "confirm";
+			var confirm = <%=userNo%>;
 
 			console.log(confirm);
 
@@ -69,7 +69,8 @@
 	}
 
 	function gochat2(){
-		var wsUri = "ws://localhost:8002/sixDestiny/start";
+		var userNo = <%=userNo%>
+		var wsUri = "ws://localhost:8002/sixDestiny/start?userNo:"+userNo+"&kind:user";
 		ws2 = new WebSocket(wsUri);
 		//서버 시작할 때 동작
 		ws2.onopen = function(evt){
@@ -95,7 +96,7 @@
 	        if(key.keyCode == 13){
 	        	console.log("엔터!");
 	        	var message = $("#message").val();
-				var result = <%=userNo%> + " 회원님 : " + message
+				var result = userNo + "#" +userNo + " 회원님 : " + message
 				console.log(result);
 				ws2.send(result);
 				$("#message").val('');
@@ -108,7 +109,7 @@
 			console.log("클릭!");
 
 				var message = $("#message").val();
-				var result = <%=userNo%> + " 회원님 : " + message
+				var result = userNo + "#" + userNo + " 회원님 : " + message
 				console.log(result);
 				ws2.send(result);
 				$("#message").val('');

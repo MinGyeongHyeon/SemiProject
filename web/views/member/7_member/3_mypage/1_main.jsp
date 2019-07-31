@@ -151,7 +151,8 @@ table tr td.category2 {
 				<table>
 					<tr>
 						<td><input type="button" value="회원정보 수정"  class="btn btn-default" onclick="location.href='/sixDestiny/views/member/7_member/3_mypage/3_modify.jsp'"></td>
-						<td ><input type="button" style="margin-left:50px;" value="회원 탈퇴" class="btn btn-default" onclick="location.href='/sixDestiny/views/member/7_member/3_mypage/2_secession.jsp'">
+						<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+						<td ><input type="button" value="회원 탈퇴" class="btn btn-default" onclick="location.href='/sixDestiny/views/member/7_member/3_mypage/2_secession.jsp'">
 						</td>
 					</tr>
 				</table>

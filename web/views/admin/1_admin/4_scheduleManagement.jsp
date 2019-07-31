@@ -323,7 +323,12 @@ while(newLine > 0 && newLine < 7)
 									<p>상담대기</p>
 							<% } %>
 						</td>
-				<% }%>
+				<% }else{%>
+						<td style="font-family: 'Sunflower', sans-serif;"></td>
+						<td style="font-family: 'Sunflower', sans-serif;"></td>
+						<td style="font-family: 'Sunflower', sans-serif;"></td>
+						<td style="font-family: 'Sunflower', sans-serif;"></td>
+				<% } %>
     		<% } %>
     		</tr>
     	<% } %>
@@ -364,7 +369,12 @@ while(newLine > 0 && newLine < 7)
 									<p>상담대기</p>
 							<% } %>
 						</td>
-				<% }%>
+				<% }else{%>
+						<td style="font-family: 'Sunflower', sans-serif;"></td>
+						<td style="font-family: 'Sunflower', sans-serif;"></td>
+						<td style="font-family: 'Sunflower', sans-serif;"></td>
+						<td style="font-family: 'Sunflower', sans-serif;"></td>
+				<% } %>
     		<% } %>
     		</tr>
     	<% } %>
@@ -506,7 +516,6 @@ while(newLine > 0 && newLine < 7)
 		    						$td4.append($p4);
 		    					}
 		    					$p1.append(data["entrance"][j].selNo);
-		    					$input.val(data["entrance"][j].selNo)
 		    					$td1.append($p1);
 		    					$p2.append(data["entrance"][j].userNm);
 		    					$td2.append($p2);
