@@ -16,7 +16,7 @@ import com.kh.semi.board.parcelout.model.vo.Attachment;
 public class AdminBoardService {
 
 	public ArrayList<AdminBoard> selectList() {
-
+		
 		return null;
 	}
 
@@ -231,53 +231,35 @@ public class AdminBoardService {
 		return list;
 	}
 
-	public int getmssingCount() {
+	public int deleteNotice(int adBoardNo) {
 		Connection con = getConnection();
-		int result = 0;
+		
+		int result = new AdminBoardDao().deleteNotice(con, adBoardNo);
+		
+		if(result>0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		
+		return result;
+	
+	}
 
-		result = new AdminBoardDao().getmssingCount(con);
-
-		close(con);
-
-
-
+	public int updateNotice(AdminBoard ab) {
+		Connection con = getConnection();
+		
+		int result = new AdminBoardDao().updateNotice(con, ab);
+		
+		if(result > 0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
 		return result;
 	}
 
-	public ArrayList<AdminUserBoard> selectmissing(int currentPage, int limit) {
-			Connection con = getConnection();
+	
 
-			ArrayList<AdminUserBoard> list = null;
-
-			list = new AdminBoardDao().selectmissing(con,currentPage,limit);
-
-			close(con);
-
-		return list;
-	}
-
-	public int getmssingCount2() {
-		Connection con = getConnection();
-		int result = 0;
-
-		result = new AdminBoardDao().getmssingCount2(con);
-
-		close(con);
-
-
-		return result;
-	}
-
-	public ArrayList<AdminUserBoard> selectmissing2(int currentPage, int limit) {
-		Connection con = getConnection();
-
-		ArrayList<AdminUserBoard> list = null;
-
-		list = new AdminBoardDao().selectmissing2(con,currentPage,limit);
-
-		close(con);
-
-	return list;
-	}
 
 }

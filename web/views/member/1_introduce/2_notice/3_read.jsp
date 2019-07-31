@@ -45,6 +45,9 @@
 			</td>
 		</tr>
 		<tr>
+			<td rowspan="4"><img src="" alt=""></td>
+		</tr>
+		<tr>
 			<td style="font-weight:bold; font-family: 'Sunflower', sans-serif;">
 				조회수 : <%= ab.getRecCount() %>
 			</td>
@@ -55,14 +58,15 @@
 			</td>
 		</tr>
 	</table>
-	<div align="center">
-		<br>
-		<% if(loginUser != null && loginUser.getUserId().equals("admin")){ %>
-		<button class="btn btn-default" style="font-family: 'Sunflower', sans-serif;">수정</button>
-		<button class="btn btn-default" style="font-family: 'Sunflower', sans-serif;">삭제</button>
-		<% } %>
-	</div>
 </div>
+	<br>
+	<div align="center">
+		<button class="btn btn-default" style="font-family: 'Sunflower', sans-serif;" onclick="location.href='<%=request.getContextPath()%>/select.no'">메뉴로 돌아가기</button>
+	<% if(loginUser != null && loginUser.getUserId().equals("admin")) { %>
+		<button class="btn btn-default" style="font-family: 'Sunflower', sans-serif;" onclick="location.href='<%= request.getContextPath()%>/selectNotice.no?num=<%=ab.getAdBoardCon() %>">수정하기</button>
+	<%} %>	
+	</div>
+
 
 <%@ include file="../../../common/bottom_Include.jsp"%>
 </body>
