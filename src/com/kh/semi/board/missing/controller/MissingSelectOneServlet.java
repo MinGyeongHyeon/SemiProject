@@ -23,7 +23,7 @@ import com.kh.semi.board.parcelout.model.vo.Coment;
 @WebServlet("/missingSelectOne.bo")
 public class MissingSelectOneServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -37,7 +37,7 @@ public class MissingSelectOneServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-	
+
 	int num = Integer.parseInt(request.getParameter("num"));
 	int uu=0;
 
@@ -45,27 +45,27 @@ if(request.getParameter("uu")!="") {
 	uu= Integer.parseInt(request.getParameter("uu"));
 	System.out.println(uu+"uuuuuuuuuuuu");
 }
-		
+
 
 
 		HashMap<String, Object> hmap = new MissingService().missingselectThumbnailMap(num);
 		ArrayList<Comment> list = (ArrayList<Comment>) hmap.get("comment");
 		int re=  new MissingService().re(num, uu);
-	
+
 		Missing b = (Missing) hmap.get("board");
 		b.setUu(re);
 
 		System.out.println("보드?????????/"+b);
-		ArrayList<MissingAttachment> fileList = 
+		ArrayList<MissingAttachment> fileList =
 				(ArrayList<MissingAttachment>) hmap.get("attachment");
-		
+
 		String page = "";
-		
+
 		if(hmap != null) {
 			page = "views/member/4_missing/1_fine/3_read.jsp";
 			request.setAttribute("b", b);
 			request.setAttribute("fileList", fileList);
-			
+
 			if(list != null) {
 
 				if(list.size() > 0) {
@@ -82,9 +82,9 @@ if(request.getParameter("uu")!="") {
 		}
 		*/
 		request.getRequestDispatcher(page).forward(request, response);
-		
+
 		}
-	
+
 
 
 	/**

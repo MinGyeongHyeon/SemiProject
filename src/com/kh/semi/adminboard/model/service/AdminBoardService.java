@@ -231,4 +231,53 @@ public class AdminBoardService {
 		return list;
 	}
 
+	public int getmssingCount() {
+		Connection con = getConnection();
+		int result = 0;
+
+		result = new AdminBoardDao().getmssingCount(con);
+
+		close(con);
+
+
+
+		return result;
+	}
+
+	public ArrayList<AdminUserBoard> selectmissing(int currentPage, int limit) {
+			Connection con = getConnection();
+
+			ArrayList<AdminUserBoard> list = null;
+
+			list = new AdminBoardDao().selectmissing(con,currentPage,limit);
+
+			close(con);
+
+		return list;
+	}
+
+	public int getmssingCount2() {
+		Connection con = getConnection();
+		int result = 0;
+
+		result = new AdminBoardDao().getmssingCount2(con);
+
+		close(con);
+
+
+		return result;
+	}
+
+	public ArrayList<AdminUserBoard> selectmissing2(int currentPage, int limit) {
+		Connection con = getConnection();
+
+		ArrayList<AdminUserBoard> list = null;
+
+		list = new AdminBoardDao().selectmissing2(con,currentPage,limit);
+
+		close(con);
+
+	return list;
+	}
+
 }

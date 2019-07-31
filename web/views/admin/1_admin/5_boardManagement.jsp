@@ -133,7 +133,12 @@ th {
          </td>
       </tr>
    </table>
+
+
    <script>
+
+
+
    $(function(){
 	  $('#selectboard').change(function(){
 		  var data = $(this).val();
@@ -145,7 +150,8 @@ th {
 				data:{data:data},
 				type:"get",
 				success:function(data){
-					console.log(data.list);
+					console.log(data);
+					console.log(data.pi.currentPage);
 					var $tbody = $('#remonebody')
 
 					$tbody.children().remove();
@@ -181,6 +187,69 @@ th {
 
 					}
 
+					var currentPage = data.pi.currentPage;
+					var getListCount = data.pi.getListCount;
+					var limit = data.pi.limit;
+					var maxPage = data.pi.maxPage;
+					var startPage = data.pi.startPage;
+					var endPage = data.pi.endPage;
+
+				 	var $ul = $('<ul>');
+
+					var $li1 = $('<li>');
+					var $li2 = $('<li>');
+					var $li3 = $('<li>');
+					var $li4 = $('<li>');
+					var $li5 = $('<li>');
+
+					var $a1 = $('<a>');
+					var $a2 = $('<a>');
+
+					var $a4 = $('<a>');
+					var $a5 = $('<a>');
+
+					$ul.addClass('pagination');
+
+					$a1.attr({'onclick':'selectall(' + 1 + ', "selectAll" '  + ');'});
+					$a1.html('◀◀');
+					$li1.append($a1);
+					$ul.append($li1);
+
+					$a2.attr({'onclick':'selectall(' + -1 +  ', "selectAll" ' +');'});
+					$a2.html('◀');
+					$li2.append($a2);
+					$ul.append($li2);
+
+					for(var p = startPage; p <= endPage; p++){
+						$a3 = $('<a>');
+						$a3.attr({'onclick':'selectall(' + p + ', "selectAll" ' + ');'});
+						$a3.html(p);
+						$li3.append($a3);
+					$ul.append($li3);
+					}
+
+					$a4.attr({'onclick':'selectall(' + +1 + ', "selectAll" ' + ');'});
+					$a4.html('▶');
+					$li4.append($a4);
+					$ul.append($li4);
+
+					$a5.attr({'onclick':'selectall(' + endPage + ', "selectAll" ' + ');'});
+					$a5.html('▶▶');
+					$li5.append($a5);
+					$ul.append($li5);
+
+
+
+
+
+
+
+
+					$('.pagingArea').children().remove();
+					$('.pagingArea').append($ul);
+
+
+
 					$("#listArea td").mouseenter(function(){
 						$(this).parent().css({"background":"rgb(240,240,240)", "cursor":"pointer"});
 					}).mouseout(function(){
@@ -201,7 +270,11 @@ th {
 
 						location.href="<%=request.getContextPath()%>/selectOne.bo?num=" + num ;
 
-						}
+						}else if(kind == "실종"){
+
+							location.href="<%=request.getContextPath()%>/missingSelectOne.bo?num=" + num + "&uu=" + uNo;
+
+							}
 
 					});
 
@@ -252,6 +325,65 @@ th {
 
 
 						}
+
+
+
+						var currentPage = data.pi.currentPage;
+						var getListCount = data.pi.getListCount;
+						var limit = data.pi.limit;
+						var maxPage = data.pi.maxPage;
+						var startPage = data.pi.startPage;
+						var endPage = data.pi.endPage;
+
+					 	var $ul = $('<ul>');
+
+						var $li1 = $('<li>');
+						var $li2 = $('<li>');
+						var $li3 = $('<li>');
+						var $li4 = $('<li>');
+						var $li5 = $('<li>');
+
+						var $a1 = $('<a>');
+						var $a2 = $('<a>');
+
+						var $a4 = $('<a>');
+						var $a5 = $('<a>');
+
+						$ul.addClass('pagination');
+
+						$a1.attr({'onclick':'selectall(' + 1 + ', "selectfree" '  + ');'});
+						$a1.html('◀◀');
+						$li1.append($a1);
+						$ul.append($li1);
+
+						$a2.attr({'onclick':'selectall(' + -1 +  ', "selectfree" ' +');'});
+						$a2.html('◀');
+						$li2.append($a2);
+						$ul.append($li2);
+
+						for(var p = startPage; p <= endPage; p++){
+							$a3 = $('<a>');
+							$a3.attr({'onclick':'selectall(' + p + ', "selectfree" ' + ');'});
+							$a3.html(p);
+							$li3.append($a3);
+						$ul.append($li3);
+						}
+
+						$a4.attr({'onclick':'selectall(' + +1 + ', "selectfree" ' + ');'});
+						$a4.html('▶');
+						$li4.append($a4);
+						$ul.append($li4);
+
+						$a5.attr({'onclick':'selectall(' + endPage + ', "selectfree" ' + ');'});
+						$a5.html('▶▶');
+						$li5.append($a5);
+						$ul.append($li5);
+
+
+
+
+						$('.pagingArea').children().remove();
+						$('.pagingArea').append($ul);
 
 						$("#listArea td").mouseenter(function(){
 							$(this).parent().css({"background":"rgb(240,240,240)", "cursor":"pointer"});
@@ -320,7 +452,66 @@ th {
 								$tbody.append($tr);
 
 
+
+
+
 						}
+
+						var currentPage = data.pi.currentPage;
+						var getListCount = data.pi.getListCount;
+						var limit = data.pi.limit;
+						var maxPage = data.pi.maxPage;
+						var startPage = data.pi.startPage;
+						var endPage = data.pi.endPage;
+
+					 	var $ul = $('<ul>');
+
+						var $li1 = $('<li>');
+						var $li2 = $('<li>');
+						var $li3 = $('<li>');
+						var $li4 = $('<li>');
+						var $li5 = $('<li>');
+
+						var $a1 = $('<a>');
+						var $a2 = $('<a>');
+
+						var $a4 = $('<a>');
+						var $a5 = $('<a>');
+
+						$ul.addClass('pagination');
+
+						$a1.attr({'onclick':'selectall(' + 1 + ', "selectparcelout" '  + ');'});
+						$a1.html('◀◀');
+						$li1.append($a1);
+						$ul.append($li1);
+
+						$a2.attr({'onclick':'selectall(' + -1 +  ', "selectparcelout" ' +');'});
+						$a2.html('◀');
+						$li2.append($a2);
+						$ul.append($li2);
+
+						for(var p = startPage; p <= endPage; p++){
+							$a3 = $('<a>');
+							$a3.attr({'onclick':'selectall(' + p + ', "selectparcelout" ' + ');'});
+							$a3.html(p);
+							$li3.append($a3);
+						$ul.append($li3);
+						}
+
+						$a4.attr({'onclick':'selectall(' + +1 + ', "selectparcelout" ' + ');'});
+						$a4.html('▶');
+						$li4.append($a4);
+						$ul.append($li4);
+
+						$a5.attr({'onclick':'selectall(' + endPage + ', "selectparcelout" ' + ');'});
+						$a5.html('▶▶');
+						$li5.append($a5);
+						$ul.append($li5);
+
+
+
+						$('.pagingArea').children().remove();
+						$('.pagingArea').append($ul);
 
 						$("#listArea td").mouseenter(function(){
 							$(this).parent().css({"background":"rgb(240,240,240)", "cursor":"pointer"});
@@ -348,8 +539,262 @@ th {
 				});
 
 		 }else if(data == "selectmissing"){
-			 
+			 $.ajax({
+					url:"AjaxBoard.ab",
+					data:{data:data},
+					type:"get",
+					success:function(data){
+						console.log(data.list);
+						var $tbody = $('#remonebody')
+
+						$tbody.children().remove();
+
+
+					console.log(data.list);
+						for(var i = 0; i < data.list.length; i++){
+
+						 	var $tr = $('<tr class="adtr">');
+							var $td1 = $('<td class="adtr">');
+							var $td2 = $('<td class="adtr">');
+							var $td3 = $('<td class="adtr">');
+							var $td4 = $('<td class="adtr">');
+							var $td5 = $('<td class="adtr">');
+							var $td6 = $('<td class="adtr">');
+
+								$td1.text(data.list[i].boardNo);
+								$td2.text(data.list[i].bKind);
+								$td3.text(data.list[i].bNm);
+								$td4.text(data.list[i].bUserNick);
+								$td5.text(data.list[i].recCon);
+								$td6.text(data.list[i].inqCon);
+
+								$tr.append($td1);
+								$tr.append($td2);
+								$tr.append($td3);
+								$tr.append($td4);
+								$tr.append($td5);
+								$tr.append($td6);
+
+								$tbody.append($tr);
+
+
+						}
+
+
+
+						var currentPage = data.pi.currentPage;
+						var getListCount = data.pi.getListCount;
+						var limit = data.pi.limit;
+						var maxPage = data.pi.maxPage;
+						var startPage = data.pi.startPage;
+						var endPage = data.pi.endPage;
+
+					 	var $ul = $('<ul>');
+
+						var $li1 = $('<li>');
+						var $li2 = $('<li>');
+						var $li3 = $('<li>');
+						var $li4 = $('<li>');
+						var $li5 = $('<li>');
+
+						var $a1 = $('<a>');
+						var $a2 = $('<a>');
+
+						var $a4 = $('<a>');
+						var $a5 = $('<a>');
+
+						$ul.addClass('pagination');
+
+						$a1.attr({'onclick':'selectall(' + 1 + ', "selectmissing" '  + ');'});
+						$a1.html('◀◀');
+						$li1.append($a1);
+						$ul.append($li1);
+
+						$a2.attr({'onclick':'selectall(' + -1 +  ', "selectmissing" ' +');'});
+						$a2.html('◀');
+						$li2.append($a2);
+						$ul.append($li2);
+
+						for(var p = startPage; p <= endPage; p++){
+							$a3 = $('<a>');
+							$a3.attr({'onclick':'selectall(' + p + ', "selectmissing" ' + ');'});
+							$a3.html(p);
+							$li3.append($a3);
+						$ul.append($li3);
+						}
+
+						$a4.attr({'onclick':'selectall(' + +1 + ', "selectmissing" ' + ');'});
+						$a4.html('▶');
+						$li4.append($a4);
+						$ul.append($li4);
+
+						$a5.attr({'onclick':'selectall(' + endPage + ', "selectmissing" ' + ');'});
+						$a5.html('▶▶');
+						$li5.append($a5);
+						$ul.append($li5);
+
+
+
+						$('.pagingArea').children().remove();
+						$('.pagingArea').append($ul);;
+
+						$("#listArea td").mouseenter(function(){
+							$(this).parent().css({"background":"rgb(240,240,240)", "cursor":"pointer"});
+						}).mouseout(function(){
+							$(this).parent().css({"background":"#FFF"});
+						}).click(function(){
+							var num = $(this).parent().children().eq(0).text();
+							var kind = $(this).parent().children().eq(1).text();
+							var uNo = <%= loginUser.getUserNo() %>
+
+							console.log(num);
+
+
+							if(kind == "실종"){
+
+							location.href="<%=request.getContextPath()%>/missingSelectOne.bo?num=" + num + "&uu=" + uNo;
+
+							}
+						});
+
+
+
+					}
+
+				});
+
+
+		 }else if(data == "selectmissing2"){
+
+			 $.ajax({
+					url:"AjaxBoard.ab",
+					data:{data:data},
+					type:"get",
+					success:function(data){
+						console.log(data.list);
+						var $tbody = $('#remonebody')
+
+						$tbody.children().remove();
+
+
+					console.log(data.list);
+						for(var i = 0; i < data.list.length; i++){
+
+						 	var $tr = $('<tr class="adtr">');
+							var $td1 = $('<td class="adtr">');
+							var $td2 = $('<td class="adtr">');
+							var $td3 = $('<td class="adtr">');
+							var $td4 = $('<td class="adtr">');
+							var $td5 = $('<td class="adtr">');
+							var $td6 = $('<td class="adtr">');
+
+								$td1.text(data.list[i].boardNo);
+								$td2.text(data.list[i].bKind);
+								$td3.text(data.list[i].bNm);
+								$td4.text(data.list[i].bUserNick);
+								$td5.text(data.list[i].recCon);
+								$td6.text(data.list[i].inqCon);
+
+								$tr.append($td1);
+								$tr.append($td2);
+								$tr.append($td3);
+								$tr.append($td4);
+								$tr.append($td5);
+								$tr.append($td6);
+
+								$tbody.append($tr);
+
+
+						}
+
+						var currentPage = data.pi.currentPage;
+						var getListCount = data.pi.getListCount;
+						var limit = data.pi.limit;
+						var maxPage = data.pi.maxPage;
+						var startPage = data.pi.startPage;
+						var endPage = data.pi.endPage;
+
+					 	var $ul = $('<ul>');
+
+						var $li1 = $('<li>');
+						var $li2 = $('<li>');
+						var $li3 = $('<li>');
+						var $li4 = $('<li>');
+						var $li5 = $('<li>');
+
+						var $a1 = $('<a>');
+						var $a2 = $('<a>');
+
+						var $a4 = $('<a>');
+						var $a5 = $('<a>');
+
+						$ul.addClass('pagination');
+
+						$a1.attr({'onclick':'selectall(' + 1 + ', "selectmissing2" '  + ');'});
+						$a1.html('◀◀');
+						$li1.append($a1);
+						$ul.append($li1);
+
+						$a2.attr({'onclick':'selectall(' + -1 +  ', "selectmissing2" ' +');'});
+						$a2.html('◀');
+						$li2.append($a2);
+						$ul.append($li2);
+
+						for(var p = startPage; p <= endPage; p++){
+							$a3 = $('<a>');
+							$a3.attr({'onclick':'selectall(' + p + ', "selectmissing2" ' + ');'});
+							$a3.html(p);
+							$li3.append($a3);
+						$ul.append($li3);
+						}
+
+						$a4.attr({'onclick':'selectall(' + +1 + ', "selectmissing2" ' + ');'});
+						$a4.html('▶');
+						$li4.append($a4);
+						$ul.append($li4);
+
+						$a5.attr({'onclick':'selectall(' + endPage + ', "selectmissing2" ' + ');'});
+						$a5.html('▶▶');
+						$li5.append($a5);
+						$ul.append($li5);
+
+
+
+						$('.pagingArea').children().remove();
+						$('.pagingArea').append($ul);
+
+
+						$("#listArea td").mouseenter(function(){
+							$(this).parent().css({"background":"rgb(240,240,240)", "cursor":"pointer"});
+						}).mouseout(function(){
+							$(this).parent().css({"background":"#FFF"});
+						}).click(function(){
+							var num = $(this).parent().children().eq(0).text();
+							var kind = $(this).parent().children().eq(1).text();
+							var uNo = <%= loginUser.getUserNo() %>
+
+							console.log(num);
+
+
+							if(kind == "실종"){
+
+							location.href="<%=request.getContextPath()%>/missingSelectOne.bo?num=" + num + "&uu=" + uNo;
+
+							}
+						});
+
+
+
+					}
+
+				});
+
+
+
 		 }
+
+
+
 	  })
    });
 
@@ -370,7 +815,13 @@ $("#listArea td").mouseenter(function(){
 
 	location.href="<%=request.getContextPath()%>/selectParceloutOne.tn?num=" + num + "&uNo=" + uNo;
 
+	}else if(kind == "실종"){
+		location.href="<%=request.getContextPath()%>/missingSelectOne.bo?num=" + num + "&uu=" + uNo;
+	}else if(kind == "잡담" || kind == "꿀팁" || kind == "자랑"){
+
+	location.href="<%=request.getContextPath()%>/selectOne.bo?num=" + num ;
 	}
+
 
 });
 
@@ -528,6 +979,96 @@ $("#listArea td").mouseenter(function(){
    </ul>
 
    <br><br>
+
+    <script>
+   	function selectall(curr ,data){
+   		var currentPage = curr;
+   		var data = data;
+
+   			$.ajax({
+   				url:"AjaxBoard.ab",
+   				data:{data:data,currentPage:curr},
+   				type:"get",
+   				success:function(data){
+   					var $tbody = $('#remonebody')
+
+					$tbody.children().remove();
+
+
+				console.log(data.list);
+					for(var i = 0; i < data.list.length; i++){
+
+					 	var $tr = $('<tr class="adtr">');
+						var $td1 = $('<td class="adtr">');
+						var $td2 = $('<td class="adtr">');
+						var $td3 = $('<td class="adtr">');
+						var $td4 = $('<td class="adtr">');
+						var $td5 = $('<td class="adtr">');
+						var $td6 = $('<td class="adtr">');
+
+							$td1.text(data.list[i].boardNo);
+							$td2.text(data.list[i].bKind);
+							$td3.text(data.list[i].bNm);
+							$td4.text(data.list[i].bUserNick);
+							$td5.text(data.list[i].recCon);
+							$td6.text(data.list[i].inqCon);
+
+							$tr.append($td1);
+							$tr.append($td2);
+							$tr.append($td3);
+							$tr.append($td4);
+							$tr.append($td5);
+							$tr.append($td6);
+
+							$tbody.append($tr);
+
+
+					}
+
+
+					$("#listArea td").mouseenter(function(){
+						$(this).parent().css({"background":"rgb(240,240,240)", "cursor":"pointer"});
+					}).mouseout(function(){
+						$(this).parent().css({"background":"#FFF"});
+					}).click(function(){
+						var num = $(this).parent().children().eq(0).text();
+						var kind = $(this).parent().children().eq(1).text();
+						var uNo = <%= loginUser.getUserNo() %>
+
+						console.log(num);
+
+						if(kind == "분양후기"){
+
+						location.href="<%=request.getContextPath()%>/selectParceloutOne.tn?num=" + num + "&uNo=" + uNo;
+
+						}else if(kind == "잡담" || kind == "꿀팁" || kind == "자랑"){
+
+						location.href="<%=request.getContextPath()%>/selectOne.bo?num=" + num ;
+
+						}else if(kind == "실종"){
+
+							location.href="<%=request.getContextPath()%>/missingSelectOne.bo?num=" + num + "&uu=" + uNo;
+
+							}
+
+
+					});
+
+   				}
+
+
+
+
+
+   			});
+
+
+
+
+
+   	}
+
+   </script>
 
   <!--  <div align="left" style="margin-left:300px;">
       <span><h2>신고 댓글 관리</h2></span>

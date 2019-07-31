@@ -59,7 +59,11 @@ public class SelectAjaxBoard extends HttpServlet {
 
 				}else if(data.equals("selectmissing")) {
 
+					listCount = new AdminBoardService().getmssingCount();
+
 				}else if(data.equals("selectmissing2")) {
+
+					listCount = new AdminBoardService().getmssingCount2();
 
 				}
 
@@ -102,7 +106,15 @@ public class SelectAjaxBoard extends HttpServlet {
 
 				list = new AdminBoardService().selectparcelout(currentPage,limit);
 
+			}else if(data.equals("selectmissing")) {
+
+				list = new AdminBoardService().selectmissing(currentPage,limit);
+
+			}else if(data.equals("selectmissing2")) {
+
+				list = new AdminBoardService().selectmissing2(currentPage, limit);
 			}
+
 
 			hmap.put("list", list);
 			hmap.put("pi", pi);
