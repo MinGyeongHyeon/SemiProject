@@ -70,7 +70,7 @@
     						</span>
     							<span class="button-checkbox">
         						<button type="button" class="btn" data-color="info" style="font-family: 'Sunflower', sans-serif; width:170px; height:30px">여자</button>
-        					<input type="checkbox" class="hidden"  value="F" name="gender">
+        					<input type="checkbox" class="hidden"  value="F" name="gender"> 
     						</span>
 						</td>
 					</tr>
@@ -713,6 +713,6 @@ $(function () {
 	});
 
 </script>
-		<%@ include file="../../../common/bottom_Include.jsp"%>
+<%@ include file="../../../common/bottom_Include.jsp"%>
 </body>
 </html>

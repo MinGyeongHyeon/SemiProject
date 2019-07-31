@@ -20,6 +20,7 @@
 	Color: white;
 	width: 300px;
 	height: 50px;
+	border:none;
 }
 
 
