@@ -5,6 +5,7 @@
 	ArrayList<UserBoardAttachment> fileList = (ArrayList<UserBoardAttachment>) request.getAttribute("fileList");
 	UserBoardAttachment titleImg = fileList.get(0);
 	int recCount = (int) request.getAttribute("recCount");
+	int num = (int) request.getAttribute("num");
 
 %>
 <%@ include file="../../../common/top_Include.jsp"%>
@@ -41,7 +42,7 @@
 			<table class="table table-hover">
 				<thead>
 					<tr>
-						<th><%=ub.getbNo()%></th>
+						<th id="bNo"><%=ub.getbNo()%></th>
 						<th>카테고리 : <%=ub.getbKind() %></th>
 						<th>제목 : <%=ub.getbNm()%></th>
 						<th>글쓴이 : <%=ub.getbUserNick() %></th>
@@ -80,36 +81,19 @@
 			<table class="ui single line table" style="width:70%; text-align:center; margin-left:auto; margin-right:auto;">
 				  <thead>
 				    <tr>
-				      <th>댓글번호</th>
-				      <th>작성자</th>
-				      <th>내용</th>
-				      <th>날짜</th>
+				    <th style="width:50px;">신고</th>
+				      <th style="width:50px;">댓글번호</th>
+				      <th style="width:50px;">작성자</th>
+				      <th style="width:500px;;">내용</th>
+				      <th style="width:50px;">날짜</th>
 				      <%if(loginUser != null){ %>
-				      <th>신고</th>
-				      <th>수정 삭제</th>
+				      
+				      <th style="width:50px;">수정 삭제</th>
 				      <%} %>
 				    </tr>
 				  </thead>
-				  <tbody>
-				    <tr>
-				      <td>123</td>
-				      <td id="comwriter">트월킹지효</td>
-				      <td>ㄴㅇ놀엏라ㅗ헔ㄱㄷㅈㄱㄷㅅㅁ굔여샤ㅕㅏ롷ㄹㅇㄴㄷㅅㄱ묜ㅇ샤ㅕ라ㅗㅎㅇㄹㅇㅎㄴㄷㅅㄱ묜샤여ㅣㅗㅓㅇㅎㄹㅇㄱㄷㅅㅛㄱㅁㄴ샤아호롱ㅎㄴㄷ</td>
-				      <td>19/07/30</td>
-				      
-				 <% if(loginUser != null){%>
-				 
-				     
-				      <td style="padding:3px;"><input type="button" value="신고" id="reportPr" style="outline-style:none;" class="btn btn-default"></td>
-			    	  <td style="padding:3px;">	
-				      	<div class="ui buttons">
-					  	<button class="ui button">수정</button>
-					  	<button class="ui button">삭제</button>
-						</div>
-						</td>
-						<%} %>
-					    </tr>
-					  
+				  <tbody id="commentArea">
+				    
 					
 				    
 				  </tbody>
@@ -129,7 +113,7 @@
 	<script >
 	function deleteBoard(){
 	if(confirm("정말 삭제 하시겠습니까?")){
-		var nno = $("th").parent().children().eq(0).text();
+		var nno = <%= ub.getbNo() %>
 	
 			$.ajax({
 				url:"/sixDestiny/delete.ub",
@@ -149,7 +133,7 @@
 	
 	function updateBoard(){
 		if(confirm("정말 수정 하시겠습니까? \n[사진은 수정이 불가합니다.]")){
-			var bno = $("th").parent().children().eq(0).text();
+			var bno = <%= ub.getbNo() %>
 		
 				$.ajax({
 					url:"/sixDestiny/update.ubr",
@@ -180,7 +164,7 @@
 	 
 	 
 	 function insertRec() {
-		 	var thisBoardNo = $("th").parent().children().eq(0).text();
+		 	var thisBoardNo = <%= ub.getbNo() %>
 			var nowLoginUser= <%=loginUser.getUserNo()%>;
 		 	
 		 
@@ -206,7 +190,7 @@
 	 
 
 	 function deleteRec() {
-		 	var thisBoardNo = $("th").parent().children().eq(0).text();
+		 	var thisBoardNo = ub.getbNo() 
 			var nowLoginUser= <%=loginUser.getUserNo()%>;
 		 	
 		 
@@ -232,10 +216,12 @@
 	
 		 $(document).ready(function(){
 			 heart();
+			 commentList();
 
 		});
+		 
 		function heart(){
-			var thisBoardNo = $("th").parent().children().eq(0).text();
+			var thisBoardNo = <%= ub.getbNo() %>
 			var nowLoginUser= <%=loginUser.getUserNo()%>;
 			var red = $('<button class="parcleup" id="redHeart" style="background: none; outline-color:pink; border: none;" onclick="deleteRec()"><img src="/sixDestiny/images/redheart.png" width="25px;" height="20px;" id="imgtest"></button>');
 			var gray = $('<button class="parcleup" id="grayHeart" style="background: none; outline-color:pink; border: none;" onclick="insertRec()"><img src="/sixDestiny/images/grayheart.png" width="25px;" height="20px;" id="imgtest"></button>');
@@ -264,7 +250,7 @@
 		}
 		
 		function count(){
-			var thisBoardNo = $("th").parent().children().eq(0).text();
+			var thisBoardNo = <%= ub.getbNo() %>
 			
 			 $.ajax({
 					url:"countRec.ub",
@@ -280,9 +266,12 @@
 		
 		
 		function comment(){
-			var thisBoardNo = $("th").parent().children().eq(0).text();
+			var thisBoardNo = <%= ub.getbNo() %>
 			var nowLoginUser= <%=loginUser.getUserNo()%>;
 			var comcon = $("#comcon").val();
+			console.log(thisBoardNo)
+			console.log(nowLoginUser)
+			console.log(comcon)
 			 $.ajax({
 					url:"insertComment.ub",
 					data:{thisBoardNo:thisBoardNo, nowLoginUser:nowLoginUser, comcon:comcon},
@@ -291,12 +280,80 @@
 						
 						console.log(data["result"])
 						console.log(data["commentList"])
-						console.log(data["commentList"][0])
+						console.log(data["commentList"][0].boardNo)
+						console.log(data["commentList"][0].commentCon)
+						console.log(data["commentList"][0].commentNo)
+						console.log(data["commentList"][0].nickNm)
+						console.log(data["commentList"][0].userNo)
+						console.log(data["commentList"][0].writeDay)
+								
+						
+						$("#commentArea td").remove();
+						for(var i = 0; i<data["commentList"].length; i++){
+						
+								var month = data["commentList"][i].writeDay.substr(0,1);
+								var day= data["commentList"][i].writeDay.substr(3,2);
+								var years = data["commentList"][i].writeDay.substr(7,4);
+			
+								$("#commentArea").append("<tr>")
+								
+								if(data['commentList'][i].nickNm != loginUser.getNickNm()){
+								$("#commentArea").append('<td style="padding:3px;"><input type="button" value="신고" id="reportPr" style="outline-style:none;" class="btn btn-default"></td>')	
+								}
+							
+								
+								$("#commentArea").append("<td>" + data["commentList"][i].commentNo + "</td>")
+								$("#commentArea").append('<td id="comwriter">' + data['commentList'][i].nickNm + "</td>")
+								$("#commentArea").append('<td>' + data['commentList'][i].commentCon + "</td>")
+								$("#commentArea").append('<td>' + years +"-"+"0"+month+"-"+day + "</td>")
+								$("#commentArea").append('<td style="padding:3px;"><button class="ui button">수정</button><button class="ui button">삭제</button></div></td>')
+								$("#commentArea").append("</tr>")
+							
+						}
 					}
 				})
+			}
 		
-	}
-	
+		
+		function commentList(){
+			var thisBoardNo = <%= ub.getbNo() %>
+			console.log(thisBoardNo)
+			 $.ajax({
+					url:"selectListCom.ub",
+					data:{thisBoardNo:thisBoardNo},
+					type:"post",
+					success:function(data){
+						
+						
+						$("#commentArea td").remove();
+						for(var i = 0; i<data.length; i++){
+						
+								var month = data[i].writeDay.substr(0,1);
+								var day= data[i].writeDay.substr(3,2);
+								var years = data[i].writeDay.substr(7,4);
+			
+								$("#commentArea").append("<tr>")
+								
+								if(){
+									
+								}else{
+								$("#commentArea").append('<td style="padding:3px;"><input type="button" value="신고" id="reportPr" style="outline-style:none;" class="btn btn-default"></td>')	
+									
+								}
+								
+								$("#commentArea").append("<td>" + data[i].commentNo + "</td>")
+								$("#commentArea").append('<td id="comwriter">' + data[i].nickNm + "</td>")
+								$("#commentArea").append('<td>' + data[i].commentCon + "</td>")
+								$("#commentArea").append('<td>' + years +"-"+"0"+month+"-"+day + "</td>")
+								$("#commentArea").append('<td style="padding:3px;"><button class="ui button">수정</button><button class="ui button">삭제</button></div></td>')
+								$("#commentArea").append("</tr>")
+								
+								
+							
+						}
+					}
+				})
+			}
 	
 	
 	</script>

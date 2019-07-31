@@ -58,6 +58,7 @@ public class SelectOneBoardServlet extends HttpServlet {
 			request.setAttribute("ub", ub);
 			request.setAttribute("fileList", fileList);
 			request.setAttribute("recCount", recCount);
+			request.setAttribute("num", num);
 			page = "views/member/5_freeBoard/1_freeBoard/3_read.jsp";
 		}else {
 			page = "views/common/errorPage.jsp";

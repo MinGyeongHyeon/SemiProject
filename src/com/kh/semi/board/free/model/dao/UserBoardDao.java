@@ -1646,18 +1646,20 @@ public int uprecommendUserBoard(Connection con, int thisBoardNo, int nowLoginUse
 		return result;
 	}
 
-	public ArrayList<Commentub> selectListComment(Connection con) {
-		Statement stmt = null;
+	public ArrayList<Commentub> selectListComment(Connection con, int thisBoardNo) {
+		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		ArrayList<Commentub> commentList = null;
 
 		String query = prop.getProperty("selectListComment");
 
 		try {
-			stmt = con.createStatement();
+			pstmt = con.prepareStatement(query);
 
-			rset = stmt.executeQuery(query);
+			pstmt.setInt(1, thisBoardNo);
 
+			rset = pstmt.executeQuery();
+			
 			commentList = new ArrayList<Commentub>();
 
 			while(rset.next()) {
@@ -1685,12 +1687,15 @@ public int uprecommendUserBoard(Connection con, int thisBoardNo, int nowLoginUse
 			e.printStackTrace();
 		} finally {
 			close(rset);
-			close(stmt);
+			close(pstmt);
 		}
 
 		return commentList;
 	}
 	
+	
+	
+
 	
 }
 
