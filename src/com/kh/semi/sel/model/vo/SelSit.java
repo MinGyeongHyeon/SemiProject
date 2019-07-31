@@ -132,10 +132,13 @@ public class SelSit {
 		this.selDt = selDt;
 	}
 
+
+
 	@Override
 	public String toString() {
 		return "SelSit [selNo=" + selNo + ", selSit=" + selSit + ", appDiv=" + appDiv + ", entAppNo=" + entAppNo
-				+ ", pcoAppNo=" + pcoAppNo + ", selDt=" + selDt + "]";
+				+ ", pcoAppNo=" + pcoAppNo + ", selDt=" + selDt + ", day=" + day + ", userNo=" + userNo + ", userNm="
+				+ userNm + ", NickNm=" + NickNm + "]";
 	}
 
 

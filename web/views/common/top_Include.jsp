@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" import="com.kh.semi.user.model.vo.*"%>
 <%
@@ -287,11 +288,11 @@ td#log {
 	</div>
 	<div style="height:150px"></div>
 	<% if(loginUser != null && loginUser.getUserId().equals("admin")){ %>
-	<div style="position: fixed; width:20%; margin-top:200px" align="right">
+	<div style="position: fixed; width:97%; margin-top:200px" align="right">
 		<button type="button" id="catt2"><img src="/sixDestiny/images/chatting.png" id="cattimg"></button>
 	</div>
 	<%}else if(loginUser != null){ %>
-	<div style="position: fixed; width:10%; margin-top:100px" align="right">
+	<div style="position: fixed; width:97%; margin-top:100px" align="right">
 		<div id="plusfriend-chat-button"></div>
 		<br>
 		<button style="margin-left:20px;" type="button" id="catt" onclick="gochat(<%=loginUser.getUserNo()%>);"><img src="/sixDestiny/images/chatting.png" id="cattimg"></button>
@@ -337,21 +338,23 @@ td#log {
 	function onMessage(evt){
 		var result = evt.data;
 		console.log(result);
-		if(result == "confirm"){
+		if(result != null){
 			console.log("들어왔다!	")
-			setInterval(function()
+			var set = setInterval(function()
 	  			    {
 	  			    	  $("#catt2").css("-webkit-transform", "scale(1)");
-	  			    	  $("#catt2").click(function(){
-	  			    		window.open("/sixDestiny/views/common/catting_admin.jsp", "window", "width=400,height=500");
-	  			    	  });
-
 	  			    },500);
 
-	  		 setInterval(function()
+	  		 var set2 = setInterval(function()
 	   			    {
 	  			 $("#catt2").css("-webkit-transform", "scale(1.2)");
 	   			    },1000);
+
+	  		$("#catt2").click(function(){
+		    		window.open("/sixDestiny/views/common/catting_admin.jsp?userNo="+result, result, "width=400,height=500");
+		    		clearInterval(set);
+		    		clearInterval(set2);
+		    	  });
 		}
 	}
 
