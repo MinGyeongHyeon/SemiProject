@@ -287,7 +287,7 @@ td#log {
 	</div>
 	<div style="height:150px"></div>
 	<% if(loginUser != null && loginUser.getUserId().equals("admin")){ %>
-	<div style="position: fixed; width:10%; margin-top:200px" align="right">
+	<div style="position: fixed; width:20%; margin-top:200px" align="right">
 		<button type="button" id="catt2"><img src="/sixDestiny/images/chatting.png" id="cattimg"></button>
 	</div>
 	<%}else if(loginUser != null){ %>
