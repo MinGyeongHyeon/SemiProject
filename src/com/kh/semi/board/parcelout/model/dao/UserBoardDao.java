@@ -1230,6 +1230,33 @@ public class UserBoardDao {
 	}
 
 
+	public int deletcom(Connection con, Coment cm) {
+			PreparedStatement pstmt = null;
+			int result = 0;
+
+			String query = prop.getProperty("deletcom");
+
+			try {
+				pstmt = con.prepareStatement(query);
+
+				pstmt.setInt(1, cm.getConNo());
+
+				result = pstmt.executeUpdate();
+
+
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				close(pstmt);
+			}
+
+
+
+		return result;
+	}
+
+
 
 
 }

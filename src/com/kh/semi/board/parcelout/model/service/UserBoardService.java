@@ -371,6 +371,24 @@ public class UserBoardService {
 
 		return result;
 	}
+	public int deletcom(Coment cm) {
+			Connection con = getConnection();
+			int result = 0;
+
+			result = new UserBoardDao().deletcom(con,cm);
+
+			if(result > 0) {
+				commit(con);
+
+			}else {
+				rollback(con);
+
+			}
+			close(con);
+
+
+		return result;
+	}
 
 
 

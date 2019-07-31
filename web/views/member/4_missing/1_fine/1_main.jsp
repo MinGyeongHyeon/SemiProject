@@ -10,7 +10,7 @@ int listCount = pi.getListCount();
 int currentPage = pi.getCurrentPage();
 int maxPage = pi.getMaxPage();
 int startPage = pi.getStartPage();
-int endPage = pi.getEndPage(); 
+int endPage = pi.getEndPage();
 
 %>
 <!DOCTYPE htm>
@@ -53,13 +53,13 @@ table tr td img {
 		   margin: 10px;
 	}
 	.title{
-	
-	  width: 220px; 
-	  height: 220px; 
-	
+
+	  width: 220px;
+	  height: 220px;
+
 	  align:center;
 	}
-	
+
 
 </style>
 
@@ -117,34 +117,34 @@ table tr td img {
          </tr>
 
       </table>
-   
 
-  <div class="ddd">       
+
+  <div class="ddd">
          <%
          System.out.print("리스트사이즈?"+list.size());
             for (int i = 0; i < list.size(); i++) {
                HashMap<String, Object> hmap = list.get(i);
          %>
-         
+
 <table class="thumb-list">
 
          <tr>
-        
+
          <td >
           <div class="title">
-     
+
             <input type="hidden" value="<%=hmap.get("boardNo")%>" id="Bno">
         <%if(loginUser!=null){%>
                 <input type="hidden" value="<%=loginUser.getUserNo()%>" >
-                  <%}%> 
+                  <%}%>
 <%if(hmap.get("changeNm") !=null){ %>
 
-            <img src="/sixDestiny/thumbnail_uploadFiles/<%=hmap.get("changeNm")%>" 
+            <img src="/sixDestiny/thumbnail_uploadFiles/<%=hmap.get("changeNm")%>"
                style="width: 200px; height: 200px; cursor: pointer;" >
-              <%}else{ %> 
-      
+              <%}else{ %>
 
-      
+
+
                <% }%>
 </div>
                </td>
@@ -160,17 +160,17 @@ table tr td img {
          </tr>
          <tr>
             <td>성별 : <%=hmap.get("gender")%></td>
-         </tr>        
+         </tr>
           <%
             }
          %>
                </table>
-               
-              </div> 
-            
-      
-      
-      
+
+              </div>
+
+
+
+
 
       <div class="container" align="center" style="width: 500px;">
                 <form  action="<%=request.getContextPath() %>/missingsearch.bo" method="post" >
@@ -185,7 +185,7 @@ table tr td img {
                <td>
 
                      <div class="input-group">
-                     
+
                         <input type="text" class="form-control" placeholder="Search"
                            name="search">
                              <%
@@ -200,7 +200,7 @@ table tr td img {
                            </button>
                         </div>
                      </div>
-              
+
                </td>
             </tr>
          </table>
@@ -246,37 +246,37 @@ table tr td img {
 </div>
 
                <script>
-               
-               
-               
+
+
+
       $(function() {
          $(".title").click( function() {
-        	 
+
         	 <%if(loginUser!=null){%>
  	var num=     $(this).children().eq(0).val();
  	var uu= $(this).children().eq(1).val();
 
                            console.log(uu);
-                
-                     
+
+
 
    location.href = "<%=request.getContextPath()%>/missingSelectOne.bo?num="+num+"&uu="+uu;
-   
+
 	 <%}else{%>
 		var num=     $(this).children().eq(0).val();
-	 
+
 		 location.href = "<%=request.getContextPath()%>/missingSelectOne.bo?num="+num;
 		 <%}%>
-   
+
             });
       });
-         
-         
-         
+
+
+
          $("#li1").change(function(){
    			var li = $("#li1").val();
-   			
-   			
+
+
    			$.ajax({
    				url:"missingorder.bo",
    				data:{li:li},
@@ -285,42 +285,42 @@ table tr td img {
    					console.log(data);
    					var $div = $(".ddd");
    					$div.html("");
-   		
+
    			  		var $page=	$("#paging");
 					$page.html("");
-   				
+
    					/* var lastkey=data.length-1; */
-   					
+
    				for(var i=0;i<data.length-1;i++){
-   					
+
    						var $table=$("<table>").addClass("thumb-list");
    						var $div2=$("<div>");
-   						
+
    						var $tr1 = $("<tr>");
    						var $tr2 = $("<tr>");
    						var $tr3 = $("<tr>");
    						var $tr4 = $("<tr>");
    						var $tr5 = $("<tr>");
    						var $br = $("<br>");
-   						var $image = $("<td>");	
+   						var $image = $("<td>");
    						$image.append($div2);
    						$div2.html('<img src="/sixDestiny/thumbnail_uploadFiles/'+data[i].changeNm+'" style="width:100%; height:100%">').css({"width":"200","height":"200"});
    						$div2.addClass("title");
-   				
+
    						$tr5.append($br);
    						var $boardNm = $("<td>").text(data[i].boardNm).css("width", "100px");
    						var $reward = $("<td>").text("사례금: "+data[i].reward+"만원").css("width", "100px");
    						var $gender =  $("<td>").text("성별"+data[i].gender).css("width", "100px");
    						$tr1.append($image);
-   				
+
    						$tr2.append($boardNm);
    						//$tr2.addClass($div2);
    						$tr3.append($reward);
    						$tr4.append($gender);
-   				
+
    						$table.append($tr1,$tr5,$tr2,$tr3,$tr4);
    						$(".ddd").append($table);
-   						
+
    						$table.filter(function(){
    							var key2 = i;
    							$(this).click(function(){
@@ -329,26 +329,26 @@ table tr td img {
    						})
    								}
    				var $vava=$("<br>");
-   				
+
    				$page.append($vava);
-   					
+
    						var $btn2=$("<button  class='paging'>");
    						var btnvalue2 = $btn2.text('<<');
    							$page.append($btn2);
-   						
+
    					for(var p = data[data.length-1].startPage; p < data[data.length-1].endPage; p++){
-   						
+
 						var $btn1 = $("<button  class='paging'>");
 						var $btn2 = $("<button  class='paging'>");
 						console.log("p : " + p);
-   		
-   	
+
+
 							var btnvalue = $btn1.text(p);
    							$page.append($btn1);
-   						
+
    						$btn1.click(function(){
    					   		var result = $(this).text();
-   							
+
    							$.ajax({
    				   				url:"missingorder.bo",
    				   				data:{li:li, currentPage:result},
@@ -358,36 +358,36 @@ table tr td img {
    									var $div = $(".ddd");
    		   							$div.html("");
    				   					for(var i=0;i<data.length-1;i++){
-   				   	   					
+
    				   						var $table=$("<table>").addClass("thumb-list");
    				   						var $div2=$("<div>");
-   				   						
+
    				   						var $tr1 = $("<tr>");
    				   						var $tr2 = $("<tr>");
    				   						var $tr3 = $("<tr>");
    				   						var $tr4 = $("<tr>");
    				   						var $tr5 = $("<tr>");
    				   						var $br = $("<br>");
-   				   						var $image = $("<td>");	
+   				   						var $image = $("<td>");
    				   						$image.append($div2);
    				   						$div2.html('<img src="/sixDestiny/thumbnail_uploadFiles/'+data[i].changeNm+'" style="width:100%; height:100%">').css({"width":"200","height":"200"});
    				   						$div2.addClass("title");
-   				   				
+
    				   						$tr5.append($br);
    				   						var $boardNm = $("<td>").text(data[i].boardNm).css("width", "100px");
    				   						var $reward = $("<td>").text("사례금: "+data[i].reward+"만원").css("width", "100px");
    				   						var $gender =  $("<td>").text("성별"+data[i].gender).css("width", "100px");
    				   						$tr1.append($image);
-   				   						
+
    				   						$tr2.append($boardNm);
    				   						//$tr2.addClass($div2);
    				   						$tr3.append($reward);
    				   						$tr4.append($gender);
-   				   				
+
    				   						$table.append($tr1,$tr5,$tr2,$tr3,$tr4);
    				   						$(".ddd").append($table);
-   				   						
-   				   						
+
+
    				   						$table.filter(function(){
    				   							var key2 = i;
    				   							$(this).click(function(){
@@ -395,66 +395,66 @@ table tr td img {
    				   							})
    				   						})
    				   								}
-   				   				
+
    				   				}
-   				   				
-   				   				
-   				   				
-   				   				});	
-   							
-   						});	
-   						
-   						
+
+
+
+   				   				});
+
+   						});
+
+
    					}
-   					
+
    						var $btn3=$("<button  class='paging'>");
    						var btnvalue3 = $btn3.text('>>');
 							$page.append($btn3);
-						
-   				
+
+
 
 						$btn2.click(function(){
-		   		
-							
+
+
 							$.ajax({
 				   				url:"missingorder.bo",
 				   				data:{li:li, currentPage:1},
 				   				type:"get",
 				   				success:function(data){
-				   					
+
 									var $div = $(".ddd");
 		   							$div.html("");
 				   					for(var i=0;i<data.length-1;i++){
-				   	   					
+
 				   						var $table=$("<table>").addClass("thumb-list");
 				   						var $div2=$("<div>");
-				   						
+
 				   						var $tr1 = $("<tr>");
 				   						var $tr2 = $("<tr>");
 				   						var $tr3 = $("<tr>");
 				   						var $tr4 = $("<tr>");
 				   						var $tr5 = $("<tr>");
 				   						var $br = $("<br>");
-				   						var $image = $("<td>");	
+				   						var $image = $("<td>");
 				   						$image.append($div2);
 				   						$div2.html('<img src="/sixDestiny/thumbnail_uploadFiles/'+data[i].changeNm+'" style="width:100%; height:100%">').css({"width":"200","height":"200"});
 				   						$div2.addClass("title");
-				   				
+
 				   						$tr5.append($br);
 				   						var $boardNm = $("<td>").text(data[i].boardNm).css("width", "100px");
 				   						var $reward = $("<td>").text("사례금: "+data[i].reward+"만원").css("width", "100px");
 				   						var $gender =  $("<td>").text("성별"+data[i].gender).css("width", "100px");
 				   						$tr1.append($image);
-				   						
+
 				   						$tr2.append($boardNm);
 				   						//$tr2.addClass($div2);
 				   						$tr3.append($reward);
 				   						$tr4.append($gender);
-				   				
+
 				   						$table.append($tr1,$tr5,$tr2,$tr3,$tr4);
 				   						$(".ddd").append($table);
-				   						
-				   						
+
+
 				   						$table.filter(function(){
 				   							var key2 = i;
 				   							$(this).click(function(){
@@ -462,24 +462,24 @@ table tr td img {
 				   							})
 				   						})
 				   								}
-				   				
-				   				}
-				   				
-				   				
-				   				
-				   				});	
-						
-						
 
-						
-					
-					
+				   				}
+
+
+
+				   				});
+
+
+
+
+
+
 					});
-					
-				
-   				
-   					
-   					
+
+
+
+
+
    				},
    				error:function(err){
    					console.log("서버 전송 실패!");
@@ -489,35 +489,35 @@ table tr td img {
    				}
    			});
          });
-         
-         
-         
-         
-         
-         
-         
-         
-         
-    
-      
-      
+
+
+
+
+
+
+
+
+
+
+
+
       $(function() {
          $(".title").click( function() {
  	var num=     $(this).children().eq(0).val();
 
                            console.log(num);
-                
+
 
 
    location.href = "<%=request.getContextPath()%>/missingSelectOne.bo?num=" + num ;
             });
-         
-         
-         
+
+
+
          $("#li2").change(function(){
    			var li = $("#li2").val();
-   			
-   			
+
+
    			$.ajax({
    				url:"missingorder.bo",
    				data:{li:li},
@@ -526,42 +526,42 @@ table tr td img {
    					console.log(data);
    					var $div = $(".ddd");
    					$div.html("");
-   		
+
    			  		var $page=	$("#paging");
 					$page.html("");
-   				
+
    					/* var lastkey=data.length-1; */
-   					
+
    				for(var i=0;i<data.length-1;i++){
-   					
+
    						var $table=$("<table>").addClass("thumb-list");
    						var $div2=$("<div>");
-   						
+
    						var $tr1 = $("<tr>");
    						var $tr2 = $("<tr>");
    						var $tr3 = $("<tr>");
    						var $tr4 = $("<tr>");
    						var $tr5 = $("<tr>");
    						var $br = $("<br>");
-   						var $image = $("<td>");	
+   						var $image = $("<td>");
    						$image.append($div2);
    						$div2.html('<img src="/sixDestiny/thumbnail_uploadFiles/'+data[i].changeNm+'" style="width:100%; height:100%">').css({"width":"200","height":"200"});
    						$div2.addClass("title");
-   				
+
    						$tr5.append($br);
    						var $boardNm = $("<td>").text(data[i].boardNm).css("width", "100px");
    						var $reward = $("<td>").text("사례금: "+data[i].reward+"만원").css("width", "100px");
    						var $gender =  $("<td>").text("성별"+data[i].gender).css("width", "100px");
    						$tr1.append($image);
-   				
+
    						$tr2.append($boardNm);
    						//$tr2.addClass($div2);
    						$tr3.append($reward);
    						$tr4.append($gender);
-   				
+
    						$table.append($tr1,$tr5,$tr2,$tr3,$tr4);
    						$(".ddd").append($table);
-   						
+
    						$table.filter(function(){
    							var key2 = i;
    							$(this).click(function(){
@@ -570,26 +570,26 @@ table tr td img {
    						})
    								}
    				var $vava=$("<br>");
-   				
+
    				$page.append($vava);
-   					
+
    						var $btn2=$("<button  class='paging'>");
    						var btnvalue2 = $btn2.text('<<');
    							$page.append($btn2);
-   						
+
    					for(var p = data[data.length-1].startPage; p < data[data.length-1].endPage; p++){
-   						
+
 						var $btn1 = $("<button  class='paging'>");
 						var $btn2 = $("<button  class='paging'>");
 						console.log("p : " + p);
-   		
-   	
+
+
 							var btnvalue = $btn1.text(p);
    							$page.append($btn1);
-   						
+
    						$btn1.click(function(){
    					   		var result = $(this).text();
-   							
+
    							$.ajax({
    				   				url:"missingorder.bo",
    				   				data:{li:li, currentPage:result},
@@ -599,103 +599,104 @@ table tr td img {
    									var $div = $(".ddd");
    		   							$div.html("");
    				   					for(var i=0;i<data.length-1;i++){
-   				   	   					
+
    				   						var $table=$("<table>").addClass("thumb-list");
    				   						var $div2=$("<div>");
-   				   						
+
    				   						var $tr1 = $("<tr>");
    				   						var $tr2 = $("<tr>");
    				   						var $tr3 = $("<tr>");
    				   						var $tr4 = $("<tr>");
    				   						var $tr5 = $("<tr>");
    				   						var $br = $("<br>");
-   				   						var $image = $("<td>");	
+   				   						var $image = $("<td>");
    				   						$image.append($div2);
    				   						$div2.html('<img src="/sixDestiny/thumbnail_uploadFiles/'+data[i].changeNm+'" style="width:100%; height:100%">').css({"width":"200","height":"200"});
    				   						$div2.addClass("title");
-   				   				
+
    				   						$tr5.append($br);
    				   						var $boardNm = $("<td>").text(data[i].boardNm).css("width", "100px");
    				   						var $reward = $("<td>").text("사례금: "+data[i].reward+"만원").css("width", "100px");
    				   						var $gender =  $("<td>").text("성별"+data[i].gender).css("width", "100px");
    				   						$tr1.append($image);
-   				   						
+
    				   						$tr2.append($boardNm);
    				   						//$tr2.addClass($div2);
    				   						$tr3.append($reward);
    				   						$tr4.append($gender);
-   				   				
+
    				   						$table.append($tr1,$tr5,$tr2,$tr3,$tr4);
    				   						$(".ddd").append($table);
-   				   						
-   				   						
+
+
    				   						$table.filter(function(){
    				   							var key2 = i;
    				   							$(this).click(function(){
    				   								location.href = "<%=request.getContextPath()%>/missingSelectOne.bo?num=" + data[key2].boardNo ;
+   				   								console.log("여기로 오냐 ?");
    				   							})
    				   						})
    				   								}
-   				   				
+
    				   				}
-   				   				
-   				   				
-   				   				
-   				   				});	
-   							
-   						});	
-   						
-   						
+
+
+
+   				   				});
+
+   						});
+
+
    					}
-   					
+
    						var $btn3=$("<button  class='paging'>");
    						var btnvalue3 = $btn3.text('>>');
 							$page.append($btn3);
-						
-   				
+
+
 
 						$btn2.click(function(){
-		   		
-							
+
+
 							$.ajax({
 				   				url:"missingorder.bo",
 				   				data:{li:li, currentPage:1},
 				   				type:"get",
 				   				success:function(data){
-				   					
+
 									var $div = $(".ddd");
 		   							$div.html("");
 				   					for(var i=0;i<data.length-1;i++){
-				   	   					
+
 				   						var $table=$("<table>").addClass("thumb-list");
 				   						var $div2=$("<div>");
-				   						
+
 				   						var $tr1 = $("<tr>");
 				   						var $tr2 = $("<tr>");
 				   						var $tr3 = $("<tr>");
 				   						var $tr4 = $("<tr>");
 				   						var $tr5 = $("<tr>");
 				   						var $br = $("<br>");
-				   						var $image = $("<td>");	
+				   						var $image = $("<td>");
 				   						$image.append($div2);
 				   						$div2.html('<img src="/sixDestiny/thumbnail_uploadFiles/'+data[i].changeNm+'" style="width:100%; height:100%">').css({"width":"200","height":"200"});
 				   						$div2.addClass("title");
-				   				
+
 				   						$tr5.append($br);
 				   						var $boardNm = $("<td>").text(data[i].boardNm).css("width", "100px");
 				   						var $reward = $("<td>").text("사례금: "+data[i].reward+"만원").css("width", "100px");
 				   						var $gender =  $("<td>").text("성별"+data[i].gender).css("width", "100px");
 				   						$tr1.append($image);
-				   						
+
 				   						$tr2.append($boardNm);
 				   						//$tr2.addClass($div2);
 				   						$tr3.append($reward);
 				   						$tr4.append($gender);
-				   				
+
 				   						$table.append($tr1,$tr5,$tr2,$tr3,$tr4);
 				   						$(".ddd").append($table);
-				   						
-				   						
+
+
 				   						$table.filter(function(){
 				   							var key2 = i;
 				   							$(this).click(function(){
@@ -703,24 +704,24 @@ table tr td img {
 				   							})
 				   						})
 				   								}
-				   				
-				   				}
-				   				
-				   				
-				   				
-				   				});	
-						
-						
 
-						
-					
-					
+				   				}
+
+
+
+				   				});
+
+
+
+
+
+
 					});
-					
-				
-   				
-   					
-   					
+
+
+
+
+
    				},
    				error:function(err){
    					console.log("서버 전송 실패!");
@@ -730,36 +731,36 @@ table tr td img {
    				}
    			});
          });
-         
-         
-         
-         
-         
-         
-         
-         
-         
-         
-         
+
+
+
+
+
+
+
+
+
+
+
          });
-      
+
       $(function() {
          $(".title").click( function() {
  	var num=     $(this).children().eq(0).val();
  	var uu=     $(this).children().eq(1).val();
                            console.log(uu);
-                
+
 
 
    location.href = "<%=request.getContextPath()%>/missingSelectOne.bo?num=" + num +"&uu="+uu ;
             });
-         
-         
+
+
          //
          $("#li3").change(function(){
    			var li = $("#li3").val();
-   			
-   			
+
+
    			$.ajax({
    				url:"missingorder.bo",
    				data:{li:li},
@@ -768,42 +769,42 @@ table tr td img {
    					console.log(data);
    					var $div = $(".ddd");
    					$div.html("");
-   		
+
    			  		var $page=	$("#paging");
 					$page.html("");
-   				
+
    					/* var lastkey=data.length-1; */
-   					
+
    				for(var i=0;i<data.length;i++){
-   					
+
    						var $table=$("<table>").addClass("thumb-list");
    						var $div2=$("<div>");
-   						
+
    						var $tr1 = $("<tr>");
    						var $tr2 = $("<tr>");
    						var $tr3 = $("<tr>");
    						var $tr4 = $("<tr>");
    						var $tr5 = $("<tr>");
    						var $br = $("<br>");
-   						var $image = $("<td>");	
+   						var $image = $("<td>");
    						$image.append($div2);
    						$div2.html('<img src="/sixDestiny/thumbnail_uploadFiles/'+data[i].changeNm+'" style="width:100%; height:100%">').css({"width":"200","height":"200"});
    						$div2.addClass("title");
-   				
+
    						$tr5.append($br);
    						var $boardNm = $("<td>").text(data[i].boardNm).css("width", "100px");
    						var $reward = $("<td>").text("사례금: "+data[i].reward+"만원").css("width", "100px");
    						var $gender =  $("<td>").text("성별"+data[i].gender).css("width", "100px");
    						$tr1.append($image);
-   				
+
    						$tr2.append($boardNm);
    						//$tr2.addClass($div2);
    						$tr3.append($reward);
    						$tr4.append($gender);
-   				
+
    						$table.append($tr1,$tr5,$tr2,$tr3,$tr4);
    						$(".ddd").append($table);
-   						
+
    						$table.filter(function(){
    							var key2 = i;
    							$(this).click(function(){
@@ -812,26 +813,26 @@ table tr td img {
    						})
    								}
    				var $vava=$("<br>");
-   				
+
    				$page.append($vava);
-   					
+
    						var $btn2=$("<button  class='paging'>");
    						var btnvalue2 = $btn2.text('<<');
    							$page.append($btn2);
-   						
+
    					for(var p = data[data.length-1].startPage; p < data[data.length-1].endPage; p++){
-   						
+
 						var $btn1 = $("<button  class='paging'>");
 						var $btn2 = $("<button  class='paging'>");
 						console.log("p : " + p);
-   		
-   	
+
+
 							var btnvalue = $btn1.text(p);
    							$page.append($btn1);
-   						
+
    						$btn1.click(function(){
    					   		var result = $(this).text();
-   							
+
    							$.ajax({
    				   				url:"missingorder.bo",
    				   				data:{li:li, currentPage:result},
@@ -841,36 +842,36 @@ table tr td img {
    									var $div = $(".ddd");
    		   							$div.html("");
    				   					for(var i=0;i<data.length-1;i++){
-   				   	   					
+
    				   						var $table=$("<table>").addClass("thumb-list");
    				   						var $div2=$("<div>");
-   				   						
+
    				   						var $tr1 = $("<tr>");
    				   						var $tr2 = $("<tr>");
    				   						var $tr3 = $("<tr>");
    				   						var $tr4 = $("<tr>");
    				   						var $tr5 = $("<tr>");
    				   						var $br = $("<br>");
-   				   						var $image = $("<td>");	
+   				   						var $image = $("<td>");
    				   						$image.append($div2);
    				   						$div2.html('<img src="/sixDestiny/thumbnail_uploadFiles/'+data[i].changeNm+'" style="width:100%; height:100%">').css({"width":"200","height":"200"});
    				   						$div2.addClass("title");
-   				   				
+
    				   						$tr5.append($br);
    				   						var $boardNm = $("<td>").text(data[i].boardNm).css("width", "100px");
    				   						var $reward = $("<td>").text("사례금: "+data[i].reward+"만원").css("width", "100px");
    				   						var $gender =  $("<td>").text("성별"+data[i].gender).css("width", "100px");
    				   						$tr1.append($image);
-   				   						
+
    				   						$tr2.append($boardNm);
    				   						//$tr2.addClass($div2);
    				   						$tr3.append($reward);
    				   						$tr4.append($gender);
-   				   				
+
    				   						$table.append($tr1,$tr5,$tr2,$tr3,$tr4);
    				   						$(".ddd").append($table);
-   				   						
-   				   						
+
+
    				   						$table.filter(function(){
    				   							var key2 = i;
    				   							$(this).click(function(){
@@ -878,66 +879,66 @@ table tr td img {
    				   							})
    				   						})
    				   								}
-   				   				
+
    				   				}
-   				   				
-   				   				
-   				   				
-   				   				});	
-   							
-   						});	
-   						
-   						
+
+
+
+   				   				});
+
+   						});
+
+
    					}
-   					
+
    						var $btn3=$("<button  class='paging'>");
    						var btnvalue3 = $btn3.text('>>');
 							$page.append($btn3);
-						
-   				
+
+
 
 						$btn2.click(function(){
-		   		
-							
+
+
 							$.ajax({
 				   				url:"missingorder.bo",
 				   				data:{li:li, currentPage:1},
 				   				type:"get",
 				   				success:function(data){
-				   					
+
 									var $div = $(".ddd");
 		   							$div.html("");
 				   					for(var i=0;i<data.length-1;i++){
-				   	   					
+
 				   						var $table=$("<table>").addClass("thumb-list");
 				   						var $div2=$("<div>");
-				   						
+
 				   						var $tr1 = $("<tr>");
 				   						var $tr2 = $("<tr>");
 				   						var $tr3 = $("<tr>");
 				   						var $tr4 = $("<tr>");
 				   						var $tr5 = $("<tr>");
 				   						var $br = $("<br>");
-				   						var $image = $("<td>");	
+				   						var $image = $("<td>");
 				   						$image.append($div2);
 				   						$div2.html('<img src="/sixDestiny/thumbnail_uploadFiles/'+data[i].changeNm+'" style="width:100%; height:100%">').css({"width":"200","height":"200"});
 				   						$div2.addClass("title");
-				   				
+
 				   						$tr5.append($br);
 				   						var $boardNm = $("<td>").text(data[i].boardNm).css("width", "100px");
 				   						var $reward = $("<td>").text("사례금: "+data[i].reward+"만원").css("width", "100px");
 				   						var $gender =  $("<td>").text("성별"+data[i].gender).css("width", "100px");
 				   						$tr1.append($image);
-				   						
+
 				   						$tr2.append($boardNm);
 				   						//$tr2.addClass($div2);
 				   						$tr3.append($reward);
 				   						$tr4.append($gender);
-				   				
+
 				   						$table.append($tr1,$tr5,$tr2,$tr3,$tr4);
 				   						$(".ddd").append($table);
-				   						
-				   						
+
+
 				   						$table.filter(function(){
 				   							var key2 = i;
 				   							$(this).click(function(){
@@ -945,24 +946,24 @@ table tr td img {
 				   							})
 				   						})
 				   								}
-				   				
-				   				}
-				   				
-				   				
-				   				
-				   				});	
-						
-						
 
-						
-					
-					
+				   				}
+
+
+
+				   				});
+
+
+
+
+
+
 					});
-					
-				
-   				
-   					
-   					
+
+
+
+
+
    				},
    				error:function(err){
    					console.log("서버 전송 실패!");
@@ -972,16 +973,16 @@ table tr td img {
    				}
    			});
          });
-         
-         
-         
-      });
-         
-         
-         
-   
 
-      
+
+
+      });
+
+
+
+
+
+
       </script>
 
 

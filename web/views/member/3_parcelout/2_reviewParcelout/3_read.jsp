@@ -103,7 +103,11 @@
 							<label style="width:100px"><%= cm.get(i).getNickNm() %></label>
 							<label style="width:400px"><%= cm.get(i).getComent() %></label>
 						<button class="reportCom" style="background: none;  border: none;"><img src="/sixDestiny/images/reportcoment.PNG" width="30px;" height="30px;" id="imgtest"></button>
-
+						<% if(loginUser != null) {%>
+						<% if(cm.get(i).getuNo() == loginUser.getUserNo() ) { %>
+						<button class="deleteCom" style="background: none;  border: none;">삭제</button>
+						<% } %>
+						<% } %>
 						</td>
 					</tr>
 					<% } %>
@@ -133,6 +137,17 @@
 	</div>
 
 <script>
+	$('.deleteCom').click(function(){
+		var cNo = $(this).prevAll('.repotCon').val();
+		var bNo = $('#bNo').val();
+		var uNo = <%= loginUser.getUserNo()%>
+
+		location.href="<%= request.getContextPath() %>/DeletePa.cm?cNo=" + cNo + "&bNo=" + bNo + "&uNo=" + uNo;
+
+
+
+	})
+
 	$('.reportCom').click(function(){
 		var cNo = $(this).prevAll('.repotCon').val();
 		var uNo = $(this).prevAll('.repotUser').val();
@@ -146,9 +161,6 @@
 		var uNo = $('#uNo').val();
 		var bNo = $('#bNo').val();
 
-		console.log(uNo);
-		console.log(bNo);
-
 
 
 		$.ajax({
@@ -161,7 +173,7 @@
 
 					var $parcleup = $('#parcleup');
 
-					var $imgtest = $('#imgtest'); 
+					var $imgtest = $('#imgtest');
 
 					$imgtest.remove();
 
