@@ -391,6 +391,37 @@ Connection con = getConnection();
 		return commentList;
 	}
 
+	public int commentUserBoard(int thisCommentNo) {
+		Connection con = getConnection();
+		int result = 0;
+
+		result = new UserBoardDao().commentUserBoard(con,thisCommentNo);
+
+		if(result >0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		close(con);
+
+		return result;
+	}
+
+	public int updateCommentub(int thisCommentNo, String comcon) {
+		Connection con = getConnection();
+
+		int result = new UserBoardDao().updateCommentub(con, thisCommentNo, comcon);
+
+		if(result > 0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		close(con);
+
+		return result;
+	}
+
 
 
 

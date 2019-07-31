@@ -27,6 +27,11 @@
 .btn btn-default{
 	height:50px;
 }
+
+.removeBtn{
+	background: black;
+}
+
 </style>
 
 </head>
@@ -192,6 +197,8 @@
 			 })
 	 }
 	 
+	 
+	 
 	 function deleteRec() {
 		 	var thisBoardNo = <%=ub.getbNo() %>
 		 	<%if(loginUser != null){%>
@@ -224,7 +231,7 @@
 		 $(document).ready(function(){
 			 heart();
 			 commentList();
-			 
+			 	 
 		});
 		 
 		function heart(){
@@ -323,7 +330,7 @@
 			
 								var $tr = $("<tr>");
 								var $td1 = $('<td style="padding:8px 0px 8px 5px">');
-								var $td2 = $("<td>");
+								var $td2 = $("<td id='comNo'>");
 								var $td3 = $('<td id="comwriter">');
 								var $td4 = $("<td>");
 								var $td5 = $("<td>");
@@ -352,7 +359,7 @@
 								
 								<%if(loginUser != null){%>
 								if(<%=loginUser.getUserNo()%> == data[i].userNo){
-								$div.html('<button style="padding:5px;" class="ui button">수정</button><button style="padding:5px;" class="ui button">삭제</button>');
+								$div.html('<button style="padding:5px;" class="ui button" onclick="updateCom(this)">수정</button>	<button style="padding:5px;" class="ui button" onclick="delectCom(this)">삭제</button>');
 								$td6.append($div);
 								$tr.append($td6);
 								}else{
@@ -374,8 +381,36 @@
 					}
 				})
 			}
-	
-	
+		
+		function delectCom(delectCom){
+			if(confirm("정말 삭제 하시겠습니까?")){
+			 var thisCommentNo = $(delectCom).parent().parent().parent().children().eq(1).text();
+			console.log(thisCommentNo)
+			
+			 $.ajax({
+					url:"deleteCom.ub",
+					data:{thisCommentNo:thisCommentNo},
+					type:"get",
+					success:function(data){
+						if(data==1){
+						alert("삭제되었습니다.");
+						commentList()
+						}
+					}
+				
+				 });
+		 }
+		}
+		 
+		 function updateCom(updateCom){
+
+			 var thisCommentNo = $(updateCom).parent().parent().parent().children().eq(1).text();
+			 console.log(thisCommentNo)
+					
+			window.open("/sixDestiny/views/member/5_freeBoard/1_freeBoard/6_commentUpdate.jsp?thisCommentNo=" + thisCommentNo ,"PopupWin","width=350,height=150","resizable=no");
+				
+		 }
+		
 	</script>
 <%@ include file="../../../common/bottom_Include.jsp"%>
 </body>

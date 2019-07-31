@@ -1692,6 +1692,56 @@ public int uprecommendUserBoard(Connection con, int thisBoardNo, int nowLoginUse
 
 		return commentList;
 	}
+
+	public int commentUserBoard(Connection con, int thisCommentNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("deleteCommentub");
+
+		try {
+			pstmt = con.prepareStatement(query);
+
+			pstmt.setInt(1, thisCommentNo);
+			
+			
+
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+
+		}finally {
+			close(pstmt);
+		}
+
+
+		return result;
+	}
+
+	public int updateCommentub(Connection con, int thisCommentNo, String comcon) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+
+		String query = prop.getProperty("updateCommentub");
+
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, comcon);
+			pstmt.setInt(2, thisCommentNo);
+	
+
+			result = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+
+		return result;
+	}
 	
 	
 	
