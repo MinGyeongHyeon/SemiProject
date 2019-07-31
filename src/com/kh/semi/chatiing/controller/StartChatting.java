@@ -12,15 +12,15 @@ import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 
-@ServerEndpoint("/serverStart")
-public class ServerStart {
+@ServerEndpoint("/start")
+public class StartChatting {
 
 	private static Set<Session> clients = Collections.synchronizedSet(new HashSet<Session>());
 
 	@OnOpen
 	public void onOpen(Session session) {
 		//서버 연결한 시점에 동작하는 메소드
-
+		System.out.println("start 웹소켓");
 		//기존 사용자 리스트에 새로 연결 요청이 들어온 사용자를 추가한다
 		clients.add(session);
 	}
@@ -29,23 +29,11 @@ public class ServerStart {
 	public void onMessage(String msg, Session session) throws IOException {
 		//서버로부터 데이터를 전송받을 경우 동작할 메소드
 		System.out.println(msg);
-		String[] srr = msg.split(":");
-
-		String productName = srr[0];
-		String startPrice = srr[1];
-		String hour = srr[2];
-		String min = srr[3];
-		String sec = srr[4];
-
-		String sendMessage = productName + ":" + startPrice + ":" + hour + ":" + min + ":" + sec;
-
-		System.out.println(sendMessage);
-
 		//하나의 일 처리를 수행하는동안 사용자의 변경이 일어나면 안된다.
 		//즉 NullPointer를 방지하기 위해 동기화 처리를 해준다.
 		synchronized(clients) {
 			for(Session client : clients) {
-				client.getBasicRemote().sendText(sendMessage);
+				client.getBasicRemote().sendText(msg);
 
 			}
 		}

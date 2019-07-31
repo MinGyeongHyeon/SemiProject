@@ -23,10 +23,11 @@ body.main {
 	-webkit-transform:scale(1);
 	 -webkit-transition:.3s;
 }
-#catt{
+#catt, #catt2{
 	background:none;
 	border:none;
 	outline-style:none;
+	margin-right: 24px;
 
 }
 
@@ -290,8 +291,10 @@ td#log {
 		<button type="button" id="catt2"><img src="/sixDestiny/images/chatting.png" id="cattimg"></button>
 	</div>
 	<%}else if(loginUser != null){ %>
-	<div style="position: fixed; width:97%; margin-top:200px" align="right">
-		<button type="button" id="catt" onclick="gochat(<%=loginUser.getUserNo()%>);"><img src="/sixDestiny/images/chatting.png" id="cattimg"></button>
+	<div style="position: fixed; width:97%; margin-top:100px" align="right">
+		<div id="plusfriend-chat-button"></div>
+		<br>
+		<button style="margin-left:20px;" type="button" id="catt" onclick="gochat(<%=loginUser.getUserNo()%>);"><img src="/sixDestiny/images/chatting.png" id="cattimg"></button>
 	</div>
 	<% } %>
 
@@ -321,6 +324,10 @@ td#log {
         websocket.onerror = function(evt) {
             /* onError(evt); */
         };
+
+        websocket.onclose = function(event){
+        	 $("#catt2").css("-webkit-transform", "scale(1)");
+		}
 	}
 
 	function onOpen(evt) {
@@ -334,18 +341,33 @@ td#log {
 			console.log("들어왔다!	")
 			setInterval(function()
 	  			    {
-	  			    	  $("#catt2").css("width", "70px");
+	  			    	  $("#catt2").css("-webkit-transform", "scale(1)");
+	  			    	  $("#catt2").click(function(){
+	  			    		window.open("/sixDestiny/views/common/catting_admin.jsp", "window", "width=400,height=500");
+	  			    	  });
 
 	  			    },500);
 
 	  		 setInterval(function()
 	   			    {
-	  					$("#catt2").css("width", "50px");
+	  			 $("#catt2").css("-webkit-transform", "scale(1.2)");
 	   			    },1000);
 		}
 	}
 
 	//3be7cdf5e8cbf48b2a23b8c72856c080
+</script>
+
+<script type='text/javascript'>
+  //<![CDATA[
+    // 사용할 앱의 JavaScript 키를 설정해 주세요.
+    Kakao.init('3be7cdf5e8cbf48b2a23b8c72856c080');
+    // 플러스친구 1:1채팅 버튼을 생성합니다.
+    Kakao.PlusFriend.createChatButton({
+      container: '#plusfriend-chat-button',
+      plusFriendId: '_xajlwT' // 플러스친구 홈 URL에 명시된 id로 설정합니다.
+    });
+  //]]>
 </script>
 </body>
 </html>
