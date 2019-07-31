@@ -87,14 +87,14 @@
 
 			</table>
 		<br><br><br><br>
-		<input type="submit" class="btn btn-default" style="font-family: 'Sunflower', sans-serif; width:400px" value="비밀번호 찾기"></input>
+		<input type="submit" class="btn btn-default" style="font-family: 'Sunflower', sans-serif; width:400px" value="비밀번호 찾기" id="pwdbun" disabled></input>
 		</form>
 	</div>
 
 	<br><br>
 	<div>
 		<hr style="width:400px; color:black;">
-		<a href='/sixDestiny/views/member/7_member/1_login/2_login.jsp' style="font-family: 'Sunflower', sans-serif;">로그인</a>&nbsp;&nbsp;&nbsp;&nbsp;
+		<a href='/sixDestiny/views/member/7_member/1_login/2_login.jsp' style="font-family: 'Sunflower', sans-serif;" >로그인</a>&nbsp;&nbsp;&nbsp;&nbsp;
 	</div>
 </div>
 <script type="text/javascript">
@@ -112,6 +112,7 @@
             	data:{inputEmail:inputEmail},
             	success:function(data){
 					console.log(data);
+
 					$("#randomNum").keyup(function(){
 						var num = $("#randomNum").val();
 
@@ -126,7 +127,9 @@
 						var num = $("#randomNum").val();
 
 						if(data == num){
+
 							$("#randomNum").attr("disabled", "true");
+							$("#pwdbun").removeAttr("disabled");
 
 						}else{
 							alert("인증번호를 잘못 입력 하셨습니다.");
