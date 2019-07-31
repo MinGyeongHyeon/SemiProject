@@ -389,6 +389,21 @@ public class UserBoardService {
 
 		return result;
 	}
+	public int updateComment(Coment cm) {
+		Connection con = getConnection();
+		int result = 0;
+
+		result = new UserBoardDao().updateComment(con,cm);
+
+		if(result > 0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		close(con);
+
+		return result;
+	}
 
 
 

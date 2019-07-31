@@ -849,7 +849,7 @@ public class UserBoardDao {
 			pstmt = con.prepareStatement(query);
 
 			pstmt.setInt(1, ub.getuNo());
-			pstmt.setString(2, "Y");
+			pstmt.setString(2, "X");
 
 
 			rset = pstmt.executeQuery();
@@ -1251,6 +1251,34 @@ public class UserBoardDao {
 				close(pstmt);
 			}
 
+
+
+		return result;
+	}
+
+
+	public int updateComment(Connection con, Coment cm) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+
+
+		String query = prop.getProperty("updateComment");
+
+		try {
+			pstmt = con.prepareStatement(query);
+
+			pstmt.setString(1, cm.getComent());
+			pstmt.setInt(2, cm.getConNo());
+
+
+
+			result = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
 
 
 		return result;

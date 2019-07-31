@@ -287,11 +287,11 @@ td#log {
 	</div>
 	<div style="height:150px"></div>
 	<% if(loginUser != null && loginUser.getUserId().equals("admin")){ %>
-	<div style="position: fixed; width:97%; margin-top:200px" align="right">
+	<div style="position: fixed; width:10%; margin-top:200px" align="right">
 		<button type="button" id="catt2"><img src="/sixDestiny/images/chatting.png" id="cattimg"></button>
 	</div>
 	<%}else if(loginUser != null){ %>
-	<div style="position: fixed; width:97%; margin-top:100px" align="right">
+	<div style="position: fixed; width:10%; margin-top:100px" align="right">
 		<div id="plusfriend-chat-button"></div>
 		<br>
 		<button style="margin-left:20px;" type="button" id="catt" onclick="gochat(<%=loginUser.getUserNo()%>);"><img src="/sixDestiny/images/chatting.png" id="cattimg"></button>
