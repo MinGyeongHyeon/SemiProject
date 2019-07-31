@@ -105,6 +105,7 @@
 						<button class="reportCom" style="background: none;  border: none;"><img src="/sixDestiny/images/reportcoment.PNG" width="30px;" height="30px;" id="imgtest"></button>
 						<% if(loginUser != null) {%>
 						<% if(cm.get(i).getuNo() == loginUser.getUserNo() ) { %>
+						<button class="updateCom" style="background: none;  border: none;">수정</button>
 						<button class="deleteCom" style="background: none;  border: none;">삭제</button>
 						<% } %>
 						<% } %>
@@ -137,10 +138,68 @@
 	</div>
 
 <script>
+	$('.updateCom').click(function(){
+
+		var Comment = $(this).prevAll('label').eq(0).text();
+		var NickName = $(this).prevAll('label').eq(1).text();
+
+		$(this).prevAll('label').eq(0).remove();
+
+		var $input = $('<input type="text" size="50px">');
+			$input.val(Comment);
+			$input.addClass('updateComment');
+		var $button = $('<button>')
+			$button.addClass('updatebutton');
+			$button.text("수정");
+			$button.css({'background':'none','border':'none'});
+
+		$(this).prevAll('.reportCom').remove();
+		$(this).nextAll('.deleteCom').remove();
+		$(this).prevAll('label').eq(0).after($button);
+		$(this).prevAll('label').eq(0).after($input);
+		$(this).remove();
+
+
+		$('.updatebutton').click(function(){
+				var cNo = $(this).prevAll('.repotCon').val();
+				var comment = $('.updateComment').val();
+
+
+
+				$.ajax({
+					url:"UpdateComment.uc?cNo=" + cNo + "&comment=" + comment ,
+					data:{cNo:cNo,comment:comment},
+					type:"get",
+					success:function(data){
+
+
+						var $label = $('<label>');
+						$label.text(data);
+						 $label.css('width','400px');
+						 var $label2 = $('<label>')
+						 $label2.text("수정 완료 !");
+
+						$('.updateComment').remove();
+
+					 	$(".updatebutton").before($label);
+					 	$(".updatebutton").after($label2);
+
+						$(".updatebutton").remove();
+
+					}
+
+				})
+
+		});
+	});
+
+
 	$('.deleteCom').click(function(){
 		var cNo = $(this).prevAll('.repotCon').val();
 		var bNo = $('#bNo').val();
+		<% if(loginUser != null){%>
 		var uNo = <%= loginUser.getUserNo()%>
+		<%}%>
 
 		location.href="<%= request.getContextPath() %>/DeletePa.cm?cNo=" + cNo + "&bNo=" + bNo + "&uNo=" + uNo;
 
@@ -272,6 +331,7 @@
 			data:{coment:coment , uNo:uNo , bNo:bNo},
 			type:"get",
 			success:function(data){
+				console.log(data);
 
 
 				var $replySelectTable = $('#replySelectTable tbody');
@@ -287,10 +347,17 @@
 					var $img = $('<img src="/sixDestiny/images/reportcoment.PNG" width="30px;" height="30px;" id="imgtest">');
 					var $input = $('<input value=' + data[key].conNo + " >" );
 					$input.attr('type','hidden');
+					$input.addClass('repotCon');
 					var $input2 = $('<input value=' + data[key].uNo + '>' );
 					$input2.attr('type','hidden');
 					var $nickNm = $("<label>").text(data[key].nickNm).css("width","100px");
 					var $coment = $("<label>").text(data[key].coment).css("width","400px");
+					var $button2 = $("<button>");
+					$button2.addClass('deleteCom');
+					 $button2.css({'background':'none','border':'none'});
+					 $button2.text("삭제");
+
+
 
 
 					$button.append($img);
@@ -299,6 +366,14 @@
 					$td.append($nickNm);
 					$td.append($coment);
 					$td.append($button);
+
+					<% if(loginUser != null){ %>
+					if(data[key].uNo == <%= loginUser.getUserNo() %>){
+					$td.append($button2);
+					}
+					<% } %>
+
+
 					$tr.append($td);
 
 					$replySelectTable.append($tr);
@@ -313,14 +388,24 @@
 
 					window.open("/sixDestiny/views/member/3_parcelout/2_reviewParcelout/7_report_coment.jsp?uNo=" + uNo + "&cNo=" + cNo  + "&u2No=" + u2No ,"PopupWin","width=480,height=300","resizable=no");
 
-				})
+				});
+
+				$('.deleteCom').click(function(){
+					var cNo = $(this).prevAll('.repotCon').val();
+					var bNo = $('#bNo').val();
+					<% if(loginUser != null){%>
+					var uNo = <%= loginUser.getUserNo()%>
+					<%}%>
+
+					location.href="<%= request.getContextPath() %>/DeletePa.cm?cNo=" + cNo + "&bNo=" + bNo + "&uNo=" + uNo;
+
+
+
+	});
 
 			}
 		})
 
-		console.log(coment);
-		console.log(uNo);
-		console.log(bNo);
 	})
 
 
