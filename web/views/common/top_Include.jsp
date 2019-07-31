@@ -337,21 +337,23 @@ td#log {
 	function onMessage(evt){
 		var result = evt.data;
 		console.log(result);
-		if(result == "confirm"){
+		if(result != null){
 			console.log("들어왔다!	")
-			setInterval(function()
+			var set = setInterval(function()
 	  			    {
 	  			    	  $("#catt2").css("-webkit-transform", "scale(1)");
-	  			    	  $("#catt2").click(function(){
-	  			    		window.open("/sixDestiny/views/common/catting_admin.jsp", "window", "width=400,height=500");
-	  			    	  });
-
 	  			    },500);
 
-	  		 setInterval(function()
+	  		 var set2 = setInterval(function()
 	   			    {
 	  			 $("#catt2").css("-webkit-transform", "scale(1.2)");
 	   			    },1000);
+
+	  		$("#catt2").click(function(){
+		    		window.open("/sixDestiny/views/common/catting_admin.jsp?userNo="+result, result, "width=400,height=500");
+		    		clearInterval(set);
+		    		clearInterval(set2);
+		    	  });
 		}
 	}
 
