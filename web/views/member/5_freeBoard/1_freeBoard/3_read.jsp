@@ -5,8 +5,6 @@
 	ArrayList<UserBoardAttachment> fileList = (ArrayList<UserBoardAttachment>) request.getAttribute("fileList");
 	UserBoardAttachment titleImg = fileList.get(0);
 	int recCount = (int) request.getAttribute("recCount");
-	int num = (int) request.getAttribute("num");
-
 %>
 <%@ include file="../../../common/top_Include.jsp"%>
 <!DOCTYPE html>
@@ -26,7 +24,6 @@
 <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
 
 <style>
-
 .btn btn-default{
 	height:50px;
 }
@@ -69,7 +66,7 @@
 
 		<div style="padding: 30px" align="center">
 			
-				<img onerror="this.style.display='none'" id="titleImg" src="<%=request.getContextPath()%>/thumbnail_uploadFiles/<%=titleImg.getChangeNm()%>">
+				<img style="width:300px; height:auto;" onerror="this.style.display='none'" id="titleImg" src="<%=request.getContextPath()%>/thumbnail_uploadFiles/<%=titleImg.getChangeNm()%>">
 			
 			<p style="width: 1000px; padding: 80px;"><%=ub.getbCon() %></p>
 		</div>
@@ -81,14 +78,16 @@
 			<table class="ui single line table" style="width:70%; text-align:center; margin-left:auto; margin-right:auto;">
 				  <thead>
 				    <tr>
-				    <th style="width:50px;">신고</th>
+				    <%if(loginUser != null){ %>
+				    <th></th>
+				     <%} %>
 				      <th style="width:50px;">댓글번호</th>
 				      <th style="width:50px;">작성자</th>
-				      <th style="width:500px;;">내용</th>
+				      <th style="width:100%;">내용</th>
 				      <th style="width:50px;">날짜</th>
 				      <%if(loginUser != null){ %>
 				      
-				      <th style="width:50px;">수정 삭제</th>
+				      <th ></th>
 				      <%} %>
 				    </tr>
 				  </thead>
@@ -162,11 +161,16 @@
 		
 	 }
 	 
+	
+	 
 	 
 	 function insertRec() {
 		 	var thisBoardNo = <%= ub.getbNo() %>
-			var nowLoginUser= <%=loginUser.getUserNo()%>;
-		 	
+			<%if(loginUser != null){%>
+			 	var nowLoginUser= <%=loginUser.getUserNo()%>;
+			<%} else {%>
+			 	var nowLoginUser= 0;
+			<%}%>
 		 
 			 $.ajax({
 				url:"updateRec.ub",
@@ -188,10 +192,13 @@
 			 })
 	 }
 	 
-
 	 function deleteRec() {
-		 	var thisBoardNo = ub.getbNo() 
-			var nowLoginUser= <%=loginUser.getUserNo()%>;
+		 	var thisBoardNo = <%=ub.getbNo() %>
+		 	<%if(loginUser != null){%>
+		 		var nowLoginUser= <%=loginUser.getUserNo()%>;
+			<%} else {%>
+			 	var nowLoginUser= 0;
+			<%}%>
 		 	
 		 
 			 $.ajax({
@@ -217,12 +224,18 @@
 		 $(document).ready(function(){
 			 heart();
 			 commentList();
-
+			 
 		});
 		 
 		function heart(){
 			var thisBoardNo = <%= ub.getbNo() %>
-			var nowLoginUser= <%=loginUser.getUserNo()%>;
+			
+			<%if(loginUser != null){%>
+	 		var nowLoginUser= <%=loginUser.getUserNo()%>;
+			<%} else {%>
+			 	var nowLoginUser= 0;
+			<%}%>
+			
 			var red = $('<button class="parcleup" id="redHeart" style="background: none; outline-color:pink; border: none;" onclick="deleteRec()"><img src="/sixDestiny/images/redheart.png" width="25px;" height="20px;" id="imgtest"></button>');
 			var gray = $('<button class="parcleup" id="grayHeart" style="background: none; outline-color:pink; border: none;" onclick="insertRec()"><img src="/sixDestiny/images/grayheart.png" width="25px;" height="20px;" id="imgtest"></button>');
 			
@@ -267,7 +280,12 @@
 		
 		function comment(){
 			var thisBoardNo = <%= ub.getbNo() %>
-			var nowLoginUser= <%=loginUser.getUserNo()%>;
+			<%if(loginUser != null){%>
+	 		var nowLoginUser= <%=loginUser.getUserNo()%>;
+			<%} else {%>
+			 	var nowLoginUser= 0;
+			<%}%>
+			
 			var comcon = $("#comcon").val();
 			console.log(thisBoardNo)
 			console.log(nowLoginUser)
@@ -277,40 +295,11 @@
 					data:{thisBoardNo:thisBoardNo, nowLoginUser:nowLoginUser, comcon:comcon},
 					type:"get",
 					success:function(data){
+					
 						
-						console.log(data["result"])
-						console.log(data["commentList"])
-						console.log(data["commentList"][0].boardNo)
-						console.log(data["commentList"][0].commentCon)
-						console.log(data["commentList"][0].commentNo)
-						console.log(data["commentList"][0].nickNm)
-						console.log(data["commentList"][0].userNo)
-						console.log(data["commentList"][0].writeDay)
-								
-						
-						$("#commentArea td").remove();
-						for(var i = 0; i<data["commentList"].length; i++){
-						
-								var month = data["commentList"][i].writeDay.substr(0,1);
-								var day= data["commentList"][i].writeDay.substr(3,2);
-								var years = data["commentList"][i].writeDay.substr(7,4);
-			
-								$("#commentArea").append("<tr>")
-								
-								if(data['commentList'][i].nickNm != loginUser.getNickNm()){
-								$("#commentArea").append('<td style="padding:3px;"><input type="button" value="신고" id="reportPr" style="outline-style:none;" class="btn btn-default"></td>')	
-								}
-							
-								
-								$("#commentArea").append("<td>" + data["commentList"][i].commentNo + "</td>")
-								$("#commentArea").append('<td id="comwriter">' + data['commentList'][i].nickNm + "</td>")
-								$("#commentArea").append('<td>' + data['commentList'][i].commentCon + "</td>")
-								$("#commentArea").append('<td>' + years +"-"+"0"+month+"-"+day + "</td>")
-								$("#commentArea").append('<td style="padding:3px;"><button class="ui button">수정</button><button class="ui button">삭제</button></div></td>')
-								$("#commentArea").append("</tr>")
-							
-						}
+							commentList()
 					}
+						
 				})
 			}
 		
@@ -325,31 +314,62 @@
 					success:function(data){
 						
 						
-						$("#commentArea td").remove();
+						$("#commentArea tr").remove();
 						for(var i = 0; i<data.length; i++){
 						
 								var month = data[i].writeDay.substr(0,1);
 								var day= data[i].writeDay.substr(3,2);
 								var years = data[i].writeDay.substr(7,4);
 			
-								$("#commentArea").append("<tr>")
+								var $tr = $("<tr>");
+								var $td1 = $('<td style="padding:8px 0px 8px 5px">');
+								var $td2 = $("<td>");
+								var $td3 = $('<td id="comwriter">');
+								var $td4 = $("<td>");
+								var $td5 = $("<td>");
+								var $td6 = $('<td style="padding:auto;">');
+								var $div = $('<div class="ui buttons">')
 								
-								if(){
-									
+								<%if(loginUser != null){%>
+								if(<%=loginUser.getUserNo()%> != data[i].userNo){
+								$td1.html('<input type="button" value="신고" id="reportPr" style="outline-style:none; padding:3px;" class="btn btn-default" onclick="comReport()">');
+								$tr.append($td1);
 								}else{
-								$("#commentArea").append('<td style="padding:3px;"><input type="button" value="신고" id="reportPr" style="outline-style:none;" class="btn btn-default"></td>')	
-									
+								$td1.html("");
+								$tr.append($td1);
 								}
-								
-								$("#commentArea").append("<td>" + data[i].commentNo + "</td>")
-								$("#commentArea").append('<td id="comwriter">' + data[i].nickNm + "</td>")
-								$("#commentArea").append('<td>' + data[i].commentCon + "</td>")
-								$("#commentArea").append('<td>' + years +"-"+"0"+month+"-"+day + "</td>")
-								$("#commentArea").append('<td style="padding:3px;"><button class="ui button">수정</button><button class="ui button">삭제</button></div></td>')
-								$("#commentArea").append("</tr>")
-								
+								<%}%>
+								$td2.html(data[i].commentNo);
+								$td3.html(data[i].nickNm);
+								$td4.html(data[i].commentCon);
+								$td5.html(years +"-"+"0"+month+"-"+day);
+								$tr.append($td2);
+								$tr.append($td3);
+								$tr.append($td4);
+								$tr.append($td5);
 								
 							
+								
+								<%if(loginUser != null){%>
+								if(<%=loginUser.getUserNo()%> == data[i].userNo){
+								$div.html('<button style="padding:5px;" class="ui button">수정</button><button style="padding:5px;" class="ui button">삭제</button>');
+								$td6.append($div);
+								$tr.append($td6);
+								}else{
+								$div.html("");
+								$td6.append($div);
+								$tr.append($td6);
+								}
+								
+								
+								<%}%>
+								
+						
+								
+								
+								$("#commentArea").append($tr);
+								
+								$("#comcon").val("");
 						}
 					}
 				})
@@ -360,3 +380,6 @@
 <%@ include file="../../../common/bottom_Include.jsp"%>
 </body>
 </html>
+		
+		
+		
