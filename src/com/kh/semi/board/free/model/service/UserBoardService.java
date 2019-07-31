@@ -381,10 +381,10 @@ Connection con = getConnection();
 		return result;
 	}
 
-	public ArrayList<Commentub> selectListComment() {
+	public ArrayList<Commentub> selectListComment( int thisBoardNo) {
 		Connection con = getConnection();
 
-		ArrayList<Commentub> commentList = new UserBoardDao().selectListComment(con);
+		ArrayList<Commentub> commentList = new UserBoardDao().selectListComment(con, thisBoardNo);
 
 		close(con);
 
