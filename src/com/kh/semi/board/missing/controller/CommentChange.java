@@ -1,13 +1,17 @@
 package com.kh.semi.board.missing.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
 import com.kh.semi.board.missing.model.service.MissingService;
+import com.kh.semi.board.missing.model.vo.Comment;
 
 /**
  * Servlet implementation class CommentChange
@@ -29,13 +33,16 @@ public class CommentChange extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int cNo = Integer.parseInt( request.getParameter("cNo"));
-	  String con2=request.getParameter("comment_content");
-		
-		int result = new MissingService().changeCo(cNo,con2);
-
-		if(result > 0) {
-			response.sendRedirect("/sixDestiny/proSelectOne.bo");
-		}
+	  String con2=request.getParameter("comment");
+	
+		Comment cm = new Comment();
+		cm.setConNo(cNo);
+		cm.setComment(con2);
+		ArrayList<Comment> list = new MissingService().commentdelete(cm);
+	
+		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
+		new Gson().toJson(list, response.getWriter());
 
 
 		

@@ -261,20 +261,27 @@ Connection con = getConnection();
 Connection con = getConnection();
 		
 		HashMap<String, Object> hmap = null;
-		
+		ArrayList<Comment> list = null;
 		int result = new MissingDao().missingupdateCount(con,num);
 		System.out.println("result"+result);
 		if(result > 0) {
 			commit(con);
 			hmap = new MissingDao().missingselectThumbnailMap2(con, num);
+			list = new MissingDao().selectcoment(con,num);
 		}else {
 			rollback(con);
 		}
 		
 		close(con);
-		
+		hmap.put("comment", list);
 		
 		return hmap;
+		
+
+		
+		
+		
+
 	}
 
 
@@ -706,22 +713,58 @@ Connection con = getConnection();
 	}
 
 
-	public int changeCo(int cNo,String con2) {
+	public ArrayList<Comment> changeCo(int cNo,String con2, int bNo) {
 		Connection con = getConnection();
 		int result = 0;
+		ArrayList<Comment> list = null;
 		
 		result = new MissingDao().changCo(con,cNo,con2);
-		
 		if(result > 0) {
 			commit(con);
+			System.out.println("성공했씁니다 아마도도도도");
+			 list = new MissingDao().selectcomment(con,cNo,bNo);
+
 		}else {
 			rollback(con);
 		}
+
 		close(con);
 
 
-		return result;
+
+		return list;
+
 	}
+
+
+	public ArrayList<Comment> commentdelete(Comment cm) {
+		Connection con = getConnection();
+		int result = 0;
+		ArrayList<Comment> list = null;
+
+		
+	
+			
+			result=new MissingDao().deleteCo(con,cm.getConNo());
+			System.out.println("뀨뀨뀨뀨뀨뀨뀨"+result);
+			if(result>0) {
+			 list = new MissingDao().selectcomment(con,cm.getbNo());
+			 commit(con);
+			}
+			 
+			 
+			 
+			 
+			 
+		close(con);
+
+
+
+		return list;
+	}
+
+
+
 
 
 

@@ -44,7 +44,7 @@ public class ProCommentReport extends HttpServlet {
 
 
 		String msg = "";
-		String page = "views/member/4_missing/2_fine/6_report_comment.jsp";
+		String page = "views/member/4_missing/2_protect/6_report_comment.jsp";
 		if(result > 0) {
 			msg = "신고 가 완료 되었습니다";
 			request.setAttribute("msg", msg);

@@ -294,6 +294,8 @@ color:red;
 						<td>
 						<input type="hidden" value="<%= cm.get(i).getConNo()%>" class="repotCon">
 						<input type="hidden" value="<%= cm.get(i).getuNo()%>" class="repotUser">
+										<input type="hidden" value="<%=b.getbNo()%>" class="num">
+														<input type="hidden" value="<%= b.getUu()%>" class="uu">
 							<label style="width:100px"><%= cm.get(i).getNickNm() %></label>
 							<label style="width:400px" class="Con"><%= cm.get(i).getComment() %></label>
 							<%if(loginUser.getUserId()!=null){ 
@@ -409,6 +411,9 @@ color:red;
 		console.log(comment);
 		console.log(uNo);
 		console.log(bNo);
+		
+		
+		
 	})
 	
 	
@@ -418,12 +423,28 @@ color:red;
 		var cNo = $('.reportCom').prevAll('.repotCon').val();
 		var uNo = $('.reportCom').prevAll('.repotUser').val();
 		var u2No = data;
+		 
 					console.log("뀨");
-					window.open("/sixDestiny/views/member/4_missing/1_fine/7_report_comment.jsp?uNo=" + uNo + "&cNo=" + cNo  + "&u2No=" + u2No ,"PopupWin","width=480,height=300","resizable=no");
+					window.open("/sixDestiny/views/member/4_missing/2_protect/6_report_comment.jsp?uNo=" + uNo + "&cNo=" + cNo  + "&u2No=" + u2No ,"PopupWin","width=480,height=300","resizable=no");
 	}
 
+	
+	function changeCo(data){
+		
+		var cNo = $('.reportCom').prevAll('.repotCon').val();
+		var num = 	$('.reportCom').prevAll('.num').val();
+		var uu = 	$('.reportCom').prevAll('.uu').val();
+	
 
+		window.open("/sixDestiny/views/member/4_missing/2_protect/7_updateCo.jsp?cNo=" + cNo +"&num="+num+"&uu="+uu,"PopupWin","width=600,height=300","resizable=no");
 
+	
+	}
+	
+	
+	$(function(){
+		close();
+	});
 	
 <%-- 	$('#comHs').click(function(){
 		console.log("aaaaa");
@@ -519,19 +540,7 @@ color:red;
 					window.open("/sixDestiny/views/member/4_missing/2_protect/6_report_comment.jsp?uNo=" + uNo + "&cNo=" + cNo  + "&u2No=" + u2No ,"PopupWin","width=480,height=300","resizable=no");
 	}
 	 --%>
-	
-	function changeCo(data){
-		
-		var cNo = $('.reportCom').prevAll('.repotCon').val();
-	
-		var con= $('.Con').val();
-		console.log("con____"+con);
-		window.open("/sixDestiny/views/member/4_missing/2_protect/7_updateCo.jsp?uNo=" + uNo + "&cNo=" + cNo  + "&u2No=" + u2No ,"PopupWin","width=480,height=300","resizable=no");
 
-	
-	}
-	
-	
 
 
 
