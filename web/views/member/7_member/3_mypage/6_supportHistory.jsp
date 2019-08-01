@@ -172,6 +172,7 @@
 			<button onclick="location.href='<%=request.getContextPath()%>/mySupport.su?currentPage2=<%=maxPage2%>&currentPage=1'" class="btn btn-default">>></button>
 		</div>
   </div>
+  <button onclick="billingkey();">정기결제</button>
   <script type="text/javascript">
   	$(function(){
   		 setInterval(function()
@@ -294,6 +295,54 @@
   			});
   		});
   	};
+
+  	function billingkey(){
+  		var id = "5d38293e02f57e00381e9c2b";
+  		var key = "u7G+zBPcYZ4uxl8K9BUsz8k8/QH4Qw3WnYXTFYL6Ces=";
+  		$.ajax({
+  			url:"/sixDestiny/billing",
+  			type:"get",
+  			data:{id:id, key:key},
+  			success:function(data){
+  				console.log(data);
+  			},
+  			error:function(){
+
+  			}
+  		});
+  		/* let BootpayRest = require('bootpay-rest-client');
+
+  		BootpayRest.setConfig(
+  			'[[ application_id ]]',
+  			'[[ private_key ]]'
+  		);
+
+
+  		BootpayRest.getAccessToken().then(function (token) {
+  			if (token.status === 200) {
+  				BootpayRest.subscribeBilling(
+  					'[[ billing_key ]]', // 빌링키
+  					'정기결제 테스트 아이템', // 아이템 명
+  					3000, // 결제할 총 금액
+  					'[[ order_id ]]', // 유니크한 주문 번호
+  					[
+  						{
+  							item_name: '정기 결제 아이템명',
+  							qty: 1,
+  							unique: '아이템 유니크값',
+  							price: 3000,
+  							cat1: '카테고리 1',
+  							cat2: '카테고리 2',
+  							cat3: '카테고리 3'
+  						}
+  					]).then(function (response) {
+  					if (response.status === 200) {
+  						// TODO: 결제 완료된 로직을 처리하시면 됩니다.
+  					}
+  				});
+  			}
+  		});
+  	} */
   </script>
 
 	<%@ include file="../../../common/bottom_Include.jsp"%>

@@ -16,10 +16,10 @@
 	result[0] = "0900";
 	result[1] = "1000";
 	result[2] = "1100";
-	result[3] = "1200";
-	result[4] = "1400";
-	result[5] = "1500";
-	result[6] = "1600";
+	result[3] = "1400";
+	result[4] = "1500";
+	result[5] = "1600";
+	result[6] = "1700";
 %>
 <%
 	Calendar cal = Calendar.getInstance();
@@ -291,6 +291,9 @@ while(newLine > 0 && newLine < 7)
 </TABLE>
 
 </DIV>
+<script type="text/javascript">
+
+</script>
 </td>
 <td>
 <div class="container inline" style="width:500px">
@@ -311,12 +314,14 @@ while(newLine > 0 && newLine < 7)
     		<td style="font-family: 'Sunflower', sans-serif;"><p><%= time[i] %></p></td>
    		<% for(SelSit ss : entrance){ %>
 			<% if(result[i].equals(ss.getDay())) {%>
-						<td style="font-family: 'Sunflower', sans-serif;"><p><%= ss.getSelNo() %></p></td>
+						<td style="font-family: 'Sunflower', sans-serif;"><p class="selNo"><%= ss.getSelNo() %></p>
+						</td>
 						<td style="font-family: 'Sunflower', sans-serif;"><p><%= ss.getUserNm() %></p></td>
 						<td style="font-family: 'Sunflower', sans-serif;"><p><%= ss.getSelSit() %></p></td>
 						<td style="font-family: 'Sunflower', sans-serif;">
 							<% if(ss.getSelSit().equals("상담대기")){ %>
-									<button class="btn btn-default clickbtn">내역 변경</button>
+									<h4 class="hide">안녕하세요</h4>
+									<button class="btn btn-default clickbtn" name="changeBtn">내역 변경</button>
 							<% }else if(ss.getSelSit().equals("상담취소")){ %>
 									<p>상담취소</p>
 							<% }else{ %>
@@ -324,12 +329,13 @@ while(newLine > 0 && newLine < 7)
 							<% } %>
 						</td>
 				<% }else{%>
-						<td style="font-family: 'Sunflower', sans-serif;"></td>
-						<td style="font-family: 'Sunflower', sans-serif;"></td>
-						<td style="font-family: 'Sunflower', sans-serif;"></td>
-						<td style="font-family: 'Sunflower', sans-serif;"></td>
+
 				<% } %>
     		<% } %>
+    			<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
     		</tr>
     	<% } %>
     </tbody>
@@ -352,6 +358,7 @@ while(newLine > 0 && newLine < 7)
       </tr>
     </thead>
     <tbody id="parceloutBody">
+
     	<% for(int i = 0; i < 7; i++){ %>
     		<tr>
     		<td style="font-family: 'Sunflower', sans-serif;"><p><%= time[i] %></p></td>
@@ -370,15 +377,18 @@ while(newLine > 0 && newLine < 7)
 							<% } %>
 						</td>
 				<% }else{%>
-						<td style="font-family: 'Sunflower', sans-serif;"></td>
-						<td style="font-family: 'Sunflower', sans-serif;"></td>
-						<td style="font-family: 'Sunflower', sans-serif;"></td>
-						<td style="font-family: 'Sunflower', sans-serif;"></td>
+
 				<% } %>
     		<% } %>
+
+
+
+
+
+
     		</tr>
     	<% } %>
-    </tbody>
+    	</tbody>
   </table>
 </div>
 </td>
@@ -409,26 +419,26 @@ while(newLine > 0 && newLine < 7)
 		    		for(var i = 0; i < 7; i++){
 		    			var $tr = $("<tr>");
 		    			var $td = $("<td>");
+		    			var $td1 = $("<td>");
+    					var $td2 = $("<td>");
+    					var $td3 = $("<td>");
+    					var $td4 = $("<td>");
+    					var $p1 = $("<p class='selNo'>");
+    					var $p2 = $("<p>");
+    					var $p3 = $("<p>");
+    					var $p4 = $("<p>");
+    					var $btn = $("<button class='btn btn-default clickbtn' onclick='changePcoSit(this)'>");
 		    			$td.css("font-family", "'Sunflower', sans-serif");
 		    			var $p = $("<p>");
 		    			console.log("time" + time[i]);
 
 		    			$p.append(time[i]);
 		    			$td.append($p);
-		    			console.log(data["parcelout"].length);
+		    			console.log("길이" + data["parcelout"].length);
 		    			for(var j = 0; j < data["parcelout"].length; j++){
 		    					console.log("aa");
-		    					var $td1 = $("<td>");
-		    					var $td2 = $("<td>");
-		    					var $td3 = $("<td>");
-		    					var $td4 = $("<td>");
-		    					var $p1 = $("<p class='selNo'>");
-		    					var $p2 = $("<p>");
-		    					var $p3 = $("<p>");
-		    					var $p4 = $("<p>");
-		    					var $btn = $("<button class='btn btn-default clickbtn'>");
-		    					/* console.log(result[i]); */
-		    					/* console.log(data["parcelout"][i].day); */
+		    					console.log("result : " + reuslt[i]);
+		    					console.log("Data :: " + data["parcelout"][j].day);
 		    				if(reuslt[i] == data["parcelout"][j].day){
 		    					$btn.append("내역변경");
 		    					$td1.css("font-family", "'Sunflower', sans-serif");
@@ -437,45 +447,66 @@ while(newLine > 0 && newLine < 7)
 		    					$td4.css("font-family", "'Sunflower', sans-serif");
 
 		    					if(data["parcelout"][j].selSit == "상담대기"){
+		    						$p1.append(data["parcelout"][j].selNo);
+		    						$p2.append(data["parcelout"][j].userNm);
+		    						$p3.append(data["parcelout"][j].selSit);
+		    						$td1.append($p1);
+				    				$td2.append($p2);
+				    				$td3.append($p3);
 		    						$td4.append($btn);
 		    					}else if(data["parcelout"][j].day == "상담취소"){
+		    						$p1.append(data["parcelout"][j].selNo);
+		    						$p2.append(data["parcelout"][j].userNm);
+		    						$p3.append(data["parcelout"][j].selSit);
 		    						$p4.append("상담취소");
+		    						$td1.append($p1);
+				    				$td2.append($p2);
+				    				$td3.append($p3);
 		    						$td4.append($p4);
 		    					}else{
+		    						$p1.append(data["parcelout"][j].selNo);
+		    						$p2.append(data["parcelout"][j].userNm);
+		    						$p3.append(data["parcelout"][j].selSit);
 		    						$p4.append("상담완료");
+		    						$td1.append($p1);
+				    				$td2.append($p2);
+				    				$td3.append($p3);
 		    						$td4.append($p4);
 		    					}
-		    					$p1.append(data["parcelout"][j].selNo);
-		    					$td1.append($p1);
-		    					$p2.append(data["parcelout"][j].userNm);
-		    					$td2.append($p2);
-		    					$p3.append(data["parcelout"][j].selSit);
-		    					$td3.append($p3);
+
 
 		    				}else{
-
 		    					$td1.append($p1);
-
-		    					$td2.append($p2);
-
-		    					$td3.append($p3);
-
-		    					$td4.append($p4);
+			    				$td2.append($p2);
+			    				$td3.append($p3);
+	    						$td4.append($p4);
 		    				}
-		    			}
 
-		    			$tr.append($td);
-		    			$tr.append($td1);
-		    			$tr.append($td2);
-		    			$tr.append($td3);
-		    			$tr.append($td4);
+		    			}
+							$tr.append($td);
+		    				$tr.append($td1);
+		    				$tr.append($td2);
+		    				$tr.append($td3);
+		    				$tr.append($td4);
+
 
 		    			$("#parceloutBody").append($tr);
 		    		}
-		    		var $btn = $("<button class='btn btn-default clickbtn' name='bnt'>");
+
+
+
 		    		for(var i = 0; i < 7; i++){
 		    			var $tr = $("<tr>");
 		    			var $td = $("<td>");
+		    			var $td1 = $("<td>");
+    					var $td2 = $("<td>");
+    					var $td3 = $("<td>");
+    					var $td4 = $("<td>");
+    					var $p1 = $("<p class='selNo'>");
+    					var $p2 = $("<p>");
+    					var $p3 = $("<p>");
+    					var $p4 = $("<p>");
+    					var $btn = $("<button class='btn btn-default clickbtn' onclick='changeEntSit(this)'>");
 		    			$td.css("font-family", "'Sunflower', sans-serif");
 		    			var $p = $("<p>");
 		    			console.log("time" + time[i]);
@@ -484,77 +515,62 @@ while(newLine > 0 && newLine < 7)
 		    			$td.append($p);
 		    			console.log(data["entrance"].length);
 		    			for(var j = 0; j < data["entrance"].length; j++){
-		    					console.log("aa");
-		    					var $td1 = $("<td>");
-		    					var $td2 = $("<td>");
-		    					var $td3 = $("<td>");
-		    					var $td4 = $("<td>");
-		    					var $p1 = $("<p class='selNo'>");
-		    					var $p2 = $("<p>");
-		    					var $p3 = $("<p>");
-		    					var $p4 = $("<p>");
+	    					console.log("aa");
+	    					console.log("result : " + reuslt[i]);
+	    					console.log("Data :: " + data["entrance"][j].day);
+	    				if(reuslt[i] == data["entrance"][j].day){
+	    					$btn.append("내역변경");
+	    					$td1.css("font-family", "'Sunflower', sans-serif");
+	    					$td2.css("font-family", "'Sunflower', sans-serif");
+	    					$td3.css("font-family", "'Sunflower', sans-serif");
+	    					$td4.css("font-family", "'Sunflower', sans-serif");
+
+	    					if(data["entrance"][j].selSit == "상담대기"){
+	    						$p1.append(data["entrance"][j].selNo);
+	    						$p2.append(data["entrance"][j].userNm);
+	    						$p3.append(data["entrance"][j].selSit);
+	    						$td1.append($p1);
+			    				$td2.append($p2);
+			    				$td3.append($p3);
+	    						$td4.append($btn);
+	    					}else if(data["entrance"][j].day == "상담취소"){
+	    						$p1.append(data["entrance"][j].selNo);
+	    						$p2.append(data["entrance"][j].userNm);
+	    						$p3.append(data["entrance"][j].selSit);
+	    						$p4.append("상담취소");
+	    						$td1.append($p1);
+			    				$td2.append($p2);
+			    				$td3.append($p3);
+	    						$td4.append($p4);
+	    					}else{
+	    						$p1.append(data["entrance"][j].selNo);
+	    						$p2.append(data["entrance"][j].userNm);
+	    						$p3.append(data["entrance"][j].selSit);
+	    						$p4.append("상담완료");
+	    						$td1.append($p1);
+			    				$td2.append($p2);
+			    				$td3.append($p3);
+	    						$td4.append($p4);
+	    					}
 
 
-		    					/* console.log(result[i]); */
-		    					/* console.log(data["parcelout"][i].day); */
-		    				if(reuslt[i] == data["entrance"][j].day){
-		    					$btn.append("내역변경");
+	    				}else{
+	    					$td1.append($p1);
+		    				$td2.append($p2);
+		    				$td3.append($p3);
+    						$td4.append($p4);
+	    				}
 
+	    			}
 
-		    					$td1.css("font-family", "'Sunflower', sans-serif");
-		    					$td2.css("font-family", "'Sunflower', sans-serif");
-		    					$td3.css("font-family", "'Sunflower', sans-serif");
-		    					$td4.css("font-family", "'Sunflower', sans-serif");
+						$tr.append($td);
+	    				$tr.append($td1);
+	    				$tr.append($td2);
+	    				$tr.append($td3);
+	    				$tr.append($td4);
 
-		    					if(data["entrance"][j].selSit == "상담대기"){
-		    						$td4.append($btn);
-		    					}else if(data["entrance"][j].day == "상담취소"){
-		    						$p4.append("상담취소");
-		    						$td4.append($p4);
-		    					}else{
-		    						$p4.append("상담완료");
-		    						$td4.append($p4);
-		    					}
-		    					$p1.append(data["entrance"][j].selNo);
-		    					$td1.append($p1);
-		    					$p2.append(data["entrance"][j].userNm);
-		    					$td2.append($p2);
-		    					$p3.append(data["entrance"][j].selSit);
-		    					$td3.append($p3);
-
-		    				}else{
-
-		    					$td1.append($p1);
-
-		    					$td2.append($p2);
-
-		    					$td3.append($p3);
-
-		    					$td4.append($p4);
-		    				}
-
-		    			}
-
-		    			$tr.append($td);
-		    			$tr.append($td1);
-		    			$tr.append($td2);
-		    			$tr.append($td3);
-		    			$tr.append($td4);
-
-
-		    			$("#entranceBody").append($tr);
-
-
-		    		}
-
-
-
-		    				$(".clickbtn").click(function(){
-		    					var selNo = $(this).prevAll(".test").val();
-		    					console.log("aa"+selNo);
-		    				});
-
-
+	    			$("#entranceBody").append($tr);
+	    		}
 
 
 				},
@@ -564,6 +580,40 @@ while(newLine > 0 && newLine < 7)
 			});
 		});
 	});
+
+	function changePcoSit(selBtn){
+		var selNo = $(selBtn).parent().parent().children().eq(1).children().text();
+		var result = prompt("해당 상담의 내역을 처리하시겠습니까? \n(상담완료 : 완료 / 상담취소 : 취소)");
+		if(result == "완료" || result == "취소"){
+			$.ajax({
+				url:"/sixDestiny/updatesit.selpco",
+				type:"post",
+				data:{selNo:selNo, result:result},
+				success:function(data){
+					location.href="/sixDestiny/selectDday.sel";
+				},
+				error:function(data){
+
+				}
+			});
+		}else{
+			alert("잘못 입력하셨습니다!");
+		}
+		console.log(result);
+
+
+	}
+
+	function changeEntSit(selBtn) {
+		var selNo = $(selBtn).parent().parent().children().eq(1).children().text();
+		var result = prompt("해당 상담의 내역을 처리하시겠습니까? \n(상담완료 : 완료 / 상담취소 : 취소)");
+		if(result == "완료" || result == "취소"){
+
+		}else{
+			alert("잘못 입력하셨습니다!");
+		}
+		console.log(result);
+	}
 
 </script>
 
