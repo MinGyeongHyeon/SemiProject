@@ -33,7 +33,6 @@ tr:hover {background-color:#f5f5f5;}
 	font-family: 'Do Hyeon', sans-serif;
 }
 
-
 @import url('https://fonts.googleapis.com/css?family=Do+Hyeon&display=swap');
 </style>
 </head>

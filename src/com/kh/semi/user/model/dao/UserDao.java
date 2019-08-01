@@ -13,6 +13,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import com.kh.semi.entrance.model.vo.Entrance;
 import com.kh.semi.user.controller.LoginServlet;
 import com.kh.semi.user.model.vo.User;
 
@@ -677,8 +678,6 @@ public class UserDao {
 					us.setUserNm(rset.getString("USER_NM"));
 				}
 
-
-
 			} catch (SQLException e) {
 
 				e.printStackTrace();
@@ -686,10 +685,6 @@ public class UserDao {
 				close(pstmt);
 				close(rset);
 			}
-
-
-
-
 
 		return us;
 	}
@@ -741,9 +736,6 @@ public class UserDao {
 
 			pstmt.setString(1, us.getUserPwd());
 			pstmt.setString(2, us.getUserId());
-
-
-
 			result = pstmt.executeUpdate();
 
 		} catch (SQLException e) {
@@ -798,6 +790,41 @@ public class UserDao {
 		}
 		
 		return reportCount;
+	}
+
+	public User entUser(Connection con, Entrance et) {
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		User user = null;
+		
+		String query = prop.getProperty("entUser");
+		
+		try {
+			pstmt=con.prepareStatement(query);
+			pstmt.setInt(1, et.getEntAppNo());
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				user =  new User();
+				user.setUserNo(rset.getInt("USER_NO"));
+				user.setUserNm(rset.getString("USER_NM"));
+				user.setGender(rset.getString("GENDER"));
+				user.setUserHb(rset.getDate("USER_HB"));
+				user.setAddress(rset.getString("ADDRESS"));
+				
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return user;
 	}
 
 }

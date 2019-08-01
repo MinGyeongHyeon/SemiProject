@@ -5,11 +5,13 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Properties;
 
 import com.kh.semi.parcelout.model.vo.Application;
+import com.kh.semi.parcelout.model.vo.ParcelOut;
 import com.kh.semi.user.model.vo.User;
 
 import static com.kh.semi.common.JDBCTemplate.*;
@@ -112,6 +114,42 @@ public class ParcelOutDao {
 
 
 		return result;
+	}
+
+
+	public ParcelOut parceloutInfo(Connection con, int pcoAppNo) {
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ParcelOut pco =null;
+		
+		String query = prop.getProperty("pcoInfo");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, pcoAppNo);
+			
+			rset=pstmt.executeQuery();
+			
+			if(rset.next()) {
+				
+				pco = new ParcelOut();
+				pco.setPcoAppNo(rset.getInt("PCO_APP_NO"));
+				pco.setUserNo(rset.getInt("USER_NO"));
+				pco.setSelAppDt(rset.getString("SEL_APP_DT"));
+				pco.setPcoSit(rset.getString("PCO_SIT"));
+				pco.setCompanionRs(rset.getString("COMPANION_RS"));
+				
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return pco;
 	}
 
 }
