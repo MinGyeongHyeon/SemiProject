@@ -1412,7 +1412,7 @@ public class AdminBoardDao {
 		return list;
 	}
 
-	public ArrayList<Object> sortlow(Connection con, int currentPage, int limit) {
+	public ArrayList<Object> sortlow(Connection con, int currentPage, int limit, String data) {
 			ArrayList<Object> list = null;
 			AdminUserBoard ub = null;
 			PreparedStatement pstmt = null;
@@ -1421,7 +1421,17 @@ public class AdminBoardDao {
 			int startRow = (currentPage - 1) * limit + 1;
 			int endRow = startRow + limit - 1;
 
-			String query = prop.getProperty("sortlow");
+
+			String query = null;
+
+			if(data.equals("sortlow")) {
+
+				query = prop.getProperty("sortlow");
+			}else {
+
+				query = prop.getProperty("sorthigh");
+			}
+
 
 			try {
 				pstmt = con.prepareStatement(query);

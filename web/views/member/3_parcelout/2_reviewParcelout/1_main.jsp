@@ -94,7 +94,7 @@ div {
 		<h3>인기글 BEST 5</h3>
 		<hr>
 	<div>
-		<div class="container" style="height: 100%; width: 70%;">
+		<div class="container" style="height: 100%; width: 100%;">
 
 			<div class="row" style="margin-left: 89px;">
 		 	<% for(int i = 0 ; i < list2.size(); i++) {

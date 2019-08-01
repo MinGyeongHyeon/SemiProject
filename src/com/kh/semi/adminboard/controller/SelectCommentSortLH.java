@@ -69,15 +69,15 @@ public class SelectCommentSortLH extends HttpServlet {
 			ArrayList<Object> list = null;
 			ArrayList<Integer> list2 = null;
 
-			if(data.equals("sortlow")) {
 
-				list = new AdminBoardService().sortlow(currentPage,limit);
+
+				list = new AdminBoardService().sortlow(currentPage,limit,data);
 
 				list2 = new AdminBoardService().reportCount2(list);
 
 				list.add(list2);
 
-			}
+
 
 
 
