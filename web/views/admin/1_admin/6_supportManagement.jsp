@@ -181,6 +181,7 @@
   		setInterval(function()
   			    {
   			       $("button[name=okMoney]").each(function(){
+  			    	   console.log("abc");
   			    	  $(this).css("background", "rgb(204, 230, 255)");
   			       });
   			    },500);
@@ -195,6 +196,7 @@
   		setInterval(function()
   			    {
   			       $("button[name=okApply]").each(function(){
+  			    	   console.log("갯수");
   			    	  $(this).css("background", "rgb(204, 230, 255)");
   			       });
   			    },500);

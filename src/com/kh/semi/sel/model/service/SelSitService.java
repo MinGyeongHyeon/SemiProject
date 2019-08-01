@@ -61,4 +61,36 @@ public class SelSitService {
 		return list;
 	}
 
+	public int updateSelsitParcel(int selNo, String result) {
+		Connection con = getConnection();
+		int num = 0;
+
+		if(result.equals("완료")) {
+			int num1 = new SelSitDao().updateSelSitPco(con, selNo);
+			if(num1 > 0) {
+				commit(con);
+				int num2 = new SelSitDao().selectPcoNo(con, selNo);
+				int num3 = new SelSitDao().updateAppSitPco(con, num2);
+				if(num3 > 0) {
+					commit(con);
+					num++;
+				}else {
+					rollback(con);
+				}
+			}else {
+				rollback(con);
+			}
+		}else {
+			int num1 = new SelSitDao().updateSelSitPco2(con, selNo);
+			if(num1 > 0) {
+				commit(con);
+				num++;
+			}else {
+				rollback(con);
+			}
+		}
+
+		return num;
+	}
+
 }

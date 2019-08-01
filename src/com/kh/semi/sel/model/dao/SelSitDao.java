@@ -231,4 +231,92 @@ public class SelSitDao {
 		return list;
 	}
 
+	public int updateSelSitPco(Connection con, int selNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+
+		String query = prop.getProperty("updateSelSitPco");
+
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, "상담완료");
+			pstmt.setInt(2, selNo);
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+		return result;
+	}
+
+	public int selectPcoNo(Connection con, int selNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int result = 0;
+
+		String query = prop.getProperty("selectPcoNo");
+
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, selNo);
+
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				result = rset.getInt("PCO_APP_NO");
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+
+		return result;
+	}
+
+	public int updateAppSitPco(Connection con, int num2) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+
+		String query = prop.getProperty("updateAppSitPco");
+
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, num2);
+
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return result;
+	}
+
+	public int updateSelSitPco2(Connection con, int selNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+
+		String query = prop.getProperty("updateSelSitPco2");
+
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, "상담취소");
+			pstmt.setInt(2, selNo);
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+		return result;
+	}
+
 }
