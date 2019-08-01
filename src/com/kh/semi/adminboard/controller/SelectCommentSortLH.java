@@ -72,7 +72,7 @@ public class SelectCommentSortLH extends HttpServlet {
 			if(data.equals("sortlow")) {
 
 				list = new AdminBoardService().sortlow(currentPage,limit);
-				System.out.println("리스트값 어케 나오냐 ? " + list.get(0));
+
 				list2 = new AdminBoardService().reportCount2(list);
 
 				list.add(list2);
@@ -87,6 +87,7 @@ public class SelectCommentSortLH extends HttpServlet {
 			response.setContentType("application/json");
 			response.setCharacterEncoding("UTF-8");
 			new Gson().toJson(list,response.getWriter());
+
 
 
 
