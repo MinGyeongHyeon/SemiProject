@@ -382,4 +382,15 @@ public class EntranceService {
 		return result;
 	}
 
+	public Entrance entranceInfo(int userNo) {
+		
+		Connection con = getConnection();
+		
+		Entrance et = new EntranceDao().entranceInfo(con, userNo);
+		
+		close(con);
+		
+		return et;
+	}
+
 }

@@ -113,10 +113,16 @@ int endPage = pi.getEndPage();
             <td><%=list.get(i).getUserId() %></td>
             <td><a href="/sixDestiny/userInfo?userNo=<%=list.get(i).getUserNo() %>" onclick="window.open(this.href,'_blank', 'width=500,height=700');return false;"><%=list.get(i).getUserNm() %></a></td>
             <td><%=list.get(i).getNickNm()%></td>
-            <td><%=list.get(i).getGender()  %></td>
+            
+            <td>
+            	<%if(list.get(i).getGender()==null) {%>
+            	정보없음
+            	<%}else{ %>
+            	<%=list.get(i).getGender()  %></td>
+            	<%} %>
             <td><%=list.get(i).getEmail()%></td>
             <td>
-            	<%if(list.get(i)==null){ %>
+            	<%if(list.get(i).getPhone()==null){ %>
             		정보없음
             	<%}else{ %>
             		<%=list.get(i).getPhone() %>
@@ -125,10 +131,9 @@ int endPage = pi.getEndPage();
             <td><%=list.get(i).getUserSit() %></td>
             <td><%=list.get(i).getEnrollDt() %></td>
             <td><%=reportC.get(i) %></td>
-            <td>
-           <% if(list.get(i).getUserSit().equals("가입")){%>
-            	<button class="btn btn-default" id="btn1" onclick="deleteUser(<%=list.get(i).getUserNo() %>);">탈퇴</button>
-           <% }%>
+            <td><% if(list.get(i).getUserSit().equals("가입")){%>
+            <button class="btn btn-default" id="btn1" onclick="deleteUser(<%=list.get(i).getUserNo() %>);">탈퇴</button>
+         	  <% }%>
          	</td>
          </tr>
          <% } %>
