@@ -64,12 +64,14 @@ public class SelSitService {
 	public int updateSelsitParcel(int selNo, String result) {
 		Connection con = getConnection();
 		int num = 0;
+		String selNoString = String.valueOf(selNo).toString();
 
 		if(result.equals("완료")) {
-			int num1 = new SelSitDao().updateSelSitPco(con, selNo);
+			int num1 = new SelSitDao().updateSelSitPco(con, selNoString);
 			if(num1 > 0) {
 				commit(con);
-				int num2 = new SelSitDao().selectPcoNo(con, selNo);
+				int num2 = new SelSitDao().selectPcoNo(con, selNoString);
+				System.out.println("신청번호 ? " + num2);
 				int num3 = new SelSitDao().updateAppSitPco(con, num2);
 				if(num3 > 0) {
 					commit(con);
@@ -81,10 +83,67 @@ public class SelSitService {
 				rollback(con);
 			}
 		}else {
-			int num1 = new SelSitDao().updateSelSitPco2(con, selNo);
+			int num1 = new SelSitDao().updateSelSitPco2(con, selNoString);
 			if(num1 > 0) {
 				commit(con);
-				num++;
+				int num2 = new SelSitDao().selectPcoNo(con, selNoString);
+				num = new SelSitDao().updateAppSitPcoNo(con, num2);
+				if(num > 0) {
+					commit(con);
+				}else {
+					rollback(con);
+				}
+			}else {
+				rollback(con);
+			}
+		}
+
+		return num;
+	}
+
+	public int updateSelsitEntrance(int selNo, String result) {
+		Connection con = getConnection();
+		int num = 0;
+		String selNoString = String.valueOf(selNo).toString();
+
+		if(result.equals("완료")) {
+			int num1 = new SelSitDao().updateEntSelSit(con, selNoString);
+			if(num1 > 0) {
+				commit(con);
+				int num2 = new SelSitDao().selectEntNo(con, selNoString);
+				int num3 = new SelSitDao().updateEntApplySit(con, num2);
+				if(num3 > 0) {
+					commit(con);
+					num = new SelSitDao().updateEntDogInfoSit(con, num2);
+					if(num > 0) {
+						commit(con);
+					}else {
+						rollback(con);
+					}
+				}else {
+					rollback(con);
+				}
+			}else {
+				rollback(con);
+			}
+
+		}else {
+			int num1 = new SelSitDao().updateEntSelSitNo(con, selNoString);
+			if(num1 > 0) {
+				commit(con);
+				int num2 = new SelSitDao().selectEntNo(con, selNoString);
+				int num3 = new SelSitDao().updateEntApplySitNo(con, num2);
+				if(num3 > 0) {
+					commit(con);
+					num = new SelSitDao().updateEntDogInfoSitNo(con, num2);
+					if(num > 0) {
+						commit(con);
+					}else {
+						rollback(con);
+					}
+				}else {
+					rollback(con);
+				}
 			}else {
 				rollback(con);
 			}

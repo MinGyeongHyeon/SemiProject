@@ -1,7 +1,6 @@
-package com.kh.semi.sel.controller;
+package com.kh.semi.entrance.controller;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -9,28 +8,29 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
-import com.kh.semi.sel.model.service.SelSitService;
+import com.kh.semi.entrance.model.service.EntranceService;
 
-@WebServlet("/updatesit.selpco")
-public class UpdateSelSitParceloutServlet extends HttpServlet {
+@WebServlet("/selectSelData.pco")
+public class SelectParcelOutSelDataServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int selNo = Integer.parseInt(request.getParameter("selNo"));
-		String result = request.getParameter("result");
+		int pcoAppNo = Integer.parseInt(request.getParameter("pcoAppNo"));
 
-		System.out.println("상담내역변경 내용  : " + result);
+		String result = new EntranceService().selectParcelSElDate(pcoAppNo);
 
-		int num = new SelSitService().updateSelsitParcel(selNo, result);
-
-		if(num > 0) {
+		if(result != null) {
 			response.setContentType("application/json");
 			response.setCharacterEncoding("UTF-8");
-			new Gson().toJson(num, response.getWriter());
-		}
+			new Gson().toJson(result, response.getWriter());
+		}else {
 
+		}
 	}
 
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);

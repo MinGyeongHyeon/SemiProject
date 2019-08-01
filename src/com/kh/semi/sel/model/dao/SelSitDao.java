@@ -231,7 +231,7 @@ public class SelSitDao {
 		return list;
 	}
 
-	public int updateSelSitPco(Connection con, int selNo) {
+	public int updateSelSitPco(Connection con, String selNo) {
 		PreparedStatement pstmt = null;
 		int result = 0;
 
@@ -240,7 +240,9 @@ public class SelSitDao {
 		try {
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, "상담완료");
-			pstmt.setInt(2, selNo);
+			pstmt.setString(2, selNo);
+
+			result = pstmt.executeUpdate();
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -252,7 +254,7 @@ public class SelSitDao {
 		return result;
 	}
 
-	public int selectPcoNo(Connection con, int selNo) {
+	public int selectPcoNo(Connection con, String selNo) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		int result = 0;
@@ -261,7 +263,7 @@ public class SelSitDao {
 
 		try {
 			pstmt = con.prepareStatement(query);
-			pstmt.setInt(1, selNo);
+			pstmt.setString(1, selNo);
 
 			rset = pstmt.executeQuery();
 			if(rset.next()) {
@@ -298,7 +300,7 @@ public class SelSitDao {
 		return result;
 	}
 
-	public int updateSelSitPco2(Connection con, int selNo) {
+	public int updateSelSitPco2(Connection con, String selNo) {
 		PreparedStatement pstmt = null;
 		int result = 0;
 
@@ -307,8 +309,188 @@ public class SelSitDao {
 		try {
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, "상담취소");
-			pstmt.setInt(2, selNo);
+			pstmt.setString(2, selNo);
 
+			result = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+		return result;
+	}
+
+	public int updateEntSelSit(Connection con, String selNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+
+		String query = prop.getProperty("updateEntSelSit");
+
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, "상담완료");
+			pstmt.setString(2, selNo);
+
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+		return result;
+	}
+
+	public int selectEntNo(Connection con, String selNoString) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int result = 0;
+
+		String query = prop.getProperty("selectEntNo");
+
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, selNoString);
+
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				result = rset.getInt("ENT_APP_NO");
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+
+		return result;
+	}
+
+	public int updateEntApplySit(Connection con, int num2) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+
+		String query = prop.getProperty("updateEntApplySit");
+
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, num2);
+
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+		return result;
+	}
+
+	public int updateEntDogInfoSit(Connection con, int num2) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+
+		String query = prop.getProperty("updateEntDogInfoSit");
+
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, "분양대기");
+			pstmt.setInt(2, num2);
+
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+
+		return result;
+	}
+
+	public int updateEntSelSitNo(Connection con, String selNoString) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+
+		String query = prop.getProperty("updateEntSelSitNo");
+
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, "상담취소");
+			pstmt.setString(2, selNoString);
+
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+		return result;
+	}
+
+	public int updateEntApplySitNo(Connection con, int num2) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+
+		String query = prop.getProperty("updateEntApplySitNo");
+
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, "상담취소로 인한 입소반려");
+			pstmt.setInt(2, num2);
+
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+		return result;
+	}
+
+	public int updateEntDogInfoSitNo(Connection con, int num2) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+
+		String query = prop.getProperty("updateEntDogInfoSit");
+
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, "입소반려");
+			pstmt.setInt(2, num2);
+
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+
+		return result;
+	}
+
+	public int updateAppSitPcoNo(Connection con, int num2) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+
+		String query = prop.getProperty("updateAppSitPcoNo");
+
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, "상담취소로 인한 분양반려");
+			pstmt.setInt(2, num2);
+
+			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

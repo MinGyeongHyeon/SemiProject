@@ -20,12 +20,17 @@ public class SelectAllSelDateServlet extends HttpServlet {
 		String day = request.getParameter("day");
 		String month = request.getParameter("month");
 
-		String day1 = "";
-		if(day.length() == 43) {
-			day1 = day.substring(23, 25);
-		}else {
-			day1 = day.substring(23, 24);
-		}
+		String day1 = null;
+
+			if(day.length() == 43) {
+				day1 = day.substring(23, 25);
+
+			}else {
+				String day2 = day.substring(23, 24);
+				day1 = 0 + day2;
+			}
+
+
 
 		System.out.println("day"+day1);
 		System.out.println("month : " + month);

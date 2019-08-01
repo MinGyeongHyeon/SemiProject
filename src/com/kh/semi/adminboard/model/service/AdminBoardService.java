@@ -395,15 +395,15 @@ public class AdminBoardService {
 
 
 		close(con);
-		
-		
-		
-		
-		
+
+
+
+
+
 		return list;
-		
-		
-		
+
+
+
 	}
 
 	//분양견 종류
@@ -414,11 +414,11 @@ public class AdminBoardService {
 
 
 		close(con);
-		
-		
-		
-		
-		
+
+
+
+
+
 		return list;
 	}
 
@@ -430,11 +430,11 @@ public class AdminBoardService {
 
 
 		close(con);
-		
-		
-		
-		
-		
+
+
+
+
+
 		return list;
 	}
 
@@ -445,11 +445,11 @@ public class AdminBoardService {
 
 
 		close(con);
-		
-		
-		
-		
-		
+
+
+
+
+
 		return list;
 	}
 

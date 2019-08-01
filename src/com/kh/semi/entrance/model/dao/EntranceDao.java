@@ -1092,7 +1092,7 @@ public class EntranceDao {
 		return result;
 	}
 
-	public int updateParcelOut(Connection con, int num2, int entNo) {
+	public int updateParcelOut(Connection con, int entNo, int userNo) {
 		PreparedStatement pstmt = null;
 		int result = 0;
 
@@ -1100,7 +1100,7 @@ public class EntranceDao {
 
 		try {
 			pstmt = con.prepareStatement(query);
-			pstmt.setInt(1, num2);
+			pstmt.setInt(1, userNo);
 			pstmt.setInt(2, entNo);
 
 			result = pstmt.executeUpdate();
@@ -1114,35 +1114,34 @@ public class EntranceDao {
 		return result;
 	}
 
-	public Entrance entranceInfo(Connection con, int entAppNo) {
-		
+	public Entrance entranceInfo(Connection con, int userNo) {
+
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		Entrance et = null;
-		
+
 		String query = prop.getProperty("entInfo");
 
 		try {
 			pstmt = con.prepareStatement(query);
-			pstmt.setInt(1, entAppNo);
+			pstmt.setInt(1, userNo);
 
 			rset = pstmt.executeQuery();
-			
+
 			if(rset.next()) {
-				
+
 				et = new Entrance();
 				et.setEntAppNo(rset.getInt("ENT_APP_NO"));
 				et.setUserNo(rset.getInt("USER_NO"));
-				et.setWriteDt(rset.getDate("WRITE_DT"));
 				et.setSelHopeDt(rset.getString("SEL_HOPE_DT"));
 				et.setAppSit(rset.getString("APP_SIT"));
 				et.setCompanionRs(rset.getString("COMPANION_RS"));
-				
+
 			}
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
-			
+
 		}finally {
 			close(rset);
 			close(pstmt);
@@ -1150,56 +1149,81 @@ public class EntranceDao {
 		return et;
 	}
 
-	public EntranceDogInfo dogInfo(Connection con, int entAppNo) {
-		
+	public int noEntranceDoginfo(Connection con, int entAppNo) {
 		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		EntranceDogInfo dogInfo = null;
-		
-		String query = prop.getProperty("dogInfo");
-		
+		int result = 0;
+
+		String query = prop.getProperty("noEntranceDoginfo");
+
 		try {
 			pstmt = con.prepareStatement(query);
 			pstmt.setInt(1, entAppNo);
-			
-			rset = pstmt.executeQuery();
-			
-			if(rset.next()) {
-				
-				dogInfo = new EntranceDogInfo();
-				dogInfo.setEntNo(rset.getInt("ENT_NO"));
-				dogInfo.setDogNm(rset.getString("DOG_NM"));
-				dogInfo.setDogAge(rset.getString("DOG_AGE"));
-				dogInfo.setDogGender(rset.getString("DOG_GENDER"));
-				dogInfo.setDogKind(rset.getString("DOG_KIND"));
-				dogInfo.setDogWeight(rset.getInt("DOG_WEIGHT"));
-				dogInfo.setDogHeight(rset.getInt("DOG_HEIGHT"));
-				dogInfo.setInoYn(rset.getString("INO_YN"));
-				dogInfo.setDisYn(rset.getString("DIS_YN"));
-				dogInfo.setOperYn(rset.getString("OPER_YN"));
-				dogInfo.setAllegy(rset.getString("ALLEGY"));
-				dogInfo.setDogHobby(rset.getString("DOG_HOBBY"));
-				dogInfo.setDogBark(rset.getString("DOG_BARK"));
-				dogInfo.setDogBowel(rset.getString("DOG_BOWEL"));
-				dogInfo.setDogAct(rset.getString("DOG_ACT"));
-				dogInfo.setSeperate(rset.getString("SEPERATE"));
-				dogInfo.setFurColor(rset.getString("FUR_COLOR"));
-				dogInfo.setObYn(rset.getString("OB_YN"));
-				dogInfo.setRegYn(rset.getString("REG_YN"));
-				dogInfo.setDogChar(rset.getString("DOG_CHAR"));
-				dogInfo.setEntAppNo(rset.getInt("ENT_APP_NO"));
-				dogInfo.setDogSit(rset.getString("DOG_SIT"));		
-				
-			}
-		
+
+			result = pstmt.executeUpdate();
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}finally {
+		} finally {
+			close(pstmt);
+		}
+
+		return result;
+	}
+
+	public String selectNoParcelApplyReason(Connection con, int pcoAppNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String reason = null;
+
+		String query = prop.getProperty("selectNoParcelApplyReason");
+
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, pcoAppNo);
+
+			rset = pstmt.executeQuery();
+
+			if(rset.next()) {
+				reason = rset.getString("COMPANION_RS");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
 			close(rset);
 			close(pstmt);
 		}
-		return dogInfo;
+
+		return reason;
+	}
+
+	public String selectParcelSElDate(Connection con, int pcoAppNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String result = null;
+
+		String query = prop.getProperty("selectParcelSElDate");
+
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, pcoAppNo);
+
+			rset = pstmt.executeQuery();
+
+			if(rset.next()) {
+				result = rset.getString("SEL_DT");
+				System.out.println("오호라 : " + result);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+
+		return result;
 	}
 
 
