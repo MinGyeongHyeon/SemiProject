@@ -29,33 +29,6 @@ private int cNo;
 
 
 
-	public int getRe() {
-	return re;
-}
-
-
-
-
-public void setRe(int re) {
-	this.re = re;
-}
-
-
-
-
-	public int getcNo() {
-	return cNo;
-}
-
-
-
-
-public void setcNo(int cNo) {
-	this.cNo = cNo;
-}
-
-
-
 
 	public AdminComment() {}
 
@@ -356,6 +329,33 @@ public void setcNo(int cNo) {
 		this.bUserNick = bUserNick;
 	}
 
+
+
+
+	public int getRe() {
+	return re;
+}
+
+
+
+
+public void setRe(int re) {
+	this.re = re;
+}
+
+
+
+
+	public int getcNo() {
+	return cNo;
+}
+
+
+
+
+public void setcNo(int cNo) {
+	this.cNo = cNo;
+}
 
 
 

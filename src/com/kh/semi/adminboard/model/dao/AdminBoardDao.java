@@ -15,6 +15,7 @@ import java.util.Properties;
 
 import com.kh.semi.adminboard.model.vo.AdminBoard;
 import com.kh.semi.adminboard.model.vo.AdminComment;
+import com.kh.semi.adminboard.model.vo.AdminStatic;
 import com.kh.semi.adminboard.model.vo.AdminUserBoard;
 import com.kh.semi.board.parcelout.model.vo.Attachment;
 
@@ -1239,6 +1240,177 @@ public class AdminBoardDao {
 
 	}
 
+
+	public ArrayList<HashMap<String, Object>> statics(Connection con) {
+		Statement stmt = null;
+		ArrayList<HashMap<String, Object>> list = null;
+		HashMap<String, Object> hmap = null;
+	
+		ResultSet rset = null;
+			System.out.println("다오");
+		String query = prop.getProperty("statics");//회원탈퇴이유
+		
+		try {
+			stmt = con.createStatement();
+			
+			rset = stmt.executeQuery(query);
+			
+			list = new ArrayList<HashMap<String, Object>>();
+			
+			while(rset.next()) {
+				hmap = new HashMap<String,Object>();
+
+				hmap.put("reason1", rset.getString("L1"));
+				hmap.put("reason2", rset.getString("L2"));
+				hmap.put("reason3", rset.getString("L3"));
+				hmap.put("reason4", rset.getString("L4"));
+				hmap.put("reason5", rset.getString("L5"));
+				
+				list.add(hmap);
+			}
+	
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
+		}
+		
+		
+		return list;
+	}
+
+	public ArrayList<HashMap<String, Object>> statics2(Connection con) {
+		PreparedStatement pstmt = null;
+		Statement stmt = null;
+		ArrayList<HashMap<String, Object>> list = null;
+		HashMap<String, Object> hmap = null;
+	
+		ResultSet rset = null;
+			System.out.println("다오");
+		String query = prop.getProperty("statics2"); //분양강아지 종류
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setString(1, "말티즈");
+			pstmt.setString(2, "코카스파니엘");
+			pstmt.setString(3, "비글");
+			pstmt.setString(4, "믹스견");
+			pstmt.setString(5, "푸들");
+			
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<HashMap<String, Object>>();
+			
+			while(rset.next()) {
+				hmap = new HashMap<String,Object>();
+
+				hmap.put("dog_kind1", rset.getString("D1"));
+				hmap.put("dog_kind2", rset.getString("D2"));
+				hmap.put("dog_kind3", rset.getString("D3"));
+				hmap.put("dog_kind4", rset.getString("D4"));
+				hmap.put("dog_kind5", rset.getString("D5"));
+				
+				list.add(hmap);
+			}
+	
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
+		}
+		
+		
+		return list;
+	}
+
+	//회원가입 경로
+	public ArrayList<HashMap<String, Object>> statics3(Connection con) {
+		Statement stmt = null;
+		ArrayList<HashMap<String, Object>> list = null;
+		HashMap<String, Object> hmap = null;
+	
+		ResultSet rset = null;
+			System.out.println("다오");
+		String query = prop.getProperty("statics3");
+		
+		try {
+			stmt = con.createStatement();
+			
+			rset = stmt.executeQuery(query);
+			
+			list = new ArrayList<HashMap<String, Object>>();
+			
+			while(rset.next()) {
+				hmap = new HashMap<String,Object>();
+
+				hmap.put("root1", rset.getString("L1"));
+				hmap.put("root2", rset.getString("L2"));
+				hmap.put("root3", rset.getString("L3"));
+				hmap.put("root4", rset.getString("L4"));
+				hmap.put("root5", rset.getString("L5"));
+				
+				list.add(hmap);
+			}
+	
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
+		}
+		
+		
+		return list;
+	}
+
+	//후원취소 이유
+	public ArrayList<HashMap<String, Object>> statics4(Connection con) {
+		Statement stmt = null;
+		ArrayList<HashMap<String, Object>> list = null;
+		HashMap<String, Object> hmap = null;
+	
+		ResultSet rset = null;
+			System.out.println("다오");
+		String query = prop.getProperty("statics4");
+		
+		try {
+			stmt = con.createStatement();
+			
+			rset = stmt.executeQuery(query);
+			
+			list = new ArrayList<HashMap<String, Object>>();
+			
+			while(rset.next()) {
+				hmap = new HashMap<String,Object>();
+
+				hmap.put("can1", rset.getString("L1"));
+				System.out.println(rset.getString("L1"));
+				
+				hmap.put("can2", rset.getString("L2"));
+				hmap.put("can3", rset.getString("L3"));
+				hmap.put("can4", rset.getString("L4"));
+		
+				
+				list.add(hmap);
+			}
+	
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
+		}
+		
+		
+		return list;
+    
 	public ArrayList<Object> sortlow(Connection con, int currentPage, int limit) {
 			ArrayList<Object> list = null;
 			AdminUserBoard ub = null;

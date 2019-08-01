@@ -624,8 +624,8 @@ Connection con = getConnection();
 		result = new MissingDao().report2(con,test,test2);
 
 		if(result >0) {
+			result2= new MissingDao().report5(con,test,test2);
 			commit(con);
-			result2 = new MissingDao().report4(con,test,test2);
 			
 		}else {
 			rollback(con);
@@ -639,11 +639,14 @@ Connection con = getConnection();
 	public int re3(int test, int test2) {
 		Connection con = getConnection();
 		int result = 0;
+		int result2=0;
 
 		result = new MissingDao().report3(con,test,test2);
 
 		if(result >0) {
-			commit(con);
+			
+			result2=new MissingDao().recde(con,test,test2);
+					commit(con);
 		}else {
 			rollback(con);
 		}
