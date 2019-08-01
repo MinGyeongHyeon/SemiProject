@@ -133,10 +133,12 @@ public class ApplicationInsertServlet extends HttpServlet {
 		System.out.println("입소견 : " + dogInfo);
 
 		int result = new EntranceService().insertEntrance(fileList, et, dogInfo);
-
+		
+		System.out.println("결과는? " + result);
+ 
 		if(result > 0) {
 			System.out.println("서블릿까지 성공했다!!");
-			request.getRequestDispatcher("index.jsp").forward(request, response);
+			response.sendRedirect("/sixDestiny/index.jsp");
 		}
 
 

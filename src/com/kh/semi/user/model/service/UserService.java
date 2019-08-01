@@ -8,6 +8,7 @@ import static com.kh.semi.common.JDBCTemplate.rollback;
 import java.sql.Connection;
 import java.util.ArrayList;
 
+import com.kh.semi.entrance.model.vo.Entrance;
 import com.kh.semi.user.controller.LoginServlet;
 import com.kh.semi.user.model.dao.UserDao;
 import com.kh.semi.user.model.vo.User;
@@ -300,6 +301,17 @@ public class UserService {
 
 		return result;
 
+	}
+
+	public User entUser(Entrance et) {
+		
+		Connection con = getConnection();
+		
+		User us = new UserDao().entUser(con,et);
+		
+		close(con);
+		
+		return us;
 	}
 
 }

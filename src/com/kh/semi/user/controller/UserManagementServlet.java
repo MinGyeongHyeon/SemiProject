@@ -74,11 +74,10 @@ public class UserManagementServlet extends HttpServlet {
 		endPage = maxPage;
 	}
 	
-	//신고받은 횟수
-	
-	
 	PageInfo pi = new PageInfo(currentPage, listCount, limit, maxPage, startPage, endPage);
 	ArrayList<User> list = new UserService().selectList(currentPage, limit);
+	
+	//신고받은 횟수
 	ArrayList<Integer> reportC = new UserService().reportCount(list);
 	
 	
