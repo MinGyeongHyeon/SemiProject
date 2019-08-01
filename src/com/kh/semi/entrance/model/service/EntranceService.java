@@ -157,16 +157,23 @@ public class EntranceService {
 
 	public int noEntranceApply(int entAppNo, String reason) {
 		Connection con = getConnection();
+		int num = 0;
 
 		int result = new EntranceDao().noEntranceApply(con, entAppNo, reason);
 
 		if(result > 0) {
 			commit(con);
+			num = new EntranceDao().noEntranceDoginfo(con, entAppNo);
+			if(num > 0) {
+				commit(con);
+			}else {
+				rollback(con);
+			}
 		}else {
 			rollback(con);
 		}
 
-		return result;
+		return num;
 	}
 
 	public int okEntrance(int entAppNo) {
@@ -359,13 +366,10 @@ public class EntranceService {
 
 		if(num > 0) {
 			commit(con);
-			/*int num2 = new EntranceDao().selectParceloutApply(con, entNo, userNo);*/
 			int num3 = new EntranceDao().updateParcleoutApply(con, entNo, userNo);
-
 			if(num3 > 0) {
 				commit(con);
-				result = new EntranceDao().updateParcelOut(con, num3, entNo);
-
+				result = new EntranceDao().updateParcelOut(con, entNo, userNo);
 				if(result > 0) {
 					commit(con);
 				}else {
@@ -383,26 +387,39 @@ public class EntranceService {
 		return result;
 	}
 
-	public Entrance entranceInfo(int entAppNo) {
-		
+	public Entrance entranceInfo(int userNo) {
+
 		Connection con = getConnection();
-		
-		Entrance et = new EntranceDao().entranceInfo(con, entAppNo);
-		
+
+		Entrance et = new EntranceDao().entranceInfo(con, userNo);
+
 		close(con);
-		
+
 		return et;
 	}
 
-	public EntranceDogInfo dogInfo(int entAppNo) {
-		
+	public String selectNoParcelApplyReason(int pcoAppNo) {
 		Connection con = getConnection();
-		
-		EntranceDogInfo dogInfo = new EntranceDao().dogInfo(con,entAppNo);
-		
+		String reason = null;
+
+		reason = new EntranceDao().selectNoParcelApplyReason(con, pcoAppNo);
+
 		close(con);
-		
-		return dogInfo;
+
+		return reason;
+	}
+
+	public String selectParcelSElDate(int pcoAppNo) {
+		Connection con = getConnection();
+		String result = null;
+
+		result = new EntranceDao().selectParcelSElDate(con, pcoAppNo);
+
+		System.out.println("Afdsdfsgs : " + result);
+
+		close(con);
+
+		return result;
 	}
 
 }

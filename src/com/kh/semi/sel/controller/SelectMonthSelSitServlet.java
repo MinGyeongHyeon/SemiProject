@@ -1,6 +1,7 @@
 package com.kh.semi.sel.controller;
 
 import java.io.IOException;
+import java.util.HashMap;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -8,26 +9,27 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.Gson;
 import com.kh.semi.sel.model.service.SelSitService;
 
-@WebServlet("/updatesit.selpco")
-public class UpdateSelSitParceloutServlet extends HttpServlet {
+@WebServlet("/selectMonth.all")
+public class SelectMonthSelSitServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int selNo = Integer.parseInt(request.getParameter("selNo"));
-		String result = request.getParameter("result");
+		int month = Integer.parseInt(request.getParameter("month"));
+		String day = request.getParameter("days");
 
-		System.out.println("상담내역변경 내용  : " + result);
+		String result = 20190 + month + day;
 
-		int num = new SelSitService().updateSelsitParcel(selNo, result);
+		HashMap<String, Object> list = new SelSitService().selectAllSelDate(result);
 
-		if(num > 0) {
-			response.setContentType("application/json");
-			response.setCharacterEncoding("UTF-8");
-			new Gson().toJson(num, response.getWriter());
+		if(list != null) {
+			String page = "views/admin/1_admin/4_scheduleManagement.jsp";
+			request.setAttribute("entrance", list.get("entrance"));
+			request.setAttribute("parcelout", list.get("parcelout"));
+			request.getRequestDispatcher(page).forward(request, response);
 		}
+
 
 	}
 

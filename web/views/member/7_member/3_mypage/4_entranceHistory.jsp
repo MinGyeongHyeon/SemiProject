@@ -51,12 +51,7 @@
 			<td style="font-family: 'Sunflower', sans-serif;"><%= et.getWriteDt() %></td>
 			<td style="font-family: 'Sunflower', sans-serif;"><%= et.getSelHopeDt() %></td>
 			<td style="font-family: 'Sunflower', sans-serif;">
-				
-				<button class="btn btn-default">
-				<a href="/sixDestiny/applicationform?entAppNo=<%=et.getEntAppNo() %>" onclick="window.open(this.href,'_blank', 'width=500,height=700');return false;">신청서</a>
-				</button>
-			
-			
+				<button class="btn btn-default" style="font-family: 'Sunflower', sans-serif;" onclick="viewEntranceApply(<%=et.getEntAppNo()%>);">신청서</button>
 			</td>
 			<td style="font-family: 'Sunflower', sans-serif;">
 				<% if(et.getAppSit().equals("N")){ %>
@@ -125,13 +120,13 @@
 				<% if(po.getPcoSit().equals("N")){ %>
 					<p style="font-family: 'Sunflower', sans-serif;">신청수락 대기</p>
 				<% }else if(po.getPcoSit().equals("I")){ %>
-					<button class="btn btn-default" style="font-family: 'Sunflower', sans-serif; background:white;" name="insertMoney" onclick="parcelReault();">분양신청 반려</button>
+					<button class="btn btn-default" style="font-family: 'Sunflower', sans-serif; background:white;" name="insertMoney" onclick="parcelReault(<%=po.getPcoAppNo()%>);">분양신청 반려</button>
 				<% }else if(po.getPcoSit().equals("E")){ %>
-					<button class="btn btn-default" style="font-family: 'Sunflower', sans-serif; background:white;" name="insertMoney" onclick="parcelSel();">분양상담 수락</button>
+					<button class="btn btn-default" style="font-family: 'Sunflower', sans-serif; background:white;" name="insertMoney" onclick="parcelSel(<%=po.getPcoAppNo()%>);">분양상담 수락</button>
 				<% }else if(po.getPcoSit().equals("Y")){ %>
 					<p style="font-family: 'Sunflower', sans-serif;">분양대기</p>
 				<% }else{ %>
-					<button class="btn btn-default" style="font-family: 'Sunflower', sans-serif; background:white;" name="insertMoney" onclick="endParcelout();">분양완료</button>
+					<p style="font-family: 'Sunflower', sans-serif;">분양완료</p>
 				<% } %>
 			</td>
 		</tr>
@@ -197,7 +192,40 @@
 			data:{entAppNo:entAppNo},
 			success:function(data){
 				var date = data
-				alert("회원님의 상담 날짜는 " + date + "입니다.");
+				alert("회원님의 상담 날짜는 " + date + "입니다. \n오프라인 육인연 보호소는 서울특별시 강남구 테헤란로 14길 6 남도빌딩 2F에 위치하여 있습니다.");
+			},
+			error:function(){
+
+			}
+		});
+	}
+
+  	function parcelReault(pcoAppNo) {
+		var pcoAppNo = pcoAppNo;
+		$.ajax({
+  			url:"/sixDestiny/selectReason.pco",
+  			type:"post",
+  			data:{pcoAppNo:pcoAppNo},
+  			success:function(data){
+  				console.log(data);
+				var reason = data;
+				alert("회원님의 분양신청 반려 사유  : " + reason);
+  			},
+  			error:function(data){
+
+  			}
+  		});
+	}
+
+  	function parcelSel(pcoAppNo) {
+		var pcoAppNo = pcoAppNo;
+		$.ajax({
+			url:"/sixDestiny/selectSelData.pco",
+			type:"post",
+			data:{pcoAppNo:pcoAppNo},
+			success:function(data){
+				var date = data
+				alert("회원님의 상담 날짜는 " + date + "입니다. \n오프라인 육인연 보호소는 서울특별시 강남구 테헤란로 14길 6 남도빌딩 2F에 위치하여 있습니다.");
 			},
 			error:function(){
 

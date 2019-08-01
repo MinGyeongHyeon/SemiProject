@@ -296,7 +296,7 @@
   		});
   	};
 
-  	function billingkey(){
+  /* 	function billingkey(){
   		var id = "5d38293e02f57e00381e9c2b";
   		var key = "u7G+zBPcYZ4uxl8K9BUsz8k8/QH4Qw3WnYXTFYL6Ces=";
   		$.ajax({
@@ -309,7 +309,7 @@
   			error:function(){
 
   			}
-  		});
+  		}); */
   		/* let BootpayRest = require('bootpay-rest-client');
 
   		BootpayRest.setConfig(
