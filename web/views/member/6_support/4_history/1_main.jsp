@@ -29,6 +29,13 @@
 		</div>
 	<% } %>
 	<hr style="width:80%">
+	<!-- <table>
+		<tr>
+			<td style="width:200px">
+				<button class="btn btn-default" style="font-family: 'Sunflower', sans-serif;" onclick="print()">영수증 출력하기</button>
+			</td>
+		</tr>
+	</table> -->
 	<table style="width:80%; margin:0 auto;">
 		<tr>
 			<td style="width:200px">
@@ -38,9 +45,6 @@
 			</td>
 			<td></td>
 			<td></td>
-			<td style="width:200px">
-				<button class="btn btn-default" style="font-family: 'Sunflower', sans-serif;">영수증 출력하기</button>
-			</td>
 		</tr>
 	</table>
 	<hr style="width:80%">
@@ -56,8 +60,12 @@
 		<tr>
 			<td colspan="4">
 				<br>
-				<div style="width:50%; margin:0 auto;">
+				<div style="width:50%; margin:0 auto;" id="supImg">
+					<% if(ac != null){ %>
 					<img style="width:400px; height:500px;" src="<%=request.getContextPath()%>/support_uploadFiles/<%=ac.getChangeNm()%>">
+					<% }else{%>
+					<h2>사진없음</h2>
+					<% } %>
 				</div>
 				<br>
 			</td>
@@ -74,6 +82,19 @@
 	</table>
 
 </div>
+
+<script type="text/javascript">
+		function print() {
+			var initBody = document.body.innerHTML;
+			window.onbeforeprint = function() {
+				document.body.innerHTML = document.getElementById('#supImg').innerHTML; //원하는 div 영역 프린트
+			}
+			window.onafterprint = function() {
+				document.body.innerHTML = initBody;
+			}
+			window.print();
+		}
+</script>
 
 
 <%@ include file="../../../common/bottom_Include.jsp"%>
