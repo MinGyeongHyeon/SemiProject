@@ -89,23 +89,15 @@ textarea {
 	border: 2px solid #FFBB00;
 }
 
-/*  .btn-like {
-  color: transparent;
-  text-shadow: 0 0 2px rgba(255,255,255,.7), 0 0 0 #000;
-}
-.btn-like:hover {
-  text-shadow: 0 0 0 #ea0;
-}
-.btn-like.done {
-  color: inherit;
-  text-shadow: 0;
-}
-.btn-like.done:hover {
-  color: transparent;
-  text-shadow: 0 0 0 #777;
-}   */
+#commentCh{
 
+opacity:0;
 
+}
+#commentChbtn{
+opacity:0;
+
+}
 .a{
 color:red;
 }
@@ -309,29 +301,7 @@ function upbnt(data){
 				}
 				
 				
-				/* 
-				$btn.click(function(){
-					
-					var $div = $(".ddd");
-					$div.html("");
-					
-				console.log("보드"+test);
-				console.log("re"+result);
-					var $btn = $("<button>");
-					$btn.text("👍")
-				 $div.append($btn);
-				if(result==0){
-
-					$btn.addClass("a");
-				}else{
-					
-					$btn.addClass("b");
-				}
-					
-					
-
-					
-				}); */
+	
 				
 			}
 			
@@ -341,57 +311,7 @@ function upbnt(data){
 
 }
 
-<%-- 
-	<%}else{%>
-	$(this).toggleClass("done");
-	var test = <%= b.getbNo() %>;
-	var test2= <%=loginUser.getUserNo()%>
-	console.log('추천');
- location.href="<%= request.getContextPath() %>/missingrec.bo?test="+test+"&&test2="+test2; 
 
-	<%}%> --%>
-
-	<%-- $(function(){
-
-	$('#1').click(function(){
-	
-		console.log("ddddddddd");
-		var test = <%= b.getbNo() %>;
-		var test2= data;
-	 	var result=<%=b.getUu()%>
-	 	
-	 	
-		$.ajax({
-				url:"missingrec.bo",
-				data:{test:test,test2:test2,result:result},
-				type:"get",
-				success:function(data){
-					console.log(data);
-					var $div = $(".ddd");
-						$div.html("");
-					console.log("보드"+test);
-					console.log("re"+result);
-					
-						var $btn = $("<button>");
-						$btn.text("👍");
-					 $div.append($btn);
-					if(result==0){
-
-						$btn.addClass("a");
-					}else{
-						
-						$btn.addClass("b");
-					}
-					
-				}
-		});
-
-		
-	})
-	;
-	
-	});	
-	 --%>
 	
 	
 </script> 
@@ -407,11 +327,26 @@ function upbnt(data){
 						<td>
 						<input type="hidden" value="<%= cm.get(i).getConNo()%>" class="repotCon">
 						<input type="hidden" value="<%= cm.get(i).getuNo()%>" class="repotUser">
+							<input type="hidden" value="<%=b.getbNo()%>" class="num">
+														<input type="hidden" value="<%= b.getUu()%>" class="uu">
 							<label style="width:100px"><%= cm.get(i).getNickNm() %></label>
-							<label style="width:400px"><%= cm.get(i).getComment() %></label>
+							 <label style="width:400px" class="Con"><%= cm.get(i).getComment() %></label> 
+							<%if(loginUser.getUserId()!=null){ 
+							%>
 						<button class="reportCom"  onclick="report2(<%=loginUser.getUserNo()%>);"  style="background: none;  border: none;"><img src="/sixDestiny/images/reportcoment.PNG" width="30px;" height="30px;" id="imgtest"></button>
-						<!-- <input type="button" value="신고" class="reportCom"> -->
-						</td>
+							<% } %>
+							
+							
+								<%if(loginUser.getUserNo()==cm.get(i).getuNo()){ %>
+							<button class="changeCo"  onclick="changeCo(<%=loginUser.getUserNo()%>);"  >수정</button>
+									
+							<% } %>
+							
+							
+								<%if(loginUser.getUserNo()==cm.get(i).getuNo()||loginUser.getUserId().equals("admin")){ %>
+								
+								<button class="deleteCo"  <%-- onclick="deleteCo(<%=loginUser.getUserNo()%>);" --%> >삭제</button>
+								<% } %>	</td>
 					</tr>
 					<% } %>
 				<% } %>
@@ -426,9 +361,9 @@ function upbnt(data){
 
 
 		<hr>
-<div></div>
+<div>
 	<% if(loginUser != null) { %>
-		댓글 <input type="text" style="width: 600px" id="comment">
+		 <input type="text" style="width: 600px" id="comment">
 		<input type="button" value="댓글 달기" id="comHs">
 
 		<% } %>
@@ -437,9 +372,19 @@ function upbnt(data){
 
 	</div>
 	
+	<div>
+	<% if(loginUser != null) { %>
+ <input type="text" style="width: 600px" id="commentCh">
+	<input type="button" value="댓글 수정" id="commentChbtn">
+
+		<% } %>
+	
+	</div>
+	
 	
 	<script>
 	
+
 	$('#comHs').click(function(){
 
 		var comment = $('#comment').val();
@@ -484,8 +429,14 @@ function upbnt(data){
 					$td.append($nickNm);
 					$td.append($comment);
 					$td.append($button);
+					if(<%=loginUser.getUserNo()%>==data[key].uNo){
 					$td.append($button2);
+					}
+					
+
+					if(<%=loginUser.getUserNo()%>==data[key].uNo||<%=loginUser.getUserNo()%>==100){ 
 					$td.append($button3);
+					}
 					$tr.append($td);
 
 					$replySelectTable.append($tr);
@@ -521,6 +472,282 @@ function upbnt(data){
 					window.open("/sixDestiny/views/member/4_missing/1_fine/7_report_comment.jsp?uNo=" + uNo + "&cNo=" + cNo  + "&u2No=" + u2No ,"PopupWin","width=480,height=300","resizable=no");
 	}
 
+	$(function(){
+		$('.deleteCo').each(function(){
+			console.log("Each");
+			$(this).click(function(){
+				console.log("click");
+				var cNo = $(this).prevAll(".repotCon").val();
+				console.log(cNo);
+				var comment = $('#comment').val();
+				var uNo = <%=loginUser.getUserNo()%>
+				var bNo = $('#num').val();
+				var comment = $('#comment').val();
+
+				
+				
+				
+				
+				
+				$.ajax({
+					url:"CommentDeleteServlet",
+					data:{cNo:cNo , uNo:uNo , bNo:bNo},
+					type:"get",
+					success:function(data){
+
+
+						var $replySelectTable = $('#replySelectTable tbody');
+						$replySelectTable.html("");
+						var $comment = $('#comment');
+						$comment.val("");
+
+
+						for(var key in data){
+							var $tr = $('<tr>');
+							var $td = $('<td>');
+							var $button = $('<button style="background: none; border:none;" class="reportCom">');
+							var $img = $('<img src="/sixDestiny/images/reportcoment.PNG" width="30px;" height="30px;" id="imgtest">');
+							var $input = $('<input value=' + data[key].conNo + " >" );
+							$input.attr('type','hidden');
+							var $input2 = $('<input value=' + data[key].uNo + '>' );
+							$input2.attr('type','hidden');
+							var $nickNm = $("<label>").text(data[key].nickNm).css("width","100px");
+							var $comment = $("<label>").text(data[key].comment).css("width","400px");
+							
+							var $button2 =$('<button>');
+							$button2.text("수정");
+							var $button3 =$('<button>');
+							$button3.text("삭제");
+							
+
+							$button.append($img);
+							$td.append($input);
+							$td.append($input2);
+							$td.append($nickNm);
+							$td.append($comment);
+							$td.append($button);
+							if(<%=loginUser.getUserNo()%>==data[key].uNo){
+							$td.append($button2);
+							}
+							if(<%=loginUser.getUserNo()%>==data[key].uNo||<%=loginUser.getUserNo()%>==100){ 
+							$td.append($button3);
+							}
+							$tr.append($td);
+
+							$replySelectTable.append($tr);
+
+
+						}
+
+					$('.reportCom').click(function(){
+							var cNo = $(this).prevAll('.repotCon').val();
+							var uNo = $(this).prevAll('.repotUser').val();
+							var u2No = <%=loginUser.getUserNo()%>
+
+							window.open("/sixDestiny/views/member/4_missing/1_fine/7_report_comment.jsp?uNo=" + uNo + "&cNo=" + cNo  + "&u2No=" + u2No ,"PopupWin","width=480,height=300","resizable=no");
+
+						}) 
+
+					}
+				})
+
+				console.log(comment);
+				console.log(uNo);
+				console.log(bNo);
+				
+				
+			})
+		});	
+	});
+	
+	
+
+	
+	$(function(){
+		$('.changeCo').each(function(){
+			console.log("Each");
+			var cNo = $(this).prevAll(".repotCon").val();
+			var bNo = $('#num').val();
+			$(this).click(function(){
+		
+				$('#commentCh').css("opacity","1");
+				
+				$('#commentChbtn').css("opacity","1");
+				
+
+				$('#commentChbtn').click(function(){
+					console.log("click");
+					
+					$('#commentCh').css("opacity","0");
+					
+					$('#commentChbtn').css("opacity","0");
+					
+					
+					
+				
+					var comment = $('#commentCh').val(); 
+				
+
+					$.ajax({
+						url:"CommentChange2",
+						data:{cNo:cNo , comment:comment,bNo:bNo},
+						type:"get",
+						success:function(data){
+
+							console.log(data);
+							var $replySelectTable = $('#replySelectTable tbody');
+							$replySelectTable.html("");
+					/* 		var $comment = $('#comment');
+							$comment.val("");
+  */
+
+							for(var key in data){
+								var $tr = $('<tr>');
+								var $td = $('<td>');
+								var $button = $('<button style="background: none; border:none;" class="reportCom">');
+								var $img = $('<img src="/sixDestiny/images/reportcoment.PNG" width="30px;" height="30px;" id="imgtest">');
+								var $input = $('<input value=' + data[key].conNo + " >" );
+								$input.attr('type','hidden');
+								var $input2 = $('<input value=' + data[key].uNo + '>' );
+								$input2.attr('type','hidden');
+								var $nickNm = $("<label>").text(data[key].nickNm).css("width","100px");
+								var $comment = $("<label>").text(data[key].comment).css("width","400px");
+							
+								var $button2 =$('<button>');
+								$button2.text("수정");
+								var $button3 =$('<button>');
+								$button3.text("삭제");
+								
+
+								$button.append($img);
+								$td.append($input);
+								$td.append($input2);
+								$td.append($nickNm);
+								$td.append($comment);
+								$td.append($button);
+								if(<%=loginUser.getUserNo()%>==data[key].uNo){
+								$td.append($button2);
+								}
+								if(<%=loginUser.getUserNo()%>==data[key].uNo||<%=loginUser.getUserNo()%>==100){ 
+								$td.append($button3);
+								}
+								$tr.append($td);
+
+								$replySelectTable.append($tr);
+
+
+							}
+
+						$('.reportCom').click(function(){
+								var cNo = $(this).prevAll('.repotCon').val();
+								var uNo = $(this).prevAll('.repotUser').val();
+								var u2No = <%=loginUser.getUserNo()%>
+
+								window.open("/sixDestiny/views/member/4_missing/1_fine/7_report_comment.jsp?uNo=" + uNo + "&cNo=" + cNo  + "&u2No=" + u2No ,"PopupWin","width=480,height=300","resizable=no");
+
+							}) 
+
+						}
+					})
+
+					
+				})
+
+	
+		
+				
+				
+			})
+		});	
+	});
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+			$('#commentChbtn').click(function(){
+				console.log("click");
+				
+				$('#commentCh').css("opacity","0");
+				
+				$('#commentChbtn').css("opacity","0");
+				
+				
+				
+				var cNo = $(this).prevAll(".repotCon").val();
+				
+				var comment = $('#commentCh').val(); 
+			
+
+				$.ajax({
+					url:"CommentChange2",
+					data:{cNo:cNo , comment:comment},
+					type:"get",
+					success:function(data){
+
+
+						var $replySelectTable = $('#replySelectTable tbody');
+						$replySelectTable.html("");
+						var $comment = $('#comment');
+						$comment.val("");
+
+
+						for(var key in data){
+							var $tr = $('<tr>');
+							var $td = $('<td>');
+							var $button = $('<button style="background: none; border:none;" class="reportCom">');
+							var $img = $('<img src="/sixDestiny/images/reportcoment.PNG" width="30px;" height="30px;" id="imgtest">');
+							var $input = $('<input value=' + data[key].conNo + " >" );
+							$input.attr('type','hidden');
+							var $input2 = $('<input value=' + data[key].uNo + '>' );
+							$input2.attr('type','hidden');
+							var $nickNm = $("<label>").text(data[key].nickNm).css("width","100px");
+							var $comment = $("<label>").text(data[key].comment).css("width","400px");
+						
+							var $button2 =$('<button>');
+							$button2.text("수정");
+							var $button3 =$('<button>');
+							$button3.text("삭제");
+							
+
+							$button.append($img);
+							$td.append($input);
+							$td.append($input2);
+							$td.append($nickNm);
+							$td.append($comment);
+							$td.append($button);
+							if(<%=loginUser.getUserNo()%>==data[key].uNo){
+							$td.append($button2);
+							}
+							if(<%=loginUser.getUserNo()%>==data[key].uNo||<%=loginUser.getUserNo()%>==100){ 
+							$td.append($button3);
+							}
+							$tr.append($td);
+
+							$replySelectTable.append($tr);
+
+
+						}
+
+					$('.reportCom').click(function(){
+							var cNo = $(this).prevAll('.repotCon').val();
+							var uNo = $(this).prevAll('.repotUser').val();
+							var u2No = <%=loginUser.getUserNo()%>
+
+							window.open("/sixDestiny/views/member/4_missing/1_fine/7_report_comment.jsp?uNo=" + uNo + "&cNo=" + cNo  + "&u2No=" + u2No ,"PopupWin","width=480,height=300","resizable=no");
+
+						}) 
+
+					}
+				})
+
+				
+			})
 
 
 	

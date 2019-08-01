@@ -14,16 +14,16 @@ import com.kh.semi.board.missing.model.service.MissingService;
 import com.kh.semi.board.missing.model.vo.Comment;
 
 /**
- * Servlet implementation class CommentDeleteServlet
+ * Servlet implementation class CommentChange2
  */
-@WebServlet("/CommentDeleteServlet")
-public class CommentDeleteServlet extends HttpServlet {
+@WebServlet("/CommentChange2")
+public class CommentChange2 extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CommentDeleteServlet() {
+    public CommentChange2() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,31 +33,26 @@ public class CommentDeleteServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int cNo = Integer.parseInt( request.getParameter("cNo"));
-		int bNo = Integer.parseInt( request.getParameter("bNo"));
-
-		  /*
-			int uu2 = Integer.parseInt( request.getParameter("uu"));
-			
-			String num= request.getParameter("num");
-			String uu= request.getParameter("uu");
-			*/
-			String num= request.getParameter("num");
-			String comment= request.getParameter("num");
-/*			String page = "/mSelectOne.bo?num="+cNo;*/
+		  String con2=request.getParameter("comment");
+			int bNo = Integer.parseInt( request.getParameter("bNo"));
+		
+		
+			System.out.println("내용쓰"+con2);
 
 			Comment cm = new Comment();
 			cm.setConNo(cNo);
-			cm.setbNo(bNo);
-			ArrayList<Comment> list = new MissingService().commentdelete(cm);
-
-		/*	int result = new MissingService().deletemissing(cNo);*/
+			cm.setComment(con2);
+			ArrayList<Comment> list = new MissingService().changeCo(cNo,con2,bNo);
+			System.out.println("호출한 리스트 : " + list);
 
 			response.setContentType("application/json");
 			response.setCharacterEncoding("UTF-8");
 			new Gson().toJson(list, response.getWriter());
 
 
-}
+
+
+	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

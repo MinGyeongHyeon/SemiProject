@@ -2569,6 +2569,80 @@ public class MissingDao {
 	}
 
 
+	public int deleteCo(Connection con, int cNo) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+
+		String query = prop.getProperty("deleteCo");
+
+		try {
+			pstmt = con.prepareStatement(query);
+
+			pstmt.setInt(1, cNo);
+
+
+			result = pstmt.executeUpdate();
+
+
+
+		} catch (SQLException e) {
+
+
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+
+
+		return result;
+	}
+
+
+	public ArrayList<Comment> selectcomment(Connection con, int cNo, int bNo) {
+		PreparedStatement pstmt = null;
+		ArrayList<Comment> list = null;
+		ResultSet rset = null;
+		Comment cm = null;
+
+		String query = prop.getProperty("selectcoment");
+
+		try {
+			pstmt = con.prepareStatement(query);
+
+			pstmt.setInt(1, bNo);
+			/*pstmt.setInt(2, cNo);
+*/
+
+
+
+			rset = pstmt.executeQuery();
+
+			list = new ArrayList<Comment>();
+			while(rset.next()) {
+				cm = new Comment();
+
+				cm.setComment(rset.getString("COM_CON"));
+				cm.setConNo(rset.getInt("COM_NO"));
+				cm.setuNo(rset.getInt("USER_NO"));
+				cm.setbNo(rset.getInt("BOARD_NO"));
+				cm.setNickNm(rset.getString("NICK_NM"));
+
+				list.add(cm);
+
+			}
+
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		}
+
+
+		return list;
+	}
+
+
+
+
 	
 	
 	

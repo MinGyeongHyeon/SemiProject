@@ -259,6 +259,7 @@ public class UserService {
 		reportCount = new UserDao().reportCount(con,list);
 	
 		return reportCount;
+	}
 
 	public User selectfind(String userId, String email) {
 		Connection con = getConnection();

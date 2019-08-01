@@ -71,8 +71,6 @@
 				httpRequest.send(param); */
 			}
 			return true;
-			
-			window.close();
 		}
 	 
 	/* 	
@@ -91,6 +89,7 @@
 			}
 		} */
 		
+	
 
 		
 	</script>
@@ -104,7 +103,7 @@
 	<br>
 
 	<div id="commentUpdateForm">
- <form id="report" name="report" method="post" action="<%= request.getContextPath() %>/CommentChange" onsubmit="return check();">		
+ <form id="report" name="report" method="post" action="<%= request.getContextPath() %>/CommentChange2" onsubmit="return check();">		
 			<textarea rows="7" cols="70" name="comment_content" id="comment_content"></textarea>
 			<br><br>
 							<td><input type="hidden" value="<%= request.getParameter("cNo")%>" name="cNo" id="cNo"></td>
