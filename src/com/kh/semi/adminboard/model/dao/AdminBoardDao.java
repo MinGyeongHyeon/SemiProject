@@ -1245,18 +1245,18 @@ public class AdminBoardDao {
 		Statement stmt = null;
 		ArrayList<HashMap<String, Object>> list = null;
 		HashMap<String, Object> hmap = null;
-	
+
 		ResultSet rset = null;
 			System.out.println("다오");
 		String query = prop.getProperty("statics");//회원탈퇴이유
-		
+
 		try {
 			stmt = con.createStatement();
-			
+
 			rset = stmt.executeQuery(query);
-			
+
 			list = new ArrayList<HashMap<String, Object>>();
-			
+
 			while(rset.next()) {
 				hmap = new HashMap<String,Object>();
 
@@ -1265,19 +1265,19 @@ public class AdminBoardDao {
 				hmap.put("reason3", rset.getString("L3"));
 				hmap.put("reason4", rset.getString("L4"));
 				hmap.put("reason5", rset.getString("L5"));
-				
+
 				list.add(hmap);
 			}
-	
-			
+
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			close(rset);
 			close(stmt);
 		}
-		
-		
+
+
 		return list;
 	}
 
@@ -1286,24 +1286,24 @@ public class AdminBoardDao {
 		Statement stmt = null;
 		ArrayList<HashMap<String, Object>> list = null;
 		HashMap<String, Object> hmap = null;
-	
+
 		ResultSet rset = null;
 			System.out.println("다오");
 		String query = prop.getProperty("statics2"); //분양강아지 종류
-		
+
 		try {
 			pstmt = con.prepareStatement(query);
-			
+
 			pstmt.setString(1, "말티즈");
 			pstmt.setString(2, "코카스파니엘");
 			pstmt.setString(3, "비글");
 			pstmt.setString(4, "믹스견");
 			pstmt.setString(5, "푸들");
-			
+
 			rset = pstmt.executeQuery();
-			
+
 			list = new ArrayList<HashMap<String, Object>>();
-			
+
 			while(rset.next()) {
 				hmap = new HashMap<String,Object>();
 
@@ -1312,19 +1312,19 @@ public class AdminBoardDao {
 				hmap.put("dog_kind3", rset.getString("D3"));
 				hmap.put("dog_kind4", rset.getString("D4"));
 				hmap.put("dog_kind5", rset.getString("D5"));
-				
+
 				list.add(hmap);
 			}
-	
-			
+
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			close(rset);
 			close(stmt);
 		}
-		
-		
+
+
 		return list;
 	}
 
@@ -1333,18 +1333,18 @@ public class AdminBoardDao {
 		Statement stmt = null;
 		ArrayList<HashMap<String, Object>> list = null;
 		HashMap<String, Object> hmap = null;
-	
+
 		ResultSet rset = null;
 			System.out.println("다오");
 		String query = prop.getProperty("statics3");
-		
+
 		try {
 			stmt = con.createStatement();
-			
+
 			rset = stmt.executeQuery(query);
-			
+
 			list = new ArrayList<HashMap<String, Object>>();
-			
+
 			while(rset.next()) {
 				hmap = new HashMap<String,Object>();
 
@@ -1353,19 +1353,19 @@ public class AdminBoardDao {
 				hmap.put("root3", rset.getString("L3"));
 				hmap.put("root4", rset.getString("L4"));
 				hmap.put("root5", rset.getString("L5"));
-				
+
 				list.add(hmap);
 			}
-	
-			
+
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			close(rset);
 			close(stmt);
 		}
-		
-		
+
+
 		return list;
 	}
 
@@ -1374,44 +1374,44 @@ public class AdminBoardDao {
 		Statement stmt = null;
 		ArrayList<HashMap<String, Object>> list = null;
 		HashMap<String, Object> hmap = null;
-	
+
 		ResultSet rset = null;
 			System.out.println("다오");
 		String query = prop.getProperty("statics4");
-		
+
 		try {
 			stmt = con.createStatement();
-			
+
 			rset = stmt.executeQuery(query);
-			
+
 			list = new ArrayList<HashMap<String, Object>>();
-			
+
 			while(rset.next()) {
 				hmap = new HashMap<String,Object>();
 
 				hmap.put("can1", rset.getString("L1"));
 				System.out.println(rset.getString("L1"));
-				
+
 				hmap.put("can2", rset.getString("L2"));
 				hmap.put("can3", rset.getString("L3"));
 				hmap.put("can4", rset.getString("L4"));
-		
-				
+
+
 				list.add(hmap);
 			}
-	
-			
+
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			close(rset);
 			close(stmt);
 		}
-		
-		
+
+
 		return list;
 	}
-    
+
 	public ArrayList<Object> sortlow(Connection con, int currentPage, int limit) {
 			ArrayList<Object> list = null;
 			AdminUserBoard ub = null;
@@ -1503,11 +1503,16 @@ public class AdminBoardDao {
 		try {
 			list2 = new ArrayList<Integer>();
 
+			AdminUserBoard ub = null;
+
 			for(int i = 0; i < list.size(); i++) {
+				ub = (AdminUserBoard) list.get(i);
+
+
 
 				pstmt = con.prepareStatement(query);
 
-			/*	pstmt.setInt(1, list.get(i).);*/
+				pstmt.setInt(1, ub.getBoardNo());
 
 
 				rset = pstmt.executeQuery();
