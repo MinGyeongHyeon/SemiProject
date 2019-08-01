@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" import="com.kh.semi.adminboard.model.vo.*"%>
+	pageEncoding="UTF-8" import="com.kh.semi.adminboard.model.vo.* "%>
 <%@ include file="../../../common/top_Include.jsp"%>
 <%
 	AdminBoard ab = (AdminBoard) request.getAttribute("ab");
@@ -18,7 +18,7 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
 <body>
-
+	<h2 align="center" style="font-size:2em; font-weight:bold; font-family: 'Sunflower', sans-serif;">공지사항</h2>
 <div class="container">
 	<%-- <table border="1" width="100%">
 		<tr>
@@ -37,7 +37,9 @@
 			</td>
 		</tr>
 		<tr>
-			<td rowspan="4"><img src="" alt=""></td>
+			<div id="titleImgArea">
+				<td rowspan="4"><img id="titleImg" src="<%=request.getContextPath()%>/imageGroupFile/<%%>"></td>
+			</div>
 		</tr>
 		<tr>
 			<td style="font-weight:bold; font-family: 'Sunflower', sans-serif;">
@@ -50,7 +52,7 @@
 			</td>
 		</tr>
 	</table> --%>
-	<table class="table table-hover">
+    <table class="table table-hover">
 				<thead>
 					<tr>
 					<td><input style="display: none;" value="<%= ab.getTitle() %>">
@@ -58,25 +60,40 @@
 						<input type="hidden" value="<%= loginUser.getUserNo() %>">
 					<% } %>
 					</td>
-						<th>제목 : <%= ab.getTitle() %></th>
-						<th>작성자 : <%= ab.getNickNm() %></th>
-						<th>작성일 : <%= ab.getWriteDt() %></th>
-						<th id="thtest2">조회수 : <%= ab.getRecCount() %></th>
-
-						<% if(loginUser != null) { %>
-							<% if(loginUser.getUserId().equals("admin")){ %>
-									<th><input type="button" value="수정" id="update"></th>
-									<th><input type="button" value="삭제" id="delete"></th>
-								<% } %>
-							<% } %>
+						<th style="font-size:1.2em; font-weight:bold; font-family: 'Sunflower', sans-serif;">제목 : <%= ab.getTitle() %></th>
+						<th style="font-size:1.2em; font-weight:bold; font-family: 'Sunflower', sans-serif;">작성자 : <%= ab.getNickNm() %></th>
+						<th style="font-size:1.2em; font-weight:bold; font-family: 'Sunflower', sans-serif;">작성일 : <%= ab.getWriteDt() %></th>
+						<th id="thtest" style="font-size:1.2em; font-weight:bold; font-family: 'Sunflower', sans-serif;">조회수 : <%= ab.getRecCount() %></th>
 					</tr>
 				</thead>
 			</table>
+			<hr>
+			<div>
+				<img src="/sixDestiny/inputGroupFile/<%%>">			
+			</div>
+			<div>
+				<p id="content"><%=ab.getAdBoardCon()%><br/></p>
+			</div>
+			
+			
 </div>
-	<br>
-	<div align="center">
+
+<%-- <div style="padding: 30px" align="center">
+	<img src="/sixDestiny/inputGroupFile/<%= %>" alt="Nature">
+	<p style="width:1000px; padding: 80px;">
+		<%= ab.getAdBoardCon()%>
+	</p>
+</div> --%>
+	<hr>
+	 <div align="center">
+	<% if(loginUser != null) { %>
+		<% if(loginUser.getUserId().equals("admin")){ %>
+			<button class="btn btn-default" style="font-family: 'Sunflower', sans-serif;" onclick="location.href='<%=request.getContextPath()%>/update.no'">수정하기</button>
+		<% } %>
+	<% } %>
 		<button class="btn btn-default" style="font-family: 'Sunflower', sans-serif;" onclick="location.href='<%=request.getContextPath()%>/select.no'">메뉴로 돌아가기</button>
 	</div>
+
 
 <%@ include file="../../../common/bottom_Include.jsp"%>
 </body>
