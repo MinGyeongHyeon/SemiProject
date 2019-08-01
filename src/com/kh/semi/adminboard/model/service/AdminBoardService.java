@@ -386,6 +386,7 @@ public class AdminBoardService {
 	return list;
 	}
 
+
 	//회원탈퇴사유
 	public ArrayList<HashMap<String, Object>> statics() {
 		Connection con = getConnection();
@@ -450,6 +451,54 @@ public class AdminBoardService {
 		
 		
 		return list;
+
+	public ArrayList<Object> sortlow(int currentPage, int limit) {
+		Connection con = getConnection();
+
+		ArrayList<Object> list = null;
+
+
+		list = new AdminBoardDao().sortlow(con,currentPage,limit);
+
+		if(list != null) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+
+		close(con);
+
+		return list;
+	}
+
+	public int getSortlistCount() {
+		Connection con = getConnection();
+
+		int listCount = 0;
+
+
+		listCount = new AdminBoardDao().getSortlistCount(con);
+
+		close(con);
+
+
+		return listCount;
+	}
+
+	public ArrayList<Integer> reportCount2(ArrayList<Object> list) {
+		Connection con = getConnection();
+
+		ArrayList<Integer> list2 = null;
+
+		list2 = new AdminBoardDao().reportCount2(con, list);
+
+		close(con);
+
+
+
+
+		return list2;
+
 	}
 
 }

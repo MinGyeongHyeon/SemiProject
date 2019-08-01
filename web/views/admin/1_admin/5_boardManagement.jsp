@@ -47,36 +47,7 @@ th {
 </style>
 </head>
 <body>
- <!--   <div align="left" style="margin-left:300px;">
-      <span><h2>회원 댓글 관리</h2></span>
-   </div>
 
-   <table class="adta" style=" border-spacing: 0px;" align="center">
-      <tr class="adtr" style="background:rgb(220,220,220);">
-         <td class="adtd" style="width:300px;">No.</td>
-         <td class="adtd" style="width:500px;">댓글 내용</td>
-         <td class="adtd" style="width:300px;">신고수</td>
-
-      </tr>
-      <tr class="adtr">
-         <td class="adtd">1</td>
-         <td class="adtd">자유게시판</td>
-         <td class="adtd">12</td>
-      </tr>
-      <tr class="adtr">
-         <td class="adtd">2</td>
-         <td class="adtd">입양후기</td>
-         <td class="adtd">67</td>
-      </tr>
-   </table >
-   <ul class="pagination">
-      <li><a href="#">1</a></li>
-      <li><a href="#">2</a></li>
-      <li><a href="#">3</a></li>
-      <li><a href="#">4</a></li>
-      <li><a href="#">5</a></li>
-   </ul>
- -->
 
    <br><br>
 
@@ -910,15 +881,73 @@ $("#listArea td").mouseenter(function(){
    <table align="center">
       <tr>
          <td style="width:1100px; text-align:left;">
-            <select>
-                  <option>신고 낮은순</option>
-                  <option>신고 높은순</option>
+            <select id="sortlh">
+                  <option value="sortlow">신고 낮은순</option>
+                  <option value="sortHigh">신고 높은순</option>
             </select>
          </td>
 
       </tr>
    </table>
    <script>
+   $('#sortlh').change(function(){
+	   var data = $(this).val();
+
+	   $.ajax({
+		   url:"selectcommentsort.ss",
+		   data:{data:data},
+		   type:"get",
+		   success:function(data,data2){
+				console.log(data);
+
+				var $tbody = $("#listArea2");
+
+				$tbody.children().remove();
+
+
+				for(var i = 0 ; i < data.length-1; i++){
+
+					var $tr = $('<tr class="adtr">');
+					var $td1 = $('<td class="adtr">');
+					var $td2 = $('<td class="adtr">');
+					var $td3 = $('<td class="adtr">');
+					var $td4 = $('<td class="adtr">');
+					var $td5 = $('<td class="adtr">');
+					var $td6 = $('<td class="adtr">');
+
+					$td1.append(data[i].boardNo);
+					$td2.append(data[i].boardKi);
+					$td3.append(data[i].boardNm);
+					$td4.append(data[i].userNick);
+					$td6.append(data[3].report);
+					$td5.append(data[i].userNo);
+
+					$tr.append($td1,$td2,$td3,$td4,$td6,$td5);
+
+
+					$tbody.append($tr);
+				}
+
+
+
+
+
+
+
+
+
+
+		   }
+
+
+	   })
+
+
+
+   })
+
+
+
    $("#listArea2 td").mouseenter(function(){
 		$(this).parent().css({"background":"rgb(240,240,240)", "cursor":"pointer"});
 	}).mouseout(function(){
@@ -1075,55 +1104,6 @@ $("#listArea td").mouseenter(function(){
    	}
 
    </script>
-
-  <!--  <div align="left" style="margin-left:300px;">
-      <span><h2>신고 댓글 관리</h2></span>
-   </div>
-
-   <table class="adta" style=" border-spacing: 0px;" align="center">
-      <tr class="adtr" style="background:rgb(220,220,220);">
-         <td class="adtd" style="width:100px;">No.</td>
-         <td class="adtd" style="width:300px;">게시판 종류</td>
-         <td class="adtd" style="width:500px;">게시글제목</td>
-         <td class="adtd" style="width:100px;">신고수</td>
-         <td class="adtd" style="width:100px;">작성회원번호</td>
-      </tr>
-      <tr class="adtr">
-         <td class="adtd">1</td>
-         <td class="adtd">자유게시판</td>
-         <td class="adtd">기욤이</td>
-         <td class="adtd">2</td>
-         <td class="adtd">12</td>
-      </tr>
-      <tr class="adtr">
-         <td class="adtd">2</td>
-         <td class="adtd">입양후기</td>
-         <td class="adtd">사랑해</td>
-         <td class="adtd">3</td>
-         <td class="adtd">67</td>
-      </tr>
-   </table >
-   <table align="center">
-      <tr>
-         <td style="width:1100px; text-align:left;">
-            <select>
-                  <option>신고 낮은순</option>
-                  <option>신고 높은순</option>
-            </select>
-         </td>
-
-      </tr>
-   </table>
-
-   <ul class="pagination">
-      <li><a href="#">1</a></li>
-      <li><a href="#">2</a></li>
-      <li><a href="#">3</a></li>
-      <li><a href="#">4</a></li>
-      <li><a href="#">5</a></li>
-   </ul>
- -->
-
 
   <%@ include file="/views/common/bottom_Include.jsp"%>
 </body>

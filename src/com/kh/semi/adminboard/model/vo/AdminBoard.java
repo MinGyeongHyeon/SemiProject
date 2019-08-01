@@ -16,11 +16,12 @@ public class AdminBoard {
 	private int recCount;
 	private int viewCount;
 	private String sup_Mon;
+	private String userNick;
 
 	public AdminBoard() {}
 
 	public AdminBoard(int adBoardNo, String title, String adBoardCon, Date writeDt, String boardDiv, String supKind,
-			int adNo, String status, String nickNm, int recCount, int viewCount, String sup_Mon) {
+			int adNo, String status, String nickNm, int recCount, int viewCount, String sup_Mon , String userNick) {
 		super();
 		this.adBoardNo = adBoardNo;
 		this.title = title;
@@ -34,9 +35,19 @@ public class AdminBoard {
 		this.recCount = recCount;
 		this.viewCount = viewCount;
 		this.sup_Mon = sup_Mon;
+		this.userNick = userNick;
 	}
 
 
+
+
+	public String getUserNick() {
+		return userNick;
+	}
+	public void setUserNick(String userNick) {
+
+		this.userNick = userNick;
+	}
 
 	public int getViewCount() {
 		return viewCount;

@@ -411,7 +411,7 @@ public class AdminBoardDao {
 			 list = new ArrayList<AdminUserBoard>();
 			while(rset.next()) {
 				ub = new AdminUserBoard();
-				
+
 				ub.setBoardNo(rset.getInt("BOARD_NO"));
 				ub.setbKind(rset.getString("BOARD_KIND"));
 				ub.setbNm(rset.getString("BOARD_NM"));
@@ -1240,6 +1240,7 @@ public class AdminBoardDao {
 
 	}
 
+
 	public ArrayList<HashMap<String, Object>> statics(Connection con) {
 		Statement stmt = null;
 		ArrayList<HashMap<String, Object>> list = null;
@@ -1409,6 +1410,129 @@ public class AdminBoardDao {
 		
 		
 		return list;
+    
+	public ArrayList<Object> sortlow(Connection con, int currentPage, int limit) {
+			ArrayList<Object> list = null;
+			AdminUserBoard ub = null;
+			PreparedStatement pstmt = null;
+			ResultSet rset = null;
+
+			int startRow = (currentPage - 1) * limit + 1;
+			int endRow = startRow + limit - 1;
+
+			String query = prop.getProperty("sortlow");
+
+			try {
+				pstmt = con.prepareStatement(query);
+
+				pstmt.setInt(1, startRow);
+				pstmt.setInt(2, endRow);
+
+				rset = pstmt.executeQuery();
+
+					list = new ArrayList<Object>();
+				while(rset.next()) {
+					ub = new AdminUserBoard();
+
+					ub.setuNo(rset.getInt("USER_NO"));
+					ub.setBoardNo(rset.getInt("BOARD_NO"));
+					ub.setbKind(rset.getString("BOARD_KIND"));
+					ub.setbNm(rset.getString("BOARD_NM"));
+					ub.setbCon(rset.getString("BOARD_CON"));
+					ub.setbUserNick(rset.getString("NICK_NM"));
+
+					list.add(ub);
+				}
+
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				close(pstmt);
+				close(rset);
+			}
+
+
+
+		return list;
+	}
+
+	public int getSortlistCount(Connection con) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		int listCount = 0;
+
+		String query = prop.getProperty("sortlist");
+
+		try {
+			stmt = con.createStatement();
+
+
+			rset = stmt.executeQuery(query);
+
+			if(rset.next()) {
+				listCount = rset.getInt("COUNT");
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(stmt);
+			close(rset);
+		}
+
+
+
+
+
+		return listCount;
+	}
+
+	public ArrayList<Integer> reportCount2(Connection con,ArrayList<Object> list) {
+		PreparedStatement pstmt = null;
+		ArrayList<Integer> list2 = null;
+		ResultSet rset = null;
+		int result = 0;
+
+
+
+		String query = prop.getProperty("reportCount");
+
+		try {
+			list2 = new ArrayList<Integer>();
+
+			for(int i = 0; i < list.size(); i++) {
+
+				pstmt = con.prepareStatement(query);
+
+			/*	pstmt.setInt(1, list.get(i).);*/
+
+
+				rset = pstmt.executeQuery();
+
+				if(rset.next()) {
+
+					 result = rset.getInt("COUNT");
+
+					list2.add(result);
+
+				}
+
+			}
+
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+
+
+
+
+		return list2;
 	}
 
 
