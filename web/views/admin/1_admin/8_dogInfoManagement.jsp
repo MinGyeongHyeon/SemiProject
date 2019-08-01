@@ -69,11 +69,11 @@
     </tbody>
   </table>
   <div class="pagingArea" align="center">
-			<button onclick="location.href='<%=request.getContextPath()%>/selectAllUser.app?currentPage=1&currentPage2=1'" class="btn btn-default"><<</button>
+			<button onclick="location.href='<%=request.getContextPath()%>/selectAlldog.ent?currentPage=1&currentPage2=1'" class="btn btn-default"><<</button>
 			<% if(currentPage <= 1){ %>
 				<button disabled class="btn btn-default"><</button>
 			<% }else{ %>
-				<button onclick="location.href='<%=request.getContextPath()%>/selectAllUser.app?currentPage=<%=currentPage-1%>&currentPage2=1'" class="btn btn-default"><</button>
+				<button onclick="location.href='<%=request.getContextPath()%>/selectAlldog.ent?currentPage=<%=currentPage-1%>&currentPage2=1'" class="btn btn-default"><</button>
 			<% } %>
 
 			<% for(int p = startPage; p <= endPage; p++){
@@ -81,7 +81,7 @@
 			%>
 					<button disabled class="btn btn-default"><%= p %></button>
 			<% 	}else{ %>
-					<button onclick="location.href='<%=request.getContextPath()%>/selectAllUser.app?currentPage=<%=p%>&currentPage2=1'" class="btn btn-default"><%=p %></button>
+					<button onclick="location.href='<%=request.getContextPath()%>/selectAlldog.ent?currentPage=<%=p%>&currentPage2=1'" class="btn btn-default"><%=p %></button>
 			<%
 				}
 				}
@@ -90,10 +90,10 @@
 			<% if(currentPage >= maxPage){ %>
 				<button disabled class="btn btn-default">></button>
 			<% }else{ %>
-				<button onclick="location.href='<%=request.getContextPath()%>/selectAllUser.app?currentPage=<%=currentPage+1%>&currentPage2=1'" class="btn btn-default">></button>
+				<button onclick="location.href='<%=request.getContextPath()%>/selectAlldog.ent?currentPage=<%=currentPage+1%>&currentPage2=1'" class="btn btn-default">></button>
 			<% } %>
 
-			<button onclick="location.href='<%=request.getContextPath()%>/selectAllUser.app?currentPage=<%=maxPage%>&currentPage2=1'" class="btn btn-default">>></button>
+			<button onclick="location.href='<%=request.getContextPath()%>/selectAlldog.ent?currentPage=<%=maxPage%>&currentPage2=1'" class="btn btn-default">>></button>
 		</div>
  </div>
   <br><br><br><br><br>
@@ -122,11 +122,11 @@
     </tbody>
   </table>
 	<div class="pagingArea" align="center">
-			<button onclick="location.href='<%=request.getContextPath()%>/selectAllUser.app?currentPage2=1&currentPage=1'" class="btn btn-default"><<</button>
+			<button onclick="location.href='<%=request.getContextPath()%>/selectAlldog.ent?currentPage2=1&currentPage=1'" class="btn btn-default"><<</button>
 			<% if(currentPage2 <= 1){ %>
 				<button disabled class="btn btn-default"><</button>
 			<% }else{ %>
-				<button onclick="location.href='<%=request.getContextPath()%>/selectAllUser.app?currentPage2=<%=currentPage2-1%>&currentPage=1'" class="btn btn-default"><</button>
+				<button onclick="location.href='<%=request.getContextPath()%>/selectAlldog.ent?currentPage2=<%=currentPage2-1%>&currentPage=1'" class="btn btn-default"><</button>
 			<% } %>
 
 			<% for(int p = startPage2; p <= endPage2; p++){
@@ -134,7 +134,7 @@
 			%>
 					<button disabled class="btn btn-default"><%= p %></button>
 			<% 	}else{ %>
-					<button onclick="location.href='<%=request.getContextPath()%>/selectAllUser.app?currentPage2=<%=p%>&currentPage=1'" class="btn btn-default"><%=p %></button>
+					<button onclick="location.href='<%=request.getContextPath()%>/selectAlldog.ent?currentPage2=<%=p%>&currentPage=1'" class="btn btn-default"><%=p %></button>
 			<%
 				}
 				}
@@ -143,10 +143,10 @@
 			<% if(currentPage2 >= maxPage2){ %>
 				<button disabled class="btn btn-default">></button>
 			<% }else{ %>
-				<button onclick="location.href='<%=request.getContextPath()%>/selectAllUser.app?currentPage2=<%=currentPage2+1%>&currentPage=1'" class="btn btn-default">></button>
+				<button onclick="location.href='<%=request.getContextPath()%>/selectAlldog.ent?currentPage2=<%=currentPage2+1%>&currentPage=1'" class="btn btn-default">></button>
 			<% } %>
 
-			<button onclick="location.href='<%=request.getContextPath()%>/selectAllUser.app?currentPage2=<%=maxPage2%>&currentPage=1'" class="btn btn-default">>></button>
+			<button onclick="location.href='<%=request.getContextPath()%>/selectAlldog.ent?currentPage2=<%=maxPage2%>&currentPage=1'" class="btn btn-default">>></button>
 		</div>
   <script type="text/javascript">
   	function finalParcelout(entNo) {

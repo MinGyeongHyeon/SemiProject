@@ -127,12 +127,12 @@ A:hover {
 				</tr>
 				<tr align="center">
 					<td align="center" style="font-family: 'Sunflower', sans-serif; width:700px;">
-						<a href="/sixDestiny/views/admin/1_admin/4_scheduleManagement.jsp?year=<%=year-1%>&amp;month=<%=month%>" target="_self">
+						<a href="/sixDestiny/selectMonth.all?year=<%=year-1%>&amp;month=<%=month%>&days=1" target="_self">
 							<b>&lt;&lt;</b><!-- 이전해 -->
 						</a>
 
                     <%if(month > 0 ){ %>
-						<a href="/sixDestiny/views/admin/1_admin/4_scheduleManagement.jsp?year=<%=year%>&amp;month=<%=month-1%>" target="_self">
+						<a href="/sixDestiny/selectMonth.all?year=<%=year%>&amp;month=<%=month-1%>&days=1" target="_self">
 							<b>&lt;</b><!-- 이전달 -->
 						</a>
 					 <%} else {%>
@@ -146,13 +146,13 @@ A:hover {
 
                     <%if(month < 11 ){ %>
 
-                    <a href="/sixDestiny/views/admin/1_admin/4_scheduleManagement.jsp?year=<%=year%>&amp;month=<%=month+1%>" target="_self">
+                    <a href="/sixDestiny/selectMonth.all?year=<%=year%>&amp;month=<%=month+1%>&days=1" target="_self">
                            <!-- 다음달 --><b>&gt;</b>
                     </a>
                     <%}else{%>
                            <b>&gt;</b>
                     <%} %>
-                    <a href="/sixDestiny/views/admin/1_admin/4_scheduleManagement.jsp?year=<%=year+1%>&amp;month=<%=month%>" target="_self">
+                    <a href="/sixDestiny/selectMonth.all?year=<%=year+1%>&amp;month=<%=month%>&days=1" target="_self">
                            <!-- 다음해 --><b>&gt;&gt;</b>
                     </a>
              </td>
@@ -332,10 +332,7 @@ while(newLine > 0 && newLine < 7)
 
 				<% } %>
     		<% } %>
-    			<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
+
     		</tr>
     	<% } %>
     </tbody>
@@ -608,7 +605,17 @@ while(newLine > 0 && newLine < 7)
 		var selNo = $(selBtn).parent().parent().children().eq(1).children().text();
 		var result = prompt("해당 상담의 내역을 처리하시겠습니까? \n(상담완료 : 완료 / 상담취소 : 취소)");
 		if(result == "완료" || result == "취소"){
+			$.ajax({
+				url:"/sixDestiny/updatesit.selent",
+				type:"post",
+				data:{selNo:selNo, result:result},
+				success:function(data){
+					location.href="/sixDestiny/selectDday.sel";
+				},
+				error:function(data){
 
+				}
+			});
 		}else{
 			alert("잘못 입력하셨습니다!");
 		}
