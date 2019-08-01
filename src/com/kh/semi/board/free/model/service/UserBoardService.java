@@ -9,6 +9,7 @@ import com.kh.semi.board.free.model.vo.Commentub;
 import com.kh.semi.board.free.model.vo.Recub;
 import com.kh.semi.board.free.model.vo.UserBoard;
 import com.kh.semi.board.free.model.vo.UserBoardAttachment;
+import com.kh.semi.board.parcelout.model.vo.Report;
 
 import static com.kh.semi.common.JDBCTemplate.*;
 public class UserBoardService {
@@ -21,7 +22,26 @@ public class UserBoardService {
 
 		return best;
 	}
+	
+	public int getUserNo(String commentNickNm) {
+		Connection con = getConnection();
+		int result = 0;
 
+		result = new UserBoardDao().getUserNo(con,commentNickNm);
+
+		if(result > 0) {
+			commit(con);
+
+		}else {
+			rollback(con);
+
+		}
+		close(con);
+
+
+	return result;
+	}
+	
 	public int getListCount(String category, String what, String search, String alignment) {
 		Connection con = getConnection();
 		int listCount = 0;
@@ -418,6 +438,22 @@ Connection con = getConnection();
 			rollback(con);
 		}
 		close(con);
+
+		return result;
+	}
+
+	public int reportCon(Report re) {
+		Connection con = getConnection();
+		int result = 0;
+
+		result = new UserBoardDao().reportCon(con,re);
+		if(result > 0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		close(con);
+
 
 		return result;
 	}

@@ -8,7 +8,8 @@
 
 <style>
 #mypage {
-	margin-left: 38%;
+	margin-left:auto; 
+	margin-right:auto;
 	width:500px;
 	font-family: 'Nanum Gothic', sans-serif;
 }
@@ -16,16 +17,25 @@
 table tr td.category {
 	background: rgb(204, 230, 255);
 	width: 95px;
-	height: 45px;
+	height: 35px;
 	font-weight: bold;
+	border-radius: 10px;
 }
 
 table tr td.category2 {
-	padding-left: 10%;
+	padding-left: 5%;
+
+}
+.mama{
+margin:0;
 }
 
+
 #under{
-	margin-left: 10%;
+margin-left:auto; 
+margin-right:auto;
+
+
 }
 
 </style>
@@ -38,47 +48,47 @@ table tr td.category2 {
 	<%--전체 div --%>
 	<div id="mypage">
 	
-		<div>
-			<form>
+		<div style="margin-left:auto; margin-right:auto;">
+			<form style="margin-left:auto; margin-right:auto;">
 			<br>
-				<table>
+				<table style="margin-left:auto; margin-right:auto;">
 					<tr>
 						<td><br></td>
 					</tr>
 					<tr class=category3>
-						<td class=category><label for="">이름 </label></td>
-						<td class="category2"><label><%=loginUser.getUserNm()%></label></td>
+						<td class=category><label class="mama">이름 </label></td>
+						<td class="category2"><label class="mama"><%=loginUser.getUserNm()%></label></td>
 					</tr>
 					<tr>
 						<td><br></td>
 					</tr>
 					<tr class=category3>
-						<td class=category><label>아이디 </label></td>
-						<td class="category2"><label><%=loginUser.getUserId()%></label></td>
+						<td class=category><label class="mama">아이디 </label></td>
+						<td class="category2"><label class="mama"><%=loginUser.getUserId()%></label></td>
 					</tr>
 					<tr>
 						<td><br></td>
 					</tr>
 					<tr>
-						<td class=category><label for="">닉네임</label></td>
-						<td class="category2"><label><%=loginUser.getNickNm()%></label></td>
+						<td class=category><label for="" class="mama">닉네임</label></td>
+						<td class="category2"><label class="mama"><%=loginUser.getNickNm()%></label></td>
 					</tr>
 					<tr>
 						<td><br></td>
 					</tr>
 					<tr>
-						<td class=category><label for="">이메일</label></td>
-						<td class="category2"><label><%=loginUser.getEmail()%></label></td>
+						<td class=category><label for="" class="mama">이메일</label></td>
+						<td class="category2"><label class="mama"><%=loginUser.getEmail()%></label></td>
 					</tr>
 					<tr>
 						<td><br></td>
 					</tr>
 					
 					<tr>
-						<td class=category><label for="">핸드폰번호</label></td>
+						<td class=category><label for="" class="mama">핸드폰번호</label></td>
 						<td class="category2">
 							<% if(loginUser.getPhone()==null) { %>
-							<label>정보없음</label>
+							<label class="mama">정보없음</label>
 							<%} else {%>
 							<%=loginUser.getPhone()%>
 							<%} %>
@@ -90,12 +100,12 @@ table tr td.category2 {
 					</tr>
 					
 					<tr>
-						<td class=category><label for="">생년월일</label></td>
+						<td class=category><label for="" class="mama">생년월일</label></td>
 						<td class="category2">
 							<%if(loginUser.getUserHb()==null) {%>
-							<label>정보없음</label>
+							<label class="mama">정보없음</label>
 							<%}else{ %>
-							<label><%=loginUser.getUserHb()%></label>
+							<label class="mama"><%=loginUser.getUserHb()%></label>
 							<%} %>
 						</td>
 					</tr>
@@ -103,12 +113,12 @@ table tr td.category2 {
 						<td><br></td>
 					</tr>
 					<tr>
-						<td class=category><label for="">성별</label></td>
-						<td class="category2">
+						<td class=category><label for="" class="mama">성별</label></td>
+						<td class="category2" >
 							<%if(loginUser.getGender()==null) {%>
-							<label>정보없음</label>
+							<label class="mama">정보없음</label>
 							<%}else{ %>
-							<label><%=loginUser.getGender()%></label>
+							<label class="mama"><%=loginUser.getGender()%></label>
 							<%} %>
 						</td>
 					</tr>
@@ -116,12 +126,12 @@ table tr td.category2 {
 						<td><br /></td>
 					</tr>
 					<tr>
-						<td class=category><label for="">주소</label></td>
+						<td class=category><label for="" class="mama">주소</label></td>
 						<td class="category2">
 							<%if(loginUser.getAddress()==null) {%>
-							<label>정보없음</label>
+							<label class="mama">정보없음</label>
 							<%}else{ %>
-							<label><%=loginUser.getAddress()%></label>
+							<label class="mama"><%=loginUser.getAddress()%></label>
 							<%} %>
 						</td>
 					</tr>
@@ -129,12 +139,12 @@ table tr td.category2 {
 						<td><br /></td>
 					</tr>
 					<tr>
-						<td class=category><label for="">반려견 유무</label></td>
-						<td class="category2">
+						<td class=category><label class="mama" for="">반려견 유무</label></td>
+						<td class="category2" >
 							<%if(loginUser.getDogYn()==null) {%>
-							<label>정보없음</label>
+							<label class="mama">정보없음</label>
 							<%}else{%>
-							<label><%=loginUser.getDogYn()%></label>
+							<label class="mama"><%=loginUser.getDogYn()%></label>
 							<%} %>
 						</td>
 					</tr>
@@ -148,7 +158,7 @@ table tr td.category2 {
 			<br>
 				
 			<div id="under">
-				<table>
+				<table style="margin-left:auto; margin-right:auto;">
 					<tr>
 						<td><input type="button" value="회원정보 수정"  class="btn btn-default" onclick="location.href='/sixDestiny/views/member/7_member/3_mypage/3_modify.jsp'"></td>
 						<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>

@@ -5,6 +5,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link href="https://fonts.googleapis.com/css?family=Nanum+Gothic&display=swap" rel="stylesheet">
+
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <%@ include file="../../../common/inner_user_include.jsp" %>
@@ -18,7 +20,7 @@
 		height:auto; 
 		margin:0 auto;
 		padding-left:30px;
-
+font-family: 'Nanum Gothic', sans-serif;
 
 	}	
 	
@@ -45,7 +47,7 @@
 <body>
 <br><br>
 	<form action="/sixDestiny/update.user" method="post">
-	<div align="center" id="outer">
+	<div align="center" id="outer" >
 	
 	<div id="div1">	
 	<table>

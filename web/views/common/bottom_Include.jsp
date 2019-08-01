@@ -3,9 +3,11 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link href="https://fonts.googleapis.com/css?family=Nanum+Gothic&display=swap" rel="stylesheet">
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
+
 <style>
 table#bot2 tr td {
 	text-align: left;

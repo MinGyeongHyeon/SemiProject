@@ -22,13 +22,24 @@ body.main {
 	width:50px;
 	height:50px;
 	-webkit-transform:scale(1);
-	 -webkit-transition:.3s;
+	 -webkit-transition:0.3s;
 }
 #catt, #catt2{
 	background:none;
 	border:none;
 	outline-style:none;
 	margin-right: 24px;
+
+}
+
+#plusfriend-chat-button{
+	-webkit-transform:scale(1);
+	 -webkit-transition:0.3s;
+
+}
+#plusfriend-chat-button:hover{
+	-webkit-transform:scale(1.2);
+	
 
 }
 
@@ -76,7 +87,7 @@ button.main {
 	cursor: pointer;
 }
 
-input[type=button].main:hover {
+button.main:hover {
 	font-weight: bold;
 }
 
@@ -288,14 +299,14 @@ td#log {
 	</div>
 	<div style="height:150px"></div>
 	<% if(loginUser != null && loginUser.getUserId().equals("admin")){ %>
-	<div style="position: fixed; width:97%; margin-top:200px" align="right">
+	<div style="position: fixed; left: 92%;top: 80%; " >
 		<button type="button" id="catt2"><img src="/sixDestiny/images/chatting.png" id="cattimg"></button>
 	</div>
 	<%}else if(loginUser != null){ %>
-	<div style="position: fixed; width:97%; margin-top:100px" align="right">
+	<div style="position: fixed; left: 92%;top: 80%; " >
 		<div id="plusfriend-chat-button"></div>
 		<br>
-		<button style="margin-left:20px;" type="button" id="catt" onclick="gochat(<%=loginUser.getUserNo()%>);"><img src="/sixDestiny/images/chatting.png" id="cattimg"></button>
+		<button style="margin-left:20px; " type="button" id="catt" onclick="gochat(<%=loginUser.getUserNo()%>);"><img src="/sixDestiny/images/chatting.png" id="cattimg"></button>
 	</div>
 	<% } %>
 

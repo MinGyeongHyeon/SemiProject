@@ -30,22 +30,17 @@ public class UpdateCommentUserBoardServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int thisCommentNo = Integer.parseInt(request.getParameter("thisCommentNo"));
+		int thisBoardNo = Integer.parseInt(request.getParameter("thisBoardNo"));
 		String comcon = request.getParameter("comcon");
 		System.out.println(thisCommentNo);
 		System.out.println(comcon);
 		
 		int result =  new UserBoardService().updateCommentub(thisCommentNo, comcon);
-		String msg = "";
-		String page = "views/member/5_freeBoard/1_freeBoard/6_commentUpdate.jsp";
+	
+		
 		if(result > 0) {
-			msg = "수정이 완료 되었습니다";
-			request.setAttribute("msg", msg);
-			request.getRequestDispatcher(page).forward(request, response);
+			request.getRequestDispatcher("<%=request.getContextPath()%>/selectOne.bo?num=" + thisBoardNo).forward(request, response);
 
-		}else {
-			msg = "수정을 실패하였습니다.";
-			request.setAttribute("msg", msg);
-			request.getRequestDispatcher(page).forward(request, response);
 		}
 	}
 
