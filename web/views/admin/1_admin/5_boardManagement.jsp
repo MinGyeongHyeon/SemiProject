@@ -899,6 +899,7 @@ $("#listArea td").mouseenter(function(){
 		   type:"get",
 		   success:function(data,data2){
 				console.log(data);
+				console.log(data2);
 
 				var $tbody = $("#listArea2");
 
@@ -916,11 +917,11 @@ $("#listArea td").mouseenter(function(){
 					var $td6 = $('<td class="adtr">');
 
 					$td1.append(data[i].boardNo);
-					$td2.append(data[i].boardKi);
-					$td3.append(data[i].boardNm);
-					$td4.append(data[i].userNick);
-					$td6.append(data[3].report);
-					$td5.append(data[i].userNo);
+					$td2.append(data[i].bKind);
+					$td3.append(data[i].bNm);
+					$td4.append(data[i].bUserNick);
+					$td6.append(data[3].0);
+					$td5.append(data[i].uNo);
 
 					$tr.append($td1,$td2,$td3,$td4,$td6,$td5);
 
