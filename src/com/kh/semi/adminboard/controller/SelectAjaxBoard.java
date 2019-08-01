@@ -71,7 +71,7 @@ public class SelectAjaxBoard extends HttpServlet {
 
 			System.out.println("listCount 게시판: " + listCount);
 
-			//총 페이지 수 계산
+			//총 페이지 수 계산f
 			//예를 들면, 목록 수가 124개이면 페이지 수는 13페이지이다.
 			maxPage = (int)((double)listCount / limit + 0.9);
 

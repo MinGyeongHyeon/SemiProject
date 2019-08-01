@@ -5,6 +5,7 @@
 	ArrayList<AdminUserBoard> list = (ArrayList<AdminUserBoard>) request.getAttribute("list");
 	ArrayList<AdminUserBoard> list2 = (ArrayList<AdminUserBoard>) request.getAttribute("list2");
 	ArrayList<Integer> report = (ArrayList<Integer>) request.getAttribute("report");
+	ArrayList<Integer> recCount = (ArrayList<Integer>) request.getAttribute("recCount");
 
 	PageInfo pi = (PageInfo) request.getAttribute("pi");
 	PageInfo pi2 = (PageInfo) request.getAttribute("pi2");
@@ -96,15 +97,15 @@ th {
       </thead>
       <tbody id="remonebody">
      <%
-							for (AdminUserBoard ub : list) {
+							for (int i = 0; i < list.size(); i++) {
 						%>
 						 <tr class="adtr">
-							<td class="adtd"><%=ub.getBoardNo()%></td>
-							<td class="adtd"><%=ub.getbKind()%></td>
-							<td class="adtd"><%=ub.getbNm()%></td>
-							<td class="adtd"><%=ub.getbUserNick()%></td>
-							<td class="adtd"><%=ub.getRecCon() %></td>
-							<td class="adtd"><%=ub.getInqCon()%></td>
+							<td class="adtd"><%=list.get(i).getBoardNo()%></td>
+							<td class="adtd"><%=list.get(i).getbKind()%></td>
+							<td class="adtd"><%=list.get(i).getbNm()%></td>
+							<td class="adtd"><%=list.get(i).getbUserNick()%></td>
+							<td class="adtd"><%= recCount.get(i) %></td>
+							<td class="adtd"><%=list.get(i).getInqCon()%></td>
 						</tr>
 						<%
 							}
@@ -930,9 +931,14 @@ $("#listArea td").mouseenter(function(){
 
 		if(kind == "분양후기"){
 
-		location.href="<%=request.getContextPath()%>/selectParceloutOne.tn?num=" + num + "&uNo=" + uNo;
+			location.href="<%=request.getContextPath()%>/selectParceloutOne.tn?num=" + num + "&uNo=" + uNo;
 
-		}
+			}else if(kind == "실종"){
+				location.href="<%=request.getContextPath()%>/missingSelectOne.bo?num=" + num + "&uu=" + uNo;
+			}else if(kind == "잡담" || kind == "꿀팁" || kind == "자랑"){
+
+			location.href="<%=request.getContextPath()%>/selectOne.bo?num=" + num ;
+			}
 
 	});
 
