@@ -115,6 +115,20 @@
 
 	</div>
 	<script >
+	function comReport(reportCom){
+		var commentNo = $(reportCom).parent().parent().children().eq(1).text();
+		var commentNickNm = $(reportCom).parent().parent().children().eq(2).text();
+		
+		<%if(loginUser != null){%>
+		var loginUserNo = <%= loginUser.getUserNo()%>;
+		<%} else {%>
+		 	var loginUserNo= 0;
+		<%}%>
+
+		window.open("/sixDestiny/views/member/5_freeBoard/1_freeBoard/7_reportComment.jsp?commentNo=" + commentNo + "&commentNickNm=" + commentNickNm  + "&loginUserNo=" + loginUserNo ,"PopupWin","width=480,height=300","resizable=no");
+
+	}
+	
 	function deleteBoard(){
 	if(confirm("정말 삭제 하시겠습니까?")){
 		var nno = <%= ub.getbNo() %>
@@ -324,10 +338,13 @@
 						$("#commentArea tr").remove();
 						for(var i = 0; i<data.length; i++){
 						
-								var month = data[i].writeDay.substr(0,1);
-								var day= data[i].writeDay.substr(3,2);
-								var years = data[i].writeDay.substr(7,4);
-			
+								
+								var day= data[i].writeDay.substr(2,2);
+								var years = data[i].writeDay.substr(6,4);
+								var month = data[i].writeDay.split("월 ")[0];
+								var yearday = data[i].writeDay.split("월 ")[1];
+								var year = yearday.split(",")[1];
+								var day = yearday.split(",")[0];
 								var $tr = $("<tr>");
 								var $td1 = $('<td style="padding:8px 0px 8px 5px">');
 								var $td2 = $("<td id='comNo'>");
@@ -337,9 +354,10 @@
 								var $td6 = $('<td style="padding:auto;">');
 								var $div = $('<div class="ui buttons">')
 								
+
 								<%if(loginUser != null){%>
 								if(<%=loginUser.getUserNo()%> != data[i].userNo){
-								$td1.html('<input type="button" value="신고" id="reportPr" style="outline-style:none; padding:3px;" class="btn btn-default" onclick="comReport()">');
+								$td1.html('<input type="button" value="신고" id="reportPr" style="outline-style:none; padding:3px;" class="btn btn-default" onclick="comReport(this)">');
 								$tr.append($td1);
 								}else{
 								$td1.html("");
@@ -349,7 +367,7 @@
 								$td2.html(data[i].commentNo);
 								$td3.html(data[i].nickNm);
 								$td4.html(data[i].commentCon);
-								$td5.html(years +"-"+"0"+month+"-"+day);
+								$td5.html(year+"-"+month+"-"+day);
 								$tr.append($td2);
 								$tr.append($td3);
 								$tr.append($td4);
@@ -403,12 +421,12 @@
 		}
 		 
 		 function updateCom(updateCom){
-
+				var thisBoardNo = <%= ub.getbNo() %>
 			 var thisCommentNo = $(updateCom).parent().parent().parent().children().eq(1).text();
 			 console.log(thisCommentNo)
 					
-			window.open("/sixDestiny/views/member/5_freeBoard/1_freeBoard/6_commentUpdate.jsp?thisCommentNo=" + thisCommentNo ,"PopupWin","width=350,height=150","resizable=no");
-				
+			window.open("/sixDestiny/views/member/5_freeBoard/1_freeBoard/6_commentUpdate.jsp?thisCommentNo=" + thisCommentNo+"&thisBoardNo="+thisBoardNo ,"PopupWin","width=500,height=150","resizable=no");
+			 
 		 }
 		
 	</script>

@@ -18,6 +18,7 @@ import com.kh.semi.board.free.model.vo.Commentub;
 import com.kh.semi.board.free.model.vo.Recub;
 import com.kh.semi.board.free.model.vo.UserBoard;
 import com.kh.semi.board.free.model.vo.UserBoardAttachment;
+import com.kh.semi.board.parcelout.model.vo.Report;
 
 
 public class UserBoardDao {
@@ -1744,7 +1745,68 @@ public int uprecommendUserBoard(Connection con, int thisBoardNo, int nowLoginUse
 	}
 	
 	
-	
+	public int getUserNo(Connection con, String commentNickNm) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int userNo = 0;
+		System.out.println("다오에서 닉네임" + commentNickNm);
+		
+		String query = prop.getProperty("getUserNo");
+
+
+		try {
+			pstmt = con.prepareStatement(query);
+
+			pstmt.setString(1, commentNickNm);
+
+			rset = pstmt.executeQuery();
+
+
+			if(rset.next()) {
+
+				userNo = rset.getInt("USER_NO");
+
+
+			}
+
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		System.out.println("다오마지막에서" + userNo);
+		
+		return userNo;
+	}
+
+	public int reportCon(Connection con, Report re) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+
+		String query = prop.getProperty("reportCon");
+
+		try {
+			pstmt = con.prepareStatement(query);
+
+			pstmt.setInt(1, re.getBoardNo());
+			pstmt.setInt(2, re.getReportin());
+			pstmt.setInt(3, re.getReportout());
+			pstmt.setString(4, re.getReason());
+
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+
+		}finally {
+			close(pstmt);
+		}
+
+
+		return result;
+	}
 
 	
 }

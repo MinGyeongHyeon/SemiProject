@@ -2,9 +2,7 @@
     pageEncoding="UTF-8"%>
     <%
     int thisCommentNo = Integer.parseInt(request.getParameter("thisCommentNo"));
-  
-	String msg = (String) request.getAttribute("msg");
-
+    int thisBoardNo = Integer.parseInt(request.getParameter("thisBoardNo"));
     
     %>
     
@@ -32,25 +30,26 @@
 	<br>
 	<textArea id="comcon" name="comcon" style="resize: none; width: 300px; height: 50px; "placeholder="글자 수는 60자로 제한" maxlength="60"></textArea>
 	<br>
-	<input type="submit" class="btn btn-default" style="outline:none;" value="확인">
+	<input type="submit" class="btn btn-default" style="outline:none;" value="확인" onclick="msg()">
 	</div>
-	
+	<input type="hidden" name="thisCommentNo" value="<%=thisCommentNo %>">
+	<input type="hidden" name="thisBoardNo" value="<%=thisBoardNo %>">
 	</form>
 	
 	
 <script type="text/javascript">
 
-$(function(){
-	console.log("바로 실행안돰?>")
-	var msg = <%= "'" + msg + "'" %>
+	function msg(){
+	
 
-	console.log(msg);
-
-	if(msg.length > 5){
-	alert(msg);
+	alert("수정이 완료되었습니다!^^");
+	opener.location.reload();
 	window.close();
+	
 
-	}
+}
+	
+	
 
 </script>
 </body>
