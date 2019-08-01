@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.sound.midi.Synthesizer;
 
 import com.kh.semi.adminboard.model.service.AdminBoardService;
 import com.kh.semi.adminboard.model.vo.AdminBoard;
@@ -47,8 +48,7 @@ public class SelectSupportBoardMoney extends HttpServlet {
 			System.out.println("파일 : " + ac);
 			System.out.println("월 : " + currentPage);
 		}else {
-			/*page = "views/common/errorPage.jsp";
-					request.setAttribute("msg", "게시판 조회 실패!");*/
+			System.out.println("aaaaaa");
 		}
 
 		request.getRequestDispatcher(page).forward(request, response);

@@ -148,7 +148,7 @@
 					<td style="font-family: 'Sunflower', sans-serif;" colspan="2">인증번호</td>
 				</tr>
 				<tr class="hiddenpwd">
-					<td><input type="email" name=""
+					<td><input type="text" name=""
 						style="width: 330px; height: 50px;" id="randomNum" required></td>
 					<td>
 						<button type="button" class="btn btn-default"
@@ -177,8 +177,8 @@
 					<td><span class="button-checkbox">
 							<button type="button" class="btn" data-color="info" style="font-family: 'Sunflower', sans-serif; width: 170px; height: 50px">남자</button>
 							<input type="checkbox" class="hidden" name="gender" value="M">
-						</span> 
-						
+						</span>
+
 						<span class="button-checkbox">
 							<button type="button" class="btn" data-color="info" style="font-family: 'Sunflower', sans-serif; width: 170px; height: 50px">여자</button>
 							<input type="checkbox" class="hidden" name="gender" value="F">
