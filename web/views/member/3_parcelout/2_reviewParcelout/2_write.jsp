@@ -114,8 +114,8 @@ input[type=text] {
 					<td class="title"><label>사진첨부</label></td>
 					<td style="text-align: left"><div id="fileArea">
 					<input type="file" id="parcelout_uploadFiles1" name="parcelout_uploadFiles1">
-
-				</div></td>
+					</div>
+					</td>
 				</tr>
 
 

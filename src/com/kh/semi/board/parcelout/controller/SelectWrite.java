@@ -32,7 +32,7 @@ public class SelectWrite extends HttpServlet {
 			response.setContentType("application/json");
 			response.setCharacterEncoding("UTF-8");
 			new Gson().toJson(result, response.getWriter());
-
+			
 
 	}
 
