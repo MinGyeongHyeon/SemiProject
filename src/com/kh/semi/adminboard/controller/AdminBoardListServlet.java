@@ -64,6 +64,7 @@ public class AdminBoardListServlet extends HttpServlet {
 		PageInfo pi = new PageInfo(currentPage, listCount, limit, maxPage, startPage, endPage);
 
 		ArrayList<AdminUserBoard> list = new AdminBoardService().selectListad(currentPage, limit);
+		ArrayList<Integer> recCount = new AdminBoardService().recCount(list);
 
 
 		int currentPage2;
@@ -104,6 +105,7 @@ public class AdminBoardListServlet extends HttpServlet {
 
 		request.setAttribute("pi", pi);
 		request.setAttribute("list", list);
+		request.setAttribute("recCount", recCount);
 		request.setAttribute("pi2", pi2);
 		request.setAttribute("list2", list2);
 		request.setAttribute("report", report);
