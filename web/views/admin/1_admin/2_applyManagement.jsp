@@ -15,7 +15,10 @@
 	int maxPage2 = pi2.getMaxPage();
 	int startPage2 = pi2.getStartPage();
 	int endPage2 = pi2.getEndPage();
+	
 %>
+
+
     <%@ include file="../../common/top_Include.jsp"%>
 <!DOCTYPE html>
 <html>
@@ -57,7 +60,8 @@
 			<td style="font-family: 'Sunflower', sans-serif;"><%= et.getWriteDt() %></td>
 			<td style="font-family: 'Sunflower', sans-serif;"><%= et.getSelHopeDt() %></td>
 			<td style="font-family: 'Sunflower', sans-serif;">
-				<button class="btn btn-default" style="font-family: 'Sunflower', sans-serif;" onclick="viewEntranceApply();">신청서</button>
+				<button class="btn btn-default" style="font-family: 'Sunflower', sans-serif;" 
+				onclick="location.href='/sixDestiny/applicationform?userNo=<%= et.getUserNo()%>'">신청서</button>
 			</td>
 			<td style="font-family: 'Sunflower', sans-serif;">
 				<% if(et.getAppSit().equals("N")){ %>

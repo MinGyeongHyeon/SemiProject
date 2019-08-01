@@ -96,9 +96,15 @@ tr:hover {background-color:#f5f5f5;}
 		<td><%=u.getGender() %></td>
 	</tr>	
 
+
 	<tr>
 		<td>주소</td>
-		<td><%=u.getAddress() %></td>
+		<td> <%if(u.getAddress()==null||u.getAddress().equals("null")) {%>
+			정보없음
+			<%}else{ %>	
+			<%=u.getAddress() %>
+			<%} %>
+		</td>
 	</tr>	
 
 	<tr>

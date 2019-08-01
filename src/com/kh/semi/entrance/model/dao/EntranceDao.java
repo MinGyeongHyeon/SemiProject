@@ -18,6 +18,7 @@ import com.kh.semi.entrance.model.vo.EntranceDogInfo;
 import com.kh.semi.parcelout.model.vo.ParcelOut;
 import com.kh.semi.parcelout.model.vo.ParcelOutResult;
 import com.kh.semi.support.money.model.vo.MoneySup;
+import com.kh.semi.user.model.vo.User;
 
 public class EntranceDao {
 	private Properties prop = new Properties();
@@ -1111,6 +1112,41 @@ public class EntranceDao {
 		}
 
 		return result;
+	}
+
+	public Entrance entranceInfo(Connection con, int userNo) {
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Entrance et = null;
+		
+		String query = prop.getProperty("entInfo");
+
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, userNo);
+
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				
+				et = new Entrance();
+				et.setEntAppNo(rset.getInt("ENT_APP_NO"));
+				et.setUserNo(rset.getInt("USER_NO"));
+				et.setSelHopeDt(rset.getString("SEL_HOPE_DT"));
+				et.setAppSit(rset.getString("APP_SIT"));
+				et.setCompanionRs(rset.getString("COMPANION_RS"));
+				
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return et;
 	}
 
 

@@ -1,4 +1,4 @@
-package com.kh.semi.user.controller;
+package com.kh.semi.entrance.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -7,20 +7,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kh.semi.user.model.service.UserService;
-import com.kh.semi.user.model.vo.User;
+import com.kh.semi.entrance.model.service.EntranceService;
+import com.kh.semi.entrance.model.vo.Entrance;
 
 /**
- * Servlet implementation class UserInformationServlet
+ * Servlet implementation class ApplicationForm
  */
-@WebServlet("/userInfo")
-public class UserInformationServlet extends HttpServlet {
+@WebServlet("/applicationform")
+public class ApplicationForm extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UserInformationServlet() {
+    public ApplicationForm() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,13 +31,12 @@ public class UserInformationServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		int userNo = Integer.parseInt(request.getParameter("userNo"));
+		System.out.println(userNo);
 		
-		User u  = new UserService().userInfo(userNo);
-		//System.out.println(u);
+		Entrance et = new EntranceService().entranceInfo(userNo);
 		
-		request.setAttribute("u", u);
-		request.getRequestDispatcher("views/admin/1_admin/userInfo.jsp").forward(request, response);
-		
+		request.setAttribute("et", et);
+		request.getRequestDispatcher("views/member/2_entrance/1_applyEntrance/3_entranceInformation.jsp").forward(request, response);
 	}
 
 	/**
