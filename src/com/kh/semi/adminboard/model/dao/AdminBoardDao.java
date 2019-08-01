@@ -409,7 +409,7 @@ public class AdminBoardDao {
 			 list = new ArrayList<AdminUserBoard>();
 			while(rset.next()) {
 				ub = new AdminUserBoard();
-
+				
 				ub.setBoardNo(rset.getInt("BOARD_NO"));
 				ub.setbKind(rset.getString("BOARD_KIND"));
 				ub.setbNm(rset.getString("BOARD_NM"));

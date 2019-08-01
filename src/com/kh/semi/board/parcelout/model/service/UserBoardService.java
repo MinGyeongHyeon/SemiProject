@@ -104,7 +104,7 @@ public class UserBoardService {
 			ArrayList<Coment> list = null;
 			ArrayList<Integer> list2 = null;
 			ArrayList<Integer> list3 = null;
-
+			
 			System.out.println("num 의 값 : " + num);
 			int result = new UserBoardDao().updateCount(con , num);
 
