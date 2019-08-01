@@ -453,13 +453,13 @@ public class AdminBoardService {
 		return list;
 	}
 
-	public ArrayList<Object> sortlow(int currentPage, int limit) {
+	public ArrayList<Object> sortlow(int currentPage, int limit, String data) {
 		Connection con = getConnection();
 
 		ArrayList<Object> list = null;
 
 
-		list = new AdminBoardDao().sortlow(con,currentPage,limit);
+		list = new AdminBoardDao().sortlow(con,currentPage,limit,data);
 
 		if(list != null) {
 			commit(con);

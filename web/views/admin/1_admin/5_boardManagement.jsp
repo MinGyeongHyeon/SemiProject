@@ -96,18 +96,42 @@ th {
          </td>
 
          <td style="width:900px; text-align:right;">
-            <select>
-                  <option id="proud">글번호</option>
-                  <option id="honey">아이디</option>
+
+         <form action="<%= request.getContextPath() %>/searchBoard.sb" method="get">
+
+            <select name="boardsearch">
+                  <option value="boardNo">글번호</option>
+                  <option value="userNick">작성자</option>
             </select>
+
             <input type="search" name="keyword">
-            <input type="submit" value="검색">
+            <input type="submit" value="검색" id="search">
+         </form>
          </td>
       </tr>
    </table>
 
 
    <script>
+
+
+   $(function(){
+
+
+	   $('#boardsearch').change(function(){
+		   var value = $(this).val();
+
+	 	  $('#search').click(function(){
+	 		  console.log(value);
+
+	 	  })
+
+
+
+	   })
+
+
+   })
 
 
 
@@ -897,17 +921,14 @@ $("#listArea td").mouseenter(function(){
 		   url:"selectcommentsort.ss",
 		   data:{data:data},
 		   type:"get",
-		   success:function(data,data2){
-				console.log(data);
-				console.log(data2);
+		   success:function(data){
 
 				var $tbody = $("#listArea2");
 
 				$tbody.children().remove();
 
-
 				for(var i = 0 ; i < data.length-1; i++){
-
+					var cnt = data.length-1;
 					var $tr = $('<tr class="adtr">');
 					var $td1 = $('<td class="adtr">');
 					var $td2 = $('<td class="adtr">');
@@ -920,7 +941,7 @@ $("#listArea td").mouseenter(function(){
 					$td2.append(data[i].bKind);
 					$td3.append(data[i].bNm);
 					$td4.append(data[i].bUserNick);
-					$td6.append(data[3].0);
+					$td6.append(data[cnt][i]);
 					$td5.append(data[i].uNo);
 
 					$tr.append($td1,$td2,$td3,$td4,$td6,$td5);
@@ -929,7 +950,28 @@ $("#listArea td").mouseenter(function(){
 					$tbody.append($tr);
 				}
 
+				 $("#listArea2 td").mouseenter(function(){
+						$(this).parent().css({"background":"rgb(240,240,240)", "cursor":"pointer"});
+					}).mouseout(function(){
+						$(this).parent().css({"background":"#FFF"});
+					}).click(function(){
+						var num = $(this).parent().children().eq(0).text();
+						var kind = $(this).parent().children().eq(1).text();
+						var uNo = <%= loginUser.getUserNo() %>
 
+
+						if(kind == "분양후기"){
+
+							location.href="<%=request.getContextPath()%>/selectParceloutOne.tn?num=" + num + "&uNo=" + uNo;
+
+							}else if(kind == "실종"){
+								location.href="<%=request.getContextPath()%>/missingSelectOne.bo?num=" + num + "&uu=" + uNo;
+							}else if(kind == "잡담" || kind == "꿀팁" || kind == "자랑"){
+
+							location.href="<%=request.getContextPath()%>/selectOne.bo?num=" + num ;
+							}
+
+					});
 
 
 
