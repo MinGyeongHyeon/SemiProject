@@ -1410,6 +1410,7 @@ public class AdminBoardDao {
 		
 		
 		return list;
+	}
     
 	public ArrayList<Object> sortlow(Connection con, int currentPage, int limit) {
 			ArrayList<Object> list = null;

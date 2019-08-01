@@ -451,7 +451,7 @@ public class AdminBoardService {
 		
 		
 		return list;
-
+	}
 	public ArrayList<Object> sortlow(int currentPage, int limit) {
 		Connection con = getConnection();
 
