@@ -19,7 +19,7 @@
 	width: 80%;
 }
 </style>
-<body>
+<body style="overflow-x:hidden">
 <script>
 $(function(){
 	var msg = "<%= msg %>"

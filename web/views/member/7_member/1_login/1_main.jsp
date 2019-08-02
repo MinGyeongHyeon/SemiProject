@@ -80,7 +80,7 @@
 						})
 					},
 					fail : function(err) {
-						//alert(JSON.stringify(err));
+						alert(JSON.stringify(err));
 						alert("카카오톡 로그인에 실패하였습니다");
 					}
 					

@@ -14,8 +14,6 @@ public class ParcelOut {
 
 	public ParcelOut() {}
 
-
-
 	public ParcelOut(int pcoAppNo, int userNo, String selAppDt, String pcoSit, Date ansDt, String userNm,
 			String companionRs) {
 		super();

@@ -32,7 +32,11 @@ public class ParceloutFormServlet extends HttpServlet {
 		
 		int pcoAppNo = Integer.parseInt(request.getParameter("pcoAppNo"));
 		
+		//PCO_APP
 		ParcelOut pco = new ParcelOutService().parceloutInfo(pcoAppNo);
+		//PCO_QU_ANS
+		//parceOutAnswer poa = new 
+		
 		
 		request.setAttribute("pco",pco);
 				
