@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
 import com.kh.semi.user.model.service.UserService;
 import com.kh.semi.user.model.vo.User;
 
@@ -30,17 +31,10 @@ public class SelectFindld extends HttpServlet {
 
 		String page = "";
 
-		if(us.getUserId() != null) {
-			request.setAttribute("us", us);
-			page = "views/member/7_member/1_login/5_findid_1.jsp";
 
-		}else {
-			String msg = "아이디가 없습니다 !";
-			request.setAttribute("msg", msg);
-			page = "views/member/7_member/1_login/5_findid_1.jsp";
-		}
-		request.getRequestDispatcher(page).forward(request, response);
-
+		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
+		new Gson().toJson(us,response.getWriter());
 
 
 
@@ -51,6 +45,7 @@ public class SelectFindld extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		doGet(request, response);
+
 	}
 
 }

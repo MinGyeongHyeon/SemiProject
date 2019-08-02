@@ -42,7 +42,6 @@ public class AdminBoardListServlet extends HttpServlet {
 		//전체 목록 갯수를 리턴받음
 		int listCount = new AdminBoardService().getListCountad();
 
-		System.out.println("listCount 게시판: " + listCount);
 
 		//총 페이지 수 계산
 		//예를 들면, 목록 수가 124개이면 페이지 수는 13페이지이다.
@@ -116,8 +115,9 @@ public class AdminBoardListServlet extends HttpServlet {
 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+
 		doGet(request, response);
+
 	}
 
 }

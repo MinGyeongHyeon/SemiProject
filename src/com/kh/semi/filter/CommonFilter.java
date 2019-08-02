@@ -22,7 +22,6 @@ public class CommonFilter implements Filter {
 
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		request.setCharacterEncoding("UTF-8");
-		System.out.println("인코딩 완료!");
 
 		//다음필터로 forward 필터가 없을 시 서블릿으로 forward
 		chain.doFilter(request, response);
