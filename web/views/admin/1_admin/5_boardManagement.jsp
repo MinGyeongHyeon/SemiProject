@@ -157,12 +157,12 @@ th {
 					for(var i = 0; i < data.list.length; i++){
 
 					 	var $tr = $('<tr class="adtr">');
-						var $td1 = $('<td class="adtr">');
-						var $td2 = $('<td class="adtr">');
-						var $td3 = $('<td class="adtr">');
-						var $td4 = $('<td class="adtr">');
-						var $td5 = $('<td class="adtr">');
-						var $td6 = $('<td class="adtr">');
+						var $td1 = $('<td class="adtd">');
+						var $td2 = $('<td class="adtd">');
+						var $td3 = $('<td class="adtd">');
+						var $td4 = $('<td class="adtd">');
+						var $td5 = $('<td class="adtd">');
+						var $td6 = $('<td class="adtd">');
 
 							$td1.text(data.list[i].boardNo);
 							$td2.text(data.list[i].bKind);
@@ -295,13 +295,13 @@ th {
 					console.log(data.list);
 						for(var i = 0; i < data.list.length; i++){
 
-						 	var $tr = $('<tr class="adtr">');
-							var $td1 = $('<td class="adtr">');
-							var $td2 = $('<td class="adtr">');
-							var $td3 = $('<td class="adtr">');
-							var $td4 = $('<td class="adtr">');
-							var $td5 = $('<td class="adtr">');
-							var $td6 = $('<td class="adtr">');
+							var $tr = $('<tr class="adtr">');
+							var $td1 = $('<td class="adtd">');
+							var $td2 = $('<td class="adtd">');
+							var $td3 = $('<td class="adtd">');
+							var $td4 = $('<td class="adtd">');
+							var $td5 = $('<td class="adtd">');
+							var $td6 = $('<td class="adtd">');
 
 								$td1.text(data.list[i].boardNo);
 								$td2.text(data.list[i].bKind);
@@ -423,13 +423,13 @@ th {
 					console.log(data.list);
 						for(var i = 0; i < data.list.length; i++){
 
-						 	var $tr = $('<tr class="adtr">');
-							var $td1 = $('<td class="adtr">');
-							var $td2 = $('<td class="adtr">');
-							var $td3 = $('<td class="adtr">');
-							var $td4 = $('<td class="adtr">');
-							var $td5 = $('<td class="adtr">');
-							var $td6 = $('<td class="adtr">');
+							var $tr = $('<tr class="adtr">');
+							var $td1 = $('<td class="adtd">');
+							var $td2 = $('<td class="adtd">');
+							var $td3 = $('<td class="adtd">');
+							var $td4 = $('<td class="adtd">');
+							var $td5 = $('<td class="adtd">');
+							var $td6 = $('<td class="adtd">');
 
 								$td1.text(data.list[i].boardNo);
 								$td2.text(data.list[i].bKind);
@@ -549,13 +549,13 @@ th {
 					console.log(data.list);
 						for(var i = 0; i < data.list.length; i++){
 
-						 	var $tr = $('<tr class="adtr">');
-							var $td1 = $('<td class="adtr">');
-							var $td2 = $('<td class="adtr">');
-							var $td3 = $('<td class="adtr">');
-							var $td4 = $('<td class="adtr">');
-							var $td5 = $('<td class="adtr">');
-							var $td6 = $('<td class="adtr">');
+							var $tr = $('<tr class="adtr">');
+							var $td1 = $('<td class="adtd">');
+							var $td2 = $('<td class="adtd">');
+							var $td3 = $('<td class="adtd">');
+							var $td4 = $('<td class="adtd">');
+							var $td5 = $('<td class="adtd">');
+							var $td6 = $('<td class="adtd">');
 
 								$td1.text(data.list[i].boardNo);
 								$td2.text(data.list[i].bKind);
@@ -676,13 +676,13 @@ th {
 					console.log(data.list);
 						for(var i = 0; i < data.list.length; i++){
 
-						 	var $tr = $('<tr class="adtr">');
-							var $td1 = $('<td class="adtr">');
-							var $td2 = $('<td class="adtr">');
-							var $td3 = $('<td class="adtr">');
-							var $td4 = $('<td class="adtr">');
-							var $td5 = $('<td class="adtr">');
-							var $td6 = $('<td class="adtr">');
+							var $tr = $('<tr class="adtr">');
+							var $td1 = $('<td class="adtd">');
+							var $td2 = $('<td class="adtd">');
+							var $td3 = $('<td class="adtd">');
+							var $td4 = $('<td class="adtd">');
+							var $td5 = $('<td class="adtd">');
+							var $td6 = $('<td class="adtd">');
 
 								$td1.text(data.list[i].boardNo);
 								$td2.text(data.list[i].bKind);
@@ -929,13 +929,14 @@ $("#listArea td").mouseenter(function(){
 
 				for(var i = 0 ; i < data.length-1; i++){
 					var cnt = data.length-1;
+
 					var $tr = $('<tr class="adtr">');
-					var $td1 = $('<td class="adtr">');
-					var $td2 = $('<td class="adtr">');
-					var $td3 = $('<td class="adtr">');
-					var $td4 = $('<td class="adtr">');
-					var $td5 = $('<td class="adtr">');
-					var $td6 = $('<td class="adtr">');
+					var $td1 = $('<td class="adtd">');
+					var $td2 = $('<td class="adtd">');
+					var $td3 = $('<td class="adtd">');
+					var $td4 = $('<td class="adtd">');
+					var $td5 = $('<td class="adtd">');
+					var $td6 = $('<td class="adtd">');
 
 					$td1.append(data[i].boardNo);
 					$td2.append(data[i].bKind);
@@ -1076,13 +1077,13 @@ $("#listArea td").mouseenter(function(){
 				console.log(data.list);
 					for(var i = 0; i < data.list.length; i++){
 
-					 	var $tr = $('<tr class="adtr">');
-						var $td1 = $('<td class="adtr">');
-						var $td2 = $('<td class="adtr">');
-						var $td3 = $('<td class="adtr">');
-						var $td4 = $('<td class="adtr">');
-						var $td5 = $('<td class="adtr">');
-						var $td6 = $('<td class="adtr">');
+						var $tr = $('<tr class="adtr">');
+						var $td1 = $('<td class="adtd">');
+						var $td2 = $('<td class="adtd">');
+						var $td3 = $('<td class="adtd">');
+						var $td4 = $('<td class="adtd">');
+						var $td5 = $('<td class="adtd">');
+						var $td6 = $('<td class="adtd">');
 
 							$td1.text(data.list[i].boardNo);
 							$td2.text(data.list[i].bKind);
@@ -1125,9 +1126,9 @@ $("#listArea td").mouseenter(function(){
 
 						}else if(kind == "실종"){
 
-							location.href="<%=request.getContextPath()%>/missingSelectOne.bo?num=" + num + "&uu=" + uNo;
+						location.href="<%=request.getContextPath()%>/missingSelectOne.bo?num=" + num + "&uu=" + uNo;
 
-							}
+						}
 
 
 					});
