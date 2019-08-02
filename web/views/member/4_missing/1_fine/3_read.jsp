@@ -19,24 +19,27 @@ Missing b = (Missing) request.getAttribute("b");
 	<script src="//code.jquery.com/jquery.min.js"></script> 
 <style>
 #bt1 {
-	background: dimgray;
-	Color: white;
+/* 	background: dimgray; */
+	Color: black;
 	width: 100px;
 	height: 50px;
+	font-family: 'Sunflower', sans-serif;
 }
 
 .div2 {
 	padding: 10px;
 	font-weight: bold;
-	vertical-align: top;
+	/* vertical-align: top; */
 	color: skyblue;
-	border-bottom: 3px solid #036;
+
+	font-family: 'Sunflower', sans-serif;
 }
 
 table.type01 {
-	border-collapse: collapse;
+/* 	border-collapse: collapse; */
 	text-align: left;
-	line-height: 1.5;
+/* 	line-height: 1.5; */
+	font-family: 'Sunflower', sans-serif;
 }
 
 table.type01 tbody th {
@@ -44,21 +47,24 @@ table.type01 tbody th {
 	padding: 10px;
 	font-weight: bold;
 	vertical-align: top;
-	border-bottom: 1px solid #ccc;
-	background: lightgray;
+/* 	border-bottom: 1px solid #ccc; */
+	background: white;
+	font-family: 'Sunflower', sans-serif;
 }
 
 table.type01 td {
 	width: 350px;
 	padding: 10px;
 	vertical-align: top;
-	border-bottom: 1px solid #ccc;
+
+	font-family: 'Sunflower', sans-serif;
 }
 
 table.type02 {
-	border-collapse: collapse;
-	text-align: top;
+/* 	border-collapse: collapse; */
+	text-align: left;
 	line-height: 1.0;
+	font-family: 'Sunflower', sans-serif;
 }
 
 table.type02 th {
@@ -66,50 +72,70 @@ table.type02 th {
 	padding: 5px;
 	font-weight: bold;
 	vertical-align: top;
-	border-bottom: 1px solid #ccc;
-	background: lightgray;
+
+	background: white;
+	font-family: 'Sunflower', sans-serif;
 }
 
 table.type02 td {
 	width: 350px;
 	padding: 10px;
 	vertical-align: top;
-	border-bottom: 1px solid #ccc;
+
+	font-family: 'Sunflower', sans-serif;
 }
 
 textarea {
 	width: 100%;
+	font-family: 'Sunflower', sans-serif;
 }
 
 .reply_reply {
-	border: 2px solid #FF50CF;
+
+	font-family: 'Sunflower', sans-serif;
 }
 
 .reply_modify {
-	border: 2px solid #FFBB00;
+
+	font-family: 'Sunflower', sans-serif;
 }
 
 #commentCh{
 
 opacity:0;
+font-family: 'Sunflower', sans-serif;
 
 }
 #commentChbtn{
 opacity:0;
+font-family: 'Sunflower', sans-serif;
 
 }
 .a{
 color:red;
+font-family: 'Sunflower', sans-serif;
 }
 .b{
 color:gray
+font-family: 'Sunflower', sans-serif;
 }
 #1{
 color:gray;
+font-family: 'Sunflower', sans-serif;
 
 }
 #2{
 color:red;
+font-family: 'Sunflower', sans-serif;
+}
+
+#zz{
+font-family: 'Sunflower', sans-serif;
+text-align:center;
+width:600px;
+height:300px;
+border:0;
+
 }
 
 </style>
@@ -117,9 +143,7 @@ color:red;
 
 </head>
 <body>
-	<div class="div2">
-		<img src="views/images/dog.png">
-	</div>
+
 	<table align="center">
 	
 
@@ -136,25 +160,42 @@ color:red;
 			<tbody>
 				<tr>
 					<th>작성자</th>
-				<td><%=b.getuName()%></td> 
+			 	<td><%=b.getuName()%></td>  
 					<th>작성시간</th>
-					<td><%=b.getbDate() %></td>
+				<td><%=b.getbDate() %></td> 
 					<th>추천수</th>
-					<td><%=b.getRecCon() %></td>
+				<td><%=b.getRecCon() %></td>
 					<th>조회수</th>
-					<td><%=b.getInqCon() %></td>
+					<td><%=b.getInqCon() %></td> 
 				</tr>
+		
+         <tr>   <input type="hidden" value="<%=b.getbNo()%>" name="num" id="num"></tr>
+
+
+	<div align="center" style="padding: 20px">
+				<hr>
+				
+			</tbody>
+		</table>
+	</table>
+		<table class="type02">
+		<tr>
+			<th>실종장소</th>
+			<td><span><%=b.getMissPlace() %><span>　</span><%=b.getMissPlaceDetail() %></span></td>
+			<th>실종날짜</th>
+			<td><%=b.getMissDt() %></td>
+			<th>성별</th>
+			<td><%=b.getMissGender() %></td>
+			<th>사례금</th>
+			<td><%=b.getRewardPc() %></td>
+ 			<th>연락처</th>
+			<td><%=b.getMissPhone() %></td> 
+		</tr>
 				<tr>
 					<th>제목</th>
 					<td><%=b.getbNm() %></td>
 				</tr>
 				
-         <tr>   <input type="hidden" value="<%=b.getbNo()%>" name="num" id="num"></tr>
-
-				
-				
-			</tbody>
-		</table>
 	</table>
 
 
@@ -166,7 +207,7 @@ color:red;
 	<%System.out.print("뭐냐고고오오오오옹"+b.getUu()); %>
 
 <% if(loginUser != null){ %> 
-					 <button type="button" id="report" onclick="report(<%=loginUser.getUserNo()%>);">신고하기</button>
+					 <button type="button" id="report" onclick="report(<%=loginUser.getUserNo()%>);">신고</button>
 					 <div class="ddd">
 					 <%if(b.getUu()==0){ %>
 					 	<%System.out.print("추천안돼있음"+b.getUu()); %>
@@ -191,28 +232,16 @@ color:red;
 					
 	</div>
 
-	<table class="type02">
-		<tr>
-			<th>실종장소</th>
-			<td><span><%=b.getMissPlace() %><span>　</span><%=b.getMissPlaceDetail() %></span></td>
-			<th>실종날짜</th>
-			<td><%=b.getMissDt() %></td>
-			<th>성별</th>
-			<td><%=b.getMissGender() %></td>
-			<th>사례금</th>
-			<td><%=b.getRewardPc() %></td>
-			<th>연락처</th>
-			<td><%=b.getMissPhone() %></td>
-		</tr>
-	</table>
+<br><br>
+
 	<div>
-		<textarea name="" id="" cols="200" rows="10"><%=b.getbCon() %></textarea>
+		<textarea name="" id="zz" cols="90" rows="10" text-align="center"><%=b.getbCon() %></textarea>
 	</div>
-	<hr>
+	
 	<input type="hidden" id="" name="" value="" />
 	<div align="center">
 		</br> </br>
-		<table border="1" width="1200px">
+		<table  width="1200px">
 			<tr>
 				<td colspan="2" align="right">
 
@@ -229,8 +258,11 @@ color:red;
 <button type="button" onclick="location.href='<%=request.getContextPath()%>/missingDelete.bo?num=<%=b.getbNo()%>'"  id="deleteBoard">글 삭제</button>
 						
 				<% }}%>
-				
-				
+				<hr>
+				</td>
+				</tr>
+				</table>
+				</div>
 				
 				<script>
 				
@@ -318,8 +350,8 @@ function upbnt(data){
 
 
 
-		<div align="center" style="padding: 20px">
-			<table id="replySelectTable" border="0" align="conter">
+		<div align="center" style="padding: 50px">
+			<table id="replySelectTable" border="0" align="center">
 				<tbody>
 				<% if(cm != null){ %>
 				<% for(int i = 0 ; i < cm.size(); i++){ %>
@@ -360,8 +392,7 @@ function upbnt(data){
 
 
 
-		<hr>
-<div>
+<div align="center" style="padding: 50px">
 	<% if(loginUser != null) { %>
 		 <input type="text" style="width: 600px" id="comment">
 		<input type="button" value="댓글 달기" id="comHs">

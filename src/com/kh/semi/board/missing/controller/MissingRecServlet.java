@@ -46,6 +46,8 @@ public class MissingRecServlet extends HttpServlet {
 			num = 0;
 		}
 		
+	
+		
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
 		new Gson().toJson(num, response.getWriter());

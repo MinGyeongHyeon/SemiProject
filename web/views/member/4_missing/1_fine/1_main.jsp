@@ -49,16 +49,22 @@ table tr td img {
 		width:220px;
 		border:1px solid white;
 		display:inline-block;
-
+font-family: 'Sunflower', sans-serif;
 		   margin: 10px;
 	}
 	.title{
-
+font-family: 'Sunflower', sans-serif;
 	  width: 220px;
 	  height: 220px;
 
 	  align:center;
 	}
+	h1{
+	font-family: 'Sunflower', sans-serif;
+	}
+	h3{
+	
+	font-family: 'Sunflower', sans-serif;}
 
 
 </style>

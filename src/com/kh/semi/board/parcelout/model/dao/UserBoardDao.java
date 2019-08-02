@@ -849,7 +849,7 @@ public class UserBoardDao {
 			pstmt = con.prepareStatement(query);
 
 			pstmt.setInt(1, ub.getuNo());
-			pstmt.setString(2, "Y");
+			pstmt.setString(2, "X");
 
 
 			rset = pstmt.executeQuery();

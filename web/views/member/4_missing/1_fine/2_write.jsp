@@ -30,11 +30,12 @@
 <style>
 body{
 	text-align: center;
+	font-family: 'Sunflower', sans-serif;
 }
 .form-control{
 	width:400px;
 	height:40px
-
+font-family: 'Sunflower', sans-serif;
 }
 
 td.find{
@@ -42,6 +43,7 @@ height:30px;
 padding:10px;
 text-align: center;
 border: 3px solid  rgb(255, 255, 255);
+font-family: 'Sunflower', sans-serif;
 /*border: 1px solid red;*/
 }
 

@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 import com.kh.semi.adminboard.model.dao.AdminBoardDao;
 import com.kh.semi.adminboard.model.vo.AdminBoard;
+import com.kh.semi.adminboard.model.vo.AdminComment;
 import com.kh.semi.adminboard.model.vo.AdminUserBoard;
 import com.kh.semi.board.parcelout.model.vo.Attachment;
 
@@ -278,6 +279,64 @@ public class AdminBoardService {
 		close(con);
 
 	return list;
+	}
+
+	public int getListCounted() {
+		Connection con = getConnection();
+		int result = 0;
+
+		result = new AdminBoardDao().getListCounted(con);
+
+		close(con);
+
+		return result;
+	}
+
+	public ArrayList<AdminComment> selectListed(int currentPage, int limit) {
+		Connection con = getConnection();
+
+		ArrayList<AdminComment> list = new AdminBoardDao().selectListed(con,currentPage,limit);
+
+		close(con);
+
+
+
+		return list;
+	}
+
+	public int getListCounted2() {
+		Connection con = getConnection();
+		int result = 0;
+
+		result = new AdminBoardDao().getListCounted2(con);
+
+		close(con);
+
+		return result;
+	}
+
+	public ArrayList<AdminComment> selectListed2(int currentPage2, int limit2) {
+		Connection con = getConnection();
+
+		ArrayList<AdminComment> list = new AdminBoardDao().selectListed2(con,currentPage2,limit2);
+
+		close(con);
+
+
+
+		return list;
+	}
+
+	public ArrayList<Integer> CoreportCount(ArrayList<AdminComment> list2) {
+		Connection con = getConnection();
+		ArrayList<Integer> reportCount = null;
+
+		reportCount = new AdminBoardDao().CoreportCount(con,list2);
+
+		close(con);
+
+
+		return reportCount;
 	}
 
 }

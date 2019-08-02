@@ -619,11 +619,14 @@ Connection con = getConnection();
 	public int re2(int test, int test2) {
 		Connection con = getConnection();
 		int result = 0;
+		int result2 = 0;
 
 		result = new MissingDao().report2(con,test,test2);
 
 		if(result >0) {
 			commit(con);
+			result2 = new MissingDao().report4(con,test,test2);
+			
 		}else {
 			rollback(con);
 		}

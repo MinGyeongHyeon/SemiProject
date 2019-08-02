@@ -18,6 +18,7 @@
   <button type="button" class="btn btn-default" onclick="location.href='/sixDestiny/selectAlldog.ent'">입소견관리</button>
   <button type="button" class="btn btn-default" onclick="location.href='/sixDestiny/selectDday.sel'">일정관리</button>
   <button type="button" class="btn btn-default" onclick="location.href='/sixDestiny/boardList.ad'">게시판관리</button>
+    <button type="button" class="btn btn-default" onclick="location.href='/sixDestiny/comment.bo'">댓글관리</button>
   <button type="button" class="btn btn-default" onclick="location.href='/sixDestiny/selectAllUser.su'">후원관리</button>
   <button type="button" class="btn btn-default" onclick="location.href='/sixDestiny/views/admin/1_admin/7_statistics.jsp'">통계</button>
 

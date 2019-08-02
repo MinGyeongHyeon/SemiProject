@@ -18,24 +18,27 @@ Missing b = (Missing) request.getAttribute("b");
 <title>Insert title here</title>
 <style>
 #bt1 {
-	background: dimgray;
-	Color: white;
+/* 	background: dimgray; */
+	Color: black;
 	width: 100px;
 	height: 50px;
+	font-family: 'Sunflower', sans-serif;
 }
 
 .div2 {
 	padding: 10px;
 	font-weight: bold;
-	vertical-align: top;
+	/* vertical-align: top; */
 	color: skyblue;
-	border-bottom: 3px solid #036;
+
+	font-family: 'Sunflower', sans-serif;
 }
 
 table.type01 {
-	border-collapse: collapse;
+/* 	border-collapse: collapse; */
 	text-align: left;
-	line-height: 1.5;
+/* 	line-height: 1.5; */
+	font-family: 'Sunflower', sans-serif;
 }
 
 table.type01 tbody th {
@@ -43,21 +46,24 @@ table.type01 tbody th {
 	padding: 10px;
 	font-weight: bold;
 	vertical-align: top;
-	border-bottom: 1px solid #ccc;
-	background: lightgray;
+/* 	border-bottom: 1px solid #ccc; */
+	background: white;
+	font-family: 'Sunflower', sans-serif;
 }
 
 table.type01 td {
 	width: 350px;
 	padding: 10px;
 	vertical-align: top;
-	border-bottom: 1px solid #ccc;
+
+	font-family: 'Sunflower', sans-serif;
 }
 
 table.type02 {
-	border-collapse: collapse;
-	text-align: top;
+/* 	border-collapse: collapse; */
+	text-align: left;
 	line-height: 1.0;
+	font-family: 'Sunflower', sans-serif;
 }
 
 table.type02 th {
@@ -65,42 +71,72 @@ table.type02 th {
 	padding: 5px;
 	font-weight: bold;
 	vertical-align: top;
-	border-bottom: 1px solid #ccc;
-	background: lightgray;
+
+	background: white;
+	font-family: 'Sunflower', sans-serif;
 }
 
 table.type02 td {
 	width: 350px;
 	padding: 10px;
 	vertical-align: top;
-	border-bottom: 1px solid #ccc;
+
+	font-family: 'Sunflower', sans-serif;
 }
 
 textarea {
 	width: 100%;
+	font-family: 'Sunflower', sans-serif;
 }
 
 .reply_reply {
-	border: 2px solid #FF50CF;
+
+	font-family: 'Sunflower', sans-serif;
 }
 
 .reply_modify {
-	border: 2px solid #FFBB00;
+
+	font-family: 'Sunflower', sans-serif;
 }
 
+#commentCh{
+
+opacity:0;
+font-family: 'Sunflower', sans-serif;
+
+}
+#commentChbtn{
+opacity:0;
+font-family: 'Sunflower', sans-serif;
+
+}
 .a{
 color:red;
+font-family: 'Sunflower', sans-serif;
 }
 .b{
 color:gray
+font-family: 'Sunflower', sans-serif;
 }
 #1{
 color:gray;
+font-family: 'Sunflower', sans-serif;
 
 }
 #2{
 color:red;
+font-family: 'Sunflower', sans-serif;
 }
+
+#zz{
+font-family: 'Sunflower', sans-serif;
+text-align:center;
+width:600px;
+height:300px;
+border:0;
+
+}
+
 </style>
 <link rel="stylesheet" href="/css/bootstrap.css">
 
@@ -151,7 +187,7 @@ color:red;
 	<%System.out.print("뭐냐고고오오오오옹"+b.getUu()); %>
 
 <% if(loginUser != null){ %> 
-					 <button type="button" id="report" onclick="report(<%=loginUser.getUserNo()%>);">신고하기</button>
+					 <button type="button" id="report" onclick="report(<%=loginUser.getUserNo()%> );">신고하기</button>
 					 <div class="ddd">
 					 <%if(b.getUu()==0){ %>
 					 	<%System.out.print("추천안돼있음"+b.getUu()); %>
@@ -187,7 +223,7 @@ color:red;
 		</tr>
 	</table>
 	<div>
-		<textarea name="" id="" cols="200" rows="10"></textarea>
+		<textarea name="" id="zz" cols="200" rows="10"></textarea>
 	</div>
 	<hr>
 	<input type="hidden" id="" name="" value="" />
