@@ -50,9 +50,14 @@
 		<tr>
 			<td style="font-family: 'Sunflower', sans-serif;"><%= et.getWriteDt() %></td>
 			<td style="font-family: 'Sunflower', sans-serif;"><%= et.getSelHopeDt() %></td>
-			<td style="font-family: 'Sunflower', sans-serif;">
-				<button class="btn btn-default" style="font-family: 'Sunflower', sans-serif;" onclick="viewEntranceApply(<%=et.getEntAppNo()%>);">신청서</button>
+			
+			<%--신청서  --%>
+			<td>
+			<button class="btn btn-default">
+			<a href="/sixDestiny/applicationform?entAppNo=<%= et.getEntAppNo() %>" onclick="window.open(this.href,'_blank', 'width=500,height=700');return false;">신청서</a>
+			</button>
 			</td>
+			
 			<td style="font-family: 'Sunflower', sans-serif;">
 				<% if(et.getAppSit().equals("N")){ %>
 					<p style="font-family: 'Sunflower', sans-serif;">신청수락 대기</p>

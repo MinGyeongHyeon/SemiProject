@@ -156,7 +156,6 @@ int endPage = pi.getEndPage();
 
 			<% }%>
 
-
 			<% if(10 >= currentPage){ %>
 
 

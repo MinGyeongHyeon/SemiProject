@@ -134,6 +134,7 @@ public class ParcelOutDao {
 			if(rset.next()) {
 				
 				pco = new ParcelOut();
+				
 				pco.setPcoAppNo(rset.getInt("PCO_APP_NO"));
 				pco.setUserNo(rset.getInt("USER_NO"));
 				pco.setSelAppDt(rset.getString("SEL_APP_DT"));

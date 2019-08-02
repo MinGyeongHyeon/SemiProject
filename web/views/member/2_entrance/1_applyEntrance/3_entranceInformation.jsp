@@ -10,7 +10,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <link href="https://fonts.googleapis.com/css?family=Do+Hyeon&display=swap" rel="stylesheet">
-<title>신청서 상새내역</title>
+<title>신청서 상세내역</title>
 <style>
 table {
   border-collapse: collapse;
@@ -35,7 +35,7 @@ tr:hover {background-color:#f5f5f5;}
 <body>
 	<div id="outer">
 	<br>
-	<h3>입 소 신 청 서</h3>
+	<h2>입 소 신 청 서</h2>
 	<br>
 	<table id="table">
 	<tr>
@@ -79,7 +79,7 @@ tr:hover {background-color:#f5f5f5;}
 	</tr>
 	
 	<tr>
-		<td><b>상담희망일자</b></td>
+		<td><b>면담희망 일자</b></td>
 		<td><%=et.getSelHopeDt() %></td>
 	</tr>
 	

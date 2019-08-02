@@ -387,14 +387,14 @@ public class EntranceService {
 		return result;
 	}
 
-	public Entrance entranceInfo(int userNo) {
-
+	public Entrance entranceInfo(int entAppNo) {
+		
 		Connection con = getConnection();
-
-		Entrance et = new EntranceDao().entranceInfo(con, userNo);
-
+		
+		Entrance et = new EntranceDao().entranceInfo(con, entAppNo);
+		
 		close(con);
-
+		
 		return et;
 	}
 
@@ -420,6 +420,17 @@ public class EntranceService {
 		close(con);
 
 		return result;
+	}
+
+	public EntranceDogInfo dogInfo(int entAppNo) {
+		
+		Connection con = getConnection();
+		
+		EntranceDogInfo dogInfo = new EntranceDao().dogInfo(con,entAppNo);
+		
+		close(con);
+		
+		return dogInfo;
 	}
 
 }

@@ -15,11 +15,9 @@
 	int maxPage2 = pi2.getMaxPage();
 	int startPage2 = pi2.getStartPage();
 	int endPage2 = pi2.getEndPage();
+  %>
 
-%>
-
-
-    <%@ include file="../../common/top_Include.jsp"%>
+<%@ include file="../../common/top_Include.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -59,10 +57,14 @@
 			<td style="font-family: 'Sunflower', sans-serif;"><%= et.getUserNm() %></td>
 			<td style="font-family: 'Sunflower', sans-serif;"><%= et.getWriteDt() %></td>
 			<td style="font-family: 'Sunflower', sans-serif;"><%= et.getSelHopeDt() %></td>
-			<td style="font-family: 'Sunflower', sans-serif;">
-				<button class="btn btn-default" style="font-family: 'Sunflower', sans-serif;"
-				onclick="location.href='/sixDestiny/applicationform?userNo=<%= et.getUserNo()%>'">신청서</button>
+			
+			<%--신청서  --%>
+			<td>
+			<button class="btn btn-default">
+			<a href="/sixDestiny/applicationform?entAppNo=<%= et.getEntAppNo() %>" onclick="window.open(this.href,'_blank', 'width=600,height=700');return false;">신청서</a>
+			</button>
 			</td>
+			
 			<td style="font-family: 'Sunflower', sans-serif;">
 				<% if(et.getAppSit().equals("N")){ %>
 					<button class="btn btn-default" style="font-family: 'Sunflower', sans-serif; background:white;" name="insertMoney" onclick="entranceApplyKind(<%= et.getEntAppNo() %>);">신청 수락 및 반려</button>
@@ -129,9 +131,14 @@
 			<td style="font-family: 'Sunflower', sans-serif;"><%= po.getUserNm() %></td>
 			<td style="font-family: 'Sunflower', sans-serif;"><%= po.getAnsDt() %></td>
 			<td style="font-family: 'Sunflower', sans-serif;"><%= po.getSelAppDt() %></td>
-			<td style="font-family: 'Sunflower', sans-serif;">
-				<button class="btn btn-default" style="font-family: 'Sunflower', sans-serif;" onclick="viewParcelApply();">신청서</button>
+
+			<%--신청서 --%>
+			<td>
+			<button class="btn btn-default">
+			<a href="/sixDestiny/parceloutform?pcoAppNo=<%=po.getPcoAppNo() %>" onclick="window.open(this.href,'_blank', 'width=600,height=700');return false;">신청서</a>
+			</button>
 			</td>
+
 			<td style="font-family: 'Sunflower', sans-serif;">
 				<% if(po.getPcoSit().equals("N")){ %>
 					<button class="btn btn-default" style="font-family: 'Sunflower', sans-serif; background:white;" name="insertMoney" onclick="parceloutApplyKind(<%= po.getPcoAppNo() %>);">신청 수락 및 반려</button>
