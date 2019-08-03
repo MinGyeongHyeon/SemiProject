@@ -1,6 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="java.util.*"%>
   <%@ include file="../../common/top_Include.jsp"%>
+  <%
+  ArrayList<HashMap<String, Object>> list =
+  (ArrayList<HashMap<String, Object>>) request.getAttribute("static");
+  ArrayList<HashMap<String, Object>> list2 =
+  (ArrayList<HashMap<String, Object>>) request.getAttribute("static2");
+  ArrayList<HashMap<String, Object>> list3 =
+  (ArrayList<HashMap<String, Object>>) request.getAttribute("static3");
+  ArrayList<HashMap<String, Object>> list4 =
+  (ArrayList<HashMap<String, Object>>) request.getAttribute("static4");
+
+  %>
 <!DOCTYPE html>
 <html>
 <%@ include file="../../common/inner_admin_include.jsp" %>
@@ -12,14 +23,20 @@
       google.charts.load('current', {'packages':['corechart']});
       google.charts.setOnLoadCallback(drawChart);
 
+      
+      
+      <%System.out.print( list.get(0).get("reason1"));%>
+      
+      
+      
       function drawChart() {
 ////////////////////////후원끊는이유///////////////////////////////////////////
         var data = google.visualization.arrayToDataTable([
           ['Task', 'Hours per Day'],
-          ['금전적 부담',     2],
-          ['타 사이트 이용',      2],
-          ['보호소에 대한 불만',  2],
-          ['기타', 2],
+          ['금전적 부담',   <%=list4.get(0).get("can1")%> ],
+          ['보호소에 대한 불만',   <%=list4.get(0).get("can2")%> ],
+          ['타 사이트 이용',  <%=list4.get(0).get("can3")%> ],
+          ['기타',  <%=list4.get(0).get("can4")%> ],
 
         ]);
 
@@ -93,11 +110,11 @@
           ///////////////////////////회원 탈퇴 사유/////////////////////////////////////////////////////
             var data = google.visualization.arrayToDataTable([
                 ['T', 'H'],
-                ['서비스 이용 불필요',     2],
-                ['사이트 불신',      2],
-                ['컨텐츠 부족',  2],
-                ['재가입',  2],
-                ['기타', 2],
+                ['서비스 이용 불필요',      <%=list.get(0).get("reason1")%> ],
+                ['사이트 불신',       <%=list.get(0).get("reason2")%> ],
+                ['재가입',   <%=list.get(0).get("reason3")%> ],
+                ['컨텐츠 부족',   <%=list.get(0).get("reason4")%> ],
+                ['기타',  <%=list.get(0).get("reason5")%> ],
 
               ]);
 
@@ -112,11 +129,11 @@
               ///////////////분양 많이 받은 견종/////////////////////
               var data = google.visualization.arrayToDataTable([
                   ['T', 'H'],
-                  ['말티즈',     5],
-                  ['포메라니안',      2],
-                  ['비글',  2],
-                  ['믹스견',  2],
-                  ['푸들', 2]
+                  ['말티즈',   <%=list2.get(0).get("dog_kind1")%> ],
+                  ['코카스파니엘',  <%=list2.get(0).get("dog_kind2")%> ],
+                  ['비글',  <%=list2.get(0).get("dog_kind3")%> ],
+                  ['믹스견',  <%=list2.get(0).get("dog_kind4")%> ],
+                  ['푸들',  <%=list2.get(0).get("dog_kind5")%> ]
 
 
                 ]);
@@ -191,10 +208,11 @@
                     /////////////////////////가입경로//////////////////////
                     var data = google.visualization.arrayToDataTable([
                         ['T', 'H'],
-                        ['검색',     55],
-                        ['광고',      24],
-                        ['sns',  27],
-                        ['기타',  21],
+                        ['sns',     <%=list3.get(0).get("root1")%>],
+                        ['검색',      <%=list3.get(0).get("root2")%>],
+                        ['광고',  <%=list3.get(0).get("root3")%>],
+                        ['지인추천',  <%=list3.get(0).get("root4")%>],
+                        ['기타', <%=list3.get(0).get("root5")%>],
 
 
 

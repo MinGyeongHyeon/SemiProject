@@ -2641,6 +2641,64 @@ public class MissingDao {
 	}
 
 
+	public int report5(Connection con, int test, int test2) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+
+		String query = prop.getProperty("recup");
+
+		try {
+			pstmt = con.prepareStatement(query);
+
+			pstmt.setInt(1, test);
+
+
+			result = pstmt.executeUpdate();
+
+
+
+		} catch (SQLException e) {
+
+
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+
+
+		return result;
+	}
+
+
+	public int recde(Connection con, int test, int test2) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+
+		String query = prop.getProperty("recde");
+
+		try {
+			pstmt = con.prepareStatement(query);
+
+			pstmt.setInt(1, test);
+
+
+			result = pstmt.executeUpdate();
+
+
+
+		} catch (SQLException e) {
+
+
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+
+
+		return result;
+	}
+
+
 
 
 	

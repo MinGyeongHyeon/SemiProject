@@ -7,11 +7,14 @@ import static com.kh.semi.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.kh.semi.adminboard.model.dao.AdminBoardDao;
 import com.kh.semi.adminboard.model.vo.AdminBoard;
 import com.kh.semi.adminboard.model.vo.AdminComment;
+import com.kh.semi.adminboard.model.vo.AdminStatic;
 import com.kh.semi.adminboard.model.vo.AdminUserBoard;
+import com.kh.semi.board.missing.model.dao.MissingDao;
 import com.kh.semi.board.parcelout.model.vo.Attachment;
 
 public class AdminBoardService {
@@ -381,6 +384,72 @@ public class AdminBoardService {
 		close(con);
 
 	return list;
+	}
+
+	//회원탈퇴사유
+	public ArrayList<HashMap<String, Object>> statics() {
+		Connection con = getConnection();
+
+		ArrayList<HashMap<String,Object>> list = new AdminBoardDao().statics(con);
+
+
+		close(con);
+		
+		
+		
+		
+		
+		return list;
+		
+		
+		
+	}
+
+	//분양견 종류
+	public ArrayList<HashMap<String, Object>> statics2() {
+		Connection con = getConnection();
+
+		ArrayList<HashMap<String,Object>> list = new AdminBoardDao().statics2(con);
+
+
+		close(con);
+		
+		
+		
+		
+		
+		return list;
+	}
+
+	//
+	public ArrayList<HashMap<String, Object>> statics3() {
+		Connection con = getConnection();
+
+		ArrayList<HashMap<String,Object>> list = new AdminBoardDao().statics3(con);
+
+
+		close(con);
+		
+		
+		
+		
+		
+		return list;
+	}
+
+	public ArrayList<HashMap<String, Object>> statics4() {
+		Connection con = getConnection();
+
+		ArrayList<HashMap<String,Object>> list = new AdminBoardDao().statics4(con);
+
+
+		close(con);
+		
+		
+		
+		
+		
+		return list;
 	}
 
 }

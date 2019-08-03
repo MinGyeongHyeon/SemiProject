@@ -199,6 +199,7 @@ font-family: 'Sunflower', sans-serif;
                HashMap<String, Object> hmap = list.get(i);
          %>
                                       <input type="hidden" value="<%=hmap.get("boardNo")%>" name="num">
+                                      
                                       <%} %>
                         <div class="input-group-btn">
                            <button class="btn btn-default" type="submit" >

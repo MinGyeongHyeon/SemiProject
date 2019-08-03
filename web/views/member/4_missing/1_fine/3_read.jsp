@@ -112,11 +112,11 @@ font-family: 'Sunflower', sans-serif;
 
 }
 .a{
-color:red;
+color:gray;
 font-family: 'Sunflower', sans-serif;
 }
 .b{
-color:gray
+color:red;
 font-family: 'Sunflower', sans-serif;
 }
 #1{
@@ -164,7 +164,10 @@ border:0;
 					<th>작성시간</th>
 				<td><%=b.getbDate() %></td> 
 					<th>추천수</th>
-				<td><%=b.getRecCon() %></td>
+				
+				<td id="rec"><%=b.getRecCon() %></td>
+		
+				
 					<th>조회수</th>
 					<td><%=b.getInqCon() %></td> 
 				</tr>
@@ -172,11 +175,12 @@ border:0;
          <tr>   <input type="hidden" value="<%=b.getbNo()%>" name="num" id="num"></tr>
 
 
-	<div align="center" style="padding: 20px">
+	<div align="center" style="padding: 20px"></div>
 				<hr>
 				
 			</tbody>
 		</table>
+		
 	</table>
 		<table class="type02">
 		<tr>
@@ -325,9 +329,15 @@ function upbnt(data){
 					$btn.text("추천♡")
 				 
 				if(data==0){
+					var $div2=$('.rec')
+					$div2.html("");
 					$div.append($btn).click(function(){upbnt(data);});
 					$btn.addClass("a");
+	
+					
 				}else{
+					var $div2=$('.rec')
+					$div2.html("");
 					$div.append($btn).click(function(){upbnt(data);});
 					$btn.addClass("b");
 				}
