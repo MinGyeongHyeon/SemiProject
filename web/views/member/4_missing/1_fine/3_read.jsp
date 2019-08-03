@@ -133,7 +133,6 @@ font-family: 'Sunflower', sans-serif;
 font-family: 'Sunflower', sans-serif;
 text-align:center;
 width:600px;
-height:300px;
 border:0;
 
 }
@@ -144,7 +143,6 @@ border:0;
 </head>
 <body>
 
-	<table align="center">
 	
 
 	
@@ -156,7 +154,8 @@ border:0;
 			<col width="25%">
 			<col width="25%">
 		</colgroup>
-		<table class="type01">
+		<div style="width:70%; margin-left:auto; margin-right:auto;" >
+		<table class="type01" >
 			<tbody>
 				<tr>
 					<th>작성자</th>
@@ -175,14 +174,13 @@ border:0;
          <tr>   <input type="hidden" value="<%=b.getbNo()%>" name="num" id="num"></tr>
 
 
-	<div align="center" style="padding: 20px"></div>
 				<hr>
 				
 			</tbody>
 		</table>
 		
 	</table>
-		<table class="type02">
+		<table class="type02" >
 		<tr>
 			<th>실종장소</th>
 			<td><span><%=b.getMissPlace() %><span>　</span><%=b.getMissPlaceDetail() %></span></td>
@@ -192,13 +190,8 @@ border:0;
 			<td><%=b.getMissGender() %></td>
 			<th>사례금</th>
 			<td><%=b.getRewardPc() %></td>
- 			<th>연락처</th>
-			<td><%=b.getMissPhone() %></td> 
+ 	
 		</tr>
-				<tr>
-					<th>제목</th>
-					<td><%=b.getbNm() %></td>
-				</tr>
 				
 	</table>
 
@@ -207,7 +200,7 @@ border:0;
 
 
 
-	<div align="right">
+	<div align="right" ">
 	<%System.out.print("뭐냐고고오오오오옹"+b.getUu()); %>
 
 <% if(loginUser != null){ %> 
@@ -221,18 +214,26 @@ border:0;
 					 	<button class="btn-like b"    onclick="upbnt(<%=b.getUu()%>)">추천♡</button>
 	<%} %>
 	</div>
+	
 	<%} %>
 	
- 
-	</div>
-
-	<hr>
-
 	<div align="right">
 		<button id="bt1" onclick="location.href='<%=request.getContextPath()%>/missingpaper.bo?num=<%=b.getbNo()%>'" id="paper">전단지 생성</button>
 	</div>
+ 
+	</div>
+	<hr>
+	</div>
+	<br><br>
+
+					<label text-align="left">제목: </label>
+					<label text-align="left"><%=b.getbNm() %></label>
+					<br><br>	<br><br>
+		
+
+
 	<div>
-	<img id="titleImg" src="<%=request.getContextPath()%>/thumbnail_uploadFiles/<%=titleImg.getChangeNm()%>">
+	<img style="width:300px; height:auto;" id="titleImg" src="<%=request.getContextPath()%>/thumbnail_uploadFiles/<%=titleImg.getChangeNm()%>">
 					
 	</div>
 
@@ -240,12 +241,15 @@ border:0;
 
 	<div>
 		<textarea name="" id="zz" cols="90" rows="10" text-align="center"><%=b.getbCon() %></textarea>
+		<br>
+				<label text-align="center">연락처 : </label>
+			<label text-align="center"><%=b.getMissPhone() %></label>
 	</div>
 	
 	<input type="hidden" id="" name="" value="" />
-	<div align="center">
+	<div align="center" style="height:10px;">
 		</br> </br>
-		<table  width="1200px">
+		<table  width="60%">
 			<tr>
 				<td colspan="2" align="right">
 
@@ -263,9 +267,11 @@ border:0;
 						
 				<% }}%>
 				<hr>
+				
 				</td>
 				</tr>
 				</table>
+			
 				</div>
 				
 				<script>
@@ -360,9 +366,10 @@ function upbnt(data){
 
 
 
-		<div align="center" style="padding: 50px">
+		<div align="center" style="padding: 60px">
 			<table id="replySelectTable" border="0" align="center">
 				<tbody>
+				<br>
 				<% if(cm != null){ %>
 				<% for(int i = 0 ; i < cm.size(); i++){ %>
 					<tr >
