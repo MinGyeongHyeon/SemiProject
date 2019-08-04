@@ -2,7 +2,7 @@
     pageEncoding="UTF-8" import="java.util.*, com.kh.semi.board.free.model.vo.*"%>
 
 <%
-	ArrayList<UserBoard> list = (ArrayList<UserBoard>) request.getAttribute("list");
+	ArrayList<Commentub> list = (ArrayList<Commentub>) request.getAttribute("list");
 	PageInfoFreeBoard pi = (PageInfoFreeBoard) request.getAttribute("pi");
 	int listCount = pi.getListCount();
 	int currentPage = pi.getCurrentPage();
@@ -50,25 +50,24 @@
 <div style="width:60%; text-align:center; margin-left:auto; margin-right:auto;" align="center";>
 
 
+
 	<table align="center"  class="table"  id="test2" >
-	<caption class="caption"><b>내 게시글 확인</b></caption>
+	<caption class="caption"><b>내 댓글 확인</b></caption>
 		<thead>
 		<tr>
-			<th style="text-align:center; " hidden>게시판 번호</th>
-			<th style="text-align:center; width:50px;">게시판 종류</th>
-			<th style="text-align:center; width:200px;">게시글 제목</th>
-			<th style="text-align:center; width:50px;">날짜</th>
-			<th style="text-align:center; width:50px;">추천수</th>
+			<th style="text-align:center; width:100px;">게시판 번호</th>
+			<th style="text-align:center; width:100px;">게시판 종류</th>
+			<th style="text-align:center; width:100px;">게시판 제목</th>
+			<th style="text-align:center; width:300px;">댓글 내용</th>
 		</tr>
 		</thead>
 		<tbody>
-		<% for(UserBoard ub : list){ %>
+		<% for(Commentub com : list){ %>
 		<tr>
-			<td hidden><%= ub.getbNo() %></td>
-			<td><%= ub.getbKind() %></td>
-			<td id="bname"><%= ub.getbNm() %></td>
-			<td><%= ub.getbDate() %></td>
-			<td><%= ub.getRecCon() %></td>
+			<td><%= com.getBoardNo() %></td>
+			<td><%= com.getBoardKind() %></td>
+			<td id="bname"><%= com.getBoardNm() %></td>
+			<td><%= com.getCommentCon() %></td>
 				
 		</tr>
 		<%} %>
@@ -83,7 +82,7 @@
 			
 			
 			<% if(currentPage != 1){ %>
-			<li><a href="<%=request.getContextPath()%>/mypage.bo?currentPage=1">◀◀</a></li>
+			<li><a href="<%=request.getContextPath()%>/mypageCom.bo?currentPage=1">◀◀</a></li>
 			
 			<% }%>
 			
@@ -92,9 +91,9 @@
 			
 			
 			<% }else if(currentPage%10 != 0){ %>
-			<li><a href="<%=request.getContextPath()%>/mypage.bo?currentPage=<%=(int)(Math.floor(currentPage/10))*10%>">◀</a></li>
+			<li><a href="<%=request.getContextPath()%>/mypageCom.bo?currentPage=<%=(int)(Math.floor(currentPage/10))*10%>">◀</a></li>
 			<%}else{ %>
-			<li><a href="<%=request.getContextPath()%>/mypage.bo?currentPage=<%=(int)(Math.floor((currentPage-1)/10))*10%>">◀</a></li>
+			<li><a href="<%=request.getContextPath()%>/mypageCom.bo?currentPage=<%=(int)(Math.floor((currentPage-1)/10))*10%>">◀</a></li>
 			<%} %>
 			
 			<% for(int p = startPage; p <= endPage; p++){ 
@@ -103,7 +102,7 @@
 					<li ><a style="background:rgb(240,240,240); font-weight:bold;" href="#" disabled><%= p %></a></li>
 					
 			<% } else { %>
-			<li><a href="<%=request.getContextPath()%>/mypage.bo?currentPage=<%=p%>" disabled><%= p %></a></li>
+			<li><a href="<%=request.getContextPath()%>/mypageCom.bo?currentPage=<%=p%>" disabled><%= p %></a></li>
 				
 			<% 
 				}
@@ -113,22 +112,18 @@
 			<% if(currentPage >= maxPage){ %>
 			
 			<% }else if(Math.floor(maxPage/10)*10 >= currentPage){ %>
-			<li><a href="<%=request.getContextPath()%>/mypage.bo?currentPage=<%=(int)(Math.ceil(currentPage/10))*10+11%>">▶</a></li>
+			<li><a href="<%=request.getContextPath()%>/mypageCom.bo?currentPage=<%=(int)(Math.ceil(currentPage/10))*10+11%>">▶</a></li>
 			
 			<% }%>
 			
 			<% if(currentPage < maxPage){ %>
-			<li><a href="<%=request.getContextPath()%>/mypage.bo?currentPage=<%=maxPage%>">▶▶</a></li>
+			<li><a href="<%=request.getContextPath()%>/mypageCom.bo?currentPage=<%=maxPage%>">▶▶</a></li>
 			<%} %>
 		</ul>
 		</div>
 
 <script>
-	$(function(){
 
-	
-
-	});
 	
 	$("#test2 td").mouseenter(function(){
 		$(this).parent().css({"background":"rgb(240,240,240)", "cursor":"pointer"});

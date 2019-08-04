@@ -19,6 +19,8 @@
   &nbsp; 
   <button type="button" class="btn btn-default" onclick="location.href='/sixDestiny/mypage.bo'">내게시글</button>
   &nbsp; 
+  <button type="button" class="btn btn-default" onclick="location.href='/sixDestiny/mypageCom.bo'">나의댓글</button>
+  &nbsp; 
   <button type="button" class="btn btn-default" onclick="location.href='/sixDestiny/mySupport.su'">후원내역</button>
 
 </div>

@@ -28,7 +28,7 @@ import com.oreilly.servlet.MultipartRequest;
 /**
  * Servlet implementation class InsertBoardServlet
  */
-@WebServlet("/insert.bo")
+@WebServlet("/insert.ub")
 public class InsertBoardServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -129,7 +129,7 @@ public class InsertBoardServlet extends HttpServlet {
 			int result = new UserBoardService().insertBoard(b, fileList);
 			
 			if(result > 0) {
-				response.sendRedirect(request.getContextPath() + "/selectList.bo??what=writer&search=&alignment=date&category=all&currentPage=1");
+				response.sendRedirect(request.getContextPath() + "/selectList.bo?what=writer&search=&alignment=date&category=all&currentPage=1");
 				//request.getRequestDispatcher("selectList.bo").forward(request, response);
 			}else {
 				//실패시 저장된 사진 삭제
