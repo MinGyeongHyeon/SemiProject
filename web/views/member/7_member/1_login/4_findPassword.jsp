@@ -6,9 +6,9 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+ <script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
   <style>
   #loginTable {
@@ -38,13 +38,13 @@
 	</div>
 <br><br><br>
 	<div>
-		<form action="<%= request.getContextPath() %>/SelectfindPasswod.sp" method="post">
+		<%-- <form action="<%= request.getContextPath() %>/SelectfindPasswod.sp" method="post"> --%>
 			<table id="loginTable">
 				<tr>
 					<td style="font-family: 'Sunflower', sans-serif;" colspan="2">이름</td>
 				</tr>
 				<tr>
-					<td colspan="2"><input type="text" name="userNm" style="width:400px; height:50px;"></td>
+					<td colspan="2"><input type="text" name="userNm" style="width:400px; height:50px;" id="userNm"></td>
 				</tr>
 				<tr>
 					<td><br></td>
@@ -53,7 +53,7 @@
 					<td style="font-family: 'Sunflower', sans-serif;" colspan="2">아이디</td>
 				</tr>
 				<tr>
-					<td colspan="2"><input type="text" name="userId" style="width:400px; height:50px;"></td>
+					<td colspan="2"><input type="text" name="userId" style="width:400px; height:50px;" id="userId"></td>
 				</tr>
 				<tr>
 					<td><br></td>
@@ -87,8 +87,8 @@
 
 			</table>
 		<br><br><br><br>
-		<input type="submit" class="btn btn-default" style="font-family: 'Sunflower', sans-serif; width:400px" value="비밀번호 찾기" id="pwdbun" disabled></input>
-		</form>
+		<input type="button" class="btn btn-default" style="font-family: 'Sunflower', sans-serif; width:400px" value="비밀번호 찾기" id="pwdbun" disabled></input>
+		<!-- </form> -->
 	</div>
 
 	<br><br>
@@ -98,6 +98,46 @@
 	</div>
 </div>
 <script type="text/javascript">
+
+$(function(){
+
+	$('#pwdbun').click(function(){
+
+		var userId = $('#userId').val();
+		var inputEmail = $('#inputEmail').val();
+		var userNm = $('#userNm').val();
+
+		console.log(userId);
+		console.log(userNm);
+
+		$.ajax({
+			url:"../../../../SelectfindPasswod.sp?userId=" + userId + "&inputEmail=" + inputEmail + "&userNm=" + userNm
+			,
+			success:function(data){
+				console.log(data);
+
+				var userid = data.userId;
+
+
+
+				 if(data != null){
+
+					alert("인증 성공 ! 비밀번호 재설정 창 으로 이동합니다.");
+
+					location.href="<%= request.getContextPath()%>/views/member/7_member/1_login/6_findpwd_1.jsp?userid=" + userid;
+
+				}
+
+			}
+		})
+
+	});
+
+});
+
+
+
+
       $(function(){
          $('#mailbtn').click(function(){
         	var inputEmail = $("#inputEmail").val();

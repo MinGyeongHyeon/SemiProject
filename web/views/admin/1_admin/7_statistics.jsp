@@ -10,6 +10,7 @@
   (ArrayList<HashMap<String, Object>>) request.getAttribute("static3");
   ArrayList<HashMap<String, Object>> list4 =
   (ArrayList<HashMap<String, Object>>) request.getAttribute("static4");
+  ArrayList<HashMap<String,Object>> list5 = (ArrayList<HashMap<String,Object>>) request.getAttribute("static5");
 
   %>
 <!DOCTYPE html>
@@ -23,12 +24,12 @@
       google.charts.load('current', {'packages':['corechart']});
       google.charts.setOnLoadCallback(drawChart);
 
-      
-      
+
+
       <%System.out.print( list.get(0).get("reason1"));%>
-      
-      
-      
+
+
+
       function drawChart() {
 ////////////////////////후원끊는이유///////////////////////////////////////////
         var data = google.visualization.arrayToDataTable([
@@ -53,18 +54,18 @@
           var data = google.visualization.arrayToDataTable([
 
             ['월', '회원수'],
-            ['1월',  30],
-            ['2월',  76],
-            ['3월',  35],
-            ['4월',  30],
-            ['5월',  80],
-            ['6월',  15],
-            ['7월',  5],
-            ['8월',  50],
-            ['9월',  40],
-            ['10월',  80],
-            ['11월',  20],
-            ['12월',  60]
+            ['1월',  <%=list5.get(0).get("enroll1") %>],
+            ['2월',  <%=list5.get(0).get("enroll2") %>],
+            ['3월',  <%=list5.get(0).get("enroll3") %>],
+            ['4월',  <%=list5.get(0).get("enroll4") %>],
+            ['5월',  <%=list5.get(0).get("enroll5") %>],
+            ['6월',  <%=list5.get(0).get("enroll6") %>],
+            ['7월',  <%=list5.get(0).get("enroll7") %>],
+            ['8월',  <%=list5.get(0).get("enroll8") %>],
+            ['9월',  <%=list5.get(0).get("enroll9") %>],
+            ['10월', <%=list5.get(0).get("enroll10") %>],
+            ['11월',  <%=list5.get(0).get("enroll11") %>],
+            ['12월',  <%=list5.get(0).get("enroll12") %>]
 
           ]);
 

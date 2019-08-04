@@ -4,10 +4,10 @@
 
 
 <%
-	User us = (User) request.getAttribute("us");
+		String userid =  (String) request.getParameter("userid");
 
-	String msg = (String) request.getParameter("msg");
 %>
+
 
 <!DOCTYPE htm>
 <html>
@@ -46,13 +46,12 @@
 	</div>
 <br><br><br>
 	<div>
-	<%if(us !=  null){ %>
 		<form action="<%= request.getContextPath() %>/UpdateSign.user" method="post">
 			<table id="loginTable">
 
 				<tr>
 					<td style="font-family: 'Sunflower', sans-serif;" >비밀번호 재설정</td>
-					<td><input type="hidden" name="userId" value="<%=us.getUserId() %>"> </td>
+					<td><input type="hidden" name="userId" value="<%= userid %>"> </td>
 				</tr>
 				<tr>
 					<td colspan="2"><input type="password" name="password" style="width:400px; height:50px;" id="passwordArea"></td>
@@ -69,11 +68,10 @@
 
 			</table>
 		<br><br><br><br>
-		<input type="submit" class="btn btn-default" style="font-family: 'Sunflower', sans-serif; width:400px" value="확인"></input>
+		<input type="submit" class="btn btn-default" style="font-family: 'Sunflower', sans-serif; width:400px" value="확인" disabled id="passwordOk"></input>
 		</form>
-		<% }else { %>
-		<pre  style="font-family: 'Sunflower', sans-serif;"><%= msg %></pre>
-		<%} %>
+
+
 	</div>
 
 	<br><br>
@@ -92,10 +90,29 @@ $(function(){
 
 		if(password == password2){
 
-			$("#passwordpass").css("border-color", "transparent")
+			$("#passwordpass").css("border-color", "transparent");
+			$('#passwordOk').attr('disabled',false);
+
 		}else{
 
-			$("#passwordpass").css("border-color", "red")
+			$("#passwordpass").css("border-color", "red");
+			$('#passwordOk').attr('disabled',true);
+		}
+	});
+
+	$("#passwordArea").keyup(function(){
+		var password = $("#passwordArea").val();
+		var password2 = $("#passwordpass").val();
+
+		if(password == password2){
+
+			$("#passwordpass").css("border-color", "transparent");
+			$('#passwordOk').attr('disabled',false);
+
+		}else{
+
+			$("#passwordpass").css("border-color", "red");
+			$('#passwordOk').attr('disabled',true);
 		}
 	});
 });

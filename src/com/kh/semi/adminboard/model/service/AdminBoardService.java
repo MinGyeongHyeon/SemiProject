@@ -502,5 +502,53 @@ public class AdminBoardService {
 
 	}
 
+	public int getListsearchCountad(AdminBoard ab) {
+		Connection con = getConnection();
+		int result = 0;
+
+		result = new AdminBoardDao().getListsearchCountad(con,ab);
+
+		close(con);
+
+
+
+		return result;
+	}
+
+	public ArrayList<AdminUserBoard> searchBoard(int currentPage, int limit, AdminBoard ab) {
+
+		Connection con = getConnection();
+		ArrayList<AdminUserBoard> list = new AdminBoardDao().searchBoard(con,currentPage,limit,ab);
+
+		close(con);
+
+
+
+		return list;
+	}
+
+	public ArrayList<Integer> recsearchCount(ArrayList<AdminUserBoard> list) {
+		Connection con = getConnection();
+		ArrayList<Integer> recCount = null;
+
+		recCount = new AdminBoardDao().recsearchCount(con,list);
+
+		close(con);
+
+
+
+		return recCount;
+	}
+
+	public ArrayList<HashMap<String, Object>> statics5() {
+		Connection con = getConnection();
+		ArrayList<HashMap<String,Object>> list = new AdminBoardDao().statics5(con);
+
+		close(con);
+
+
+		return list;
+	}
+
 }
 

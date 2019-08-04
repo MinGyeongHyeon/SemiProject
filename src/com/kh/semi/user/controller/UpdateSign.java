@@ -22,6 +22,9 @@ public class UpdateSign extends HttpServlet {
 		String userId = request.getParameter("userId");
 		String password = request.getParameter("password");
 
+
+		System.out.println("userId : " + userId);
+
 		User us = new User();
 
 		us.setUserId(userId);

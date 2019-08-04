@@ -713,6 +713,9 @@ public class UserDao {
 
 				e.printStackTrace();
 
+			}finally {
+				close(pstmt);
+				close(rset);
 			}
 
 
@@ -752,60 +755,60 @@ public class UserDao {
 	}
 
 	public ArrayList<Integer> reportCount(Connection con, ArrayList<User> list) {
-		
+
 		PreparedStatement pstmt = null;
 		ArrayList<Integer> reportCount = null;
 		ResultSet rset = null;
 		int result = 0;
-		
+
 		String query = prop.getProperty("reportCount");
-		
+
 		try {
-			
+
 			reportCount = new ArrayList<Integer>();
-			
+
 			for(int i=0; i<list.size(); i++) {
-				
+
 				pstmt=con.prepareStatement(query);
-				
+
 				pstmt.setInt(1, list.get(i).getUserNo());
-				
+
 				rset = pstmt.executeQuery();
-				
+
 				if(rset.next()) {
 					result = rset.getInt("COUNT");
-					
+
 					reportCount.add(result);
 				}
-				
+
 			}
-		
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
-			
+
 			close(rset);
 			close(pstmt);
 		}
-		
+
 		return reportCount;
 	}
 
 	public User entUser(Connection con, Entrance et) {
-		
+
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		User user = null;
-		
+
 		String query = prop.getProperty("entUser");
-		
+
 		try {
 			pstmt=con.prepareStatement(query);
 			pstmt.setInt(1, et.getEntAppNo());
-			
+
 			rset = pstmt.executeQuery();
-			
+
 			if(rset.next()) {
 				user =  new User();
 				user.setUserNo(rset.getInt("USER_NO"));
@@ -813,9 +816,9 @@ public class UserDao {
 				user.setGender(rset.getString("GENDER"));
 				user.setUserHb(rset.getDate("USER_HB"));
 				user.setAddress(rset.getString("ADDRESS"));
-				
+
 			}
-			
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -823,7 +826,7 @@ public class UserDao {
 			close(rset);
 			close(pstmt);
 		}
-		
+
 		return user;
 	}
 

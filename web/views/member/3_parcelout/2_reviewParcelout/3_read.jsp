@@ -33,12 +33,15 @@
 <title>분양후기 글보기</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+
+<script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
 </head>
 <body>
 
@@ -66,14 +69,14 @@
 							<% }else { %>
 						<th class="classt"><button type="button" id="parcleup" style="background: none;  border: none;"><img src="/sixDestiny/images/test3.jpeg" width="30px;" height="30px;" id="imgtest"></button>
 							<% } %>
-						<th><input type="button" value="신고" id="reportPr"></th>
+						<th><input type="button" value="신고" id="reportPr" class="btn btn-default"></th>
 						<% } %>
 
 
 						<% if(loginUser != null) { %>
 							<% if(loginUser.getUserNo() == us.getUserNo() || loginUser.getUserId().equals("admin")){ %>
-									<th><input type="button" value="수정" id="modified"></th>
-									<th><input type="button" value="삭제" id="deleteBoard"></th>
+									<th><input type="button" value="수정" id="modified" class="btn btn-default"></th>
+									<th><input type="button" value="삭제" id="deleteBoard" class="btn btn-default"></th>
 								<% } %>
 							<% } %>
 					</tr>
@@ -129,7 +132,7 @@
 
 	<% if(loginUser != null) { %>
 		댓글 <input type="text" style="width: 600px" id="coment">
-		<input type="button" value="댓글 달기" id="comHs">
+		<input type="button" value="댓글 달기" id="comHs" class="btn btn-default">
 
 		<% } %>
 

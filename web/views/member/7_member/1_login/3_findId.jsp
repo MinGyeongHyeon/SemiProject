@@ -85,7 +85,7 @@ $(function(){
 
 					alert("회원님 의 아이디 는 " + idcheck + " 입니다. ! ");
 
-					location.href="http://127.0.0.1:8001/sixDestiny/views/member/7_member/1_login/2_login.jsp";
+					location.href="<%= request.getContextPath()%>/views/member/7_member/1_login/2_login.jsp";
 
 
 				}else{

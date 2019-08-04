@@ -11,42 +11,28 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+
 <style>
+
+#writerTable {
+	margin: 0 auto;
+}
+
 #border {
-	height: 500px;
-	width: 800px;
-	border: 1px solid black;
+	height: 100%;
+	width: 55%;
 	margin: 0 auto;
-}
-
-#btn {
-	margin: 0 auto;
-}
-
-tr {
-	margin: 0 auto;
-}
-
-#ta {
-	height: 400px;
-	width: 650px;
-	margin: 0 auto;
-}
-
-tr {
-	height: 40px;
-}
-
-table tr td {
-	/* text-align: left; */
-}
-
-table tr td.title {
-	text-align: center;
-}
-
-input[type=text] {
-	padding-left: 90px;
+	font-family: 'Sunflower', sans-serif;
 }
 
 .starR {
@@ -61,15 +47,75 @@ input[type=text] {
 	cursor: pointer;
 }
 
-.starR.on {
-	background-position: 0 0;
-}
+
 </style>
 
 </head>
 <body>
 
+
 <form action="<%= request.getContextPath() %>/UpdateParceloutCon.po" method="post" >
+		<h3>분양후기 글쓰기</h3>
+
+		<div id="border" align="center">
+
+		<table align="center"> <!-- width="800px" id="writerTable" -->
+				<tr>
+					<td><label
+						style="font-family: 'Sunflower', sans-serif; font-size: 20px;">제목
+							&nbsp;</label><input type="text" style="width: 750px; height: 40px"
+						name="title" value="<%= ub.getbNm() %>"></td>
+					<td><input type="hidden" name="starRev" id="starRev"></td>
+					<td><input type="text" value="<%= loginUser.getUserNo() %>" style="display:none" name="uNo"></td>
+					<td><input type="text" value="<%= ub.getbNo() %>" style="display:none" name="boardNo"></td>
+				</tr>
+				<tr>
+
+				<td>
+						<div class="starRev">
+					<label>후기 별점</label>&nbsp;&nbsp;&nbsp;
+							<span class="starR" >1</span> <span class="starR">2</span> <span
+								class="starR">3</span> <span class="starR" >4</span> <span
+								class="starR">5</span>
+
+						</div>
+
+						</td>
+				</tr>
+				<tr>
+					<td><textarea rows="15" cols="106" name="content">
+					<%= ub.getbCon() %>
+					</textarea></td>
+				</tr>
+				<tr>
+
+				</tr>
+				<tr>
+					<td align="center">
+						<div class="input-group">
+							<div class="input-group-prepend">
+								<span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
+							</div>
+							<div class="custom-file">
+								<input type="file" class="custom-file-input"
+									id="parcelout_uploadFiles1" aria-describedby="inputGroupFileAddon01" name="parcelout_uploadFiles1">
+								<label class="custom-file-label" for="inputGroupFile01">Choose
+									file</label>
+							</div>
+						</div>
+					</td>
+				</tr>
+			</table>
+		</div>
+
+		<br> <br> <input type="submit" value="등록하기"
+			class="btn btn-info" style="font-family: 'Sunflower', sans-serif;"></input>
+
+
+
+	</form>
+
+<%-- <form action="<%= request.getContextPath() %>/UpdateParceloutCon.po" method="post" >
 		<h3>분양후기 글쓰기</h3>
 			<input type="hidden" value="<%= loginUser.getUserNo() %>" name="uNo">
 		<div id="border">
@@ -127,7 +173,7 @@ input[type=text] {
 		<br>
 		<button type="submit">수정</button>
 
-	</form>
+	</form> --%>
 	<script>
 		$('.starRev span').click(function() {
 			$(this).parent().children('span').removeClass('on');

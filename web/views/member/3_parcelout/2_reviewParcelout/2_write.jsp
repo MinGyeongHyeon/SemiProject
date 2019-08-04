@@ -4,45 +4,25 @@
 <html>
 <head>
 <title>Insert title here</title>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <style>
+
+#writerTable {
+	margin: 0 auto;
+}
+
 #border {
-	height: 500px;
-	width: 800px;
-	border: 1px solid black;
+	height: 100%;
+	width: 55%;
 	margin: 0 auto;
 	font-family: 'Sunflower', sans-serif;
-}
-
-#btn {
-	margin: 0 auto;
-}
-
-tr {
-	margin: 0 auto;
-}
-
-#ta {
-	height: 400px;
-	width: 650px;
-	margin: 0 auto;
-}
-
-tr {
-	height: 40px;
-}
-
-table tr td {
-	/* text-align: left; */
-}
-
-table tr td.title {
-	text-align: center;
-}
-
-input[type=text] {
-	padding-left: 5px;
 }
 
 .starR {
@@ -70,68 +50,58 @@ input[type=text] {
  	<form action="<%= request.getContextPath() %>/upload.po" method="post" encType="multipart/form-data">
 		<h3>분양후기 글쓰기</h3>
 
-		<div id="border">
-			<br>
-			<br>
+		<div id="border" align="center">
 
-
-			<table id="ta">
+		<table align="center"> <!-- width="800px" id="writerTable" -->
 				<tr>
-					<td class="title"><label>제목</label></td>
-					<td style="text-align: left"><input type="text" size="55" name="title"></td>
+					<td><label
+						style="font-family: 'Sunflower', sans-serif; font-size: 20px;">제목
+							&nbsp;</label><input type="text" style="width: 750px; height: 40px"
+						name="title"></td>
 					<td><input type="hidden" name="starRev" id="starRev"></td>
+					<td><input type="text" value="<%= loginUser.getUserNo() %>" style="display:none" name="userNo"></td>
 				</tr>
-
 				<tr>
 
-					<td class="title"><label>후기별점</label></td>
-					<td style="text-align: left">
-
+				<td>
 						<div class="starRev">
+					<label>후기 별점</label>&nbsp;&nbsp;&nbsp;
 							<span class="starR" >1</span> <span class="starR">2</span> <span
 								class="starR">3</span> <span class="starR" >4</span> <span
 								class="starR">5</span>
 
 						</div>
+
+						</td>
+				</tr>
+				<tr>
+					<td><textarea rows="15" cols="106" name="content"></textarea></td>
+				</tr>
+				<tr>
+
+				</tr>
+				<tr>
+					<td align="center">
+						<div class="input-group">
+							<div class="input-group-prepend">
+								<span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
+							</div>
+							<div class="custom-file">
+								<input type="file" class="custom-file-input"
+									id="parcelout_uploadFiles1" aria-describedby="inputGroupFileAddon01" name="parcelout_uploadFiles1">
+								<label class="custom-file-label" for="inputGroupFile01">Choose
+									file</label>
+							</div>
+						</div>
 					</td>
 				</tr>
-
-				<tr>
-					<td class="title"><label>내용</label></td>
-
-					<td style="text-align: left"><textarea name="content" id="" cols="60" rows="15" style="resize:none;"></textarea></td>
-
-
-				</tr>
-				<tr>
-					<td><input type="text" value="<%= loginUser.getUserNo() %>" style="display:none" name="userNo"></td>
-				</tr>
-
-
-
-
-				<tr>
-					<td class="title"><label>사진첨부</label></td>
-					<td style="text-align: left"><div id="fileArea">
-					<input type="file" id="parcelout_uploadFiles1" name="parcelout_uploadFiles1">
-					</div>
-					</td>
-				</tr>
-
-
-				<tr>
-
-				</tr>
-
-
-
-
 			</table>
-
 		</div>
-		<br>
-		<br>
-		<button type="submit">작성</button>
+
+		<br> <br> <input type="submit" value="등록하기"
+			class="btn btn-info" style="font-family: 'Sunflower', sans-serif;"></input>
+
+
 
 	</form>
 	<script>

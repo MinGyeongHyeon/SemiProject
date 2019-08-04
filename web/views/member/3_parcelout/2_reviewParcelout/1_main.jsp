@@ -59,6 +59,7 @@ int endPage = pi.getEndPage();
 	text-align: left;
 	margin: 10 20;
 	padding-left: 200px;
+	bo
 }
 
 div {
@@ -79,6 +80,9 @@ div {
 	height: 150px;
 	width: 800px;
 }
+.pracelout{
+	width:10%;
+}
 
 
 
@@ -96,7 +100,7 @@ div {
 	<div>
 		<div class="container" style="height: 100%; width: 100%;">
 
-			<div class="row" style="margin-left: 89px;">
+			<div class="row" style="margin-left: 22%; height:60%; width:70%;" align="center" >
 		 	<% for(int i = 0 ; i < list2.size(); i++) {
 					HashMap<String,Object> hmap2 = list2.get(i);
 
@@ -173,6 +177,7 @@ div {
 			<%-- 					<p><%= hmap.get("boardKind") %></p> --%>
 
 				<div class="pracelout">
+				<input type="hidden" value="<%= hmap.get("boardNo")%>" id="boardNo">
 				<img src="/sixDestiny/parcelout_uploadFiles/<%=hmap.get("changeNm")%>" align="left" style="width: 150px; height: 150px">
 				</div>
 
@@ -190,6 +195,7 @@ div {
 								<%= sub %>
 								<%} %>
 					</p>
+
 				</div>
 			</div>
 
@@ -265,7 +271,19 @@ div {
 					+ uNo;
 					<% } %>
 
-				})
+				});
+				$('.pracelout').click(function(){
+					var num = $(this).children().eq(0).val();
+					<% if(loginUser != null){ %>
+					var uNo = $('#userNo').val();
+					<% } %>
+
+					location.href="<%= request.getContextPath() %>/selectParceloutOne.tn?num=" + num + "&uNo="
+					<% if(loginUser != null){ %>
+					+ uNo;
+					<% } %>
+				});
+
 
 
 			}
@@ -343,6 +361,17 @@ div {
 					+ uNo;
 					<% } %>
 
+				});
+				$('.pracelout').click(function(){
+					var num = $(this).children().eq(0).val();
+					<% if(loginUser != null){ %>
+					var uNo = $('#userNo').val();
+					<% } %>
+
+					location.href="<%= request.getContextPath() %>/selectParceloutOne.tn?num=" + num + "&uNo="
+					<% if(loginUser != null){ %>
+					+ uNo;
+					<% } %>
 				})
 
 
@@ -366,6 +395,17 @@ div {
 		<% } %>
 
 	});
+	$('.pracelout').click(function(){
+		var num = $(this).children().eq(0).val();
+		<% if(loginUser != null){ %>
+		var uNo = $('#userNo').val();
+		<% } %>
+
+		location.href="<%= request.getContextPath() %>/selectParceloutOne.tn?num=" + num + "&uNo="
+		<% if(loginUser != null){ %>
+		+ uNo;
+		<% } %>
+	})
 	$('.thumbnail').click(function(){
 		var num = $(this).children().eq(0).val();
 		<% if(loginUser != null){ %>
@@ -449,7 +489,19 @@ div {
 						+ uNo;
 						<% } %>
 
+					});
+					$('.pracelout').click(function(){
+						var num = $(this).children().eq(0).val();
+						<% if(loginUser != null){ %>
+						var uNo = $('#userNo').val();
+						<% } %>
+
+						location.href="<%= request.getContextPath() %>/selectParceloutOne.tn?num=" + num + "&uNo="
+						<% if(loginUser != null){ %>
+						+ uNo;
+						<% } %>
 					})
+
 
 
 				}
@@ -590,7 +642,18 @@ div {
 						+ uNo;
 						<% } %>
 
-					})
+					});
+					$('.pracelout').click(function(){
+						var num = $(this).children().eq(0).val();
+						<% if(loginUser != null){ %>
+						var uNo = $('#userNo').val();
+						<% } %>
+
+						location.href="<%= request.getContextPath() %>/selectParceloutOne.tn?num=" + num + "&uNo="
+						<% if(loginUser != null){ %>
+						+ uNo;
+						<% } %>
+					});
 
 
 
@@ -733,7 +796,18 @@ div {
 					<% if(loginUser != null){ %>
 					+ uNo;
 					<% } %>
-				})
+				});
+				$('.pracelout').click(function(){
+					var num = $(this).children().eq(0).val();
+					<% if(loginUser != null){ %>
+					var uNo = $('#userNo').val();
+					<% } %>
+
+					location.href="<%= request.getContextPath() %>/selectParceloutOne.tn?num=" + num + "&uNo="
+					<% if(loginUser != null){ %>
+					+ uNo;
+					<% } %>
+				});
 
 
 
@@ -758,10 +832,10 @@ div {
 				<option value="NICK_NM">작성자</option>
 			</select> <span class="glyphicon glyphicon-search"></span> <input type="text"
 				style="width: 250px" name="selectinput" id="selectinput">
-				<input type="submit" value="검색" id="outselect">
+				<input type="submit" value="검색" id="outselect" class="btn btn-default">
 				<span></span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				<% if(loginUser != null){ %>
-				<input type="button" value="글쓰기" onclick="write2(<%= loginUser.getUserNo() %>)">
+				<input type="button" value="글쓰기" onclick="write2(<%= loginUser.getUserNo() %>)" class="btn btn-default">
 				<% } %>
 		</p>
 

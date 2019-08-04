@@ -1390,8 +1390,6 @@ public class AdminBoardDao {
 				hmap = new HashMap<String,Object>();
 
 				hmap.put("can1", rset.getString("L1"));
-				System.out.println(rset.getString("L1"));
-
 				hmap.put("can2", rset.getString("L2"));
 				hmap.put("can3", rset.getString("L3"));
 				hmap.put("can4", rset.getString("L4"));
@@ -1549,6 +1547,184 @@ public class AdminBoardDao {
 
 
 		return list2;
+	}
+
+	public int getListsearchCountad(Connection con, AdminBoard ab) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		ResultSet rset = null;
+
+		String query = prop.getProperty("getlistsearchCount");
+		System.out.println("넣어줄 값 : " + ab.getAdBoardCon());
+
+		try {
+			pstmt = con.prepareStatement(query);
+
+
+			pstmt.setString(1, ab.getAdBoardCon());
+
+
+			rset = pstmt.executeQuery();
+
+			if(rset.next()) {
+
+				result = rset.getInt("COUNT");
+
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+
+
+
+		return result;
+	}
+
+	public ArrayList<AdminUserBoard> searchBoard(Connection con, int currentPage, int limit, AdminBoard ab) {
+		PreparedStatement pstmt = null;
+		ArrayList<AdminUserBoard> list = null;
+		ResultSet rset = null;
+		AdminUserBoard ub = null;
+
+
+		int startRow = (currentPage - 1) * limit + 1;
+		int endRow = startRow + limit - 1;
+
+		String query = prop.getProperty("searchBoard");
+
+		try {
+			pstmt = con.prepareStatement(query);
+
+
+			pstmt.setString(1, ab.getAdBoardCon());
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+
+
+			rset = pstmt.executeQuery();
+
+
+			 list = new ArrayList<AdminUserBoard>();
+			while(rset.next()) {
+				ub = new AdminUserBoard();
+
+				ub.setBoardNo(rset.getInt("BOARD_NO"));
+				ub.setbKind(rset.getString("BOARD_KIND"));
+				ub.setbNm(rset.getString("BOARD_NM"));
+				ub.setbDate(rset.getDate("BOARD_DT"));
+				ub.setbCon(rset.getString("BOARD_CON"));
+				ub.setInqCon(rset.getInt("INQ_COUNT"));
+				ub.setRecCon(rset.getInt("REC_COUNT"));
+				ub.setuNo(rset.getInt("USER_NO"));
+				ub.setbUserNick(rset.getString("NICK_NM"));
+
+
+				list.add(ub);
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+
+
+
+		return list;
+	}
+
+	public ArrayList<Integer> recsearchCount(Connection con, ArrayList<AdminUserBoard> list) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int result = 0;
+		ArrayList<Integer> recCount = null;
+
+		String query = prop.getProperty("recsearchCount");
+
+		try {
+				recCount = new ArrayList<Integer>();
+			for(int i = 0; i < list.size(); i++) {
+				pstmt = con.prepareStatement(query);
+
+
+				pstmt.setInt(1, list.get(i).getBoardNo());
+
+				rset = pstmt.executeQuery();
+
+				if(rset.next()) {
+					result = rset.getInt("COUNT");
+
+					recCount.add(result);
+				}
+
+
+			}
+
+
+
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+
+
+
+
+		return recCount;
+	}
+
+	public ArrayList<HashMap<String, Object>> statics5(Connection con) {
+		Statement stmt = null;
+		ArrayList<HashMap<String, Object>> list = null;
+		HashMap<String, Object> hmap = null;
+
+		ResultSet rset = null;
+			System.out.println("다오");
+		String query = prop.getProperty("statics5");//회원탈퇴이유
+
+		try {
+			stmt = con.createStatement();
+
+			rset = stmt.executeQuery(query);
+
+			list = new ArrayList<HashMap<String, Object>>();
+
+			while(rset.next()) {
+				hmap = new HashMap<String,Object>();
+
+				hmap.put("enroll1", rset.getString("1M"));
+				hmap.put("enroll2", rset.getString("2M"));
+				hmap.put("enroll3", rset.getString("3M"));
+				hmap.put("enroll4", rset.getString("4M"));
+				hmap.put("enroll5", rset.getString("5M"));
+				hmap.put("enroll6", rset.getString("6M"));
+				hmap.put("enroll7", rset.getString("7M"));
+				hmap.put("enroll8", rset.getString("8M"));
+				hmap.put("enroll9", rset.getString("9M"));
+				hmap.put("enroll10", rset.getString("10M"));
+				hmap.put("enroll11", rset.getString("11M"));
+				hmap.put("enroll12", rset.getString("12M"));
+
+				list.add(hmap);
+			}
+
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
+		}
+
+
+		return list;
 	}
 
 
