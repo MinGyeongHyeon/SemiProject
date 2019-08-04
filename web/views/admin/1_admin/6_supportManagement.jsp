@@ -67,7 +67,9 @@
 					<p style="font-family: 'Sunflower', sans-serif;">입금대기</p>
 				<% }else if(ms.getStatus().equals("C")){ %>
 					<button class="btn btn-default" style="font-family: 'Sunflower', sans-serif; background:white;" name="okCancle" onclick="okCancle(<%=ms.getSupAppNo()%>);">취소처리</button>
-				<% }else{ %>
+				<% }else if(ms.getSupKind().equals("정기") && ms.getStatus().equals("Y")){ %>
+					<button class="btn btn-default" style="font-family: 'Sunflower', sans-serif; background:white;" name="okCancle" onclick="goRegural(<%=ms.getSupAppNo()%>);">정기결제</button>
+				<% }else {%>
 					<p style="font-family: 'Sunflower', sans-serif;">후원완료</p>
 				<% } %>
 			</td>
@@ -331,6 +333,90 @@
   				}else{
   					return;
   				}
+  			},
+  			error:function(){
+
+  			}
+  		});
+	}
+
+  	function goRegural(monSupNo) {
+  		var monSupNo = monSupNo;
+  		var application_id = "5d38293e02f57e00381e9c2e";
+  		var private_key = "nM+YsThKJu0Ca+6dbOAXiq6VhH/VHb0GduKLcwtP8rM="
+  		$.ajax({
+  			url:"https://api.bootpay.co.kr/request/token",
+  			type:"post",
+  			dataType:'json',
+  			data:{application_id:application_id, private_key:private_key},
+  			success:function(data){
+				console.log(data);
+				console.log(data["data"]["token"]);
+				var token = data["data"]["token"];
+				$.ajax({
+					url:"/sixDestiny/select.bill",
+					type:"post",
+					data:{monSupNo:monSupNo},
+					success:function(data){
+						console.log(data);
+						console.log("빌링키 : " + data["billingkey"]);
+						console.log("오더 아이디 : " + data["order_id"]);
+
+						console.log("토큰 : " + token);
+
+						var billing_key = data["billingkey"];
+						var order_id = data["order_id"];
+						var price = 1000;
+						if(confirm("정기결제를 진행하시겠습니까?")){
+							$.ajax({
+								url:"https://api.bootpay.co.kr/subscribe/billing",
+								type:"post",
+								dataType:'json',
+								beforeSend : function(xhr){
+									//console.log(token);
+									/* xhr.setRequestHeader("Content-Type","application/json"); */
+						            xhr.setRequestHeader("Authorization", token);
+						        },
+								data:{billing_key:billing_key, item_name:"정기후원", order_id:order_id, price:price},
+								success:function(data){
+									console.log(data);
+									var receipt_id = data["data"]["receipt_id"];
+									$.ajax({
+										url:"/sixDestiny/updateReceipt.id",
+										type:"post",
+										data:{receipt_id:receipt_id, monSupNo:monSupNo},
+										success:function(data){
+											alert("결제가 완료되었습니다. \n결제 내역을 회원님의 메일로 전송하였습니다.");
+											console.log(data);
+											var eamil = data;
+											$.ajax({
+												url:"/sixDestiny/sendemail.sup",
+												type:"post",
+												data:{eamil:eamil, monSupNo:monSupNo},
+												success:function(){
+
+												},
+												error:function(){
+
+												}
+											});
+										},
+										error:function(){
+										}
+									});
+								},
+								error:function(data){
+									alert("회원님의 카드사 문제로 결제가 완료되지 않았습니다. \n확인 후 다시 요청 바랍니다.");
+								}
+							});
+						}else{
+							alert("확인 후 다시 요청 해 주세요.")
+						}
+					},
+					error:function(){
+
+					}
+				});
   			},
   			error:function(){
 

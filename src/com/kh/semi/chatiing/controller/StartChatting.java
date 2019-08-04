@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 import javax.websocket.OnClose;
@@ -14,11 +15,10 @@ import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 
 @ServerEndpoint("/start")
-public class StartChatting {
+public class StartChatting extends Chattstorage{
 
 	private static Map<String, Session> user = Collections.synchronizedMap(new HashMap<String, Session>());
 	private static Map<String, Session> admin = Collections.synchronizedMap(new HashMap<String, Session>());
-	private Chattstorage chat = new Chattstorage();
 	//private static Map<String, ArrayList<String>> chat = Collections.synchronizedMap(new HashMap<String, ArrayList<String>>());
 
 
@@ -37,30 +37,49 @@ public class StartChatting {
 
 		if(kind.equals("user")) {
 			user.put(key, session);
+			Iterator<String> keySetChatIterator = chat.keySet().iterator();
+			//System.out.println("keySetChatIterator : " + keySetChatIterator);
+			//System.out.println("keySetUserIterator : " + keySetUserIterator);
+			if(keySetChatIterator.hasNext()) {
+				while(keySetChatIterator.hasNext()) {
+					String key2 = keySetChatIterator.next();
+					//System.out.println("채팅키값 : " + key2);
+						if(key2.equals(key)) {
+							//System.out.println("같은 방 있음!");
+							break;
+						}else {
+							//System.out.println("같은 방 없음!");
+							chat.put(key, new ArrayList<String>());
+						}
+				}
+			}else {
+				//System.out.println("방생성!");
+				chat.put(key, new ArrayList<String>());
+			}
+			//System.out.println("******채팅방 갯수******" + chat.size());
 		}else {
 			admin.put(key, session);
-			chat.intoChattstorage(key);
-			System.out.println("첫번째 ccc");
-		}
+			/*Iterator<String> keySetChatIterator = chat.keySet().iterator();
+			if(keySetChatIterator.hasNext()) {
+				while(keySetChatIterator.hasNext()) {
+					String key2 = keySetChatIterator.next();
+					if(key2.equals(key)) {
+						synchronized(admin) {
+							for(int i = 0; i < chat.get(key).size(); i ++) {
+								String message = chat.get(key).get(i);
+								try {
+									admin.get(key).getBasicRemote().sendText(message);
+								} catch (IOException e) {
+									e.printStackTrace();
+								}
+							}
+						}
+					}else {
 
-		if(chat.getChat().get(key) != null) {
-			System.out.println("세번째 ccc");
-			ArrayList<String> chatting = chat.getChat().get(key);
-			for(int i = 0; i < chatting.size(); i++) {
-				System.out.println("해당채팅내용 : " + chatting.get(i) );
-				synchronized(admin) {
-					try {
-						admin.get(key).getBasicRemote().sendText(chatting.get(i));
-					} catch (IOException e) {
-						e.printStackTrace();
 					}
 				}
-			}
+			}*/
 		}
-
-
-
-
 
 	}
 
@@ -81,7 +100,13 @@ public class StartChatting {
 			}
 		}
 
-		/*chat.intoChattstorage(key, message);*/
+		chat.get(key).add(message);
+
+		for(int i = 0 ; i < chat.get(key).size(); i++) {
+			System.out.println(key + "방의 채팅 내역 : " + chat.get(key).get(i));
+		}
+
+
 
 		synchronized(user) {
 			user.get(key).getBasicRemote().sendText(message);

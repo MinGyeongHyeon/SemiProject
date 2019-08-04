@@ -258,7 +258,7 @@ public class MoneySupDao {
 		return result;
 	}
 
-	public int updateBillingkey(Connection con, int monSupNo, String billing) {
+	public int updateBillingkey(Connection con, int monSupNo, String billing, String order_id) {
 		PreparedStatement pstmt = null;
 		int result = 0;
 
@@ -267,12 +267,15 @@ public class MoneySupDao {
 		try {
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, billing);
-			pstmt.setInt(2, monSupNo);
+			pstmt.setString(2, order_id);
+			pstmt.setInt(3, monSupNo);
 
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			close(pstmt);
 		}
 
 		return result;
@@ -303,6 +306,34 @@ public class MoneySupDao {
 		}
 
 		return result;
+	}
+
+	public int selectSupportPrice(Connection con, int monSupNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int price = 0;
+
+		String query = prop.getProperty("selectSupportPrice");
+
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, monSupNo);
+
+			rset = pstmt.executeQuery();
+
+			if(rset.next()) {
+				price = rset.getInt("SUP_PC");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+
+
+		return price;
 	}
 
 }

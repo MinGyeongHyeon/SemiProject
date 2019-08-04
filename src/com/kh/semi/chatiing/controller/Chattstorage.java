@@ -7,7 +7,7 @@ import java.util.Map;
 
 public class Chattstorage {
 
-	private HashMap<String, ArrayList<String>> chat = new HashMap<String, ArrayList<String>>();
+	public static HashMap<String, ArrayList<String>> chat = new HashMap<String, ArrayList<String>>();
 
 	public Chattstorage() {}
 

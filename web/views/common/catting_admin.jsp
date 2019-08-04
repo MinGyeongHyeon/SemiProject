@@ -34,9 +34,38 @@
 	</div>
 
 <script type="text/javascript">
+
 	var reset = 0;
 
+	$(function(){
+		var userNo2 = <%=userNo%>
+		var ws2Uri = "ws://localhost:8002/sixDestiny/storage?userNo:"+userNo2;
+
+		ws = new WebSocket(ws2Uri);
+		//서버 시작할 때 동작
+		ws.onopen = function(evt){
+
+		}
+
+		//서버로부터 메세지를 전달 받을 때 동작하는 메소드
+		ws.onmessage = function(event){
+			onMessage(event);
+		}
+
+		//서버에서 에러가 발생할 경우 동작할 메소드
+		ws.onerror = function(event){
+			onError(event);
+		}
+
+		//서버와의 연결이 종료될 경우 동작하는 메소드
+		ws.onclose = function(event){
+			onClose(event);
+		}
+
+	});
+
 	function confirmchat(){
+		console.log("AAAA");
 		var userNo = <%=userNo%>
 		var wsUri = "ws://localhost:8002/sixDestiny/start?userNo:"+userNo+"&kind:admin";
 		ws = new WebSocket(wsUri);
@@ -104,6 +133,7 @@
 		$chat.append("&#10;");
 
 	}
+
 
 
 </script>
