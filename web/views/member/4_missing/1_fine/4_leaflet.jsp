@@ -21,6 +21,10 @@ Missing b = (Missing) request.getAttribute("b");
 	border: 1px solid gray;
 	font-family: 'Sunflower', sans-serif;
 }
+.dd{
+	text-align:center;
+	margin: auto;
+}
 </style>
 <link rel="stylesheet" href="/css/bootstrap.css">
 
@@ -62,12 +66,15 @@ Missing b = (Missing) request.getAttribute("b");
 			<tr>
 				<td><br></td>
 			</tr>
-			<tr>
-				<td><button onclick="content_print();">출력하기</button></td>
-			</tr>
+			
 		</table>
 	</div>
+	<br><br>
+	<div class="dd">
 
+				<button  class="dd" onclick="content_print();">출력하기</button>
+
+</div>
 	<script>
 		function content_print() {
 
