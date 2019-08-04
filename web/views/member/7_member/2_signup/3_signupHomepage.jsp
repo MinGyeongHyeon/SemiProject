@@ -63,11 +63,21 @@
 </style>
 <body>
 
+<div  id="checkcheck">
+<input value="1" id="check1">
+</div>
+<div  id="checkcheck2">
+<input value="1" id="check2">
+</div>
+<div  id="checkcheck3">
+<input value="1" id="check3">
+</div>
+
 	<div>
 		<h5 style="font-family: 'Sunflower', sans-serif;">* 은 필수 입력
 			사항입니다.</h5>
 		<br>
-		<form action="<%=request.getContextPath()%>/sign.user" method="post">
+		<form action="<%=request.getContextPath()%>/sign.user" method="post" id="form">
 			<table id="loginTable">
 
 				<tr>
@@ -252,10 +262,16 @@
 				</tr>
 			</table>
 			<div>
-				<br> <br> <br> <br> <input type="submit"
-					class="btn btn-default"
-					style="font-family: 'Sunflower', sans-serif; width: 400px"
+				<br> <br> <br> <br> 
+				
+
+				<input type="button"
+					class="btn btn-default finalcheck"
+					style="font-family: 'Sunflower', sans-serif; width: 400px" onclick="finalcheck();"
 					value="회원가입"></input>
+				
+	
+				
 		</form>
 	</div>
 
@@ -267,6 +283,7 @@
 	<script type="text/javascript">
       $(function(){
          $('#mailbtn').click(function(){
+        	
         	var inputEmail = $("#inputEmail").val();
 
             $('.hiddenpwd').each(function(){
@@ -281,21 +298,39 @@
 					console.log(data);
 					$("#randomNum").keyup(function(){
 						var num = $("#randomNum").val();
-
+	;
 						if(data == num){
 							$("#randomNum").css("border-color", "transparent");
+						
+							
 						}else{
 							$("#randomNum").css("border-color", "red");
+					
 						}
 					});
 
 					$("#pushNum").click(function(){
 						var num = $("#randomNum").val();
-
+						
+						 var $divcheck=$("#checkcheck");
+				        	
 						if(data == num){
+							console.log("인증번호 일치");
 							$("#randomNum").attr("disabled", "true");
+							$divcheck.html("");
+							 var $input=$("<input id='check1' >");
+							console.log("벨류값 : " + $input.val());
+							 $input.val("0");
+							 console.log("바뀐값 : " + $input.val());
+							$divcheck.append($input);
+							
 						}else{
 							alert("인증번호를 잘못 입력 하셨습니다.");
+							$divcheck.html("");
+							 var $input=$("<input id='check1' >");
+							 $input.val("1");
+							$divcheck.append($input);
+						
 						}
 					})
             	},
@@ -323,33 +358,10 @@
 		});
 	}
 
- 	/* $(function(){
-		$('input:checkbox[value=N]').prop('checked', false);
-	}) */
 
-	/* $(function(){
-		$('input:checkbox[value=Y]').change(function(){
-
-			console.log("eqwe")
-
-			$('input:checkbox[value=N]').prop('checked', false);
-
-		})
-
-	}) */
-
-	/* $(document).ready(
-			function() {
-				$('input[type="checkbox"][name="dogYn"]').change(
-						function() {
-							console.log("qwewqd")
-							if ($(this).prop('checked')) {
-								$('input[type="checkbox"][name="dogYn"]')
-										.prop('checked', false);
-								$(this).prop('checked', true);
-							}
-						});
-			}); */
+	
+	
+ 	
 </script>
 
 	<script>
@@ -438,15 +450,27 @@ $(function () {
 
 	function idCheck(){
 		var userId = $("#userId").val();
-
+		 var $divcheck=$("#checkcheck2");
 		$.ajax({
 			url:"/sixDestiny/idCheck.user",
 			type:"post",
 			data:{userId:userId},
 			success:function(data){
 				alert(data);
+				if(data=="해당 아이디가 존재합니다!"){
+				$divcheck.html("");
+				 var $input=$("<input id='check2' >");
+				 $input.val("1");
+				$divcheck.append($input);}else{
+					$divcheck.html("");
+					 var $input=$("<input id='check2' >");
+					 $input.val("0");
+					$divcheck.append($input);
+					
+				}
 			},
 			error:function(){
+			
 
 			}
 		});
@@ -454,13 +478,24 @@ $(function () {
 
 	function checkNickNm(){
 		var nickNm = $("#nickNm").val();
-
+		 var $divcheck=$("#checkcheck3");
 		$.ajax({
 			url:"/sixDestiny/nickNmCheck.user",
 			type:"post",
 			data:{nickNm:nickNm},
 			success:function(data){
 				alert(data);
+				if(data=="해당 닉네임이 존재합니다!"){
+					$divcheck.html("");
+					 var $input=$("<input id='check3' >");
+					 $input.val("1");
+					$divcheck.append($input);}else{
+						$divcheck.html("");
+						 var $input=$("<input id='check3' >");
+						 $input.val("0");
+						$divcheck.append($input);
+						
+					}
 			},
 			error:function(){
 
@@ -469,6 +504,31 @@ $(function () {
 	}
 </script>
 
+<script>
+
+function finalcheck(){
+	var check1=$("#check1").val();
+	var check2=$("#check2").val();
+	var check3=$("#check3").val();
+	if(check1==0&&check2==0&&check3==0){
+		
+		document.getElementById('form').submit();
+
+
+		
+	}else{
+		
+		alert("중복확인이나 인증이 잘못되었습니다. 다시 확인 해주세요!");
+	}
+	
+	
+	
+	
+	
+}
+
+
+</script>
 
 
 	<%@ include file="../../../common/bottom_Include.jsp"%>
