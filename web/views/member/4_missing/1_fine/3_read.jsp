@@ -18,13 +18,13 @@ Missing b = (Missing) request.getAttribute("b");
 <title>Insert title here</title>
 	<script src="//code.jquery.com/jquery.min.js"></script> 
 <style>
-#bt1 {
-/* 	background: dimgray; */
-	Color: black;
-	width: 100px;
-	height: 50px;
+
+#fff.button{
+	font-weight: bold;
+
 	font-family: 'Sunflower', sans-serif;
 }
+
 
 .div2 {
 	padding: 10px;
@@ -112,9 +112,14 @@ font-family: 'Sunflower', sans-serif;
 
 }
 .a{
-color:gray;
+color:black;
 font-family: 'Sunflower', sans-serif;
 }
+.bb{
+color:black;
+font-family: 'Sunflower', sans-serif;
+}
+
 .b{
 color:red;
 font-family: 'Sunflower', sans-serif;
@@ -200,12 +205,15 @@ border:0;
 
 
 
-	<div align="right" ">
+	<div  id="fff" align="right" ">
+	<table><tr>
 	<%System.out.print("뭐냐고고오오오오옹"+b.getUu()); %>
-
+<td>
 <% if(loginUser != null){ %> 
-					 <button type="button" id="report" onclick="report(<%=loginUser.getUserNo()%>);">신고</button>
+					 <button class="bb" type="button" id="report" onclick="report(<%=loginUser.getUserNo()%>);">신고</button>
 					 <div class="ddd">
+					 </td>
+					 <td id="td">
 					 <%if(b.getUu()==0){ %>
 					 	<%System.out.print("추천안돼있음"+b.getUu()); %>
 					 	<button class="btn-like a"  onclick="upbnt(<%=b.getUu()%>)">추천♡</button>
@@ -213,13 +221,16 @@ border:0;
 					 	<%System.out.print("추천ㅇㅋ"+b.getUu()); %>
 					 	<button class="btn-like b"    onclick="upbnt(<%=b.getUu()%>)">추천♡</button>
 	<%} %>
+	</td>
 	</div>
 	
 	<%} %>
-	
-	<div align="right">
-		<button id="bt1" onclick="location.href='<%=request.getContextPath()%>/missingpaper.bo?num=<%=b.getbNo()%>'" id="paper">전단지 생성</button>
-	</div>
+	<td>
+
+		<button class="bb"  onclick="location.href='<%=request.getContextPath()%>/missingpaper.bo?num=<%=b.getbNo()%>'" id="paper">전단지 생성</button>
+</td>
+</tr>
+</table>
  
 	</div>
 	<hr>
@@ -326,7 +337,7 @@ function upbnt(data){
 			type:"get",
 			success:function(data){
 				console.log(data + " data?");
-				var $div = $(".ddd");
+				var $div = $("#td");
 					$div.html("");
 					
 				console.log("보드"+test);

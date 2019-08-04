@@ -25,6 +25,12 @@ Missing b = (Missing) request.getAttribute("b");
 	text-align:center;
 	margin: auto;
 }
+.dddd{
+
+text-align:center;
+
+
+}
 </style>
 <link rel="stylesheet" href="/css/bootstrap.css">
 
@@ -61,7 +67,7 @@ Missing b = (Missing) request.getAttribute("b");
 				<td><br></td>
 			</tr>
 			<tr>
-				<td><textarea rows="10" cols="50" readonly placeholder="<%=b.getbCon()%>" ></textarea></td>
+				<td><textarea rows="10" cols="50" readonly placeholder="<%=b.getbCon()%>" class="dddd"></textarea></td>
 			</tr>
 			<tr>
 				<td><br></td>
