@@ -128,10 +128,10 @@ public class MoneySupService {
 		return result;
 	}
 
-	public int updateBillingkey(int monSupNo, String billing) {
+	public int updateBillingkey(int monSupNo, String billing, String order_id) {
 		Connection con = getConnection();
 
-		int result = new MoneySupDao().updateBillingkey(con, monSupNo, billing);
+		int result = new MoneySupDao().updateBillingkey(con, monSupNo, billing, order_id);
 
 		if(result > 0) {
 			commit(con);
@@ -152,6 +152,16 @@ public class MoneySupService {
 		close(con);
 
 		return result;
+	}
+
+	public int selectSupportPrice(int monSupNo) {
+		Connection con = getConnection();
+
+		int price = new MoneySupDao().selectSupportPrice(con, monSupNo);
+
+		close(con);
+
+		return price;
 	}
 
 }

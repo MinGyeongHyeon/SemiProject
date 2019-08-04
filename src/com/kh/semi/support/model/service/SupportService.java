@@ -1,6 +1,6 @@
 package com.kh.semi.support.model.service;
 
-import static com.kh.semi.common.JDBCTemplate.close;
+import static com.kh.semi.common.JDBCTemplate.*;
 import static com.kh.semi.common.JDBCTemplate.getConnection;
 
 import java.sql.Connection;
@@ -78,6 +78,42 @@ public class SupportService {
 		close(con);
 
 		return listCount2;
+	}
+
+	public HashMap<String, String> selectUserBillingKey(int monSupNo) {
+		Connection con = getConnection();
+
+		HashMap<String, String> result = new HashMap<String, String>();
+
+		String billingkey = new SupportDao().selectUserBillingKey(con, monSupNo);
+		String order_id = new SupportDao().selectUserOrderId(con, monSupNo);
+
+		System.out.println("order_Id : " + order_id);
+
+		result.put("billingkey", billingkey);
+		result.put("order_id", order_id);
+
+		close(con);
+
+		return result;
+	}
+
+	public String updateRegualSupport(String receipt_id, int monSupNo) {
+		Connection con = getConnection();
+		String email = null;
+
+		int result = new SupportDao().updateReceipt_id(con, receipt_id, monSupNo);
+
+		if(result > 0) {
+			commit(con);
+			email = new SupportDao().selectUserEmail(con, monSupNo);
+		}else {
+			rollback(con);
+		}
+
+		close(con);
+
+		return email;
 	}
 
 }

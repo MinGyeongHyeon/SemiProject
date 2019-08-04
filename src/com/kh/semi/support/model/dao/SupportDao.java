@@ -314,4 +314,119 @@ public class SupportDao {
 		return productList;
 	}
 
+
+
+	public String selectUserBillingKey(Connection con, int monSupNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String billingkey = null;
+
+		String query = prop.getProperty("selectUserBillingKey");
+
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, monSupNo);
+
+			rset = pstmt.executeQuery();
+
+			if(rset.next()) {
+				billingkey = rset.getString("BILL_KEY");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+
+
+		return billingkey;
+	}
+
+
+
+	public String selectUserOrderId(Connection con, int monSupNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String order_id = null;
+
+		String query = prop.getProperty("selectUserOrderId");
+
+		System.out.println("내역번호 : " + monSupNo);
+
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, monSupNo);
+
+			rset = pstmt.executeQuery();
+
+			if(rset.next()) {
+				order_id = rset.getString("ORDER_ID");
+				System.out.println("dao order_id : " + order_id);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+
+		return order_id;
+	}
+
+
+
+	public int updateReceipt_id(Connection con, String receipt_id, int monSupNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+
+		String query = prop.getProperty("updateReceipt_id");
+
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, receipt_id);
+			pstmt.setInt(2, monSupNo);
+
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+		return result;
+	}
+
+
+
+	public String selectUserEmail(Connection con, int monSupNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String email = null;
+
+		String query = prop.getProperty("selectUserEmail");
+
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, monSupNo);
+
+			rset = pstmt.executeQuery();
+
+			if(rset.next()) {
+				email = rset.getString("EMAIL");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+
+		return email;
+	}
+
 }

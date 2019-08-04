@@ -254,6 +254,23 @@
 
   	function goRegMoney(monSupNo){
   		var monSupNo = monSupNo;
+		var date = new Date();
+		var year = date.getYear();
+		var month = date.getMonth();
+		var day= date.getDate();
+		var hour = date.getHours();
+		var min = date.getMinutes();
+		var sec = date.getSeconds();
+		var milli = date.getMilliseconds();
+
+		var resultDay = year + ":" + month + ":" + day + ":" + hour + ":" + min + ":" + sec + ":" + milli;
+		console.log(resultDay);
+
+		var random = Math.floor(Math.random() * 100) + 1;
+
+  		var order_id = resultDay + random + "";
+
+  		console.log(order_id);
   		BootPay.request({
   			price: 0, // 0으로 해야 한다.
   			application_id: "5d38293e02f57e00381e9c2b",
@@ -267,7 +284,7 @@
   				addr: '사용자 주소',
   				phone: '010-1234-4567'
   			},
-  			order_id: '고유order_id_1234', //고유 주문번호로, 생성하신 값을 보내주셔야 합니다.
+  			order_id: order_id,
   			params: {callback1: '그대로 콜백받을 변수 1', callback2: '그대로 콜백받을 변수 2', customvar1234: '변수명도 마음대로'},
   			extra: {
   				start_at: '2019-05-10', // 정기 결제 시작일 - 시작일을 지정하지 않으면 그 날 당일로부터 결제가 가능한 Billing key 지급
@@ -281,11 +298,12 @@
   			console.log(data);
   		}).done(function (data) {
   			// 빌링키를 정상적으로 가져오면 해당 데이터를 불러옵니다.
+  			console.log(data);
   			var billing = data["billing_key"];
   			$.ajax({
   				url:"/sixDestiny/updateBill.mon",
   				type:"post",
-  				data:{billing:billing, monSupNo:monSupNo},
+  				data:{billing:billing, monSupNo:monSupNo, order_id:order_id},
   				success:function(data){
   					location.href="/sixDestiny/mySupport.su";
   				},
