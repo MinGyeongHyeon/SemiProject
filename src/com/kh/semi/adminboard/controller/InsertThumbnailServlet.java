@@ -1,4 +1,4 @@
-package com.kh.semi.adminboard.controller;
+/*package com.kh.semi.adminboard.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -18,24 +18,24 @@ import com.kh.semi.common.MyFileRenamePolicy;
 import com.kh.semi.user.model.vo.User;
 import com.oreilly.servlet.MultipartRequest;
 
-/**
+*//**
  * Servlet implementation class InsertThumbnailServlet
- */
+ *//*
 @WebServlet("/insert.bo")
 public class InsertThumbnailServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
+    *//**
      * @see HttpServlet#HttpServlet()
-     */
+     *//*
     public InsertThumbnailServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
 
-	/**
+	*//**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+	 *//*
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if(ServletFileUpload.isMultipartContent(request)) {
 			int maxSize = 1024 * 1024 * 10;
@@ -86,9 +86,9 @@ public class InsertThumbnailServlet extends HttpServlet {
 		}
 	}
 
-	/**
+	*//**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
+	 *//*
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
@@ -106,3 +106,4 @@ public class InsertThumbnailServlet extends HttpServlet {
 
 
 
+*/

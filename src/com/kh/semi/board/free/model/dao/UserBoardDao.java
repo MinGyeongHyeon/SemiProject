@@ -1808,6 +1808,91 @@ public int uprecommendUserBoard(Connection con, int thisBoardNo, int nowLoginUse
 		return result;
 	}
 
+	public int getmyComListCount(Connection con, int userNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int listCount = 0;
+
+		
+		String query = prop.getProperty("selectmyComListCount");
+		
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setInt(1, userNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt(1);
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return listCount;
+	}
+
+	public ArrayList<Commentub> myComselectList(Connection con, int currentPage, int limit, int userNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Commentub> list = null;
+		
+		String query = prop.getProperty("selectmyComListWithPaging");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+
+			//조회를 시작할 행 번호와 마지막 행 번호 계산
+			int startRow = (currentPage - 1) * limit + 1;
+			int endRow = startRow + limit - 1;
+			
+			pstmt.setInt(1, userNo);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<Commentub>();
+			
+			while(rset.next()) {
+				Commentub com = new Commentub();
+
+				
+				com.setBoardNo(rset.getInt("BOARD_NO"));
+				com.setBoardNm(rset.getString("BOARD_NM"));
+				com.setBoardKind(rset.getString("BOARD_KIND"));
+				com.setCommentCon(rset.getString("COM_CON"));
+			
+
+
+
+				System.out.println(com);
+
+
+
+				list.add(com);
+
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		
+		
+		return list;
+	}
+
 	
 }
 

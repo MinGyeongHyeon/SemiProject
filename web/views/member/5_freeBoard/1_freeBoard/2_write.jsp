@@ -6,7 +6,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+	
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
@@ -49,7 +56,7 @@ table tr td.title {
 </head>
 <body>
 
-	<form action="<%= request.getContextPath() %>/insert.bo" method="post" encType="multipart/form-data">
+	<form action="<%= request.getContextPath() %>/insert.ub" method="post" encType="multipart/form-data">
 
 		<h3>자유게시판 글쓰기</h3>
 
@@ -79,7 +86,7 @@ table tr td.title {
 				</tr>
 				<tr>
 					<td class="title"><label>사진첨부</label></td>
-					<td style="text-align: left"><input type="file" name="thumbnailImg1"></td>
+					<td style="text-align: left"><input type="file" class="btn btn-default" name="thumbnailImg1"></td>
 				</tr>
 
 
@@ -88,10 +95,10 @@ table tr td.title {
 				</tr>
 			</table>
 		</div>
-		<br> <br> <input type="submit" value="등록하기" id="btn">
+		<br> <br> <input type="submit" class="btn btn-default" value="등록하기" id="btn">
 		<!-- onclick="location.href='/sixDestiny/views/member/5_freeBoard/1_freeBoard/1_main.jsp'" -->
 
-		<button type="reset">취소하기</button>
+		<button type="reset" class="btn btn-default">취소하기</button>
 	</form>
 
 

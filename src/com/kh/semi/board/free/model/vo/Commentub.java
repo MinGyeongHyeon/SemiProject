@@ -10,10 +10,13 @@ public class Commentub {
 	private int commentNo;
 	private String nickNm;
 	private Date writeDay;
-
+	private String boardNm;
+	private String boardKind;
+	
 	public Commentub() {}
 
-	public Commentub(String commentCon, int boardNo, int userNo, int commentNo, String nickNm, Date writeDay) {
+	public Commentub(String commentCon, int boardNo, int userNo, int commentNo, String nickNm, Date writeDay,
+			String boardNm, String boardKind) {
 		super();
 		this.commentCon = commentCon;
 		this.boardNo = boardNo;
@@ -21,6 +24,8 @@ public class Commentub {
 		this.commentNo = commentNo;
 		this.nickNm = nickNm;
 		this.writeDay = writeDay;
+		this.boardNm = boardNm;
+		this.boardKind = boardKind;
 	}
 
 	public String getCommentCon() {
@@ -71,12 +76,31 @@ public class Commentub {
 		this.writeDay = writeDay;
 	}
 
+	public String getBoardNm() {
+		return boardNm;
+	}
+
+	public void setBoardNm(String boardNm) {
+		this.boardNm = boardNm;
+	}
+
+	public String getBoardKind() {
+		return boardKind;
+	}
+
+	public void setBoardKind(String boardKind) {
+		this.boardKind = boardKind;
+	}
+
 	@Override
 	public String toString() {
 		return "Commentub [commentCon=" + commentCon + ", boardNo=" + boardNo + ", userNo=" + userNo + ", commentNo="
-				+ commentNo + ", nickNm=" + nickNm + ", writeDay=" + writeDay + "]";
+				+ commentNo + ", nickNm=" + nickNm + ", writeDay=" + writeDay + ", boardNm=" + boardNm + ", boardKind="
+				+ boardKind + "]";
 	}
-
+	
+	
+	
 
 
 	

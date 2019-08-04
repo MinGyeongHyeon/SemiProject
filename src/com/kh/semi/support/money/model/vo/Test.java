@@ -1,4 +1,4 @@
-package com.kh.semi.support.money.model.vo;
+/*package com.kh.semi.support.money.model.vo;
 
 
 import com.google.gson.Gson;
@@ -7,9 +7,9 @@ import kr.co.bootpay.javaApache.model.request.SubscribeBilling;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpResponse;
 
-/**
+*//**
  * Created by ehowlsla on 2017. 8. 17..
- */
+ *//*
 public class Test {
     static BootpayApi api;
     public static void main(String[] args) {
@@ -20,7 +20,6 @@ public class Test {
         goSubscribeBilling();
     }
 
-    public static void goGetToken() {
         try {
             api.getAccessToken();
         } catch (Exception e) {
@@ -73,3 +72,4 @@ public class Test {
     }
 }
 
+*/

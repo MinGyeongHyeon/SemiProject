@@ -458,6 +458,26 @@ Connection con = getConnection();
 		return result;
 	}
 
+	public int getmyComListCount(int userNo) {
+		Connection con = getConnection();
+
+		int listCount = new UserBoardDao().getmyComListCount(con, userNo);
+
+		close(con);
+
+		return listCount;
+	}
+
+	public ArrayList<Commentub> myComselectList(int currentPage, int limit, int userNo) {
+		Connection con = getConnection();
+
+		ArrayList<Commentub> list = new UserBoardDao().myComselectList(con, currentPage, limit, userNo);
+
+		close(con);
+
+		return list;
+	}
+
 
 
 

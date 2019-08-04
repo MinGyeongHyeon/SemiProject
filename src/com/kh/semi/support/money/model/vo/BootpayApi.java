@@ -1,4 +1,4 @@
-package com.kh.semi.support.money.model.vo;
+/*package com.kh.semi.support.money.model.vo;
 
 import java.net.URI;
 import java.util.List;
@@ -16,9 +16,9 @@ import com.google.gson.Gson;
 
 import sun.net.www.http.HttpClient;
 
-/**
+*//**
  * Created by ehowlsla on 2018. 5. 29..
- */
+ *//*
 public class BootpayApi {
 
     private final String BASE_URL = "https://api.bootpay.co.kr/";
@@ -114,3 +114,4 @@ public class BootpayApi {
     }
 
 }
+*/
