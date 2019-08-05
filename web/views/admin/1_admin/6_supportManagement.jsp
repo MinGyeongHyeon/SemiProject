@@ -394,7 +394,7 @@
 												type:"post",
 												data:{eamil:eamil, monSupNo:monSupNo},
 												success:function(){
-
+													console.log("이메일전송 성공");
 												},
 												error:function(){
 

@@ -126,7 +126,7 @@
 		<br />
 		<br><br>
 
-		<pre id="pre" style="font-family: 'Sunflower', sans-serif;">* 후원금은 결제일로부터 한달 단위로 갱신되고
+		<pre id="pre" style="font-family: 'Sunflower', sans-serif; font-size:1.2em">* 후원금은 결제일로부터 한달 단위로 갱신되고
 				한번 후원한 닙입금은 취소불가, 취소 신청은 언제든 가능함을 알려드립니다.</pre>
 
 	</div>
