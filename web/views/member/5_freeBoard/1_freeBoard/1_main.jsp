@@ -34,9 +34,20 @@ button.main:hover{
 	font-weight: bold;
 }
 
+
+
+
 .div1 {
 	overflow: hidden;
 	text-overflow: ellipsis;
+}
+.thumbnail:hover{
+	background:rgb(230,230,230);
+	-webkit-transition: background 0.2s
+}
+
+.thumbnail{
+	-webkit-transition: background 0.2s
 }
 
 p {
@@ -76,8 +87,9 @@ div {
 	text-overflow: ellipsis;
 	white-space: nowrap;
 	width: 110px;
-	height: 46px;
+	height: 37px;
 	display: block;
+	padding: 12px;
 }
 
 th {
@@ -102,10 +114,10 @@ th {
 				%>
 				<div class="col-md-2">
 					<div class="thumbnail"
-						style="width: 150px; height: 150px; padding: 10px;">
+						style="width: 150px; height: 150px; padding: 0px; margin:0px;">
 
 
-						<div class="caption">
+						<div class="caption" style="padding:18px;">
 							<a
 								href="<%=request.getContextPath()%>/selectOne.bo?num=<%=ubbest.getbNo()%>">
 								<p>
@@ -153,8 +165,8 @@ th {
 							<th width="70px;">카테고리</th>
 							<th width="200px;">제목</th>
 							<th width="70px;">작성자</th>
-							<th width="50px;">조회수</th>
 							<th width="100px;">날짜</th>
+							<th width="50px;">조회수</th>
 							<th width="50px;">추천수</th>
 						</tr>
 					</thead>
@@ -168,8 +180,8 @@ th {
 							<td><%=ub.getbKind()%></td>
 							<td id="bname"><%=ub.getbNm()%></td>
 							<td><%=ub.getbUserNick()%></td>
-							<td><%=ub.getInqCon()%></td>
 							<td><%=ub.getbDate()%></td>
+							<td><%=ub.getInqCon()%></td>
 							<td id="recCount"><%=ub.getRecCon()%></td>
 							
 		
@@ -300,10 +312,22 @@ th {
 	
 
 	<script>
+	
+	
 		// document Ready
 		$(function() {
 			initListTd();	// td 이벤트 세팅
 			initCaption();	// 인기글 이벤트 세팅
+			
+			 $("#searchtext").keypress(function (e) {
+			       if ($("#searchtext").val() != ""){
+			    		 if (e.which == 13){
+			    			 letitgo()
+					        }
+			       }
+			
+				 
+			    });
 			
 			$("#categorysel").val($("#categoryval").val()).attr("selected", "selected");
 			$("#alignment").val($("#alignmentval").val()).attr("selected", "selected");
@@ -320,10 +344,10 @@ th {
 		function initListTd() {
 			$("#listArea td")
 			.mouseenter(function(){
-				$(this).parent().css({"background":"rgb(240,240,240)", "cursor":"pointer"});
+				$(this).parent().css({"background":"rgb(240,240,240)", "cursor":"pointer", "-webkit-transition":"background 0.1s"});
 			})
 			.mouseout(function(){
-				$(this).parent().css({"background":"#FFF"});
+				$(this).parent().css({"background":"#FFF", "-webkit-transition":"background 0.1s"});
 			})
 			.click(function(){
 				var num = $(this).parent().children().eq(0).text();
@@ -333,10 +357,14 @@ th {
 		
 		// 인기글 이벤트 세팅
 		function initCaption() {
-			$(".caption").click(function(){
+			$(".caption a")
+			.click(function(){
 				var num = $(this).val();
 				location.href="<%=request.getContextPath()%>/selectOne.bo?num=" + num;
 			});
+			
+			
+			
 		}
 		
 		function searchstart(){
