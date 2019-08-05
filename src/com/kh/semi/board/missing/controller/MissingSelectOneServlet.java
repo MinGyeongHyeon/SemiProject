@@ -51,8 +51,8 @@ if(request.getParameter("uu")!="") {
 
 		HashMap<String, Object> hmap = new MissingService().missingselectThumbnailMap(num);
 		ArrayList<Comment> list = (ArrayList<Comment>) hmap.get("comment");
-		int re=  new MissingService().re(num, uu);
-System.out.println("RERERERE"+re);
+		int re =  new MissingService().re(num, uu);
+
 		Missing b = (Missing) hmap.get("board");
 		
 
