@@ -29,10 +29,6 @@ public class UpdateComment extends HttpServlet {
 
 		int result = new UserBoardService().updateComment(cm);
 
-		/*response.setContentType("application/json");
-		response.setCharacterEncoding("UTF-8");
-		new Gson().toJson(filelist,response.getWriter());*/
-
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
 		new Gson().toJson(comment , response.getWriter());
