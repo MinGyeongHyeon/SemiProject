@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8" import="com.kh.semi.adminboard.model.vo.*"%>
 <%@ include file="../../../common/top_Include.jsp"%>
 <%
-	AdminBoard ab = (AdminBoard)request.getAttribute("n");
+	AdminBoard ab = (AdminBoard)request.getAttribute("ab");
 %>
 <html>
 <head>
@@ -32,39 +32,29 @@
 <body>
 
 <% if(loginUser != null && loginUser.getUserId().equals("admin")) %>
-	<form action="/sixDestiny/insert.no" method="post" id="updateForm">
+	<form action="/sixDestiny/update.no" method="post" id="updateForm">
 		<div>
 		<h4 style="font-family: 'Sunflower', sans-serif;">공지사항 수정</h4>
 		<br><br>
 			<table width="800px" id="writerTable">
 				<tr>
 					<td><label style="font-family: 'Sunflower', sans-serif; font-size:20px;" >제목
-							&nbsp;</label><input type="text" style="width:750px; height:40px" name="title"></td>
+						&nbsp;</label><input type="text" style="width:750px; height:40px" name="title" value="<%=ab.getTitle()%>"></td>
 					<input type="hidden" value="<%=loginUser.getUserNo()%>" name="userNo" readonly>
+					<input type="hidden" value="<%=ab.getAdBoardNo()%>" name="adBoardNo">
 				</tr>
 				<tr>
 					<td><br></td>
 				</tr>
 				<tr>
-					<td><textarea rows="15" cols="106" name="content"></textarea></td>
+					<td><textarea rows="15" cols="106" name="adBoardCon">
+					<%=ab.getAdBoardCon()%>
+					</textarea></td>
 				</tr>
 				<tr>
 					<td><br></td>
 				</tr>
-				<tr>
-					<td align="center"><div class="input-group">
-							<div class="input-group-prepend">
-								<span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
-							</div>
-							<div class="custom-file">
-								<input type="file" class="custom-file-input"
-									id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
-								<label class="custom-file-label" for="inputGroupFile01">Choose
-									file</label>
-							</div>
-						</div>
-					</td>
-				</tr>
+				
 			</table>
 		</div>
 

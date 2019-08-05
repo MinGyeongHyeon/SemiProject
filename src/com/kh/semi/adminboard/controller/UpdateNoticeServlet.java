@@ -38,19 +38,24 @@ public class UpdateNoticeServlet extends HttpServlet {
 		String adBoardCon = request.getParameter("adBoardCon");
 		System.out.println("title : " + title);
 		System.out.println("adBoardCon : " + adBoardCon);
+		int adBoardNo = Integer.parseInt(request.getParameter("adBoardNo"));
+		
 		
 		AdminBoard ab = new AdminBoard();
 		ab.setTitle(title);
 		ab.setAdBoardCon(adBoardCon);
+		ab.setAdBoardNo(adBoardNo);
 		
 		int result = new AdminBoardService().updateNotice(ab);
 		
 		String page = "";
+	
 		
 		if(result>0) {
-			response.sendRedirect("views/member/1_introduce/2_notice/1_main.jsp");
+			/*response.sendRedirect("selectOne.no?num" + adBoardNo);*/
+			request.getRequestDispatcher("selectOne.no?num" + adBoardNo).forward(request, response);
 		}else {
-			request.getRequestDispatcher("views/member/1_introduce/2_notice/1_main.jsp").forward(request, response);;
+			//request.getRequestDispatcher("views/member/1_introduce/2_notice/1_main.jsp").forward(request, response);;
 		}
 		
 		

@@ -17,6 +17,9 @@ import com.kh.semi.adminboard.model.vo.AdminBoard;
 import com.kh.semi.adminboard.model.vo.AdminComment;
 import com.kh.semi.adminboard.model.vo.AdminStatic;
 import com.kh.semi.adminboard.model.vo.AdminUserBoard;
+import com.kh.semi.adminboard.model.vo.NoticeAttachment;
+import com.kh.semi.board.free.model.vo.UserBoard;
+import com.kh.semi.board.free.model.vo.UserBoardAttachment;
 import com.kh.semi.board.parcelout.model.vo.Attachment;
 
 public class AdminBoardDao {
@@ -130,11 +133,13 @@ public class AdminBoardDao {
 		return result;
 	}
 
-	public AdminBoard selectOne(Connection con, int num) {
+	public HashMap<String, Object> selectOne(Connection con, int num) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
+		HashMap<String, Object> hmap = null;
 		AdminBoard ab = null;
-
+		NoticeAttachment at = null;
+		ArrayList<NoticeAttachment> list = null;
 		String query = prop.getProperty("selectOne");
 
 		try {
@@ -143,6 +148,7 @@ public class AdminBoardDao {
 
 			rset = pstmt.executeQuery();
 
+			list = new ArrayList<NoticeAttachment>();
 			if(rset.next()) {
 				ab = new AdminBoard();
 				ab.setAdBoardNo(rset.getInt("AD_BOARD_NO"));
@@ -152,15 +158,41 @@ public class AdminBoardDao {
 				ab.setBoardDiv(rset.getString("BOARD_DIV"));
 				ab.setAdNo(rset.getInt("AD_NO"));
 				ab.setStatus(rset.getString("STATUS"));
-				ab.setNickNm(rset.getString("NICK_NM"));
-
+				ab.setViewCount(rset.getInt("VIEW_COUNT"));
+	
+				
+				at = new NoticeAttachment();
+				at.setFileKind(rset.getString("FILE_KIND"));
+				at.setAttachmentNo(rset.getInt("ATTACHMENT_NO"));
+				at.setOriginNm(rset.getString("ORIGIN_NM"));
+				at.setChangeNm(rset.getString("CHANGE_NM"));
+				at.setFilePath(rset.getString("FILE_PATH"));
+				at.setUploadDt(rset.getDate("UPLOAD_DT"));
+				at.setAdBoardNo(rset.getInt("AD_BOARD_NO"));
+				at.setBoardNo(rset.getInt("BOARD_NO"));
+				at.setEntNo(rset.getInt("ENT_NO"));
+				at.setFileLevel(rset.getString("FILE_LEVEL"));
+				
+				list.add(at);
 			}
+			
+			hmap = new HashMap<String, Object>();
+			hmap.put("board", ab);
+			hmap.put("attachment", list);
+
+
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+
 			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
 		}
 
-		return ab;
+		return hmap;
+		
+		
+
 	}
 
 	public int insertThumbnailSupportContent(Connection con, AdminBoard ab) {
@@ -781,7 +813,6 @@ public class AdminBoardDao {
 		}finally {
 			close(pstmt);
 		}
-
 		return result;
 	}
 
@@ -795,6 +826,7 @@ public class AdminBoardDao {
 			pstmt=con.prepareStatement(query);
 			pstmt.setString(1, ab.getTitle());
 			pstmt.setString(2, ab.getAdBoardCon());
+			pstmt.setInt(3, ab.getAdBoardNo());
 
 			result = pstmt.executeUpdate();
 
@@ -1570,6 +1602,123 @@ public class AdminBoardDao {
 		return list2;
 	}
 
+	public int insertThumbnailContent(Connection con, AdminBoard ab) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertThumb");
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, ab.getTitle());
+			pstmt.setString(2, ab.getAdBoardCon());
+			pstmt.setInt(3, Integer.parseInt(ab.getNickNm()));
+			
+			result  = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	
+
+	public ArrayList<HashMap<String, Object>> selectThumbnailList(Connection con) {
+		Statement stmt = null;
+		ArrayList<HashMap<String, Object>> list = null;
+		HashMap<String, Object>hmap = null;
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("selectThumbnailMap");
+		
+		try {
+			stmt = con.createStatement();
+			
+			rset = stmt.executeQuery(query);
+			
+			list = new ArrayList<HashMap<String, Object>>();
+			
+			while(rset.next()) {
+				hmap = new HashMap<String, Object>();
+				
+				hmap.put("nno", rset.getInt("BNO"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
+		}
+		
+		return list;
+	}
+
+	public int insertAttachment(Connection con, ArrayList<NoticeAttachment> fileList) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertAttachment");
+		
+		try {
+			for(int i = 0; i < fileList.size(); i++) {
+				pstmt = con.prepareStatement(query);
+				
+				pstmt.setString(1, fileList.get(i).getOriginNm());
+				pstmt.setString(2, fileList.get(i).getChangeNm());
+				pstmt.setString(3, fileList.get(i).getFilePath());
+				pstmt.setString(4,"공지");
+				pstmt.setString(5,"0");
+				
+				int level = 0;
+				if(i == 0) {
+					level = 0;
+				}else {
+					level = 1;
+				}
+				
+				pstmt.setInt(5, level);
+				
+				result += pstmt.executeUpdate();
+					
+			}
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int updateCount(Connection con, int num) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+
+		String query = prop.getProperty("updateCount");
+
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, num);
+			pstmt.setInt(2, num);
+
+			result = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+		return result;
+	}
+
+
+}
+
 
 	public ArrayList<HashMap<String, Object>> statics5(Connection con) {
 		Statement stmt = null;
@@ -1721,3 +1870,4 @@ public class AdminBoardDao {
 
 
 }
+
