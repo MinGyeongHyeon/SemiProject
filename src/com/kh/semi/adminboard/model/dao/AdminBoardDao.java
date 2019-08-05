@@ -1328,9 +1328,18 @@ public class AdminBoardDao {
 
 			pstmt.setString(1, "말티즈");
 			pstmt.setString(2, "코카스파니엘");
-			pstmt.setString(3, "비글");
-			pstmt.setString(4, "믹스견");
-			pstmt.setString(5, "푸들");
+			pstmt.setString(3, "믹스");
+			pstmt.setString(4, "푸들");
+			pstmt.setString(5, "요크셔테리어");
+			pstmt.setString(6, "웰시코기");
+			pstmt.setString(7, "포메라니안");
+			pstmt.setString(8, "스피치");
+			pstmt.setString(9, "닥스훈트");
+			pstmt.setString(10, "사모예드");
+			pstmt.setString(11, "골든리트리버");
+			pstmt.setString(12, "허스키");
+			pstmt.setString(13, "쉐퍼드");
+			
 
 			rset = pstmt.executeQuery();
 
@@ -1344,6 +1353,16 @@ public class AdminBoardDao {
 				hmap.put("dog_kind3", rset.getString("D3"));
 				hmap.put("dog_kind4", rset.getString("D4"));
 				hmap.put("dog_kind5", rset.getString("D5"));
+				hmap.put("dog_kind6", rset.getString("D6"));
+				hmap.put("dog_kind7", rset.getString("D7"));
+				hmap.put("dog_kind8", rset.getString("D8"));
+				hmap.put("dog_kind9", rset.getString("D9"));
+				hmap.put("dog_kind10", rset.getString("D10"));
+				hmap.put("dog_kind11", rset.getString("D11"));
+				hmap.put("dog_kind12", rset.getString("D12"));
+				hmap.put("dog_kind13", rset.getString("D13"));
+		
+				
 
 				list.add(hmap);
 			}
@@ -1701,28 +1720,154 @@ public class AdminBoardDao {
 }
 
 
+	public ArrayList<HashMap<String, Object>> statics5(Connection con) {
+		Statement stmt = null;
+		ArrayList<HashMap<String, Object>> list = null;
+		HashMap<String, Object> hmap = null;
+
+		ResultSet rset = null;
+
+		String query = prop.getProperty("statics5");//회원탈퇴이유
+
+		try {
+			stmt = con.createStatement();
+
+			rset = stmt.executeQuery(query);
+
+			list = new ArrayList<HashMap<String, Object>>();
+
+			while(rset.next()) {
+				hmap = new HashMap<String,Object>();
+
+				hmap.put("enroll1", rset.getString("1M"));
+				hmap.put("enroll2", rset.getString("2M"));
+				hmap.put("enroll3", rset.getString("3M"));
+				hmap.put("enroll4", rset.getString("4M"));
+				hmap.put("enroll5", rset.getString("5M"));
+				hmap.put("enroll6", rset.getString("6M"));
+				hmap.put("enroll7", rset.getString("7M"));
+				hmap.put("enroll8", rset.getString("8M"));
+				hmap.put("enroll9", rset.getString("9M"));
+				hmap.put("enroll10", rset.getString("10M"));
+				hmap.put("enroll11", rset.getString("11M"));
+				hmap.put("enroll12", rset.getString("12M"));
+
+				list.add(hmap);
+
+			}
 
 
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
+		}
 
 
+		return list;
+	}
+
+	public ArrayList<HashMap<String, Object>> statics6(Connection con) {
+		PreparedStatement pstmt = null;
+		ArrayList<HashMap<String, Object>> list = null;
+		HashMap<String, Object> hmap = null;
+
+		ResultSet rset = null;
+
+		String query = prop.getProperty("statics6");//회원탈퇴이유
+
+		try {
+			pstmt = con.prepareStatement(query);
+
+			pstmt.setString(1, "0개월~6개월");
+			pstmt.setString(2, "분양완료");
+			pstmt.setString(3, "6개월~1년");
+			pstmt.setString(4, "분양완료");
+			pstmt.setString(5, "1년~5년");
+			pstmt.setString(6, "분양완료");
+			pstmt.setString(7, "5년~10년");
+			pstmt.setString(8, "분양완료");
+			pstmt.setString(9, "10년이상");
+			pstmt.setString(10, "분양완료");
 
 
+			rset = pstmt.executeQuery();
+
+			list = new ArrayList<HashMap<String, Object>>();
+
+			while(rset.next()) {
+				hmap = new HashMap<String,Object>();
+
+				hmap.put("dogAge1", rset.getString("1"));
+				hmap.put("dogAge2", rset.getString("2"));
+				hmap.put("dogAge3", rset.getString("3"));
+				hmap.put("dogAge4", rset.getString("4"));
+				hmap.put("dogAge5", rset.getString("5"));
 
 
+				list.add(hmap);
+			}
 
 
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
 
 
+		return list;
+	}
+
+	public ArrayList<HashMap<String, Object>> statics7(Connection con) {
+		Statement stmt = null;
+		ArrayList<HashMap<String, Object>> list = null;
+		HashMap<String, Object> hmap = null;
+
+		ResultSet rset = null;
+
+		String query = prop.getProperty("statics5");//회원탈퇴이유
+
+		try {
+			stmt = con.createStatement();
+
+			rset = stmt.executeQuery(query);
+
+			list = new ArrayList<HashMap<String, Object>>();
+
+			while(rset.next()) {
+				hmap = new HashMap<String,Object>();
+
+				hmap.put("sup1", rset.getString("1M"));
+				hmap.put("sup2", rset.getString("2M"));
+				hmap.put("sup3", rset.getString("3M"));
+				hmap.put("sup4", rset.getString("4M"));
+				hmap.put("sup5", rset.getString("5M"));
+				hmap.put("sup6", rset.getString("6M"));
+				hmap.put("sup7", rset.getString("7M"));
+				hmap.put("sup8", rset.getString("8M"));
+				hmap.put("sup9", rset.getString("9M"));
+				hmap.put("sup10", rset.getString("10M"));
+				hmap.put("sup11", rset.getString("11M"));
+				hmap.put("sup12", rset.getString("12M"));
+
+				list.add(hmap);
+			}
 
 
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
+		}
 
 
+		return list;
+	}
 
 
-
-
-
-
-
-
+}
 

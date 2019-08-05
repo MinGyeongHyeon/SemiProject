@@ -113,9 +113,15 @@
 						<tr><td><br></td></tr>
 					</table>
 				</fieldset>
+				<br><br>
+				<pre id="pre" style="font-family: 'Sunflower', sans-serif; font-size:1.2em">물품 후원 시 상품 배송은 반드시 선불로 보내주셔야 합니다.
+				선불이 아닐 경우, 발송자에게 반송되오니 다시한번 확인하시어 착오 없이 진행해 주시기 바랍니다.
+				보내실 배송사는 어느곳이어도 상관없습니다.
+				배송지 주소는 다음과 같습니다.
+				주소 : 서울특별시 강남구 테헤란로 14길 6 남도빌딩 2F 육인연 담당자 앞</pre>
 
 				<br><br><br>
-				<input type="submit" value="납입" class="btn btn-default" style="width:200px; font-family: 'Sunflower', sans-serif;"> <input
+				<input type="submit" value="신청" class="btn btn-default" style="width:200px; font-family: 'Sunflower', sans-serif;"> <input
 					type="reset" value="취소" class="btn btn-default" onclick="location.href='/sixDestiny/index.jsp'" style="width:200px; font-family: 'Sunflower', sans-serif;">
 
 			</form>

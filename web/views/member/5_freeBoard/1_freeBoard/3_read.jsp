@@ -107,14 +107,43 @@
 		
 		<hr>
 		<% if(loginUser != null){ %>
-		댓글 : <input type="text" id="comcon" style="width: 800px" placeholder="글자 수는 60자로 제한" maxlength="60"> 
-			<input type="button" value="댓글 달기" class="btn btn-default" onclick="comment()">
+		댓글 : <input type="text" id="comcon" onkeyup="searchstart()"  style="width: 800px" placeholder="글자 수는 60자로 제한" maxlength="60"> 
+				
+			<input type="button" value="댓글 달기" id="comm" class="btn btn-default" onclick="comment(); searchstart();">
+				
 			<%} %>
 			
 			
 
 	</div>
 	<script >
+	$(function(){
+		searchstart()
+		heart();
+		commentList();
+		
+		 $("#comcon").keypress(function (e) {
+		       if ($("#comcon").val() != ""){
+		    		 if (e.which == 13){
+				        	comment(); 
+				        	searchstart();  
+				        }
+		       }
+		
+			 
+		    });
+	});
+	
+	function searchstart(){
+		$("#comm").attr('disabled',false)
+		
+		if($("#comcon" ).val() == ""){
+			  $("#comm").attr('disabled',true);
+			
+		  }
+	}
+	
+	
 	function comReport(reportCom){
 		var commentNo = $(reportCom).parent().parent().children().eq(1).text();
 		var commentNickNm = $(reportCom).parent().parent().children().eq(2).text();
@@ -242,11 +271,7 @@
 	 }
 	 
 	
-		 $(document).ready(function(){
-			 heart();
-			 commentList();
-			 	 
-		});
+		
 		 
 		function heart(){
 			var thisBoardNo = <%= ub.getbNo() %>
@@ -393,8 +418,8 @@
 								
 								
 								$("#commentArea").append($tr);
-								
 								$("#comcon").val("");
+								$("#comm").attr('disabled',true)
 						}
 					}
 				})

@@ -966,10 +966,13 @@ $("#listArea td").mouseenter(function(){
 							location.href="<%=request.getContextPath()%>/selectParceloutOne.tn?num=" + num + "&uNo=" + uNo;
 
 							}else if(kind == "실종"){
+								
 								location.href="<%=request.getContextPath()%>/missingSelectOne.bo?num=" + num + "&uu=" + uNo;
+								
 							}else if(kind == "잡담" || kind == "꿀팁" || kind == "자랑"){
 
 							location.href="<%=request.getContextPath()%>/selectOne.bo?num=" + num ;
+							
 							}
 
 					});

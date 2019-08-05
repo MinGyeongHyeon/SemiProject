@@ -172,7 +172,7 @@
 			<button onclick="location.href='<%=request.getContextPath()%>/mySupport.su?currentPage2=<%=maxPage2%>&currentPage=1'" class="btn btn-default">>></button>
 		</div>
   </div>
-  <button onclick="billingkey();">정기결제</button>
+
   <script type="text/javascript">
   	$(function(){
   		 setInterval(function()

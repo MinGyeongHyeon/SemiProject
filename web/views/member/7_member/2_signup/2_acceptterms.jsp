@@ -5,29 +5,24 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<link href="https://fonts.googleapis.com/css?family=Gaegu|Sunflower:300&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  
 <title>13_입소신청_신청서작성</title>
 <style>
 #div1{
-font-family: 'Gothic A1', sans-serif;
-}
-#signbut{
-
-border:1px solid; 
-background:white; 
-width:90px; 
-height:40px; 
-border-radius:0.5em;
-
+font-family: 'Sunflower', sans-serif;
 }
 
 </style>
 </head>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-	<link href="https://fonts.googleapis.com/css?family=Gothic+A1&display=swap" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <body>
-	<div>
-	<div style="border: 1px solid; width: 600px; margin: 0 auto; padding:30px" id="div1">
+	<div id="div1">
+	<div style="width: 600px; margin: 0 auto; padding:30px">
 		<h2>회 원 가 입</h2>
 		<br>
 		<b>서비스 약관 동의</b><br>
@@ -102,8 +97,10 @@ border-radius:0.5em;
 		<input type="checkbox" name="join_agree2" id="agreebut2">위 내용에 동의합니다. <br>
 		<br>	
 	</div>
-	<br><br />
-	<input type="button" id="signbut" value="회원가입"><br>
+	<input type="button" class="btn btn-default" value="회원가입"><br>
+	
+
+	
 	</div>
 	
 	<script type="text/javascript">

@@ -1,6 +1,8 @@
 package com.kh.semi.entrance.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -9,6 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.kh.semi.parcelout.model.service.ParcelOutService;
 import com.kh.semi.parcelout.model.vo.ParcelOut;
+import com.kh.semi.parcelout.model.vo.ParcelOutQuestion;
+import com.kh.semi.parcelout.model.vo.parceOutAnswer;
 
 /**
  * Servlet implementation class ParceloutFormServlet
@@ -31,14 +35,17 @@ public class ParceloutFormServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		int pcoAppNo = Integer.parseInt(request.getParameter("pcoAppNo"));
+
 		
 		//PCO_APP
 		ParcelOut pco = new ParcelOutService().parceloutInfo(pcoAppNo);
 		//PCO_QU_ANS
-		//parceOutAnswer poa = new 
-		
+		ArrayList<parceOutAnswer> poa = new ParcelOutService().parceloutqanda(pcoAppNo);
+		//PCO_QU
+		//ParcelOutQuestion poq = new ParcelOutService().parceloutquestion();
 		
 		request.setAttribute("pco",pco);
+		request.setAttribute("poa", poa);
 				
 		request.getRequestDispatcher("views/member/3_parcelout/1_applyParcelout/3_parceloutInformation.jsp").forward(request, response);
 	}

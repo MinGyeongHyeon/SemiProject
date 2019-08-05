@@ -51,10 +51,13 @@ if(request.getParameter("uu")!="") {
 
 		HashMap<String, Object> hmap = new MissingService().missingselectThumbnailMap(num);
 		ArrayList<Comment> list = (ArrayList<Comment>) hmap.get("comment");
-		int re=  new MissingService().re(num, uu);
+		int re =  new MissingService().re(num, uu);
 
 		Missing b = (Missing) hmap.get("board");
+		
+
 		b.setUu(re);
+
 
 		System.out.println("보드?????????/"+b);
 		ArrayList<MissingAttachment> fileList =
