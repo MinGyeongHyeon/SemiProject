@@ -60,9 +60,10 @@
 								<span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
 							</div>
 							<div class="custom-file">
-								<input type="file"  name="thumbnailImg1"
-									id="Notice_uploadFiles" aria-describedby="inputGroupFileAddon01">
-							
+								<input type="file" class="custom-file-input"
+									id="parcelout_uploadFiles1" aria-describedby="inputGroupFileAddon01" name="parcelout_uploadFiles1">
+								<label class="custom-file-label" for="inputGroupFile01">Choose
+									file</label>
 							</div>
 						</div>
 					</td>

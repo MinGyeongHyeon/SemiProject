@@ -544,7 +544,7 @@ public class AdminBoardService {
 		return list;
 	}
 
-	public int getListCountedd() {
+	/*public int getListCountedd() {
 		Connection con = getConnection();
 		int result = 0;
 
@@ -553,7 +553,7 @@ public class AdminBoardService {
 		close(con);
 
 		return result;
-	}
+	}*/
 
 	public int insertThumnail(AdminBoard ab, ArrayList<NoticeAttachment> fileList) {
 		Connection con = getConnection();
