@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import com.kh.semi.parcelout.model.dao.ParcelOutDao;
 import com.kh.semi.parcelout.model.vo.Application;
 import com.kh.semi.parcelout.model.vo.ParcelOut;
+import com.kh.semi.parcelout.model.vo.ParcelOutQuestion;
 import com.kh.semi.parcelout.model.vo.parceOutAnswer;
 import com.kh.semi.user.model.vo.User;
 
@@ -48,6 +49,17 @@ public class ParcelOutService {
 		close(con);
 		
 		return poa;
+	}
+
+	public ArrayList<ParcelOutQuestion> parceloutquestion(int pcoAppNo) {
+
+		Connection con = getConnection();
+		
+		ArrayList<ParcelOutQuestion> poq = new ParcelOutDao().parceloutquestion(con,pcoAppNo);
+		
+		close(con);
+		
+		return poq;
 	}
 
 }

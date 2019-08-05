@@ -78,8 +78,6 @@ int endPage = pi.getEndPage();
    #td1:hover{
    	font-weight:bold;
    }
-
-
 </style>
 </head>
 <body>

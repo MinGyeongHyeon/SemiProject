@@ -87,10 +87,8 @@
 				success:function(data){
 					console.log(data);
 					$("#remember").val(data);
-
 				},
 				error:function(){
-
 				}
 			});
 		});
