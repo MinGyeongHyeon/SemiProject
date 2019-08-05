@@ -86,7 +86,8 @@
 
 
 		<div style="padding: 30px" align="center">
-			<img src="/sixDestiny/parcelout_uploadFiles/<%= Img1.getChangeNm()%>" alt="Nature">
+			<img src="/sixDestiny/parcelout_uploadFiles/<%= Img1.getChangeNm()%>" alt="Nature" >
+			<input type="hidden" value="/sixDestiny/parcelout_uploadFiles/<%= Img1.getChangeNm()%>" id="modifiedImg">
 			<p style="width: 1000px; padding: 80px;">
 				<%= ub.getbCon() %>
 			</p>
@@ -306,7 +307,10 @@
 
 	$('#modified').click(function(){
 
-		 location.href="<%= request.getContextPath() %>/ParceloutConUpdate.po?num=<%= ub.getbNo() %>" ;
+		var imgname = $('#modifiedImg').val();
+
+
+		 location.href="<%= request.getContextPath() %>/ParceloutConUpdate.po?num=<%= ub.getbNo() %>&imgname=" + imgname ;
 	})
 
 	$('#deleteBoard').click(function(){

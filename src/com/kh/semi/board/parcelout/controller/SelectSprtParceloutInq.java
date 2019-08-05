@@ -23,9 +23,6 @@ public class SelectSprtParceloutInq extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String data = request.getParameter("data");
 
-		System.out.println("에이작스 실행시 값 : " + data);
-
-
 
 		int currentPage;
 		int limit;

@@ -22,15 +22,15 @@ public class ParceloutConUpdate extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		int num = Integer.parseInt(request.getParameter("num"));
+		String imgname = request.getParameter("imgname");
 
-		System.out.println("수정 할라고한 num 의 값 : " + num);
 
 		UserBoard ub = new UserBoardService().selectmodified(num);
 
 
 		String page = "";
 		if(ub != null) {
-			page = "views/member/3_parcelout/2_reviewParcelout/4_modified.jsp";
+			page = "views/member/3_parcelout/2_reviewParcelout/4_modified.jsp?imgname=" + imgname;
 			request.setAttribute("ub", ub);
 		}
 		request.getRequestDispatcher(page).forward(request, response);
