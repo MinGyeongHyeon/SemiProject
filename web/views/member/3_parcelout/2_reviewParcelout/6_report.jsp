@@ -73,7 +73,6 @@ function check(){
 }
 
 $(function(){
-	console.log("바로 실행안돰?>")
 	var msg = <%= "'" + msg + "'" %>
 
 	console.log(msg);

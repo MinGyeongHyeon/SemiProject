@@ -60,7 +60,6 @@ int endPage = pi.getEndPage();
 	margin: 10 20;
 	padding-left: 200px;
 	width:50%;
-	border:1px solid;
 
 }
 
