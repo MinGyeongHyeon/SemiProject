@@ -131,10 +131,18 @@
                   ['T', 'H'],
                   ['말티즈',   <%=list2.get(0).get("dog_kind1")%> ],
                   ['코카스파니엘',  <%=list2.get(0).get("dog_kind2")%> ],
-                  ['비글',  <%=list2.get(0).get("dog_kind3")%> ],
-                  ['믹스견',  <%=list2.get(0).get("dog_kind4")%> ],
-                  ['푸들',  <%=list2.get(0).get("dog_kind5")%> ]
-
+                  ['믹스',  <%=list2.get(0).get("dog_kind3")%> ],
+                  ['푸들',  <%=list2.get(0).get("dog_kind4")%> ],
+                  ['요크셔테리어',  <%=list2.get(0).get("dog_kind5")%> ],
+                  ['웰시코기',  <%=list2.get(0).get("dog_kind6")%> ],
+                  ['포메라니안',  <%=list2.get(0).get("dog_kind7")%> ],
+                  ['스피치',  <%=list2.get(0).get("dog_kind8")%> ],
+                  ['닥스훈트',  <%=list2.get(0).get("dog_kind9")%> ],
+                  ['사모예드',  <%=list2.get(0).get("dog_kind10")%> ],
+                  ['골든리트리버',  <%=list2.get(0).get("dog_kind11")%> ],
+                  ['허스키',  <%=list2.get(0).get("dog_kind12")%> ],
+                  ['쉐퍼드',  <%=list2.get(0).get("dog_kind13")%> ]
+ 
 
                 ]);
 

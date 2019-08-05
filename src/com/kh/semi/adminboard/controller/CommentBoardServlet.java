@@ -51,7 +51,7 @@ public class CommentBoardServlet extends HttpServlet {
 		limit = 10;
 
 		//전체 목록 갯수를 리턴받음
-		int listCount = new AdminBoardService().getListCounted();
+		int listCount = new AdminBoardService().getListCountedd();
 
 		System.out.println("listCount 댓글수: " + listCount);
 
