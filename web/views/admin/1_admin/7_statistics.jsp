@@ -10,6 +10,12 @@
   (ArrayList<HashMap<String, Object>>) request.getAttribute("static3");
   ArrayList<HashMap<String, Object>> list4 =
   (ArrayList<HashMap<String, Object>>) request.getAttribute("static4");
+  ArrayList<HashMap<String,Object>> list5 =
+  (ArrayList<HashMap<String,Object>>) request.getAttribute("static5");
+  ArrayList<HashMap<String,Object>> list6 =
+  (ArrayList<HashMap<String,Object>>) request.getAttribute("static6");
+  ArrayList<HashMap<String,Object>> list7 =
+  (ArrayList<HashMap<String,Object>>) request.getAttribute("static7");
 
   %>
 <!DOCTYPE html>
@@ -23,12 +29,12 @@
       google.charts.load('current', {'packages':['corechart']});
       google.charts.setOnLoadCallback(drawChart);
 
-      
-      
+
+
       <%System.out.print( list.get(0).get("reason1"));%>
-      
-      
-      
+
+
+
       function drawChart() {
 ////////////////////////후원끊는이유///////////////////////////////////////////
         var data = google.visualization.arrayToDataTable([
@@ -49,51 +55,51 @@
         chart.draw(data, options);
 
 
-     ////////////////////////////월별가입한 회원수//////////////////////////////
-          var data = google.visualization.arrayToDataTable([
+        ////////////////////////////월별가입한 회원수//////////////////////////////
+        var data = google.visualization.arrayToDataTable([
 
-            ['월', '회원수'],
-            ['1월',  30],
-            ['2월',  76],
-            ['3월',  35],
-            ['4월',  30],
-            ['5월',  80],
-            ['6월',  15],
-            ['7월',  5],
-            ['8월',  50],
-            ['9월',  40],
-            ['10월',  80],
-            ['11월',  20],
-            ['12월',  60]
+          ['월', '회원수'],
+          ['1월',  <%=list5.get(0).get("enroll1") %>],
+          ['2월',  <%=list5.get(0).get("enroll2") %>],
+          ['3월',  <%=list5.get(0).get("enroll3") %>],
+          ['4월',  <%=list5.get(0).get("enroll4") %>],
+          ['5월',  <%=list5.get(0).get("enroll5") %>],
+          ['6월',  <%=list5.get(0).get("enroll6") %>],
+          ['7월',  <%=list5.get(0).get("enroll7") %>],
+          ['8월',  <%=list5.get(0).get("enroll8") %>],
+          ['9월',  <%=list5.get(0).get("enroll9") %>],
+          ['10월', <%=list5.get(0).get("enroll10") %>],
+          ['11월',  <%=list5.get(0).get("enroll11") %>],
+          ['12월',  <%=list5.get(0).get("enroll12") %>]
 
-          ]);
+        ]);
 
-          var options = {
-            title: '월별 가입한 회원 수',
-            curveType: 'function',
-            legend: { position: 'bottom' }
-          };
+        var options = {
+          title: '월별 가입한 회원 수',
+          curveType: 'function',
+          legend: { position: 'bottom' }
+        };
 
-          var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+        var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
 
-          chart.draw(data, options);
+        chart.draw(data, options);
 
 
           //////////////////////기부금액///////////////////////
           var data = google.visualization.arrayToDataTable([
               ['월별', '기부금',],
-              ['1월', 8175000],
-              ['2월', 3792000],
-              ['3월', 2695000],
-              ['4월', 2099000],
-              ['5월', 8175000],
-              ['6월', 3792000],
-              ['7월', 2695000],
-              ['8월', 2099000],
-              ['9월', 3792000],
-              ['10월', 2695000],
-              ['11월', 2099000],
-              ['12월', 1526000]
+              ['1월', <%= list7.get(0).get("sup1")%>],
+              ['2월', <%= list7.get(0).get("sup2")%>],
+              ['3월', <%= list7.get(0).get("sup3")%>],
+              ['4월', <%= list7.get(0).get("sup4")%>],
+              ['5월', <%= list7.get(0).get("sup5")%>],
+              ['6월', <%= list7.get(0).get("sup6")%>],
+              ['7월', <%= list7.get(0).get("sup7")%>],
+              ['8월', <%= list7.get(0).get("sup8")%>],
+              ['9월', <%= list7.get(0).get("sup9")%>],
+              ['10월', <%= list7.get(0).get("sup10")%>],
+              ['11월', <%= list7.get(0).get("sup11")%>],
+              ['12월', <%= list7.get(0).get("sup12")%>]
             ]);
 
             var options = {
@@ -151,22 +157,12 @@
                 /////////////////////////////분양강아지나이/////////////////////////
                 var data = google.visualization.arrayToDataTable([
 
-                    ['나이', '나이'],
-                    ['1살',  30],
-                    ['2살',  76],
-                    ['3살',  35],
-                    ['4살',  30],
-                    ['5살',  80],
-                    ['6살',  15],
-                    ['7살',  5],
-                    ['8살',  50],
-                    ['9살',  40],
-                    ['10살',  80],
-                    ['11살',  20],
-                    ['12살',  60],
-                    ['13살',  60],
-                    ['14살',  60],
-                    ['15살',  60]
+                    ['마리', '마리'],
+                    ['0개월~6개월',  <%= list6.get(0).get("dogAge1")%> ],
+                    ['6개월~1년',   <%= list6.get(0).get("dogAge2")%>],
+                    ['1년~5년',  <%= list6.get(0).get("dogAge3")%>],
+                    ['5년~10년',  <%= list6.get(0).get("dogAge4")%>],
+                    ['10년이상',  <%= list6.get(0).get("dogAge5")%>],
 
                   ]);
 
