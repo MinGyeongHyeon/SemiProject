@@ -162,18 +162,19 @@ public class AdminBoard {
 		this.recCount = recCount;
 	}
 
-
-
-
-
-
-
 	@Override
 	public String toString() {
 		return "AdminBoard [adBoardNo=" + adBoardNo + ", title=" + title + ", adBoardCon=" + adBoardCon + ", writeDt="
 				+ writeDt + ", boardDiv=" + boardDiv + ", supKind=" + supKind + ", adNo=" + adNo + ", status=" + status
-				+ "]";
+				+ ", nickNm=" + nickNm + ", recCount=" + recCount + ", viewCount=" + viewCount + ", sup_Mon=" + sup_Mon
+				+ ", userNick=" + userNick + "]";
 	}
+
+
+
+
+
+
 
 
 

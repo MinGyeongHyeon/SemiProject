@@ -1,8 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" import="com.kh.semi.adminboard.model.vo.* "%>
+	pageEncoding="UTF-8" import="com.kh.semi.adminboard.model.vo.*, java.util.* "%>
 <%@ include file="../../../common/top_Include.jsp"%>
 <%
 	AdminBoard ab = (AdminBoard) request.getAttribute("ab");
+	String num = (String) request.getParameter("num");
+	ArrayList<NoticeAttachment> fileList = (ArrayList<NoticeAttachment>) request.getAttribute("fileList");
+	NoticeAttachment titleImg = fileList.get(0);
 %>
 <!DOCTYPE html>
 <html>
@@ -61,15 +64,15 @@
 					<% } %>
 					</td>
 						<th style="font-size:1.2em; font-weight:bold; font-family: 'Sunflower', sans-serif;">제목 : <%= ab.getTitle() %></th>
-						<th style="font-size:1.2em; font-weight:bold; font-family: 'Sunflower', sans-serif;">작성자 : <%= ab.getNickNm() %></th>
+						<th style="font-size:1.2em; font-weight:bold; font-family: 'Sunflower', sans-serif;">작성자 : 관리자</th>
 						<th style="font-size:1.2em; font-weight:bold; font-family: 'Sunflower', sans-serif;">작성일 : <%= ab.getWriteDt() %></th>
-						<th id="thtest" style="font-size:1.2em; font-weight:bold; font-family: 'Sunflower', sans-serif;">조회수 : <%= ab.getRecCount() %></th>
+						<th id="thtest" style="font-size:1.2em; font-weight:bold; font-family: 'Sunflower', sans-serif;">조회수 : <%= ab.getViewCount() %></th>
 					</tr>
 				</thead>
 			</table>
 			<hr>
 			<div>
-				<img src="/sixDestiny/inputGroupFile/<%%>">			
+				<img style="width:300px; height:auto;" onerror="this.style.display='none'" id="titleImg" src="<%=request.getContextPath()%>/thumbnail_uploadFiles/<%=titleImg.getChangeNm()%>">
 			</div>
 			<div>
 				<p id="content"><%=ab.getAdBoardCon()%><br/></p>
@@ -88,7 +91,7 @@
 	 <div align="center">
 	<% if(loginUser != null) { %>
 		<% if(loginUser.getUserId().equals("admin")){ %>
-			<button class="btn btn-default" style="font-family: 'Sunflower', sans-serif;" onclick="location.href='<%=request.getContextPath()%>/update.no'">수정하기</button>
+			<button class="btn btn-default" style="font-family: 'Sunflower', sans-serif;" onclick="location.href='<%=request.getContextPath()%>/selectNotice.no?num=<%=num %>'">수정하기</button>
 		<% } %>
 	<% } %>
 		<button class="btn btn-default" style="font-family: 'Sunflower', sans-serif;" onclick="location.href='<%=request.getContextPath()%>/select.no'">메뉴로 돌아가기</button>

@@ -1,4 +1,4 @@
-/*package com.kh.semi.adminboard.controller;
+package com.kh.semi.adminboard.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -12,30 +12,31 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
+import com.kh.semi.adminboard.model.service.AdminBoardService;
 import com.kh.semi.adminboard.model.vo.AdminBoard;
 import com.kh.semi.adminboard.model.vo.NoticeAttachment;
 import com.kh.semi.common.MyFileRenamePolicy;
 import com.kh.semi.user.model.vo.User;
 import com.oreilly.servlet.MultipartRequest;
 
-*//**
+/**
  * Servlet implementation class InsertThumbnailServlet
- *//*
+ */
 @WebServlet("/insert.bo")
 public class InsertThumbnailServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    *//**
+    /**
      * @see HttpServlet#HttpServlet()
-     *//*
+     */
     public InsertThumbnailServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
 
-	*//**
+	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 *//*
+	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if(ServletFileUpload.isMultipartContent(request)) {
 			int maxSize = 1024 * 1024 * 10;
@@ -44,7 +45,7 @@ public class InsertThumbnailServlet extends HttpServlet {
 			
 			System.out.println(root);
 			
-			String savePath = root + "thumbnail_uploadFiles/";
+			String savePath = root + "Notice_uploadFiles/";
 			
 			MultipartRequest multiRequest = 
 					new MultipartRequest(request, savePath, maxSize,
@@ -69,6 +70,10 @@ public class InsertThumbnailServlet extends HttpServlet {
 			String multiContent = multiRequest.getParameter("content");
 			int userNo = ((User)(request.getSession().getAttribute(""))).getUserNo();
 			
+			AdminBoard ab = new AdminBoard();
+			ab.setTitle(multiTitle);
+			ab.setAdBoardCon(multiContent);
+			ab.setNickNm(String.valueOf(userNo));
 			
 			ArrayList<NoticeAttachment> fileList = new ArrayList<NoticeAttachment>();
 			
@@ -78,17 +83,24 @@ public class InsertThumbnailServlet extends HttpServlet {
 				nat.setOriginNm(originFiles.get(i));
 				nat.setChangeNm(saveFiles.get(i));
 				
+
 				fileList.add(nat);
 			}
-	
-			System.out.println("controller board : " );
 			
+			System.out.println("controller board : " + ab);
+			System.out.println("controller attachment list : " + fileList);
+			
+			int result = new AdminBoardService().insertThumnail(ab, fileList);
+			
+			if(result > 0) {
+				response.sendRedirect(request.getContextPath() + "/selectList.tn");
+			}
 		}
 	}
 
-	*//**
+	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 *//*
+	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
@@ -106,4 +118,3 @@ public class InsertThumbnailServlet extends HttpServlet {
 
 
 
-*/

@@ -14,6 +14,9 @@ import com.kh.semi.adminboard.model.vo.AdminBoard;
 import com.kh.semi.adminboard.model.vo.AdminComment;
 import com.kh.semi.adminboard.model.vo.AdminStatic;
 import com.kh.semi.adminboard.model.vo.AdminUserBoard;
+import com.kh.semi.adminboard.model.vo.NoticeAttachment;
+import com.kh.semi.board.free.model.dao.UserBoardDao;
+import com.kh.semi.board.free.model.vo.UserBoardAttachment;
 import com.kh.semi.board.missing.model.dao.MissingDao;
 import com.kh.semi.board.parcelout.model.vo.Attachment;
 
@@ -61,14 +64,25 @@ public class AdminBoardService {
 		return result;
 	}
 
-	public AdminBoard selectOne(int num) {
+	public HashMap<String, Object> selectOne(int num) {
 		Connection con = getConnection();
 
-		AdminBoard n = new AdminBoardDao().selectOne(con, num);
+		HashMap<String, Object> hmap = null;
+
+		int result = new AdminBoardDao().updateCount(con, num);
+
+		if(result > 0) {
+			commit(con);
+
+			hmap = new AdminBoardDao().selectOne(con, num);
+		}else {
+			rollback(con);
+		}
 
 		close(con);
 
-		return n;
+
+		return hmap;
 	}
 
 	public int insertSupportMoneyBoard(AdminBoard ab, ArrayList<Attachment> fileList) {
@@ -502,5 +516,82 @@ public class AdminBoardService {
 
 	}
 
+	public int insertThumnail(AdminBoard ab, ArrayList<NoticeAttachment> fileList) {
+		Connection con = getConnection();
+		
+		int result = 0;
+		
+		int result1 = new AdminBoardDao().insertThumbnailContent(con,ab);
+		
+		if(result > 0) {
+			int adBoardNo = new AdminBoardDao().selectCurrval(con);
+			
+			for(int i=0; i<fileList.size();i++) {
+				fileList.get(i).setAdBoardNo(adBoardNo);
+			}
+		}
+		int result2 = new AdminBoardDao().insertAttachment(con, fileList);
+		if(result1 > 0 && result2 > 0) {
+			commit(con);
+			result =1;
+		}else {
+			rollback(con);
+		}
+		close(con);
+		return result;
+	}
+
+	public ArrayList<HashMap<String, Object>> selectThumbnailList() {
+		Connection con = getConnection();
+		
+		ArrayList<HashMap<String, Object>> list = 
+				new AdminBoardDao().selectThumbnailList(con);
+		
+		close(con);
+		
+		return list;
+	}
+
+	public int insertBoard(AdminBoard ab, ArrayList<NoticeAttachment> fileList) {
+		Connection con = getConnection();
+
+		int result = 0;
+
+		int result1 = new AdminBoardDao().insertBoard(con, ab);
+
+		if(result1 > 0) {
+			int bid = new AdminBoardDao().selectCurrval(con);
+
+			for(int i = 0; i < fileList.size(); i++) {
+				fileList.get(i).setBoardNo(bid);
+			}
+		}
+
+		int result2 = new AdminBoardDao().insertAttachment(con, fileList);
+
+		if(result1 > 0 && result2 > 0) {
+			commit(con);
+			result = 1;
+		}else {
+			rollback(con);
+		}
+
+		return result;
+	}
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
