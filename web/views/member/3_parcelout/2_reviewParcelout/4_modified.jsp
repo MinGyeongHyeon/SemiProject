@@ -5,6 +5,8 @@
 
     UserBoard ub = (UserBoard) request.getAttribute("ub");
 
+    String imgname = (String) request.getParameter("imgname");
+
     %>
 <%@ include file="../../../common/top_Include.jsp"%>
 <html>
@@ -68,6 +70,7 @@
 					<td><input type="hidden" name="starRev" id="starRev"></td>
 					<td><input type="text" value="<%= loginUser.getUserNo() %>" style="display:none" name="uNo"></td>
 					<td><input type="text" value="<%= ub.getbNo() %>" style="display:none" name="boardNo"></td>
+					<td><input type="hidden" name="imgname" value="<%= imgname %>"></td>
 				</tr>
 				<tr>
 
@@ -88,8 +91,20 @@
 				<tr>
 
 				</tr>
-				<tr>
-
+						<tr>
+					<td align="center">
+						<div class="input-group">
+							<div class="input-group-prepend">
+								<span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
+							</div>
+							<div class="custom-file">
+								<input type="file" class="custom-file-input"
+									id="parcelout_uploadFiles1" aria-describedby="inputGroupFileAddon01" name="parcelout_uploadFiles1">
+								<label class="custom-file-label" for="inputGroupFile01">Choose
+									file</label>
+							</div>
+						</div>
+					</td>
 				</tr>
 			</table>
 		</div>
