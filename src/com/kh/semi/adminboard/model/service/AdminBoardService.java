@@ -501,6 +501,34 @@ public class AdminBoardService {
 		return list2;
 
 	}
+	public ArrayList<HashMap<String, Object>> statics5() {
+		Connection con = getConnection();
+		ArrayList<HashMap<String,Object>> list = new AdminBoardDao().statics5(con);
+
+		close(con);
+
+
+		return list;
+	}
+
+	public ArrayList<HashMap<String, Object>> statics6() {
+		Connection con = getConnection();
+		ArrayList<HashMap<String,Object>> list = new AdminBoardDao().statics6(con);
+
+		close(con);
+
+
+		return list;
+	}
+
+	public ArrayList<HashMap<String, Object>> statics7() {
+		Connection con = getConnection();
+		ArrayList<HashMap<String,Object>> list = new AdminBoardDao().statics7(con);
+
+		close(con);
+
+		return list;
+	}
 
 }
 
