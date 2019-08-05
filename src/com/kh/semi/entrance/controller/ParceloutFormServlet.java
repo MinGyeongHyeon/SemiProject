@@ -42,10 +42,11 @@ public class ParceloutFormServlet extends HttpServlet {
 		//PCO_QU_ANS
 		ArrayList<parceOutAnswer> poa = new ParcelOutService().parceloutqanda(pcoAppNo);
 		//PCO_QU
-		//ParcelOutQuestion poq = new ParcelOutService().parceloutquestion();
+		ArrayList<ParcelOutQuestion> poq = new ParcelOutService().parceloutquestion(pcoAppNo);
 		
 		request.setAttribute("pco",pco);
 		request.setAttribute("poa", poa);
+		request.setAttribute("poq", poq);
 				
 		request.getRequestDispatcher("views/member/3_parcelout/1_applyParcelout/3_parceloutInformation.jsp").forward(request, response);
 	}
