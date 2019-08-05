@@ -42,12 +42,17 @@ button.main:hover{
 	text-overflow: ellipsis;
 }
 .thumbnail:hover{
-	background:rgb(230,230,230);
-	-webkit-transition: background 0.2s
+	background:rgb(240,240,240);
+	-webkit-transform:scale(1.1);
+	border-radius:15px;
+	font-weight:bold;
+	-webkit-transition:0.2s;
+	
 }
 
 .thumbnail{
-	-webkit-transition: background 0.2s
+
+	-webkit-transition:0.2s;
 }
 
 p {
@@ -118,7 +123,7 @@ th {
 
 
 						<div class="caption" style="padding:18px;">
-							<a
+							<a style="text-decoration:none;"
 								href="<%=request.getContextPath()%>/selectOne.bo?num=<%=ubbest.getbNo()%>">
 								<p>
 									제목:
@@ -344,10 +349,10 @@ th {
 		function initListTd() {
 			$("#listArea td")
 			.mouseenter(function(){
-				$(this).parent().css({"background":"rgb(240,240,240)", "cursor":"pointer", "-webkit-transition":"background 0.1s"});
+				$(this).parent().css({"background":"rgb(240,240,240)", "cursor":"pointer","font-weight":"bold" , "-webkit-transition":"background 0.2s"});
 			})
 			.mouseout(function(){
-				$(this).parent().css({"background":"#FFF", "-webkit-transition":"background 0.1s"});
+				$(this).parent().css({"background":"#FFF","font-weight":"normal" , "-webkit-transition":"background 0.2s"});
 			})
 			.click(function(){
 				var num = $(this).parent().children().eq(0).text();
