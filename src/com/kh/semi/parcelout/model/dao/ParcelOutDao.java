@@ -10,8 +10,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import com.kh.semi.entrance.model.vo.EntranceDogInfo;
 import com.kh.semi.parcelout.model.vo.Application;
 import com.kh.semi.parcelout.model.vo.ParcelOut;
+import com.kh.semi.parcelout.model.vo.parceOutAnswer;
 import com.kh.semi.user.model.vo.User;
 
 import static com.kh.semi.common.JDBCTemplate.*;
@@ -151,6 +153,53 @@ public class ParcelOutDao {
 		}
 		
 		return pco;
+	}
+
+
+	public ArrayList<parceOutAnswer> parceloutqanda(Connection con, int pcoAppNo) {
+		
+		ArrayList<parceOutAnswer> list = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		parceOutAnswer poa = null;
+		
+		String query = prop.getProperty("qandaInfo");
+		
+		try {
+			
+			pstmt=con.prepareStatement(query);
+			pstmt.setInt(1, pcoAppNo);
+			
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<>();
+			
+			while(rset.next()) {
+				
+				poa = new parceOutAnswer();
+				poa.setPcoAppNo(rset.getInt("PCO_APP_NO"));
+				poa.setPcoQuNo(rset.getInt("PCO_QU_NO"));
+				poa.setAnsDt(rset.getDate("ANS_DT"));
+				poa.setAnsKind(rset.getString("ANS_KIND"));
+				poa.setAnsCon(rset.getString("ANS_CON"));
+				poa.setAnsRs(rset.getString("ANS_RS"));
+				poa.setQuCd(rset.getString("QU_CD"));
+				poa.setOpNo(rset.getInt("OP_NO"));
+				
+				list.add(poa);
+				
+			}
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
 	}
 
 }

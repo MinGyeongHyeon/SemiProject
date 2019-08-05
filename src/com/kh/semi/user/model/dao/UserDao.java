@@ -827,4 +827,40 @@ public class UserDao {
 		return user;
 	}
 
+	public int pwCheck(Connection con, String password, String userId) {
+		
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int result = 0;
+
+		System.out.println("회원탈퇴시 비밀번호 입력값 dao까지? : "+password);
+		System.out.println("회원탈퇴시 userId 입력값 dao까지? : "+userId);
+		
+		String query = prop.getProperty("pwCheck");
+
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, userId);
+			pstmt.setString(2, password);
+
+			rset = pstmt.executeQuery();
+
+			if (rset.next()) {
+				result = rset.getInt("COUNT(*)");
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+
+		return result;
+		
+		
+	}
+
 }

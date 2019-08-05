@@ -20,7 +20,7 @@
 		height:auto; 
 		margin:0 auto;
 		padding-left:30px;
-font-family: 'Nanum Gothic', sans-serif;
+		font-family: 'Nanum Gothic', sans-serif;
 
 	}	
 	
@@ -29,6 +29,7 @@ font-family: 'Nanum Gothic', sans-serif;
 		text-align:center;
 		border-radius:0.5em;
 		margin:0 auto;
+		
 	
 	}
 	
@@ -37,6 +38,7 @@ font-family: 'Nanum Gothic', sans-serif;
 		width: 95px;
 		height: 45px;
 		font-weight: bold;	
+		border-radius: 10px;
 	
 	}
 
@@ -72,7 +74,7 @@ font-family: 'Nanum Gothic', sans-serif;
 
 	<tr>
 		<td class="td1">닉네임</td>
-		<td class="td2"><input type="text" style="margin-left:30px" name="nickNm" value="<%= loginUser.getNickNm()%>" id="nickNm"></td>
+		<td class="td2"><input type="text" style="margin-left:30px; width:400px;" name="nickNm" value="<%= loginUser.getNickNm()%>" id="nickNm"></td>
 	    <td>&emsp;</td>
 	    <td class="td2">
 	    	<input type="button" id="btn1" class="btn btn-default" value="중복" onclick="checkNickNm();"> 
@@ -86,7 +88,7 @@ font-family: 'Nanum Gothic', sans-serif;
 
 	<tr>
 		<td class="td1">이메일</td>
-		<td class="td2"><input type="text" name="email" style="margin-left:30px" value="<%= loginUser.getEmail()%>"></td>
+		<td class="td2"><input type="text" name="email" style="margin-left:30px; width:400px;" value="<%= loginUser.getEmail()%>"></td>
 	</tr>
 	
 	<tr>
@@ -106,7 +108,8 @@ font-family: 'Nanum Gothic', sans-serif;
 	<%}%>
 <%} %>
 		</select>
-
+		&nbsp;&nbsp;&nbsp;
+		
 		<select name="month">
 		<%for(int month=1; month<=12; month++) {%>
 	<%if(loginUser.getUserHb() != null && month == Integer.parseInt(loginUser.getUserHb().toString().substring(5, 7))) { %>
@@ -116,6 +119,8 @@ font-family: 'Nanum Gothic', sans-serif;
 	<%}%>
 <%} %>
 		</select>
+		
+		&nbsp;&nbsp;&nbsp;
 		
 		<select name="day">
 			<%for(int day=1; day<=31; day++) {%>    
@@ -156,11 +161,11 @@ font-family: 'Nanum Gothic', sans-serif;
 		<td>
 	<% if(loginUser.getDogYn().equals("Y")) {%>
 		<input type="radio" value="Y" name="dogYn" id="radio" checked>키워요
-		&nbsp;
+		&nbsp;&nbsp;&nbsp;&nbsp;
 		<input type="radio" value="N" name="dogYn">안키워요
 	<% } else{ %>
 		<input type="radio" value="Y" name="dogYn" >키워요
-		&nbsp;
+		&nbsp;&nbsp;&nbsp;&nbsp;
 		<input type="radio" value="N" name="dogYn" checked>안키워요
 	<%} %>
 		</td>

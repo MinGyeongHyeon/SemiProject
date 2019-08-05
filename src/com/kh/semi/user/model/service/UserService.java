@@ -314,4 +314,15 @@ public class UserService {
 		return us;
 	}
 
+	public int pwCheck(String password, String userId) {
+		
+		Connection con = getConnection();
+
+		int result = new UserDao().pwCheck(con,password ,userId);
+
+		close(con);
+
+		return result;
+	}
+
 }

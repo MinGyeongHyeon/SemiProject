@@ -21,20 +21,16 @@
 	background: dimgray;
 	Color: white;
 }
-
 </style>
 <body>
-	<div>
-		<div>
-			<img src="/sixDestiny/views/images/rogin.PNG" style="width: 170px;">
-		</div>
-		<br> <br> <br>
+	<div id="div1">
+		
 		<div>
 			<button type="button" class="btn btn-info"
 				onclick="location.href='2_login.jsp'"
 				style="width: 222px; height: 50px; font-family: 'Sunflower', sans-serif;">ID/PW로 로그인</button>
 		</div>
-		<br>
+		<br><br>
 		<div>
 			<%-- 카카오톡 로그인 --%>
 

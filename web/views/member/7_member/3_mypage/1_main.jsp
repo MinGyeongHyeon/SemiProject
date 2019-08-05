@@ -4,14 +4,14 @@
 <!DOCTYPE html >
 <html>
 <head>
-<link href="https://fonts.googleapis.com/css?family=Nanum+Gothic&display=swap" rel="stylesheet">
+ <link href="https://fonts.googleapis.com/css?family=Gaegu|Sunflower:300&display=swap" rel="stylesheet">
 
 <style>
 #mypage {
 	margin-left:auto; 
 	margin-right:auto;
-	width:500px;
-	font-family: 'Nanum Gothic', sans-serif;
+	width:1000px;
+	font-family: 'Sunflower', sans-serif;
 }
 
 table tr td.category {
@@ -162,8 +162,16 @@ margin-right:auto;
 					<tr>
 						<td><input type="button" value="회원정보 수정"  class="btn btn-default" onclick="location.href='/sixDestiny/views/member/7_member/3_mypage/3_modify.jsp'"></td>
 						<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-						<td ><input type="button" value="회원 탈퇴" class="btn btn-default" onclick="location.href='/sixDestiny/views/member/7_member/3_mypage/2_secession.jsp'">
+						
+						<%if(loginUser.getUserKind().equals("자체")) {%>
+						<td>
+						<input type="button" value="회원 탈퇴" class="btn btn-default" onclick="location.href='/sixDestiny/views/member/7_member/3_mypage/10_secessionPwd.jsp'">
 						</td>
+						<%}else{ %>
+						<td>
+						<button type="button" class="btn btn-default disabled" title="카카오 회원의 탈퇴는 Q&A에 문의해주세요">회원탈퇴</button>
+						</td>
+						<%} %>
 					</tr>
 				</table>
 			</div>
