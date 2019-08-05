@@ -64,13 +64,13 @@
 <body>
 
 <div  id="checkcheck">
-<input value="1" id="check1">
+<input type="hidden" value="1" id="check1">
 </div>
 <div  id="checkcheck2">
-<input value="1" id="check2">
+<input type="hidden"  value="1" id="check2">
 </div>
 <div  id="checkcheck3">
-<input value="1" id="check3">
+<input type="hidden" value="1" id="check3">
 </div>
 
 	<div>
@@ -318,7 +318,7 @@
 							console.log("인증번호 일치");
 							$("#randomNum").attr("disabled", "true");
 							$divcheck.html("");
-							 var $input=$("<input id='check1' >");
+							 var $input=$("<input   type='hidden' id='check1' >");
 							console.log("벨류값 : " + $input.val());
 							 $input.val("0");
 							 console.log("바뀐값 : " + $input.val());
@@ -327,7 +327,7 @@
 						}else{
 							alert("인증번호를 잘못 입력 하셨습니다.");
 							$divcheck.html("");
-							 var $input=$("<input id='check1' >");
+							 var $input=$("<input  type='hidden' id='check1' >");
 							 $input.val("1");
 							$divcheck.append($input);
 						
@@ -459,11 +459,11 @@ $(function () {
 				alert(data);
 				if(data=="해당 아이디가 존재합니다!"){
 				$divcheck.html("");
-				 var $input=$("<input id='check2' >");
+				 var $input=$("<input type='hidden'  id='check2' >");
 				 $input.val("1");
 				$divcheck.append($input);}else{
 					$divcheck.html("");
-					 var $input=$("<input id='check2' >");
+					 var $input=$("<input   type='hidden' id='check2' >");
 					 $input.val("0");
 					$divcheck.append($input);
 					
@@ -487,11 +487,11 @@ $(function () {
 				alert(data);
 				if(data=="해당 닉네임이 존재합니다!"){
 					$divcheck.html("");
-					 var $input=$("<input id='check3' >");
+					 var $input=$("<input  type='hidden' id='check3' >");
 					 $input.val("1");
 					$divcheck.append($input);}else{
 						$divcheck.html("");
-						 var $input=$("<input id='check3' >");
+						 var $input=$("<input  type='hidden' id='check3' >");
 						 $input.val("0");
 						$divcheck.append($input);
 						

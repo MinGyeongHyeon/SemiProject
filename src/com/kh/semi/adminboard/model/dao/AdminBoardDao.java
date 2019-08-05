@@ -1296,9 +1296,18 @@ public class AdminBoardDao {
 
 			pstmt.setString(1, "말티즈");
 			pstmt.setString(2, "코카스파니엘");
-			pstmt.setString(3, "비글");
-			pstmt.setString(4, "믹스견");
-			pstmt.setString(5, "푸들");
+			pstmt.setString(3, "믹스");
+			pstmt.setString(4, "푸들");
+			pstmt.setString(5, "요크셔테리어");
+			pstmt.setString(6, "웰시코기");
+			pstmt.setString(7, "포메라니안");
+			pstmt.setString(8, "스피치");
+			pstmt.setString(9, "닥스훈트");
+			pstmt.setString(10, "사모예드");
+			pstmt.setString(11, "골든리트리버");
+			pstmt.setString(12, "허스키");
+			pstmt.setString(13, "쉐퍼드");
+			
 
 			rset = pstmt.executeQuery();
 
@@ -1312,6 +1321,16 @@ public class AdminBoardDao {
 				hmap.put("dog_kind3", rset.getString("D3"));
 				hmap.put("dog_kind4", rset.getString("D4"));
 				hmap.put("dog_kind5", rset.getString("D5"));
+				hmap.put("dog_kind6", rset.getString("D6"));
+				hmap.put("dog_kind7", rset.getString("D7"));
+				hmap.put("dog_kind8", rset.getString("D8"));
+				hmap.put("dog_kind9", rset.getString("D9"));
+				hmap.put("dog_kind10", rset.getString("D10"));
+				hmap.put("dog_kind11", rset.getString("D11"));
+				hmap.put("dog_kind12", rset.getString("D12"));
+				hmap.put("dog_kind13", rset.getString("D13"));
+		
+				
 
 				list.add(hmap);
 			}
@@ -1551,6 +1570,7 @@ public class AdminBoardDao {
 		return list2;
 	}
 
+
 	public ArrayList<HashMap<String, Object>> statics5(Connection con) {
 		Statement stmt = null;
 		ArrayList<HashMap<String, Object>> list = null;
@@ -1584,6 +1604,7 @@ public class AdminBoardDao {
 				hmap.put("enroll12", rset.getString("12M"));
 
 				list.add(hmap);
+
 			}
 
 
@@ -1697,7 +1718,6 @@ public class AdminBoardDao {
 
 		return list;
 	}
-
 
 
 }

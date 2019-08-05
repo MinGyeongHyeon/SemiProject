@@ -54,7 +54,10 @@ if(request.getParameter("uu")!="") {
 		int re =  new MissingService().re(num, uu);
 
 		Missing b = (Missing) hmap.get("board");
+		
+
 		b.setUu(re);
+
 
 		System.out.println("보드?????????/"+b);
 		ArrayList<MissingAttachment> fileList =
