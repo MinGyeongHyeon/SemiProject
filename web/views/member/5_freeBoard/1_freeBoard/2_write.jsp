@@ -98,7 +98,7 @@ table tr td.title {
 		<br> <br> <input type="submit" class="btn btn-default" value="등록하기" id="btn">
 		<!-- onclick="location.href='/sixDestiny/views/member/5_freeBoard/1_freeBoard/1_main.jsp'" -->
 
-		<button type="reset" class="btn btn-default">취소하기</button>
+		<button type="reset" class="btn btn-default" onclick="history.back(-1);">취소하기</button>
 	</form>
 
 

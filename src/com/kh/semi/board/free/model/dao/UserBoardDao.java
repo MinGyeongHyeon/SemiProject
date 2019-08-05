@@ -1869,6 +1869,7 @@ public int uprecommendUserBoard(Connection con, int thisBoardNo, int nowLoginUse
 				com.setBoardNm(rset.getString("BOARD_NM"));
 				com.setBoardKind(rset.getString("BOARD_KIND"));
 				com.setCommentCon(rset.getString("COM_CON"));
+				com.setWriteDay(rset.getDate("WRITE_DT"));
 			
 
 

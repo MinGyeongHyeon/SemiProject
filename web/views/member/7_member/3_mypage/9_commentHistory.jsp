@@ -59,6 +59,7 @@
 			<th style="text-align:center; width:100px;">게시판 종류</th>
 			<th style="text-align:center; width:100px;">게시판 제목</th>
 			<th style="text-align:center; width:300px;">댓글 내용</th>
+			<th style="text-align:center; width:100px;">작성 날짜</th>
 		</tr>
 		</thead>
 		<tbody>
@@ -68,6 +69,7 @@
 			<td><%= com.getBoardKind() %></td>
 			<td id="bname"><%= com.getBoardNm() %></td>
 			<td><%= com.getCommentCon() %></td>
+			<td><%= com.getWriteDay() %></td>
 				
 		</tr>
 		<%} %>

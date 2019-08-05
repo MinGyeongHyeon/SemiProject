@@ -247,10 +247,10 @@ td#log {
 										<% }else{ %>
 											location.href='/sixDestiny/views/member/2_entrance/1_applyEntrance/1_main.jsp'
 										<% } %>
-										">입소신청</a></li>
+										" style="cursor:pointer;">입소신청</a></li>
 				<li class="list"><a href="/sixDestiny/views/member/2_entrance/2_program/1_main.jsp">생활프로그램</a></li>
 			</ul></li>
-		<li class="meme"><a><div class="ico">분양신청</div></a>
+		<li class="meme"><a><div class="ico" >분양신청</div></a>
 			<ul class="submenu">
 				<li class="list"><a onclick="
 										<% if(loginUser == null){ %>
@@ -258,8 +258,8 @@ td#log {
 										<% }else{ %>
 											location.href='/sixDestiny/views/member/3_parcelout/1_applyParcelout/1_main.jsp'
 										<% } %>
-										">분양신청</a></li>
-				<li class="list"><a onclick="location.href='/sixDestiny/selectOutList.tn'">분양후기</a></li>
+										" style="cursor:pointer;">분양신청</a></li>
+				<li class="list"><a onclick="location.href='/sixDestiny/selectOutList.tn'" style="cursor:pointer;">분양후기</a></li>
 			</ul></li>
 		<li class="meme"><a><div class="ico">실종신고</div></a>
 			<ul class="submenu">
@@ -279,22 +279,22 @@ td#log {
 										<% }else{ %>
 											location.href='/sixDestiny/views/member/6_support/1_regural/1_main.jsp'
 										<% } %>
-										">정기후원</a></li>
+										" style="cursor:pointer;">정기후원</a></li>
 				<li class="list"><a onclick="
 										<% if(loginUser == null){ %>
 											alert('로그인 후 이용하세요.');
 										<% }else{ %>
 											location.href='/sixDestiny/views/member/6_support/2_onetime/1_main.jsp'
 										<% } %>
-										">일회성후원</a></li>
+										" style="cursor:pointer;">일회성후원</a></li>
 				<li class="list"><a onclick="
 										<% if(loginUser == null){ %>
 											alert('로그인 후 이용하세요.');
 										<% }else{ %>
 											location.href='/sixDestiny/views/member/6_support/3_product/1_main.jsp'
 										<% } %>
-										">물품후원</a></li>
-				<li class="list"><a href="/sixDestiny/selectSup.his">후원내역</a></li>
+										" style="cursor:pointer;">물품후원</a></li>
+				<li class="list"><a href="/sixDestiny/selectSup.his" style="cursor:pointer;">후원내역</a></li>
 			</ul></li>
 	</div>
 	<div style="height:150px"></div>

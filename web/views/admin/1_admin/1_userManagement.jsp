@@ -152,7 +152,7 @@ int endPage = pi.getEndPage();
 
 
 			<% if(currentPage != 1){ %>
-			<li><a href="<%=request.getContextPath()%>/selectList.bo?currentPage=1">◀◀</a></li>
+			<li><a href="<%=request.getContextPath()%>/userManage?currentPage=1">◀◀</a></li>
 
 			<% }%>
 
@@ -160,9 +160,9 @@ int endPage = pi.getEndPage();
 
 
 			<% }else if(currentPage%10 != 0){ %>
-			<li><a href="<%=request.getContextPath()%>/selectList.bo?currentPage=<%=(int)(Math.floor(currentPage/10))*10%>">◀</a></li>
+			<li><a href="<%=request.getContextPath()%>/userManage?currentPage=<%=(int)(Math.floor(currentPage/10))*10%>">◀</a></li>
 			<%}else{ %>
-			<li><a href="<%=request.getContextPath()%>/selectList.bo?currentPage=<%=(int)(Math.floor((currentPage-1)/10))*10%>">◀</a></li>
+			<li><a href="<%=request.getContextPath()%>/userManage?currentPage=<%=(int)(Math.floor((currentPage-1)/10))*10%>">◀</a></li>
 			<%} %>
 
 			<% for(int p = startPage; p <= endPage; p++){
@@ -171,7 +171,7 @@ int endPage = pi.getEndPage();
 					<li ><a style="background:rgb(240,240,240); font-weight:bold;" href="#" disabled><%= p %></a></li>
 
 			<% } else { %>
-			<li><a href="<%=request.getContextPath()%>/selectList.bo?currentPage=<%=p%>" disabled><%= p %></a></li>
+			<li><a href="<%=request.getContextPath()%>/userManage?currentPage=<%=p%>" disabled><%= p %></a></li>
 
 			<%
 				}
@@ -181,12 +181,12 @@ int endPage = pi.getEndPage();
 			<% if(currentPage >= maxPage){ %>
 
 			<% }else if(Math.floor(maxPage/10)*10 >= currentPage){ %>
-			<li><a href="<%=request.getContextPath()%>/selectList.bo?currentPage=<%=(int)(Math.ceil(currentPage/10))*10+11%>">▶</a></li>
+			<li><a href="<%=request.getContextPath()%>/userManage?currentPage=<%=(int)(Math.ceil(currentPage/10))*10+11%>">▶</a></li>
 
 			<% }%>
 
 			<% if(currentPage < maxPage){ %>
-			<li><a href="<%=request.getContextPath()%>/selectList.bo?currentPage=<%=maxPage%>">▶▶</a></li>
+			<li><a href="<%=request.getContextPath()%>/userManage?currentPage=<%=maxPage%>">▶▶</a></li>
 			<%} %>
 		</ul>
 		</div>
