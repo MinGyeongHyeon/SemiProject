@@ -13,6 +13,8 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  
+  
 </head>
 <style>
 
@@ -24,12 +26,7 @@
 	}
 </style>
 <body>
-
 <div>
-	<div>
-		<img src="" style="width:170px;">
-	</div>
-<br><br><br>
 	<div>
 		<form action="/sixDestiny/login.user" method="post">
 			<table id="loginTable">
@@ -48,9 +45,7 @@
 				<tr>
 					<td><input type="password" name="password" style="width:400px; height:50px;" id="remember"></td>
 				</tr>
-				<tr>
-					<td><input type="checkbox" name="rememberPwd" value="Y"><span style="font-family: 'Sunflower', sans-serif;"> 비밀번호 저장</span></td>
-				</tr>
+			
 			</table>
 		<br><br><br><br>
 		<input type="submit" class="btn btn-default" style="font-family: 'Sunflower', sans-serif; width:400px" value="로그인"></input>
@@ -74,9 +69,8 @@
 			</script>
 			<% } %>
 	</div>
-	<br><br>
 	<div>
-		<hr style="width:400px; color:black;">
+		<!-- <hr style="width:400px; color:black;"> -->
 		<a href='/sixDestiny/views/member/7_member/1_login/3_findId.jsp' style="font-family: 'Sunflower', sans-serif;">아이디 찾기</a>&nbsp;&nbsp;&nbsp;&nbsp;
 		<a href='/sixDestiny/views/member/7_member/1_login/4_findPassword.jsp' style="font-family: 'Sunflower', sans-serif;">비밀번호 찾기</a>
 	</div>

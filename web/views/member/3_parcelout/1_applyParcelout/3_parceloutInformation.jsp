@@ -2,6 +2,7 @@
     pageEncoding="UTF-8" import="java.util.* , com.kh.semi.parcelout.model.vo.*"%>
     
     <% ParcelOut pco = (ParcelOut)request.getAttribute("pco"); %>
+    <% ArrayList<parceOutAnswer> poa = (ArrayList<parceOutAnswer>)request.getAttribute("poa"); %>
     
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -37,7 +38,7 @@ th, td {
 	<table id="table">
 	<tr>
 		<td><b>분양신청번호</b></td>
-		<td><%=pco.getPcoAppNo() %><td>
+		<td><%=pco.getPcoAppNo()%><td>
 	</tr>
 	
 	<tr>
@@ -59,6 +60,29 @@ th, td {
 		<td><b>분양반려이유</b></td>
 		<td><%=pco.getCompanionRs() %></td>
 	</tr>
+	
+	
+	<tr>
+		<%for(int i=0;i<1;i++) {%>
+		<td><b>분양을 원하시는 가장 큰 이유는 무엇인가요?</b></td>
+		<td><%=poa.get(i).getAnsCon()%></td>
+		<%} %>
+	</tr>
+	
+	<tr>
+		<%for(int i=1;i<2;i++) {%>
+		<td><b>분양을 결정하시기까지 얼마나 많은 시간을 고민하셨나요?</b></td>
+		<td><%=poa.get(i).getAnsCon()%></td>
+		<%} %>
+	</tr>
+	
+	<tr>
+		<%for(int i=2;i<3;i++) {%>
+		<td><b>키우고 있는 반려동물이 있으신가요?</b></td>
+		<td><%=poa.get(i).getAnsCon()%></td>
+		<%} %>
+	</tr>
+	
 	
 	
 	

@@ -7,11 +7,11 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 	<%@ include file="../../../common/inner_user_include.jsp" %>
-	<link href="https://fonts.googleapis.com/css?family=Do+Hyeon&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Gaegu|Sunflower:300&display=swap" rel="stylesheet">
 <style>
 #outer{
 	margin:0 auto;
-	
+	font-family: 'Sunflower', sans-serif;
 }
 
 </style>
@@ -20,7 +20,7 @@
 
 	<div id="outer">
 	<br><br>
-	<h2 style="font-family: 'Do Hyeon', sans-serif;"><%=loginUser.getUserNm()%>님의 탈퇴사유</h2>
+	<h2><%=loginUser.getUserNm()%>님의 탈퇴사유</h2>
 	<br><br>
 	<form action="<%=request.getContextPath()%>/usersec" method="post">
 		<div id="div1">

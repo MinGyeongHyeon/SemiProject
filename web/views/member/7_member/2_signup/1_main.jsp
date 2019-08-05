@@ -29,9 +29,7 @@
 
 <%--전체 DIV --%>
 <div>
-	<div>
-		<img src="/sixDestiny/views/images/signup.PNG" id="img"style="width: 170px;">
-	</div>
+	
 		
 	<br> <br> <br>
 		

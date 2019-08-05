@@ -54,7 +54,7 @@
 			<%--신청서  --%>
 			<td>
 			<button class="btn btn-default">
-			<a href="/sixDestiny/applicationform?entAppNo=<%= et.getEntAppNo() %>" onclick="window.open(this.href,'_blank', 'width=500,height=700');return false;">신청서</a>
+			<a href="/sixDestiny/applicationform?entAppNo=<%= et.getEntAppNo() %>" onclick="window.open(this.href,'_blank', 'width=600,height=700');return false;">신청서</a>
 			</button>
 			</td>
 			
@@ -118,8 +118,10 @@
 		<tr>
 			<td style="font-family: 'Sunflower', sans-serif;"><%= po.getAnsDt() %></td>
 			<td style="font-family: 'Sunflower', sans-serif;"><%= po.getSelAppDt() %></td>
-			<td style="font-family: 'Sunflower', sans-serif;">
-				<button class="btn btn-default" style="font-family: 'Sunflower', sans-serif;" onclick="viewParcelApply(<%=po.getPcoAppNo()%>);">신청서</button>
+			<td>
+			<button class="btn btn-default">
+			<a href="/sixDestiny/parceloutform?pcoAppNo=<%=po.getPcoAppNo() %>" onclick="window.open(this.href,'_blank', 'width=700,height=700');return false;">신청서</a>
+			</button>
 			</td>
 			<td style="font-family: 'Sunflower', sans-serif;">
 				<% if(po.getPcoSit().equals("N")){ %>
