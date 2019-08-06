@@ -470,6 +470,7 @@ public class MissingDao {
 				ub.setMissPhone(rset.getString("MISS_PHONE"));
 				ub.setBoardDiv(rset.getString("BOARD_DIV"));
 				ub.setMissPlaceDetail(rset.getString("DETAIL_PLACE"));
+		
 			}
 
 		} catch (SQLException e) {

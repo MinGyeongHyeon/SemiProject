@@ -59,9 +59,9 @@ font-family: 'Sunflower', sans-serif;
 		<div class="container" style="margin-top:50px;">
 		  <!--   <form action="write_ok.jsp" method="post" encType="multiplart/form-data"> -->
 		 <form  action="<%=request.getContextPath() %>/missingUpdate2.bo" method="post" >
-		  
+		
 <table class="table table-bordered" align="center">
-
+<input type="hidden" value="1" class="uu" name="uu">
 
             <tr>
                 <td class="find" style="background:rgb(230, 230, 230); border-radius:10px;"><span>제목</span></td>

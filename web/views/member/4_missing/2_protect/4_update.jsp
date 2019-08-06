@@ -50,7 +50,7 @@ border: 3px solid  rgb(255, 255, 255);
 <body>
 
 		<h2>보호중입니다 글작성</h2>
-
+<input type="hidden" value="<%= ub.getUu()%>" class="uu" name="uu">
 
 		<div class="container" style="margin-top:50px;">
 		

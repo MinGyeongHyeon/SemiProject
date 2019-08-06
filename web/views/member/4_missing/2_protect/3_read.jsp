@@ -226,6 +226,7 @@ border:0;
 		<textarea name="" id="zz" cols="200" rows="10"></textarea>
 	</div>
 	<hr>
+	
 	<input type="hidden" id="" name="" value="" />
 	<div align="center">
 		</br> </br>

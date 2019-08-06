@@ -42,7 +42,7 @@ public class ProSelectOneServlet extends HttpServlet {
 		System.out.println("모야모야"+num);
 		
 
-if(request.getParameter("uu")!="") {
+if(request.getParameter("uu")!= null) {
 	uu= Integer.parseInt(request.getParameter("uu"));
 	System.out.println(uu+"uuuuuuuuuuuu");
 }
@@ -57,25 +57,26 @@ if(request.getParameter("uu")!="") {
 			
 			String page = "";
 			
-			if(hmap != null) {
+			if(hmap != null&& uu==0||uu==1) {
 				page = "views/member/4_missing/2_protect/3_read.jsp";
 				request.setAttribute("b", b);
 				request.setAttribute("fileList", fileList);
+				System.out.println("파일리스트"+fileList.get(0));
+				System.out.println("보드"+b);
 				
 				if(list != null) {
 
 					if(list.size() > 0) {
 
 						request.setAttribute("comment", list);
-
+						System.out.println("코멘트"+list);
 					}
 
 				}
-			}/*else {
-				page = "views/common/errorPage.jsp";
-				request.setAttribute("msg", "사진 게시판 상세보기 실패!");
+			}else {
+			
 			}
-			*/
+			
 			request.getRequestDispatcher(page).forward(request, response);
 			
 			

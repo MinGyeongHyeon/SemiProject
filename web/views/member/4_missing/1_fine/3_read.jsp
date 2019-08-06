@@ -388,7 +388,7 @@ function upbnt(data){
 						<input type="hidden" value="<%= cm.get(i).getConNo()%>" class="repotCon">
 						<input type="hidden" value="<%= cm.get(i).getuNo()%>" class="repotUser">
 							<input type="hidden" value="<%=b.getbNo()%>" class="num">
-														<input type="hidden" value="<%= b.getUu()%>" class="uu">
+														<input type="hidden" value="<%= b.getUu()%>" class="uu" name="uu">
 							<label style="width:100px"><%= cm.get(i).getNickNm() %></label>
 							 <label style="width:400px" class="Con"><%= cm.get(i).getComment() %></label> 
 							<%if(loginUser.getUserId()!=null){ 
@@ -449,7 +449,7 @@ function upbnt(data){
 		var comment = $('#comment').val();
 		var uNo = <%=loginUser.getUserNo()%>
 		var bNo = $('#num').val();
-
+		var uNo2 = $('.repotUser').val();
 
 		$.ajax({
 			url:"MissingComment",
@@ -475,7 +475,7 @@ function upbnt(data){
 					$input2.attr('type','hidden');
 					var $nickNm = $("<label>").text(data[key].nickNm).css("width","100px");
 					var $comment = $("<label>").text(data[key].comment).css("width","400px");
-					
+			
 					var $button2 =$('<button>');
 					$button2.text("수정");
 					var $button3 =$('<button>');
@@ -485,6 +485,7 @@ function upbnt(data){
 					$button.append($img);
 					$td.append($input);
 					$td.append($input2);
+				
 					$td.append($nickNm);
 					$td.append($comment);
 					$td.append($button);
@@ -507,6 +508,7 @@ function upbnt(data){
 					var cNo = $(this).prevAll('.repotCon').val();
 					var uNo = $(this).prevAll('.repotUser').val();
 					var u2No = <%=loginUser.getUserNo()%>
+				
 
 					window.open("/sixDestiny/views/member/4_missing/1_fine/7_report_comment.jsp?uNo=" + uNo + "&cNo=" + cNo  + "&u2No=" + u2No ,"PopupWin","width=480,height=300","resizable=no");
 

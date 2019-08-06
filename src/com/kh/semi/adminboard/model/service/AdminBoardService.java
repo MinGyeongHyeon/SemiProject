@@ -618,6 +618,17 @@ public class AdminBoardService {
 		return result;
 	}
 
+	public int getListCountedd() {
+		Connection con = getConnection();
+		int result = 0;
+
+		result = new AdminBoardDao().getListCountedd(con);
+
+		close(con);
+
+		return result;
+	}
+
 }
 
 

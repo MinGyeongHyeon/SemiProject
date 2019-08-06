@@ -881,7 +881,7 @@ $("#listArea td").mouseenter(function(){
 	});
 
    </script>
-    <ul class="pagination">
+ <ul class="pagination">
      <% if(currentPage2 != 1){ %>
 			<li><a href="<%=request.getContextPath()%>/comment.bo?currentPage1=1">◀◀</a></li>
 
@@ -921,7 +921,6 @@ $("#listArea td").mouseenter(function(){
 			<li><a href="<%=request.getContextPath()%>/comment.bo?currentPage1=<%=maxPage%>">▶▶</a></li>
 			<%} %>
    </ul>
-
    <br><br>
 
     <script>
