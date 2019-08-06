@@ -38,47 +38,20 @@ public class StartChatting extends Chattstorage{
 		if(kind.equals("user")) {
 			user.put(key, session);
 			Iterator<String> keySetChatIterator = chat.keySet().iterator();
-			//System.out.println("keySetChatIterator : " + keySetChatIterator);
-			//System.out.println("keySetUserIterator : " + keySetUserIterator);
 			if(keySetChatIterator.hasNext()) {
 				while(keySetChatIterator.hasNext()) {
 					String key2 = keySetChatIterator.next();
-					//System.out.println("채팅키값 : " + key2);
 						if(key2.equals(key)) {
-							//System.out.println("같은 방 있음!");
 							break;
 						}else {
-							//System.out.println("같은 방 없음!");
 							chat.put(key, new ArrayList<String>());
 						}
 				}
 			}else {
-				//System.out.println("방생성!");
 				chat.put(key, new ArrayList<String>());
 			}
-			//System.out.println("******채팅방 갯수******" + chat.size());
 		}else {
 			admin.put(key, session);
-			/*Iterator<String> keySetChatIterator = chat.keySet().iterator();
-			if(keySetChatIterator.hasNext()) {
-				while(keySetChatIterator.hasNext()) {
-					String key2 = keySetChatIterator.next();
-					if(key2.equals(key)) {
-						synchronized(admin) {
-							for(int i = 0; i < chat.get(key).size(); i ++) {
-								String message = chat.get(key).get(i);
-								try {
-									admin.get(key).getBasicRemote().sendText(message);
-								} catch (IOException e) {
-									e.printStackTrace();
-								}
-							}
-						}
-					}else {
-
-					}
-				}
-			}*/
 		}
 
 	}

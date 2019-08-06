@@ -400,14 +400,11 @@ while(newLine > 0 && newLine < 7)
 		$("[name=clickSelect]").click(function(){
 			var day = $(this).text();
 			var month = <%=month+1%>
-			console.log(day);
-			console.log(month);
 			$.ajax({
 				url:"/sixDestiny/selectSel.all",
 				type:"post",
 				data:{day:day, month:month},
 				success:function(data){
-					console.log(data);
 					$("#entranceBody tr").remove();
 					$("#parceloutBody tr").remove();
 
@@ -427,11 +424,9 @@ while(newLine > 0 && newLine < 7)
     					var $btn = $("<button class='btn btn-default clickbtn' onclick='changePcoSit(this)'>");
 		    			$td.css("font-family", "'Sunflower', sans-serif");
 		    			var $p = $("<p>");
-		    			console.log("time" + time[i]);
 
 		    			$p.append(time[i]);
 		    			$td.append($p);
-		    			console.log("길이" + data["parcelout"].length);
 		    			for(var j = 0; j < data["parcelout"].length; j++){
 		    					console.log("aa");
 		    					console.log("result : " + reuslt[i]);

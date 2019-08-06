@@ -39,7 +39,7 @@ body.main {
 }
 #plusfriend-chat-button:hover{
 	-webkit-transform:scale(1.2);
-	
+
 
 }
 
@@ -350,7 +350,6 @@ td#log {
 		var result = evt.data;
 		console.log(result);
 		if(result != null){
-			console.log("들어왔다!	")
 			var set = setInterval(function()
 	  			    {
 	  			    	  $("#catt2").css("-webkit-transform", "scale(1)");
