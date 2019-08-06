@@ -48,7 +48,7 @@
 					<td><br></td>
 				</tr>
 				<tr>
-					<td><textarea rows="15" cols="106" name="adBoardCon">
+					<td><textarea align="center" rows="15" cols="106" name="adBoardCon">
 					<%=ab1.getAdBoardCon()%>
 					</textarea></td>
 				</tr>
@@ -82,6 +82,8 @@
 				}
 			});
 		}
+		
+		
 	</script>
 	<!-- <script>
 		$('.starRev span').click(function() {

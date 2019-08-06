@@ -160,16 +160,17 @@
 		</div>
 		<br>
 		 <div align="center" id="serchDiv">
+		 <form action="<%=request.getContextPath() %>/searchBoard.sb" method="get">
 		<table id="serchTable">
 			<tr>
 			<td>
 			<select style="height: 27px; margin: 8px; font-family: 'Sunflower', sans-serif;">
 				<option>제목</option>
-				<option>작성자</option>
-				</select>
+			</select>
 			</td>
-			<td> <span class="glyphicon glyphicon-search"></span> <input type="text"
-				style="width:250px">
+			<td> <span class="glyphicon glyphicon-search"></span> 
+			<input type="text" style="width:250px" name="boardsearch">
+			<td><button style="height: 27px; margin: 8px; font-family: 'Sunflower', sans-serif;" type="submit">검색</button></td>
 				<span></span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				<%-- <% if(loginUser != null && loginUser.getUserId().equals("admin")){ %>
 				<input type="button" value="글쓰기" onclick="location.href='/sixDestiny/views/member/1_introduce/2_notice/2_write.jsp'">
@@ -177,6 +178,7 @@
 			</td>
 			</tr>
 		</table>
+		</form>
 
 	</div>
 	<script type="text/javascript">

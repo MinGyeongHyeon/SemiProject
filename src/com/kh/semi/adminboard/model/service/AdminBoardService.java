@@ -618,6 +618,26 @@ public class AdminBoardService {
 		return result;
 	}
 
+	public int getListCountabc(String boardsearch) {
+		Connection con = getConnection();
+		int result = 0;
+		
+		result = new AdminBoardDao().getListCounteabc(con, boardsearch);
+		
+		close(con);
+		return result;
+	}
+
+	public ArrayList<AdminBoard> selectListabc(int currentPage, int limit, String boardsearch) {
+		Connection con = getConnection();
+
+		ArrayList<AdminBoard> list = new AdminBoardDao().selectListabc(con, currentPage, limit, boardsearch);
+
+		close(con);
+
+		return list;
+	}
+
 }
 
 
