@@ -619,6 +619,17 @@ public class AdminBoardService {
 	}
 
 
+	public int getListCountedd() {
+		Connection con = getConnection();
+		int result = 0;
+
+		result = new AdminBoardDao().getListCountedd(con);
+
+		close(con);
+
+		return result;
+
+
 	public int getListCountabc(String boardsearch) {
 		Connection con = getConnection();
 		int result = 0;
@@ -641,6 +652,7 @@ public class AdminBoardService {
 		close(con);
 
 		return list;
+
 	}
 
 }

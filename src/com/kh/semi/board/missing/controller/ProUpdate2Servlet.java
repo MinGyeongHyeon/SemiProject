@@ -56,6 +56,7 @@ public class ProUpdate2Servlet extends HttpServlet {
 		
 	int writer = ((User) request.getSession().getAttribute("loginUser")).getUserNo();
 	int boardNo = Integer.parseInt(request.getParameter("boardNo"));
+	int uu = Integer.parseInt(request.getParameter("uu"));
 
 		
 		//Board객체 생성
@@ -65,7 +66,7 @@ public class ProUpdate2Servlet extends HttpServlet {
 	b.setbKind(bKind);
 	b.setbCon(content);
 	b.setMissDt(resultDate);
-	
+	b.setUu(uu);
 	b.setMissPlace(place);
 	b.setMissPlaceDetail(placedetail);
 	b.setMissDt(resultDate);

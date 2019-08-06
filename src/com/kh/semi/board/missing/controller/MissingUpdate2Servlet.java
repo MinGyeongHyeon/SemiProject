@@ -59,12 +59,16 @@ public class MissingUpdate2Servlet extends HttpServlet {
 		}
 		String phone=request.getParameter("phone");
 		
+		
+		
+		
 		System.out.println("Date:"+resultDate);
 		
 	int writer = ((User) request.getSession().getAttribute("loginUser")).getUserNo();
 	int boardNo = Integer.parseInt(request.getParameter("boardNo"));
-
-		
+System.out.println(request.getParameter("uu")+"UUU");
+	int uu = Integer.parseInt(request.getParameter("uu"));
+System.out.println(uu+"UUUUUUUUUU");
 		//Board객체 생성
 	Missing b = new Missing();
 	b.setuNo(writer);
@@ -72,7 +76,7 @@ public class MissingUpdate2Servlet extends HttpServlet {
 	b.setbKind(bKind);
 	b.setbCon(content);
 	b.setMissDt(resultDate);
-	
+	b.setUu(uu);
 	b.setMissPlace(place);
 	b.setMissPlaceDetail(placedetail);
 	b.setMissDt(resultDate);
@@ -85,7 +89,7 @@ public class MissingUpdate2Servlet extends HttpServlet {
 
 	String page = "";
 	if(result > 0) {
-		response.sendRedirect("/sixDestiny/missingSelectOne.bo?num=" + boardNo);
+		response.sendRedirect("/sixDestiny/missingSelectOne.bo?num=" + boardNo+"&uu="+uu);
 
 	}
 

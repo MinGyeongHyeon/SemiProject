@@ -93,7 +93,7 @@ font-family: 'Sunflower', sans-serif;
 
 
             </td>
-            <td style="padding: 20px;"><span>지역</span> <select id="li1">
+            <td style="padding: 20px;"><span>지역</span> <select id="li1" >
                   <option selected="selected">전체</option>
                   <option value="서울시">서울시</option>
                   <option value="인천시">인천시</option>
@@ -270,9 +270,12 @@ font-family: 'Sunflower', sans-serif;
    location.href = "<%=request.getContextPath()%>/missingSelectOne.bo?num="+num+"&uu="+uu;
 
 	 <%}else{%>
-		var num=     $(this).children().eq(0).val();
 
-		 location.href = "<%=request.getContextPath()%>/missingSelectOne.bo?num="+num;
+		var result = alert("로그인 후 확인 해주세요");
+		console.log(result);
+location.href = "<%=request.getContextPath()%>/missingListo.bo";
+
+
 		 <%}%>
 
             });
@@ -509,7 +512,7 @@ font-family: 'Sunflower', sans-serif;
 
 
       $(function() {
-         $(".title").click( function() {
+         <%-- $(".title").click( function() {
  	var num=     $(this).children().eq(0).val();
 
                            console.log(num);
@@ -517,7 +520,7 @@ font-family: 'Sunflower', sans-serif;
 
 
    location.href = "<%=request.getContextPath()%>/missingSelectOne.bo?num=" + num ;
-            });
+            }); --%>
 
 
 
@@ -752,7 +755,7 @@ font-family: 'Sunflower', sans-serif;
          });
 
       $(function() {
-         $(".title").click( function() {
+        <%--  $(".title").click( function() {
  	var num=     $(this).children().eq(0).val();
  	var uu=     $(this).children().eq(1).val();
                            console.log(uu);
@@ -760,7 +763,7 @@ font-family: 'Sunflower', sans-serif;
 
 
    location.href = "<%=request.getContextPath()%>/missingSelectOne.bo?num=" + num +"&uu="+uu ;
-            });
+            }); --%>
 
 
          //
