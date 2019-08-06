@@ -7,6 +7,13 @@
 <head>
 <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic&display=swap" rel="stylesheet">
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+
+
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <%@ include file="../../../common/inner_user_include.jsp" %>
@@ -139,7 +146,12 @@
 
 	<tr>
 		<td class="td1">성별</td>
-		<td class="td2"><%= loginUser.getGender()%></td>
+		<td class="td2">
+		<%if(loginUser.getGender()==null) {%>
+		성별이 없어요
+		<%}else{ %>
+		<%= loginUser.getGender()%></td>
+		<%} %>
 	</tr>
 	
 	<tr>
@@ -148,7 +160,11 @@
 
 	<tr>
 		<td class="td1">주소</td>
-		<td class="td2"><input type="text" name="address" style="margin-left:30px; width:400px;" value="<%= loginUser.getAddress()%>"></td>
+		<td class="td2"><input type="text" name="address" style="margin-left:30px; width:400px;" id="zipAddr" value="<%= loginUser.getAddress()%>"></td>
+		<td>&emsp;</td>
+		<td><button type="button" class="btn btn-default" onclick="fn_setAddr();"
+			style="font-family: 'Sunflower', sans-serif; width: 50px; height: 35px;">검색</button>
+		</td>
 	</tr>
 	
 	<tr>
@@ -157,19 +173,27 @@
 
 	<tr>
 		<td class="td1">반려견유무</td>
-		<td>
-	<% if(loginUser.getDogYn().equals("Y")) {%>
+		<td class="td2">
+		
+		<%if(loginUser.getDogYn()==null){%>
+		<input type="radio" value="Y" name="dogYn" id="radio">키워요
+		&nbsp;&nbsp;&nbsp;&nbsp;
+		<input type="radio" value="N" name="dogYn">안키워요	
+		<%}else if(loginUser.getDogYn().equals("Y")) {%>
 		<input type="radio" value="Y" name="dogYn" id="radio" checked>키워요
 		&nbsp;&nbsp;&nbsp;&nbsp;
 		<input type="radio" value="N" name="dogYn">안키워요
-	<% } else{ %>
+		<%}else{%>
 		<input type="radio" value="Y" name="dogYn" >키워요
 		&nbsp;&nbsp;&nbsp;&nbsp;
 		<input type="radio" value="N" name="dogYn" checked>안키워요
-	<%} %>
+		<%}%>
+		
 		</td>
 	</tr>
+	
 	</table>
+	
 	</div>
 	<br><br><br>
 	<input type="submit" value="수정"  style="width:300px" class="btn btn-default">
@@ -193,6 +217,25 @@
 	}
 	
 	</script>
+	
+		<script type="text/javascript">
+	function fn_setAddr() {
+		var width = 500;
+		var height = 600;
+		daum.postcode.load(function(){
+			new daum.Postcode({
+				oncomplete: function(data){
+					$("#zipAddr").val(data.address);
+				}
+			}).open({
+				left: (window.screen.width / 2) - (width / 2),
+				top: (window.screen.height / 2) - (height / 2)
+			});
+		});
+	}
+
+ 	
+</script>
 <%@ include file="../../../common/bottom_Include.jsp"%>
 </body>
 </html>

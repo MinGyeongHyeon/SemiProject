@@ -122,6 +122,7 @@ tr:hover {background-color:#f5f5f5;}
 		<%}else{%>
 		암컷
 		<%} %>
+		</td>
 	</tr>
 	
 	<tr>
