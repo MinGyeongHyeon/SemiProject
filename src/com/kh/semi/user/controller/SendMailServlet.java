@@ -28,8 +28,8 @@ public class SendMailServlet extends HttpServlet {
 		System.out.println("받은 이메일 : " + inputEmail);
 
 		String host = "smtp.naver.com";
-		String user = "dmsgp1136";
-		String password = "gzqw9947";
+		String user = "kyj9168";
+		String password = "rlawns1158*";
 
 		Properties prop = new Properties();
 		prop.put("mail.smtp.host", host);
@@ -51,7 +51,7 @@ public class SendMailServlet extends HttpServlet {
 		int random = 0;
 		try {
 			MimeMessage msg = new MimeMessage(session);
-			msg.setFrom(new InternetAddress("dmsgp1136@naver.com"));
+			msg.setFrom(new InternetAddress("kyj9168@naver.com"));
 			msg.addRecipient(Message.RecipientType.TO, new InternetAddress(inputEmail));
 			//메일제목
 			msg.setSubject("육인연 회원가입 인증번호 안내");

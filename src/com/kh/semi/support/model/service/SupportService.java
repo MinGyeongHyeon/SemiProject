@@ -87,11 +87,13 @@ public class SupportService {
 
 		String billingkey = new SupportDao().selectUserBillingKey(con, monSupNo);
 		String order_id = new SupportDao().selectUserOrderId(con, monSupNo);
+		String supportDay = new SupportDao().selectUserSupportDay(con, monSupNo);
 
 		System.out.println("order_Id : " + order_id);
 
 		result.put("billingkey", billingkey);
 		result.put("order_id", order_id);
+		result.put("supportDay", supportDay);
 
 		close(con);
 
