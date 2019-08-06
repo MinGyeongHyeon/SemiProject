@@ -71,11 +71,11 @@
 			</table>
 			<hr>
 			<div>
-				<img style="width:300px; height:auto;" onerror="this.style.display='none'" id="titleImg" src="<%=request.getContextPath()%>/thumbnail_uploadFiles/<%=fileList.get(0).getChangeNm()%>">
+				<img style="width:800px; height:auto;" onerror="this.style.display='none'" id="titleImg" src="<%=request.getContextPath()%>/thumbnail_uploadFiles/<%=fileList.get(0).getChangeNm()%>">
 			</div>
-			<br><br><br><br>
+			<br><br>
 			<div>
-				<p id="content" ><%=ab.getAdBoardCon()%><br/></p>
+				<p align="center" id="content" style="font-family: 'Sunflower', sans-serif;"><%=(ab.getAdBoardCon()).replace("\r\n","<br>")%><br/></p>
 			</div>
 			
 			

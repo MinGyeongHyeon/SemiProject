@@ -572,16 +572,18 @@ public class UserBoardDao {
 				if(outselect != null) {
 
 					pstmt.setString(1, selectinput);
+					pstmt.setString(2, "분양후기");
 
 				}else {
-					System.out.println("검색할 조건 값 : " + currentPage4);
+
 					pstmt.setString(1, selectinput);
+					pstmt.setString(2, "분양후기");
 
 				}
 
 
-				pstmt.setInt(2, startRow);
-				pstmt.setInt(3, endRow);
+				pstmt.setInt(3, startRow);
+				pstmt.setInt(4, endRow);
 
 
 				rset = pstmt.executeQuery();
@@ -1285,8 +1287,8 @@ public class UserBoardDao {
 	}
 
 
-	
-	
+
+
 
 
 }

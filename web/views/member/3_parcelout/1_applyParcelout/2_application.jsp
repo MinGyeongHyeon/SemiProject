@@ -257,15 +257,16 @@ $(function(){
 						</td>
 					</tr>
 
-				<tr>
-					<td >
-					<button type="submit" id="sub"class="btn btn-default" style="font-family: 'Sunflower', sans-serif; width:200px" onclick="entranceMoney();" disabled>제출</button></td>
-				</tr>
+
 			</table>
 		</div>
 
 	</form>
-		<button type="button" id="btn"class="btn btn-default" style="font-family: 'Sunflower', sans-serif; width:200px" onclick="entranceMoney();">확인</button>
+
+<br />
+	<button type="submit" id="sub"class="btn btn-default" style=" font-family: 'Sunflower', sans-serif; width:200px" onclick="entranceMoney();" disabled>제출</button>
+	<br /><br />
+	<button type="button" id="btn"class="btn btn-default" style="font-family: 'Sunflower', sans-serif; width:200px" onclick="entranceMoney();">확인</button>
 
 
 

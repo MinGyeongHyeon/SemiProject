@@ -27,6 +27,7 @@ public class StaticsServlet extends HttpServlet {
 		ArrayList<HashMap<String,Object>> as5 = new AdminBoardService().statics5();
 		ArrayList<HashMap<String,Object>> as6 = new AdminBoardService().statics6();
 		ArrayList<HashMap<String,Object>> as7 = new AdminBoardService().statics7();
+		ArrayList<HashMap<String,Object>> as8 = new AdminBoardService().statics8();
 
 
 
@@ -41,6 +42,7 @@ public class StaticsServlet extends HttpServlet {
 			request.setAttribute("static5", as5);
 			request.setAttribute("static6", as6);
 			request.setAttribute("static7", as7);
+			request.setAttribute("static8", as8);
 
 		}
 		request.getRequestDispatcher(page).forward(request, response);

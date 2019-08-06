@@ -24,6 +24,7 @@
 #writerTable {
 	margin: 0 auto;
 }
+
 </style>
 
 
@@ -48,7 +49,7 @@
 					<td><br></td>
 				</tr>
 				<tr>
-					<td><textarea rows="15" cols="106" name="content"></textarea></td>
+					<td><textarea align="center" rows="15" cols="106" name="content"></textarea></td>
 				</tr>
 				<tr>
 					<td><br></td>
@@ -82,6 +83,7 @@
 			return false;
 		});
 	</script> -->
+	
 	<%@ include file="../../../common/bottom_Include.jsp"%>
 
 

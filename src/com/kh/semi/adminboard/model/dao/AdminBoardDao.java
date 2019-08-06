@@ -94,6 +94,7 @@ public class AdminBoardDao {
 				ab.setAdNo(rset.getInt("AD_NO"));
 				ab.setStatus(rset.getString("STATUS"));
 				ab.setNickNm(rset.getString("NICK_NM"));
+				ab.setViewCount(rset.getInt("VIEW_COUNT"));
 
 				list.add(ab);
 			}
@@ -1723,8 +1724,7 @@ public class AdminBoardDao {
 
 		ResultSet rset = null;
 
-		String query = prop.getProperty("statics5");//회원탈퇴이유
-
+		String query = prop.getProperty("statics5");
 		try {
 			stmt = con.createStatement();
 
@@ -1771,7 +1771,7 @@ public class AdminBoardDao {
 
 		ResultSet rset = null;
 
-		String query = prop.getProperty("statics6");//회원탈퇴이유
+		String query = prop.getProperty("statics6");
 
 		try {
 			pstmt = con.prepareStatement(query);
@@ -1824,7 +1824,7 @@ public class AdminBoardDao {
 
 		ResultSet rset = null;
 
-		String query = prop.getProperty("statics5");//회원탈퇴이유
+		String query = prop.getProperty("statics7");
 
 		try {
 			stmt = con.createStatement();
@@ -1897,6 +1897,111 @@ public class AdminBoardDao {
 
 
 	      return result;
+	}
+
+	public int getListCounteabc(Connection con, String boardsearch) {
+		PreparedStatement pstmt = null;
+		int result =0;
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("boardsearch");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, boardsearch);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				result = rset.getInt("COUNT");
+			}
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}
+		
+		
+		return result;
+	}
+
+	public ArrayList<AdminBoard> selectListabc(Connection con, int currentPage, int limit, String boardsearch) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<AdminBoard> list = null;
+
+		String query = prop.getProperty("selectListabc");
+
+		try {
+			pstmt = con.prepareStatement(query);
+
+			int startRow = (currentPage - 1) * limit + 1;
+			int endRow = startRow + limit - 1;
+			pstmt.setString(1, "공지");
+			pstmt.setString(2, boardsearch);
+			pstmt.setInt(3, startRow);
+			pstmt.setInt(4, endRow);
+
+			rset = pstmt.executeQuery();
+
+			list = new ArrayList<AdminBoard>();
+
+			while(rset.next()) {
+				AdminBoard ab = new AdminBoard();
+				ab.setAdBoardNo(rset.getInt("AD_BOARD_NO"));
+				ab.setTitle(rset.getString("TITLE"));
+				ab.setAdBoardCon(rset.getString("AD_BOARD_CON"));
+				ab.setWriteDt(rset.getDate("WRITE_DT"));
+				ab.setBoardDiv(rset.getString("BOARD_DIV"));
+				ab.setAdNo(rset.getInt("AD_NO"));
+				ab.setStatus(rset.getString("STATUS"));
+				ab.setNickNm(rset.getString("NICK_NM"));
+
+				list.add(ab);
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+	public ArrayList<HashMap<String, Object>> statics8(Connection con) {
+		Statement stmt = null;
+		ArrayList<HashMap<String, Object>> list = null;
+		HashMap<String, Object> hmap = null;
+
+		ResultSet rset = null;
+
+		String query = prop.getProperty("statics8");
+
+		try {
+			stmt = con.createStatement();
+
+			rset = stmt.executeQuery(query);
+
+			list = new ArrayList<HashMap<String, Object>>();
+
+			while(rset.next()) {
+				hmap = new HashMap<String,Object>();
+
+				hmap.put("C1", rset.getString("C1"));
+				hmap.put("C2", rset.getString("C2"));
+				hmap.put("C3", rset.getString("C3"));
+				hmap.put("C4", rset.getString("C4"));
+
+				list.add(hmap);
+			}
+
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
+		}
+
+		return list;
 	}
 
 
