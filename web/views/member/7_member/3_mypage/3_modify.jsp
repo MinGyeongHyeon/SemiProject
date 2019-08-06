@@ -62,7 +62,6 @@
 		<td><br></td>
 	</tr>
 	
-	
 	<tr>
 		<td class="td1">아이디</td>
 		<td class="td2"><%= loginUser.getUserId()%><input name="userId" type="hidden" value="<%= loginUser.getUserId()%>"></td>

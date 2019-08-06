@@ -1716,8 +1716,6 @@ public class AdminBoardDao {
 		return result;
 	}
 
-
-
 	public ArrayList<HashMap<String, Object>> statics5(Connection con) {
 		Statement stmt = null;
 		ArrayList<HashMap<String, Object>> list = null;
@@ -1864,6 +1862,41 @@ public class AdminBoardDao {
 
 
 		return list;
+	}
+
+	public int getListCountedd(Connection con) {
+		Statement stmt = null;
+	      ResultSet rset = null;
+	      int result = 0;
+
+	      String query = prop.getProperty("getListCounted");
+
+
+
+	      try {
+	         stmt = con.createStatement();
+
+
+
+	         rset = stmt.executeQuery(query);
+
+	         if(rset.next()) {
+	            result = rset.getInt(1);
+	         }
+
+
+	      } catch (SQLException e) {
+	         // TODO Auto-generated catch block
+	         e.printStackTrace();
+	      }finally {
+	         close(stmt);
+	         close(rset);
+	      }
+
+
+
+
+	      return result;
 	}
 
 

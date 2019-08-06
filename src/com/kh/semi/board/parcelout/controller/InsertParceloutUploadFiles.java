@@ -30,14 +30,10 @@ public class InsertParceloutUploadFiles extends HttpServlet {
 
 	   request.setCharacterEncoding("UTF-8");
 
-	   System.out.println("서블릿호출?");
-
-	   System.out.println(ServletFileUpload.isMultipartContent(request));
 
 
       if(ServletFileUpload.isMultipartContent(request)) {
 
-    	  System.out.println("1111");
 
 
          int maxSize = 1024 * 1024 * 10;
@@ -77,7 +73,6 @@ public class InsertParceloutUploadFiles extends HttpServlet {
          String multiContent = multiRequest.getParameter("content");
          int starRev = Integer.parseInt(multiRequest.getParameter("starRev")) ;
 
-         System.out.println("별점이 몇점 나오냐  ? : " + starRev);
 
          int uno = ((User) (request.getSession().getAttribute("loginUser"))).getUserNo();
 
@@ -94,7 +89,6 @@ public class InsertParceloutUploadFiles extends HttpServlet {
 
 
          for(int i = originFiles.size() - 1; i >= 0;  i--) {
-        	 System.out.println("3333");
             Attachment at = new Attachment();
             at.setFilePath(savePath);
             at.setOriginNm(originFiles.get(i));
@@ -110,8 +104,6 @@ public class InsertParceloutUploadFiles extends HttpServlet {
 
 
          int result = new UserBoardService().insertOutuploadFiles(b, fileList);
-
-         System.out.println("경현선생님 결과값  : " + result);
 
          if(result > 0) {
             response.sendRedirect(request.getContextPath() + "/selectOutList.tn");

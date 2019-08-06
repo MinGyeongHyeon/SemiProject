@@ -5,7 +5,6 @@
 	AdminBoard ab = (AdminBoard) request.getAttribute("ab");
 	String num = (String) request.getParameter("num");
 	ArrayList<NoticeAttachment> fileList = (ArrayList<NoticeAttachment>) request.getAttribute("fileList");
-	NoticeAttachment titleImg = fileList.get(0);
 %>
 <!DOCTYPE html>
 <html>
@@ -63,20 +62,22 @@
 						<input type="hidden" value="<%= loginUser.getUserNo() %>">
 					<% } %>
 					</td>
-						<th style="font-size:1.2em; font-weight:bold; font-family: 'Sunflower', sans-serif;">제목 : <%= ab.getTitle() %></th>
+						<th style="font-size:1.2em; font-weight:bold; font-family: 'Sunflower', sans-serif;">제목 : <%= ab.getTitle()%></th>
 						<th style="font-size:1.2em; font-weight:bold; font-family: 'Sunflower', sans-serif;">작성자 : 관리자</th>
-						<th style="font-size:1.2em; font-weight:bold; font-family: 'Sunflower', sans-serif;">작성일 : <%= ab.getWriteDt() %></th>
-						<th id="thtest" style="font-size:1.2em; font-weight:bold; font-family: 'Sunflower', sans-serif;">조회수 : <%= ab.getViewCount() %></th>
+						<th style="font-size:1.2em; font-weight:bold; font-family: 'Sunflower', sans-serif;">작성일 : <%= ab.getWriteDt()%></th>
+						<th id="thtest" style="font-size:1.2em; font-weight:bold; font-family: 'Sunflower', sans-serif;">조회수 : <%= ab.getViewCount()%></th>
 					</tr>
 				</thead>
 			</table>
 			<hr>
 			<div>
-				<img style="width:300px; height:auto;" onerror="this.style.display='none'" id="titleImg" src="<%=request.getContextPath()%>/thumbnail_uploadFiles/<%=titleImg.getChangeNm()%>">
+				<img style="width:300px; height:auto;" onerror="this.style.display='none'" id="titleImg" src="<%=request.getContextPath()%>/thumbnail_uploadFiles/<%=fileList.get(0).getChangeNm()%>">
 			</div>
+			<br><br><br><br>
 			<div>
-				<p id="content"><%=ab.getAdBoardCon()%><br/></p>
+				<p id="content" ><%=ab.getAdBoardCon()%><br/></p>
 			</div>
+			
 			
 			
 </div>

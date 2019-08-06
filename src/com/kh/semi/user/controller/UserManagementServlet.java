@@ -75,6 +75,7 @@ public class UserManagementServlet extends HttpServlet {
 	}
 	
 	PageInfo pi = new PageInfo(currentPage, listCount, limit, maxPage, startPage, endPage);
+	
 	ArrayList<User> list = new UserService().selectList(currentPage, limit);
 	
 	//신고받은 횟수

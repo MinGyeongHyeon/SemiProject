@@ -44,10 +44,8 @@ margin-right:auto;
 <%@ include file="../../../common/inner_user_include.jsp" %>
 </head>
 <body>
-
 	<%--전체 div --%>
 	<div id="mypage">
-	
 		<div style="margin-left:auto; margin-right:auto;">
 			<form style="margin-left:auto; margin-right:auto;">
 			<br>
