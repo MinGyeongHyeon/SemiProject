@@ -1,5 +1,6 @@
 package com.kh.semi.board.parcelout.controller;
 
+import java.io.File;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
@@ -22,6 +23,17 @@ public class UpdateParceloutCon extends HttpServlet {
 		String content = request.getParameter("content");
 		String title = request.getParameter("title");
 		int boardNo = Integer.parseInt(request.getParameter("boardNo"));
+		String imgname = request.getParameter("imgname");
+
+		String root = request.getSession().getServletContext().getRealPath("/");
+
+
+
+        String savePath = root + "parcelout_uploadFiles/";
+
+		 File failedFile = new File(savePath + imgname);
+         failedFile.delete();
+
 
 		String uNo = request.getParameter("uNo");
 

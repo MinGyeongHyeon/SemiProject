@@ -13,52 +13,81 @@ import com.kh.semi.board.parcelout.model.vo.Report;
 
 import static com.kh.semi.common.JDBCTemplate.*;
 public class UserBoardService {
-	public ArrayList<UserBoard> selectListBest() {
+	
+
+	
+	public int updateUserBoard(UserBoard ub, int bNo) {
 		Connection con = getConnection();
 
-		ArrayList<UserBoard> best = new UserBoardDao().selectListBest(con);
+		int result = new UserBoardDao().updateUserBoard(con, ub, bNo);
+
+		if(result > 0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		close(con);
+
+		return result;
+
+	}
+	public UserBoard selectOneub(int num) {
+		Connection con = getConnection();
+
+		UserBoard ub = new UserBoardDao().selectOneub(con, num);
+
+		if(ub != null) {
+			int result = new UserBoardDao().updateCount(con, num);
+
+			if(result > 0) {
+				commit(con);
+			}else {
+				rollback(con);
+			}
+		}
 
 		close(con);
 
-		return best;
+		return ub;
 	}
-
-	public int getUserNo(String commentNickNm) {
+	
+	public int uprecommendUserBoard(int thisBoardNo, int nowLoginUser) {
 		Connection con = getConnection();
 		int result = 0;
 
-		result = new UserBoardDao().getUserNo(con,commentNickNm);
+		result = new UserBoardDao().uprecommendUserBoard(con, thisBoardNo, nowLoginUser);
+
+		if(result >0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		close(con);
+
+		return result;
+	}
+	
+	public HashMap<String, Object> selectOne(int num) {
+		Connection con = getConnection();
+
+		HashMap<String, Object> hmap = null;
+
+		int result = new UserBoardDao().updateCount(con, num);
 
 		if(result > 0) {
 			commit(con);
 
+			hmap = new UserBoardDao().selectOne(con, num);
 		}else {
 			rollback(con);
-
 		}
+
 		close(con);
 
 
-	return result;
+		return hmap;
 	}
-
-	public int getListCount(String category, String what, String search, String alignment) {
-		Connection con = getConnection();
-		int listCount = 0;
-
-		if(search == null) {
-			listCount = new UserBoardDao().getListCount(con, category, alignment);
-		}else{
-			listCount = new UserBoardDao().getListCount(con, category, what, search, alignment);
-		}
-
-
-		close(con);
-		System.out.println("서비스에서 가져온 listCount : " + listCount);
-		return listCount;
-
-	}
-
+	
 	public ArrayList<UserBoard> selectList(int currentPage, int limit, String category, String what, String search,
 			String alignment) {
 		Connection con = getConnection();
@@ -87,41 +116,95 @@ public class UserBoardService {
 		return list;
 
 	}
+	
+	public int getListCount(String category, String what, String search, String alignment) {
+		Connection con = getConnection();
+		int listCount = 0;
 
-	public UserBoard selectOneub(int num) {
+		if(search == null) {
+			listCount = new UserBoardDao().getListCount(con, category, alignment);
+		}else{
+			listCount = new UserBoardDao().getListCount(con, category, what, search, alignment);
+		}
+
+
+		close(con);
+		System.out.println("서비스에서 가져온 listCount : " + listCount);
+		return listCount;
+
+	}
+	
+	public ArrayList<UserBoard> selectListBest() {
 		Connection con = getConnection();
 
-		UserBoard ub = new UserBoardDao().selectOneub(con, num);
-
-		if(ub != null) {
-			int result = new UserBoardDao().updateCount(con, num);
-
-			if(result > 0) {
-				commit(con);
-			}else {
-				rollback(con);
-			}
-		}
+		ArrayList<UserBoard> best = new UserBoardDao().selectListBest(con);
 
 		close(con);
 
-		return ub;
+		return best;
 	}
-
-
-
-
-	public ArrayList<UserBoard> selectList(String userId) {
+	
+	public ArrayList<UserBoard> searchList(int currentPage, int limit, String search, String what) {
 		Connection con = getConnection();
 
-		ArrayList<UserBoard> list = new UserBoardDao().selectList(con);
+		ArrayList<UserBoard> list = new UserBoardDao().selectList(con, currentPage, limit, search, what);
+
 
 		close(con);
 
 		return list;
 	}
+	
+	public int getsearchListCount(String what, String search) {
+		Connection con = getConnection();
 
-	//게시물 작성용 메소드
+		int listCount = new UserBoardDao().getsearchListCount(con, what, search);
+
+
+		close(con);
+
+		return listCount;
+	}
+	
+	public ArrayList<UserBoard> myselectList(int currentPage, int limit, int userNo) {
+		Connection con = getConnection();
+
+		ArrayList<UserBoard> list = new UserBoardDao().myselectList(con, currentPage, limit, userNo);
+
+		close(con);
+
+		return list;
+	}
+	
+	public int getmyListCount(int userNo) {
+		Connection con = getConnection();
+
+		int listCount = new UserBoardDao().getmyListCount(con, userNo);
+
+		close(con);
+
+		return listCount;
+	}
+	
+	public int getUserNo(String commentNickNm) {
+		Connection con = getConnection();
+		int result = 0;
+
+		result = new UserBoardDao().getUserNo(con,commentNickNm);
+
+		if(result > 0) {
+			commit(con);
+
+		}else {
+			rollback(con);
+
+		}
+		close(con);
+
+
+	return result;
+	}
+	
 	public int insertBoard(UserBoard ub, ArrayList<UserBoardAttachment> fileList) {
 		Connection con = getConnection();
 
@@ -148,94 +231,7 @@ public class UserBoardService {
 
 		return result;
 	}
-
-
-
-	public ArrayList<UserBoard> selectList(int currentPage, int limit) {
-		Connection con = getConnection();
-
-		ArrayList<UserBoard> list = new UserBoardDao().selectList(con, currentPage, limit);
-
-		close(con);
-
-		return list;
-	}
-
-	public ArrayList<UserBoard> selectList(int currentPage, int limit, String category) {
-		Connection con = getConnection();
-
-		ArrayList<UserBoard> list = new UserBoardDao().selectList(con,currentPage, limit, category);
-
-		close(con);
-
-		return list;
-	}
-
-	public int getListCount() {
-		Connection con = getConnection();
-
-		int listCount = new UserBoardDao().getListCount(con);
-
-		close(con);
-
-		return listCount;
-	}
-
-	public int getListCount(String category) {
-		Connection con = getConnection();
-
-		int listCount = new UserBoardDao().getListCount(con, category);
-
-		close(con);
-
-		return listCount;
-	}
-
-
-	public ArrayList<UserBoard> myselectList(int currentPage, int limit, int userNo) {
-		Connection con = getConnection();
-
-		ArrayList<UserBoard> list = new UserBoardDao().myselectList(con, currentPage, limit, userNo);
-
-		close(con);
-
-		return list;
-	}
-
-
-	public int getmyListCount(int userNo) {
-		Connection con = getConnection();
-
-		int listCount = new UserBoardDao().getmyListCount(con, userNo);
-
-		close(con);
-
-		return listCount;
-	}
-
-
-	public HashMap<String, Object> selectOne(int num) {
-		Connection con = getConnection();
-
-		HashMap<String, Object> hmap = null;
-
-		int result = new UserBoardDao().updateCount(con, num);
-
-		if(result > 0) {
-			commit(con);
-
-			hmap = new UserBoardDao().selectOne(con, num);
-		}else {
-			rollback(con);
-		}
-
-		close(con);
-
-
-		return hmap;
-	}
-
-
+	
 	public int deleteUserBoard(int nno) {
 		Connection con = getConnection();
 
@@ -252,87 +248,7 @@ public class UserBoardService {
 
 	return result;
 	}
-
-
-	public int updateUserBoard(UserBoard ub, int bNo) {
-		Connection con = getConnection();
-
-		int result = new UserBoardDao().updateUserBoard(con, ub, bNo);
-
-		if(result > 0) {
-			commit(con);
-		}else {
-			rollback(con);
-		}
-		close(con);
-
-		return result;
-
-	}
-
-
-	public int getsearchListCount(String what, String search) {
-		Connection con = getConnection();
-
-		int listCount = new UserBoardDao().getsearchListCount(con, what, search);
-
-
-		close(con);
-
-		return listCount;
-	}
-
-
-	public ArrayList<UserBoard> searchList(int currentPage, int limit, String search, String what) {
-		Connection con = getConnection();
-
-		ArrayList<UserBoard> list = new UserBoardDao().selectList(con, currentPage, limit, search, what);
-
-
-		close(con);
-
-		return list;
-	}
-
-
-	public int getListCountad() {
-		Connection con = getConnection();
-
-		int listCount = new UserBoardDao().getListCountad(con);
-
-		close(con);
-
-		return listCount;
-	}
-
-
-	public ArrayList<UserBoard> selectListad(int currentPage, int limit) {
-Connection con = getConnection();
-
-		ArrayList<UserBoard> list = new UserBoardDao().selectListad(con, currentPage, limit);
-
-		close(con);
-
-		return list;
-	}
-
-
-	public int uprecommendUserBoard(int thisBoardNo, int nowLoginUser) {
-		Connection con = getConnection();
-		int result = 0;
-
-		result = new UserBoardDao().uprecommendUserBoard(con, thisBoardNo, nowLoginUser);
-
-		if(result >0) {
-			commit(con);
-		}else {
-			rollback(con);
-		}
-		close(con);
-
-		return result;
-	}
-
+	
 	public int derecommendUserBoard(int thisBoardNo, int nowLoginUser) {
 		Connection con = getConnection();
 		int result = 0;
@@ -348,14 +264,14 @@ Connection con = getConnection();
 
 		return result;
 	}
-
+	
 	public Recub selectRec(int num, int logUno) {
 		Connection con = getConnection();
 
 		Recub rec = new UserBoardDao().selectRec(con, num, logUno);
 
 		commit(con);
-
+		close(con);
 		return rec;
 	}
 
@@ -365,7 +281,7 @@ Connection con = getConnection();
 		int rec = new UserBoardDao().selectRecCount(con, num);
 
 		commit(con);
-
+		close(con);
 		return rec;
 	}
 

@@ -159,8 +159,8 @@ public class AdminBoardDao {
 				ab.setAdNo(rset.getInt("AD_NO"));
 				ab.setStatus(rset.getString("STATUS"));
 				ab.setViewCount(rset.getInt("VIEW_COUNT"));
-	
-				
+
+
 				at = new NoticeAttachment();
 				at.setFileKind(rset.getString("FILE_KIND"));
 				at.setAttachmentNo(rset.getInt("ATTACHMENT_NO"));
@@ -172,10 +172,10 @@ public class AdminBoardDao {
 				at.setBoardNo(rset.getInt("BOARD_NO"));
 				at.setEntNo(rset.getInt("ENT_NO"));
 				at.setFileLevel(rset.getString("FILE_LEVEL"));
-				
+
 				list.add(at);
 			}
-			
+
 			hmap = new HashMap<String, Object>();
 			hmap.put("board", ab);
 			hmap.put("attachment", list);
@@ -190,8 +190,8 @@ public class AdminBoardDao {
 		}
 
 		return hmap;
-		
-		
+
+
 
 	}
 
@@ -1339,7 +1339,7 @@ public class AdminBoardDao {
 			pstmt.setString(11, "골든리트리버");
 			pstmt.setString(12, "허스키");
 			pstmt.setString(13, "쉐퍼드");
-			
+
 
 			rset = pstmt.executeQuery();
 
@@ -1361,8 +1361,8 @@ public class AdminBoardDao {
 				hmap.put("dog_kind11", rset.getString("D11"));
 				hmap.put("dog_kind12", rset.getString("D12"));
 				hmap.put("dog_kind13", rset.getString("D13"));
-		
-				
+
+
 
 				list.add(hmap);
 			}
@@ -1605,16 +1605,16 @@ public class AdminBoardDao {
 	public int insertThumbnailContent(Connection con, AdminBoard ab) {
 		PreparedStatement pstmt = null;
 		int result = 0;
-		
+
 		String query = prop.getProperty("insertThumb");
 		try {
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, ab.getTitle());
 			pstmt.setString(2, ab.getAdBoardCon());
 			pstmt.setInt(3, Integer.parseInt(ab.getNickNm()));
-			
+
 			result  = pstmt.executeUpdate();
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -1623,74 +1623,74 @@ public class AdminBoardDao {
 		return result;
 	}
 
-	
+
 
 	public ArrayList<HashMap<String, Object>> selectThumbnailList(Connection con) {
 		Statement stmt = null;
 		ArrayList<HashMap<String, Object>> list = null;
 		HashMap<String, Object>hmap = null;
 		ResultSet rset = null;
-		
+
 		String query = prop.getProperty("selectThumbnailMap");
-		
+
 		try {
 			stmt = con.createStatement();
-			
+
 			rset = stmt.executeQuery(query);
-			
+
 			list = new ArrayList<HashMap<String, Object>>();
-			
+
 			while(rset.next()) {
 				hmap = new HashMap<String, Object>();
-				
+
 				hmap.put("nno", rset.getInt("BNO"));
 			}
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			close(rset);
 			close(stmt);
 		}
-		
+
 		return list;
 	}
 
 	public int insertAttachment(Connection con, ArrayList<NoticeAttachment> fileList) {
 		PreparedStatement pstmt = null;
 		int result = 0;
-		
+
 		String query = prop.getProperty("insertAttachment");
-		
+
 		try {
 			for(int i = 0; i < fileList.size(); i++) {
 				pstmt = con.prepareStatement(query);
-				
+
 				pstmt.setString(1, fileList.get(i).getOriginNm());
 				pstmt.setString(2, fileList.get(i).getChangeNm());
 				pstmt.setString(3, fileList.get(i).getFilePath());
 				pstmt.setString(4,"공지");
 				pstmt.setString(5,"0");
-				
+
 				int level = 0;
 				if(i == 0) {
 					level = 0;
 				}else {
 					level = 1;
 				}
-				
+
 				pstmt.setInt(5, level);
-				
+
 				result += pstmt.executeUpdate();
-					
+
 			}
-		
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			close(pstmt);
 		}
-		
+
 		return result;
 	}
 
@@ -1715,7 +1715,6 @@ public class AdminBoardDao {
 
 		return result;
 	}
-
 
 
 	public ArrayList<HashMap<String, Object>> statics5(Connection con) {
@@ -1864,6 +1863,41 @@ public class AdminBoardDao {
 
 
 		return list;
+	}
+
+	public int getListCountedd(Connection con) {
+		Statement stmt = null;
+	      ResultSet rset = null;
+	      int result = 0;
+
+	      String query = prop.getProperty("getListCounted");
+
+
+
+	      try {
+	         stmt = con.createStatement();
+
+
+
+	         rset = stmt.executeQuery(query);
+
+	         if(rset.next()) {
+	            result = rset.getInt(1);
+	         }
+
+
+	      } catch (SQLException e) {
+	         // TODO Auto-generated catch block
+	         e.printStackTrace();
+	      }finally {
+	         close(stmt);
+	         close(rset);
+	      }
+
+
+
+
+	      return result;
 	}
 
 
