@@ -94,6 +94,7 @@ public class AdminBoardDao {
 				ab.setAdNo(rset.getInt("AD_NO"));
 				ab.setStatus(rset.getString("STATUS"));
 				ab.setNickNm(rset.getString("NICK_NM"));
+				ab.setViewCount(rset.getInt("VIEW_COUNT"));
 
 				list.add(ab);
 			}
@@ -1898,6 +1899,73 @@ public class AdminBoardDao {
 	      return result;
 	}
 
+	public int getListCounteabc(Connection con, String boardsearch) {
+		PreparedStatement pstmt = null;
+		int result =0;
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("boardsearch");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, boardsearch);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				result = rset.getInt("COUNT");
+			}
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}
+		
+		
+		return result;
+	}
+
+	public ArrayList<AdminBoard> selectListabc(Connection con, int currentPage, int limit, String boardsearch) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<AdminBoard> list = null;
+
+		String query = prop.getProperty("selectListabc");
+
+		try {
+			pstmt = con.prepareStatement(query);
+
+			int startRow = (currentPage - 1) * limit + 1;
+			int endRow = startRow + limit - 1;
+			pstmt.setString(1, "공지");
+			pstmt.setString(2, boardsearch);
+			pstmt.setInt(3, startRow);
+			pstmt.setInt(4, endRow);
+
+			rset = pstmt.executeQuery();
+
+			list = new ArrayList<AdminBoard>();
+
+			while(rset.next()) {
+				AdminBoard ab = new AdminBoard();
+				ab.setAdBoardNo(rset.getInt("AD_BOARD_NO"));
+				ab.setTitle(rset.getString("TITLE"));
+				ab.setAdBoardCon(rset.getString("AD_BOARD_CON"));
+				ab.setWriteDt(rset.getDate("WRITE_DT"));
+				ab.setBoardDiv(rset.getString("BOARD_DIV"));
+				ab.setAdNo(rset.getInt("AD_NO"));
+				ab.setStatus(rset.getString("STATUS"));
+				ab.setNickNm(rset.getString("NICK_NM"));
+
+				list.add(ab);
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
 	public ArrayList<HashMap<String, Object>> statics8(Connection con) {
 		Statement stmt = null;
 		ArrayList<HashMap<String, Object>> list = null;
@@ -1932,7 +2000,6 @@ public class AdminBoardDao {
 			close(rset);
 			close(stmt);
 		}
-
 
 		return list;
 	}
