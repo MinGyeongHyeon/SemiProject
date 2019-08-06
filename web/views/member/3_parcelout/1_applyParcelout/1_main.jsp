@@ -10,13 +10,21 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<style>
 
+#outer{
+font-family: 'Sunflower', sans-serif;
+
+}
+
+
+</style>
 </head>
 <body>
 
 	<img src="/sixDestiny/images/parcelout1.jpg">
 
-	<div>
+	<div id="outer">
 		<br><br>
 		<strong>위의 절차와 주의사항을 충분히 숙지하였고, 분양신청을 진행하시겠습니까?</strong> <input
 			type="checkbox" name="check" id="yes" class="yes">예 <input

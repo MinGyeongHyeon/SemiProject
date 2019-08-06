@@ -13,6 +13,7 @@ import java.util.Properties;
 import com.kh.semi.entrance.model.vo.EntranceDogInfo;
 import com.kh.semi.parcelout.model.vo.Application;
 import com.kh.semi.parcelout.model.vo.ParcelOut;
+import com.kh.semi.parcelout.model.vo.ParcelOutQuestion;
 import com.kh.semi.parcelout.model.vo.parceOutAnswer;
 import com.kh.semi.user.model.vo.User;
 
@@ -199,6 +200,46 @@ public class ParcelOutDao {
 			close(pstmt);
 		}
 		
+		return list;
+	}
+
+
+	public ArrayList<ParcelOutQuestion> parceloutquestion(Connection con, int pcoAppNo) {
+
+		ArrayList<ParcelOutQuestion> list = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ParcelOutQuestion poq =null;
+		
+		String query = prop.getProperty("question");
+		
+		try {
+			pstmt=con.prepareStatement(query);
+			pstmt.setInt(1, pcoAppNo);
+			
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<>();
+			
+			while(rset.next()) {
+				
+				poq = new ParcelOutQuestion();
+				poq.setQuCd(rset.getString("QU_CD"));
+				poq.setQuCon(rset.getString("QU_CON"));
+				poq.setQuKind(rset.getString("QU_KIND"));
+				
+				list.add(poq);
+			}
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+
 		return list;
 	}
 

@@ -5,7 +5,6 @@
 	String userId = request.getParameter("userId");
 	String email = request.getParameter("email");
 	String userName = request.getParameter("userName");
-
 %>
 <!DOCTYPE htm>
 <html>
@@ -14,13 +13,10 @@
 <title>Insert title here</title>
 </head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-	<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <style>
 #button {
 	background: dimgray;
@@ -308,6 +304,25 @@ function checkNickNm(){
 		}
 	});
 }
+</script>
+
+<script type="text/javascript">
+	function fn_setAddr() {
+		var width = 500;
+		var height = 600;
+		daum.postcode.load(function(){
+			new daum.Postcode({
+				oncomplete: function(data){
+					$("#zipAddr").val(data.address);
+				}
+			}).open({
+				left: (window.screen.width / 2) - (width / 2),
+				top: (window.screen.height / 2) - (height / 2)
+			});
+		});
+	}
+
+ 	
 </script>
 
 	<%@ include file="../../../common/bottom_Include.jsp"%>
