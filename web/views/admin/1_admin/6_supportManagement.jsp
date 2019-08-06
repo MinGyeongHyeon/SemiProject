@@ -358,45 +358,60 @@
 					success:function(data){
 						var billing_key = data["billingkey"];
 						var order_id = data["order_id"];
+						var supportDay = data["supportDay"];
+						var day1 = 0;
+						console.log(supportDay.length);
+						if(supportDay.substr(0,1) == 0){
+							day1 = supportDay.substr(1,1);
+							console.log("aaaa" + day1);
+						}
+						var today = new Date();
+						var day = today.getDate();
+
+						console.log("bbb"+day);
 						var price = 1000;
 						if(confirm("정기결제를 진행하시겠습니까?")){
-							$.ajax({
-								url:"https://api.bootpay.co.kr/subscribe/billing",
-								type:"post",
-								dataType:'json',
-								beforeSend : function(xhr){
-						            xhr.setRequestHeader("Authorization", token);
-						        },
-								data:{billing_key:billing_key, item_name:"정기후원", order_id:order_id, price:price},
-								success:function(data){
-									var receipt_id = data["data"]["receipt_id"];
-									$.ajax({
-										url:"/sixDestiny/updateReceipt.id",
-										type:"post",
-										data:{receipt_id:receipt_id, monSupNo:monSupNo},
-										success:function(data){
-											alert("결제가 완료되었습니다. \n결제 내역을 회원님의 메일로 전송하였습니다.");
-											var eamil = data;
-											$.ajax({
-												url:"/sixDestiny/sendemail.sup",
-												type:"post",
-												data:{eamil:eamil, monSupNo:monSupNo},
-												success:function(){
-													console.log("이메일전송 성공");
-												},
-												error:function(){
+							if(day == day1){
+								$.ajax({
+									url:"https://api.bootpay.co.kr/subscribe/billing",
+									type:"post",
+									dataType:'json',
+									beforeSend : function(xhr){
+							            xhr.setRequestHeader("Authorization", token);
+							        },
+									data:{billing_key:billing_key, item_name:"정기후원", order_id:order_id, price:price},
+									success:function(data){
+										var receipt_id = data["data"]["receipt_id"];
+										$.ajax({
+											url:"/sixDestiny/updateReceipt.id",
+											type:"post",
+											data:{receipt_id:receipt_id, monSupNo:monSupNo},
+											success:function(data){
+												alert("결제가 완료되었습니다. \n결제 내역을 회원님의 메일로 전송하였습니다.");
+												var eamil = data;
+												$.ajax({
+													url:"/sixDestiny/sendemail.sup",
+													type:"post",
+													data:{eamil:eamil, monSupNo:monSupNo},
+													success:function(){
+														console.log("이메일전송 성공");
+													},
+													error:function(){
 
-												}
-											});
-										},
-										error:function(){
-										}
-									});
-								},
-								error:function(data){
-									alert("회원님의 카드사 문제로 결제가 완료되지 않았습니다. \n확인 후 다시 요청 바랍니다.");
-								}
-							});
+													}
+												});
+											},
+											error:function(){
+											}
+										});
+									},
+									error:function(data){
+										alert("회원님의 카드사 문제로 결제가 완료되지 않았습니다. \n확인 후 다시 요청 바랍니다.");
+									}
+								});
+							}else{
+								alert("해당 정기후원 결제일이 아닙니다");
+							}
 						}else{
 							alert("확인 후 다시 요청 해 주세요.")
 						}

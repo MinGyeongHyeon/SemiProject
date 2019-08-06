@@ -70,9 +70,9 @@
 						</tr>
 						<tr>
 							<td colspan="2">
-								<input style="width:27%; height: 50px;" type="text" placeholder="010">&nbsp; -&nbsp;
-								<input style="width:30%; height: 50px;" type="text" >&nbsp; - &nbsp;
-								<input style="width:30%; height: 50px;" type="text" >
+								<input style="width:27%; height: 50px;" maxlength="3" type="text" placeholder="010">&nbsp; -&nbsp;
+								<input style="width:30%; height: 50px;" maxlength="4" type="text" >&nbsp; - &nbsp;
+								<input style="width:30%; height: 50px;" maxlength="4" type="text" >
 							</td>
 						</tr>
 						<tr><td><br><br></td></tr>

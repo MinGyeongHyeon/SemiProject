@@ -429,4 +429,33 @@ public class SupportDao {
 		return email;
 	}
 
+
+
+	public String selectUserSupportDay(Connection con, int monSupNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String supportDay = null;
+
+		String query = prop.getProperty("selectUserSupportDay");
+
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, monSupNo);
+
+			rset = pstmt.executeQuery();
+
+			if(rset.next()) {
+				supportDay = rset.getString("SUP_DT");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+
+		return supportDay;
+	}
+
 }

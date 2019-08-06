@@ -36,7 +36,7 @@
 <body>
 	<div class="supportArea">
 		<div>
-			<form action="/sixDestiny/insertsup.re" method="post">
+			<form action="/sixDestiny/insertsup.re" method="post" name="reguralSupport">
 				<fieldset>
 					<legend style="font-family: 'Sunflower', sans-serif; font-size:2em;">신청인 정보</legend>
 					<table style="width:80%; margin:0 auto;">
@@ -66,13 +66,13 @@
 						</tr>
 						<tr><td><br></td></tr>
 						<tr>
-							<td style="font-family: 'Sunflower', sans-serif; text-align:left"">연락처</td>
+							<td style="font-family: 'Sunflower', sans-serif; text-align:left;">연락처</td>
 						</tr>
 						<tr>
 							<td colspan="2">
-								<input name="tel1" style="width:27%; height: 50px;" type="text" placeholder="010">&nbsp; -&nbsp;
-								<input name="tel2" style="width:30%; height: 50px;" type="text" >&nbsp; - &nbsp;
-								<input name="tel3" style="width:30%; height: 50px;" type="text" >
+								<input name="tel1" style="width:27%; height: 50px;" maxlength="3" type="text" placeholder="010">&nbsp; -&nbsp;
+								<input name="tel2" style="width:30%; height: 50px;" maxlength="4" type="text" >&nbsp; - &nbsp;
+								<input name="tel3" style="width:30%; height: 50px;" maxlength="4" type="text" >
 							</td>
 						</tr>
 						<tr><td><br><br></td></tr>
@@ -114,10 +114,11 @@
 				</fieldset>
 
 				<br><br><br>
-				<input type="submit" value="납입" class="btn btn-default" style="width:200px; font-family: 'Sunflower', sans-serif;" onclick="card()">
-				<input type="reset" value="취소" class="btn btn-default" style="width:200px; font-family: 'Sunflower', sans-serif;">
+				<input type="button" value="납입" class="btn btn-default" style="width:200px; font-family: 'Sunflower', sans-serif;" onclick="card();">
+				<input type="button" value="취소" class="btn btn-default" style="width:200px; font-family: 'Sunflower', sans-serif;" onclick="cancel();">
 
 			</form>
+
 
 
 		</div>
@@ -130,6 +131,15 @@
 				한번 후원한 닙입금은 취소불가, 취소 신청은 언제든 가능함을 알려드립니다.</pre>
 
 	</div>
+	<script type="text/javascript">
+		function card() {
+			document.reguralSupport.submit();
+		}
+
+		function cancel(){
+			location.href="/sixDestiny/index.jsp"
+		}
+	</script>
 
 <%@ include file="../../../common/bottom_Include.jsp"%>
 </body>
