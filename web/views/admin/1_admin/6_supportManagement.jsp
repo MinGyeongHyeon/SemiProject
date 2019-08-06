@@ -343,27 +343,19 @@
   	function goRegural(monSupNo) {
   		var monSupNo = monSupNo;
   		var application_id = "5d38293e02f57e00381e9c2e";
-  		var private_key = "nM+YsThKJu0Ca+6dbOAXiq6VhH/VHb0GduKLcwtP8rM="
+  		var private_key = "nM+YsThKJu0Ca+6dbOAXiq6VhH/VHb0GduKLcwtP8rM=";
   		$.ajax({
   			url:"https://api.bootpay.co.kr/request/token",
   			type:"post",
   			dataType:'json',
   			data:{application_id:application_id, private_key:private_key},
   			success:function(data){
-				console.log(data);
-				console.log(data["data"]["token"]);
 				var token = data["data"]["token"];
 				$.ajax({
 					url:"/sixDestiny/select.bill",
 					type:"post",
 					data:{monSupNo:monSupNo},
 					success:function(data){
-						console.log(data);
-						console.log("빌링키 : " + data["billingkey"]);
-						console.log("오더 아이디 : " + data["order_id"]);
-
-						console.log("토큰 : " + token);
-
 						var billing_key = data["billingkey"];
 						var order_id = data["order_id"];
 						var price = 1000;
@@ -373,13 +365,10 @@
 								type:"post",
 								dataType:'json',
 								beforeSend : function(xhr){
-									//console.log(token);
-									/* xhr.setRequestHeader("Content-Type","application/json"); */
 						            xhr.setRequestHeader("Authorization", token);
 						        },
 								data:{billing_key:billing_key, item_name:"정기후원", order_id:order_id, price:price},
 								success:function(data){
-									console.log(data);
 									var receipt_id = data["data"]["receipt_id"];
 									$.ajax({
 										url:"/sixDestiny/updateReceipt.id",
@@ -387,7 +376,6 @@
 										data:{receipt_id:receipt_id, monSupNo:monSupNo},
 										success:function(data){
 											alert("결제가 완료되었습니다. \n결제 내역을 회원님의 메일로 전송하였습니다.");
-											console.log(data);
 											var eamil = data;
 											$.ajax({
 												url:"/sixDestiny/sendemail.sup",
