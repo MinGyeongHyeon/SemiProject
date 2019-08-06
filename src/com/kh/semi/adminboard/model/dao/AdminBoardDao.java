@@ -1717,8 +1717,6 @@ public class AdminBoardDao {
 	}
 
 
-
-
 	public ArrayList<HashMap<String, Object>> statics5(Connection con) {
 		Statement stmt = null;
 		ArrayList<HashMap<String, Object>> list = null;

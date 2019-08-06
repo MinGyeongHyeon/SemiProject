@@ -102,13 +102,13 @@
 							<td width="150px" style="font-weight:bold;">작성자</td>
 							<td width="150px" style="font-weight:bold;">조회수</td>
 						</tr>
-						<% for(AdminBoard b : list){ %>
+						<% for(AdminBoard ab : list){ %>
 							<tr>
-								<td><%= b.getAdBoardNo() %></td>
-								<td><a><%= b.getTitle() %></a></td>
-								<td><%= b.getWriteDt() %></td>
-								<td><%= b.getNickNm() %></td>
-								<td>188</td>
+								<td><%= ab.getAdBoardNo() %></td>
+								<td><a><%= ab.getTitle() %></a></td>
+								<td><%= ab.getWriteDt() %></td>
+								<td><%= ab.getNickNm() %></td>
+								<td><%= ab.getViewCount() %></td>
 							</tr>
 						<% } %>
 				</table>

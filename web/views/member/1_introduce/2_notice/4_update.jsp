@@ -1,8 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" import="com.kh.semi.adminboard.model.vo.*"%>
+	pageEncoding="UTF-8" import="com.kh.semi.adminboard.model.vo.* , java.util.*"%>
 <%@ include file="../../../common/top_Include.jsp"%>
 <%
-	AdminBoard ab = (AdminBoard)request.getAttribute("ab");
+	HashMap<String, Object> ab = (HashMap<String, Object>)request.getAttribute("ab");
+
+	AdminBoard ab1 = (AdminBoard) ab.get("board");
 %>
 <html>
 <head>
@@ -30,25 +32,24 @@
 
 </head>
 <body>
-
 <% if(loginUser != null && loginUser.getUserId().equals("admin")) %>
-	<form action="/sixDestiny/update.no" method="post" id="updateForm">
+	<form action="/sixDestiny/update.no" method="post" id="updateForm" name="deleteNotice">
 		<div>
 		<h4 style="font-family: 'Sunflower', sans-serif;">공지사항 수정</h4>
 		<br><br>
 			<table width="800px" id="writerTable">
 				<tr>
 					<td><label style="font-family: 'Sunflower', sans-serif; font-size:20px;" >제목
-						&nbsp;</label><input type="text" style="width:750px; height:40px" name="title" value="<%=ab.getTitle()%>"></td>
+						&nbsp;</label><input type="text" style="width:750px; height:40px" name="title" value="<%=ab1.getTitle()%>"></td>
 					<input type="hidden" value="<%=loginUser.getUserNo()%>" name="userNo" readonly>
-					<input type="hidden" value="<%=ab.getAdBoardNo()%>" name="adBoardNo">
+					<input type="hidden" value="<%=ab1.getAdBoardNo()%>" name="adBoardNo">
 				</tr>
 				<tr>
 					<td><br></td>
 				</tr>
 				<tr>
 					<td><textarea rows="15" cols="106" name="adBoardCon">
-					<%=ab.getAdBoardCon()%>
+					<%=ab1.getAdBoardCon()%>
 					</textarea></td>
 				</tr>
 				<tr>
@@ -60,16 +61,26 @@
 
 		<br> <br> <!-- <input type="submit" value="등록하기" class="btn btn-info" style="font-family: 'Sunflower', sans-serif;"></input> -->
 		<div align="center">
-			<button class="btn btn-info" style="font-family: 'Sunflower', sans-serif"  onclick="complete();">작성완료</button>
-			<button class="btn btn-info" style="font-family: 'Sunflower', sans-serif"  onclick="deleteNotice();">삭제하기</button>
+			<input type="button" class="btn btn-info"  style="font-family: 'Sunflower', sans-serif"  onclick="complete();" value="작성하기"></button>
+
+			<input type="button" class="btn btn-info" style="font-family: 'Sunflower', sans-serif"  onclick="deleteNotice1(<%=ab1.getAdBoardNo()%>);" value="삭제하기"></button>
 		</div>
 	</form>
 	<script>
-		function complete(){
-			$("#updateForm").attr("action","<%=request.getContextPath()%>/update.no");
-		}
-		function deleteNotice(){
-			$("#updateForm").attr("action", "<%=request.getContextPath()%>/deleteNotice.no");
+	 	function complete(){
+			document.deleteNotice.submit();
+		} 
+		function deleteNotice1(adBoardNo){
+			console.log("호출");
+			var adBoardNo = adBoardNo;
+			$.ajax({
+				url:"/sixDestiny/deleteNotice.no",
+				type:"post",
+				data:{adBoardNo:adBoardNo},
+				success:function(data){
+					location.href="/sixDestiny/select.no"
+				}
+			});
 		}
 	</script>
 	<!-- <script>

@@ -53,7 +53,10 @@ public class UpdateNoticeServlet extends HttpServlet {
 		
 		if(result>0) {
 			/*response.sendRedirect("selectOne.no?num" + adBoardNo);*/
-			request.getRequestDispatcher("selectOne.no?num" + adBoardNo).forward(request, response);
+			/*request.getRequestDispatcher("selectOne.no?num=" + adBoardNo).forward(request, response);*/
+			response.sendRedirect("/sixDestiny/select.no");
+			/*request.getRequestDispatcher("views/member/1_introduce/2_notice/1_main.jsp").forward(request, response);*/
+			
 		}else {
 			//request.getRequestDispatcher("views/member/1_introduce/2_notice/1_main.jsp").forward(request, response);;
 		}
