@@ -16,6 +16,8 @@
   (ArrayList<HashMap<String,Object>>) request.getAttribute("static6");
   ArrayList<HashMap<String,Object>> list7 =
   (ArrayList<HashMap<String,Object>>) request.getAttribute("static7");
+  ArrayList<HashMap<String,Object>> list8 =
+  (ArrayList<HashMap<String,Object>>) request.getAttribute("static8");
 
   %>
 <!DOCTYPE html>
@@ -148,7 +150,7 @@
                   ['골든리트리버',  <%=list2.get(0).get("dog_kind11")%> ],
                   ['허스키',  <%=list2.get(0).get("dog_kind12")%> ],
                   ['쉐퍼드',  <%=list2.get(0).get("dog_kind13")%> ]
- 
+
 
                 ]);
 
@@ -187,15 +189,11 @@
                   ///////////////////////////////////기부물풀 목록//////////////////
                   var data = google.visualization.arrayToDataTable([
                       ['목록', '기부물품양',],
-                      ['기부물품1', 45],
-                      ['기부물품2', 78],
-                      ['기부물품3', 75],
-                      ['기부물품4', 12],
-                      ['기부물품5', 24],
-                      ['기부물품6', 64],
-                      ['기부물품7', 86],
-                      ['기부물품8', 76],
-                      ['기부물품9', 12]
+                      ['사료 및 간식', <%= list8.get(0).get("C1")%>],
+                      ['이불 및 담요', <%= list8.get(0).get("C2")%>],
+                      ['건강 용품', <%= list8.get(0).get("C3")%>],
+                      ['장난감 및 의류', <%= list8.get(0).get("C4")%>]
+
 
                     ]);
 

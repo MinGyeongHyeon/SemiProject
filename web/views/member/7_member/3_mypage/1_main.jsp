@@ -8,8 +8,7 @@
 
 <style>
 #mypage {
-	margin-left:auto; 
-	margin-right:auto;
+	margin-left:600px;
 	width:1000px;
 	font-family: 'Sunflower', sans-serif;
 }
@@ -30,13 +29,9 @@ table tr td.category2 {
 margin:0;
 }
 
-
 #under{
-margin-left:auto; 
-margin-right:auto;
-
-
-}
+	margin-left:50px;
+} 
 
 </style>
 
@@ -46,10 +41,10 @@ margin-right:auto;
 <body>
 	<%--전체 div --%>
 	<div id="mypage">
-		<div style="margin-left:auto; margin-right:auto;">
-			<form style="margin-left:auto; margin-right:auto;">
+		<div>
+			<form>
 			<br>
-				<table style="margin-left:auto; margin-right:auto;">
+				<table>
 					<tr>
 						<td><br></td>
 					</tr>
@@ -156,11 +151,11 @@ margin-right:auto;
 			<br>
 				
 			<div id="under">
-				<table style="margin-left:auto; margin-right:auto;">
+				<table>
 					<tr>
 						<td><input type="button" value="회원정보 수정"  class="btn btn-default" onclick="location.href='/sixDestiny/views/member/7_member/3_mypage/3_modify.jsp'"></td>
 						<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-						
+						<td>&emsp;&emsp;</td>
 						<%if(loginUser.getUserKind().equals("자체")) {%>
 						<td>
 						<input type="button" value="회원 탈퇴" class="btn btn-default" onclick="location.href='/sixDestiny/views/member/7_member/3_mypage/10_secessionPwd.jsp'">

@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-  
+
 <title>13_입소신청_신청서작성</title>
 <style>
 #div1{
@@ -95,14 +95,14 @@ font-family: 'Sunflower', sans-serif;
 		</div>
 		<br>
 		<input type="checkbox" name="join_agree2" id="agreebut2">위 내용에 동의합니다. <br>
-		<br>	
+		<br>
 	</div>
-	<input type="button" class="btn btn-default" value="회원가입"><br>
-	
+	<input type="button" class="btn btn-default" value="회원가입" id="signbut"><br>
 
-	
+
+
 	</div>
-	
+
 	<script type="text/javascript">
 		$(function(){
 			$('#signbut').click(function(){

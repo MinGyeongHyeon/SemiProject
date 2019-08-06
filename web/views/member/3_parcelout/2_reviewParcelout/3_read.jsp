@@ -152,6 +152,7 @@
 		var $input = $('<input type="text" size="50px">');
 			$input.val(Comment);
 			$input.addClass('updateComment');
+
 		var $button = $('<button>')
 			$button.addClass('updatebutton');
 			$button.text("수정");
@@ -359,6 +360,10 @@
 					$input2.addClass('repotUser');
 					var $nickNm = $("<label>").text(data[key].nickNm).css("width","100px");
 					var $coment = $("<label>").text(data[key].coment).css("width","400px");
+
+
+					<%if(loginUser != null){%>
+					if(data[key].uNo == <%= loginUser.getUserNo()%>){
 					var $button2 = $("<button>");
 					$button2.addClass('deleteCom');
 					 $button2.css({'background':'none','border':'none'});
@@ -367,6 +372,8 @@
 					$button3.addClass("updateCom");
 					$button3.css({'background':'none','border':'none'});
 					$button3.text("수정");
+					}
+					<%}%>
 
 
 					$button.append($img);
