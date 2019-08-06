@@ -68,7 +68,7 @@ table tr td.title {
 				<tr>
 					<td class="title"><label>제목</label></td>
 					<td style="text-align: left;"><input type="text" name="bNm"
-						size="40"> 분류 <select name="bKind">
+						size="40"  placeholder="글자 수는 30자로 제한" maxlength="30"> 분류 <select name="bKind">
 							<option value="자랑">자랑</option>
 							<option value="꿀팁">꿀팁</option>
 							<option value="잡담">잡담</option>
@@ -80,7 +80,7 @@ table tr td.title {
 					<td class="title"><label>내용</label></td>
 
 					<td style="text-align: left"><textarea name="bCon" rows="20"
-							cols="70" style="resize: none;"></textarea></td>
+							cols="70" style="resize: none;"  placeholder="글자 수는 250자로 제한" maxlength="250"></textarea></td>
 
 
 				</tr>

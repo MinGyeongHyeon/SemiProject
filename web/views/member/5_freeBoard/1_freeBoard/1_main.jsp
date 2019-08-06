@@ -357,6 +357,7 @@ th {
 			.click(function(){
 				var num = $(this).parent().children().eq(0).text();
 				location.href="<%=request.getContextPath()%>/selectOne.bo?num=" + num;
+				count(num);
 			});
 		}
 		
@@ -389,7 +390,20 @@ th {
 			
 		}
 		
+		function count(num){
+			var thisBoardNo = num
+			
+			 $.ajax({
+					url:"countRec.ub",
+					data:{thisBoardNo:thisBoardNo},
+					type:"get",
+					success:function(data){
+						
+						console.log("성공")
+					}
+				})
 		
+	}
 		
 		
 

@@ -72,7 +72,7 @@ public class UserBoardDao {
 				ub.setbDate(rset.getDate("BOARD_DT"));
 				ub.setbCon(rset.getString("BOARD_CON"));
 				ub.setInqCon(rset.getInt("INQ_COUNT"));
-				ub.setRecCon(rset.getInt("REC_COUNT"));
+				ub.setRecCon(rset.getInt("CNT"));
 				ub.setsGrade(rset.getInt("STAR_GRADE"));
 				ub.setbUserNick(rset.getString("NICK_NM"));
 				ub.setStatus(rset.getString("STATUS"));
@@ -141,7 +141,7 @@ public class UserBoardDao {
 				ub.setbDate(rset.getDate("BOARD_DT"));
 				ub.setbCon(rset.getString("BOARD_CON"));
 				ub.setInqCon(rset.getInt("INQ_COUNT"));
-				ub.setRecCon(rset.getInt("REC_COUNT"));
+				ub.setRecCon(rset.getInt("CNT"));
 				ub.setsGrade(rset.getInt("STAR_GRADE"));
 				ub.setbUserNick(rset.getString("NICK_NM"));
 				ub.setStatus(rset.getString("STATUS"));
@@ -199,7 +199,7 @@ public class UserBoardDao {
 				ub.setbDate(rset.getDate("BOARD_DT"));
 				ub.setbCon(rset.getString("BOARD_CON"));
 				ub.setInqCon(rset.getInt("INQ_COUNT"));
-				ub.setRecCon(rset.getInt("REC_COUNT"));
+				ub.setRecCon(rset.getInt("CNT"));
 				ub.setsGrade(rset.getInt("STAR_GRADE"));
 				ub.setbUserNick(rset.getString("NICK_NM"));
 				ub.setStatus(rset.getString("STATUS"));
@@ -372,7 +372,7 @@ public class UserBoardDao {
 				ub.setbDate(rset.getDate("BOARD_DT"));
 				ub.setbCon(rset.getString("BOARD_CON"));
 				ub.setInqCon(rset.getInt("INQ_COUNT"));
-				ub.setRecCon(rset.getInt("REC_COUNT"));
+				ub.setRecCon(rset.getInt("CNT"));
 				ub.setsGrade(rset.getInt("STAR_GRADE"));
 				ub.setbUserNick(rset.getString("NICK_NM"));
 				ub.setStatus(rset.getString("STATUS"));
@@ -702,7 +702,7 @@ public class UserBoardDao {
 				ub.setbDate(rset.getDate("BOARD_DT"));
 				ub.setbCon(rset.getString("BOARD_CON"));
 				ub.setInqCon(rset.getInt("INQ_COUNT"));
-				ub.setRecCon(rset.getInt("REC_COUNT"));
+				ub.setRecCon(rset.getInt("CNT"));
 				ub.setbUserNick(rset.getString("NICK_NM"));
 
 			}
@@ -799,7 +799,6 @@ public class UserBoardDao {
 						ub.setbDate(rset.getDate("BOARD_DT"));
 						ub.setbCon(rset.getString("BOARD_CON"));
 						ub.setInqCon(rset.getInt("INQ_COUNT"));
-						ub.setRecCon(rset.getInt("REC_COUNT"));
 						ub.setbUserNick(rset.getString("NICK_NM"));
 						ub.setuNo(rset.getInt("USER_NO"));
 						
@@ -872,7 +871,7 @@ public class UserBoardDao {
 						ub.setbDate(rset.getDate("BOARD_DT"));
 						ub.setbCon(rset.getString("BOARD_CON"));
 						ub.setInqCon(rset.getInt("INQ_COUNT"));
-						ub.setRecCon(rset.getInt("REC_COUNT"));
+						ub.setRecCon(rset.getInt("CNT"));
 						ub.setsGrade(rset.getInt("STAR_GRADE"));
 						ub.setbUserNick(rset.getString("NICK_NM"));
 						ub.setStatus(rset.getString("STATUS"));
@@ -962,7 +961,7 @@ public class UserBoardDao {
 						ub.setbDate(rset.getDate("BOARD_DT"));
 						ub.setbCon(rset.getString("BOARD_CON"));
 						ub.setInqCon(rset.getInt("INQ_COUNT"));
-						ub.setRecCon(rset.getInt("REC_COUNT"));
+						ub.setRecCon(rset.getInt("CNT"));
 						ub.setsGrade(rset.getInt("STAR_GRADE"));
 						ub.setbUserNick(rset.getString("NICK_NM"));
 						ub.setStatus(rset.getString("STATUS"));
@@ -1059,7 +1058,7 @@ public class UserBoardDao {
 						ub.setbDate(rset.getDate("BOARD_DT"));
 						ub.setbCon(rset.getString("BOARD_CON"));
 						ub.setInqCon(rset.getInt("INQ_COUNT"));
-						ub.setRecCon(rset.getInt("REC_COUNT"));
+						ub.setRecCon(rset.getInt("CNT"));
 						ub.setsGrade(rset.getInt("STAR_GRADE"));
 						ub.setbUserNick(rset.getString("NICK_NM"));
 						ub.setStatus(rset.getString("STATUS"));
@@ -1163,7 +1162,7 @@ public class UserBoardDao {
 						ub.setbDate(rset.getDate("BOARD_DT"));
 						ub.setbCon(rset.getString("BOARD_CON"));
 						ub.setInqCon(rset.getInt("INQ_COUNT"));
-						ub.setRecCon(rset.getInt("REC_COUNT"));
+						ub.setRecCon(rset.getInt("CNT"));
 						ub.setsGrade(rset.getInt("STAR_GRADE"));
 						ub.setbUserNick(rset.getString("NICK_NM"));
 						ub.setStatus(rset.getString("STATUS"));
@@ -1326,7 +1325,7 @@ public class UserBoardDao {
 						ubbest.setbDate(rset.getDate("BOARD_DT"));
 						ubbest.setbCon(rset.getString("BOARD_CON"));
 						ubbest.setInqCon(rset.getInt("INQ_COUNT"));
-						ubbest.setRecCon(rset.getInt("REC_COUNT"));
+						ubbest.setRecCon(rset.getInt("CNT"));
 						ubbest.setsGrade(rset.getInt("STAR_GRADE"));
 						ubbest.setbUserNick(rset.getString("NICK_NM"));
 						ubbest.setStatus(rset.getString("STATUS"));
@@ -1383,7 +1382,7 @@ public class UserBoardDao {
 							ub.setbDate(rset.getDate("BOARD_DT"));
 							ub.setbCon(rset.getString("BOARD_CON"));
 							ub.setInqCon(rset.getInt("INQ_COUNT"));
-							ub.setRecCon(rset.getInt("REC_COUNT"));
+							ub.setRecCon(rset.getInt("CNT"));
 							ub.setsGrade(rset.getInt("STAR_GRADE"));
 							ub.setbUserNick(rset.getString("NICK_NM"));
 							ub.setStatus(rset.getString("STATUS"));
@@ -1432,7 +1431,7 @@ public class UserBoardDao {
 							ub.setbDate(rset.getDate("BOARD_DT"));
 							ub.setbCon(rset.getString("BOARD_CON"));
 							ub.setInqCon(rset.getInt("INQ_COUNT"));
-							ub.setRecCon(rset.getInt("REC_COUNT"));
+							ub.setRecCon(rset.getInt("CNT"));
 							ub.setsGrade(rset.getInt("STAR_GRADE"));
 							ub.setbUserNick(rset.getString("NICK_NM"));
 							ub.setStatus(rset.getString("STATUS"));
@@ -1483,7 +1482,7 @@ public class UserBoardDao {
 							ub.setbDate(rset.getDate("BOARD_DT"));
 							ub.setbCon(rset.getString("BOARD_CON"));
 							ub.setInqCon(rset.getInt("INQ_COUNT"));
-							ub.setRecCon(rset.getInt("REC_COUNT"));
+							ub.setRecCon(rset.getInt("CNT"));
 							ub.setsGrade(rset.getInt("STAR_GRADE"));
 							ub.setbUserNick(rset.getString("NICK_NM"));
 							ub.setStatus(rset.getString("STATUS"));
@@ -1624,7 +1623,7 @@ public class UserBoardDao {
 						ub.setbDate(rset.getDate("BOARD_DT"));
 						ub.setbCon(rset.getString("BOARD_CON"));
 						ub.setInqCon(rset.getInt("INQ_COUNT"));
-						ub.setRecCon(rset.getInt("REC_COUNT"));
+						ub.setRecCon(rset.getInt("CNT"));
 						ub.setsGrade(rset.getInt("STAR_GRADE"));
 						ub.setbUserNick(rset.getString("NICK_NM"));
 						ub.setStatus(rset.getString("STATUS"));

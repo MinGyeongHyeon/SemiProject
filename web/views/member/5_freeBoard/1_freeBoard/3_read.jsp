@@ -40,7 +40,7 @@
 	<div>
 	
 
-		<div class="container">
+		<div class="container" style="width:1300px;">
 			<table class="table table-hover">
 				<thead>
 					<tr>
