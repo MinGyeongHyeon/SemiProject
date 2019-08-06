@@ -370,17 +370,17 @@
 						<td>사진</td>
 						<td>
 							<div id="contentImgArea1">
-								<img id="contentImg1" src="/sixDestiny/images/imageSelect.PNG" width="120" height="100">
+								<img id="contentImg1" src="/sixDestiny/images/imageSelect.png" width="120" height="100">
 							</div>
 						</td>
 						<td>
 							<div id="contentImgArea2">
-								<img id="contentImg2" src="/sixDestiny/images/imageSelect.PNG" width="120" height="100">
+								<img id="contentImg2" src="/sixDestiny/images/imageSelect.png" width="120" height="100">
 							</div>
 						</td>
 						<td>
 							<div id="contentImgArea3">
-								<img id="contentImg3" src="/sixDestiny/images/imageSelect.PNG" width="120" height="100">
+								<img id="contentImg3" src="/sixDestiny/images/imageSelect.png" width="120" height="100">
 							</div>
 						</td>
 					</tr>
