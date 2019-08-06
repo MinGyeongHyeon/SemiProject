@@ -544,7 +544,7 @@ public class AdminBoardService {
 		return list;
 	}
 
-	/*public int getListCountedd() {
+	public int getListCountedd() {
 		Connection con = getConnection();
 		int result = 0;
 
@@ -553,18 +553,18 @@ public class AdminBoardService {
 		close(con);
 
 		return result;
-	}*/
+	}
 
 	public int insertThumnail(AdminBoard ab, ArrayList<NoticeAttachment> fileList) {
 		Connection con = getConnection();
-		
+
 		int result = 0;
-		
+
 		int result1 = new AdminBoardDao().insertThumbnailContent(con,ab);
-		
+
 		if(result > 0) {
 			int adBoardNo = new AdminBoardDao().selectCurrval(con);
-			
+
 			for(int i=0; i<fileList.size();i++) {
 				fileList.get(i).setAdBoardNo(adBoardNo);
 			}
@@ -582,12 +582,12 @@ public class AdminBoardService {
 
 	public ArrayList<HashMap<String, Object>> selectThumbnailList() {
 		Connection con = getConnection();
-		
-		ArrayList<HashMap<String, Object>> list = 
+
+		ArrayList<HashMap<String, Object>> list =
 				new AdminBoardDao().selectThumbnailList(con);
-		
+
 		close(con);
-		
+
 		return list;
 	}
 
@@ -616,6 +616,15 @@ public class AdminBoardService {
 		}
 
 		return result;
+	}
+
+	public ArrayList<HashMap<String, Object>> statics8() {
+		Connection con = getConnection();
+		ArrayList<HashMap<String,Object>> list = new AdminBoardDao().statics8(con);
+
+		close(con);
+
+		return list;
 	}
 
 }
