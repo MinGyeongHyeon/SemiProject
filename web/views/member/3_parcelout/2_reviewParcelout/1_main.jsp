@@ -84,6 +84,9 @@ div {
 .pracelout{
 	width:10%;
 }
+.boardNM{
+	font-weight: bold;
+}
 
 
 
@@ -115,9 +118,9 @@ div {
 								<input type="hidden" value="<%= hmap2.get("boardNo2") %>">
 
 								<% if(Nm2.length() > 5) { %>
-								<p>제목 : <%= Nm2.substring(0, 5) + "...." %></p>
+								<p class="boardNM">제목 : <%= Nm2.substring(0, 5) + "...." %></p>
 								<% }else{ %>
-								<p>제목 : <%= Nm2 %></p>
+								<p class="boardNM">제목 : <%= Nm2 %></p>
 								<% } %>
 
 								<p>조회수 : <%= hmap2.get("inqCount2") %></p>
@@ -173,6 +176,7 @@ div {
 			<% for(int i = 0; i < list.size(); i++){
 					HashMap<String,Object> hmap = list.get(i);
 					String sub = (String) hmap.get("boardCon");
+					String Nm = (String) hmap.get("boardNm");
 			%>
 			 <div style="display: inline-block; cursor: pointer;" >
 			<%-- 					<p><%= hmap.get("boardKind") %></p> --%>
@@ -184,9 +188,12 @@ div {
 
 				<div class="title">
 						<input type="hidden" value="<%= hmap.get("boardNo")%>" id="boardNo">
-
-								<p id="boardP">제목 : <%= hmap.get("boardNm") %><br>
-								조회수 : <%= hmap.get("inqCount") %><br>
+								<%if(Nm.length() > 15){ %>
+								<p class="boardNM">제목 : <%= Nm.substring(0,14) + "..." %></p>
+								<% }else{ %>
+								<p class="boardNM">제목 : <%= Nm %></p>
+								 <% } %>
+								<p>조회수 : <%= hmap.get("inqCount") %><br>
 								추천수 : <%= hmap.get("recCount") %><br>
 								작성일 : <%= hmap.get("boardDt") %></p>
 					<p id="boarduno">작성자 : <%= hmap.get("nickNm") %></p>

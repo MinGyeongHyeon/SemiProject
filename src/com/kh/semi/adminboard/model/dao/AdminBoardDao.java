@@ -1723,8 +1723,7 @@ public class AdminBoardDao {
 
 		ResultSet rset = null;
 
-		String query = prop.getProperty("statics5");//회원탈퇴이유
-
+		String query = prop.getProperty("statics5");
 		try {
 			stmt = con.createStatement();
 
@@ -1771,7 +1770,7 @@ public class AdminBoardDao {
 
 		ResultSet rset = null;
 
-		String query = prop.getProperty("statics6");//회원탈퇴이유
+		String query = prop.getProperty("statics6");
 
 		try {
 			pstmt = con.prepareStatement(query);
@@ -1824,7 +1823,7 @@ public class AdminBoardDao {
 
 		ResultSet rset = null;
 
-		String query = prop.getProperty("statics5");//회원탈퇴이유
+		String query = prop.getProperty("statics7");
 
 		try {
 			stmt = con.createStatement();
@@ -1897,6 +1896,45 @@ public class AdminBoardDao {
 
 
 	      return result;
+	}
+
+	public ArrayList<HashMap<String, Object>> statics8(Connection con) {
+		Statement stmt = null;
+		ArrayList<HashMap<String, Object>> list = null;
+		HashMap<String, Object> hmap = null;
+
+		ResultSet rset = null;
+
+		String query = prop.getProperty("statics8");
+
+		try {
+			stmt = con.createStatement();
+
+			rset = stmt.executeQuery(query);
+
+			list = new ArrayList<HashMap<String, Object>>();
+
+			while(rset.next()) {
+				hmap = new HashMap<String,Object>();
+
+				hmap.put("C1", rset.getString("C1"));
+				hmap.put("C2", rset.getString("C2"));
+				hmap.put("C3", rset.getString("C3"));
+				hmap.put("C4", rset.getString("C4"));
+
+				list.add(hmap);
+			}
+
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
+		}
+
+
+		return list;
 	}
 
 
